@@ -1,0 +1,66 @@
+name: Ultra-Silent CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  frontend:
+    name: 🌐 Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if frontend project exists
+        id: check_frontend
+        run: |
+          if [ -f "frontend/package.json" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+        if: ${{ steps.check_frontend.outputs.exists == 'true' }}
+
+      - name: Install & Build Frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+        if: ${{ steps.check_frontend.outputs.exists == 'true' }}
+
+  backend:
+    name: 🖥️ Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if backend project exists
+        id: check_backend
+        run: |
+          if [ -f "backend/package.json" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+        if: ${{ steps.check_backend.outputs.exists == 'true' }}
+
+      - name: Install & Test Backend
+        run: |
+          cd backend
+          npm install
+          npm test
+        if: ${{ steps.check_backend.outputs.exists == 'true' }}
