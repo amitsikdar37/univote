@@ -45,31 +45,10 @@
   </style>
 </head>
   <body>
-    <form id="form">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
+    <form action="http://localhost:3000/api/SignIn" method="POST" id="form">
+      <input type="email" id="email" name="email" placeholder="Email" required />
+      <input type="password" id="password" name="password" placeholder="Password" required />
       <button type="submit">Submit</button>
     </form>
-  
-    <script>
-      const form = document.getElementById("form");
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-  
-        const res = await fetch("http://localhost:3000/save", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-  
-        const data = await res.json();
-        alert(data.message);
-        form.reset();
-      });
-    </script>
-  
-  
-</body>
+  </body>
 </html>

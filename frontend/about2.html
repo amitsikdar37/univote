@@ -98,7 +98,7 @@
             margin-bottom: 10px;
         }
 
-        .form-box input[type="text"],
+        .form-box input[type="password"],
         .form-box input[type="email"] {
             width: 100%;
             padding: 12px;
@@ -278,16 +278,18 @@
     <div class="main">
         <!-- Left: Forms -->
         <div class="left-forms">
-            <div class="form-box">
-                <h3>Sign In</h3>
-                <input type="text" placeholder="Username" />
-                <input type="email" placeholder="Email" />
-                <div class="toggle-group">
-                    <span>Remember me</span>
-                    <div class="toggle-switch"></div>
+            <form action="http://localhost:3000/api/SignIn" method="POST">
+                <div class="form-box">
+                    <h3>Sign In</h3>
+                    <input type="email" name= "email" placeholder="Email" />
+                    <input type="password" name= "password" placeholder="Password" />
+                    <div class="toggle-group">
+                        <span>Remember me</span>
+                        <div class="toggle-switch"></div>
+                    </div>
+                    <button type= "submit" class="send-btn">Sign In</button>
                 </div>
-                <button class="send-btn">Sign In</button>
-            </div>
+            </form>
 
             <div class="form-box">
                 <h3>New Here?</h3>
