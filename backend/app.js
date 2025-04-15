@@ -1,10 +1,12 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const signInRouter = require('./router/signInRouter');
 const signUpRouter = require('./router/signUpRouter');
+const homepageRouter = require('./router/homepageRouter');
 const qavelRouter = require('./router/qavelRouter');
 
 
@@ -18,10 +20,12 @@ app.use(cors({
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 app.use(qavelRouter);
 app.use(signInRouter);
 app.use(signUpRouter);
+app.use(homepageRouter);
 
 
 app.use((err, req, res, next) => {

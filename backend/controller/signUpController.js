@@ -85,7 +85,7 @@ exports.signUp = [
         maxAge: 7 * 24 * 60 * 60 * 1000 
       });
 
-      res.json({ message: 'Sign up successful' });
+      res.redirect('/api/Homepage');
     } catch (error) {
       console.error('SignUp error:', error);
       res.status(500).json({ message: 'Server error' });

@@ -1,9 +1,14 @@
 const express = require('express');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 const Voters = require('../models/voter');
+
+exports.getSignIn = (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'frontend', 'about2.html'));
+};
 
 exports.signIn = [
   check('email')
@@ -39,17 +44,18 @@ exports.signIn = [
         return res.status(401).json({ message: 'Invalid email or password' });
       }
       
-      const token = req.cookies.token;
-      if (!token) {
-        return res.status(401).json({ message: 'unauthorized' });
-      }
-      try {
-        const decoded = jwt.verify(token, 'univote');
-        res.json({ message: 'Sign In Succesful. Token Decoded', decoded });
-      }
-      catch (err) {
-        return res.status(401).json({ message: 'Invalid Token' });
-      }
+      const Secret_Key = 'univote';
+      const userPayload = { email, password };
+      const token = jwt.sign(userPayload, Secret_Key, { expiresIn: '7d' });
+      
+      res.cookie('token', token, { 
+        httpOnly: true, 
+        secure: false, 
+        sameSite: 'Lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000 
+      });
+
+      res.redirect('/api/Homepage');
 
       console.log('Received:', email, password); 
 
