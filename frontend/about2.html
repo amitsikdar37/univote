@@ -62,7 +62,6 @@
         }
 
         .badge {
-            background: #5e3dfd;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -229,6 +228,41 @@
                 margin-top: 40px;
             }
         }
+
+        .gas-prices-link {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .gas {
+            padding: 2px 6px;
+            border-radius: 5px;
+        }
+
+        .gas.safe {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: #00c853;
+        }
+
+        .gas.proposed {
+            background-color: rgba(255, 255, 0, 0.1);
+            color: #fbc02d;
+        }
+
+        .gas.fast {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #d32f2f;
+        }
+
+        .gas-prices-link:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
     </style>
 
 
@@ -265,9 +299,16 @@
                         <!-- <a class="nav-link active text-white" aria-current="page" href="index2.html">SIGN IN</a> -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active btn-register text-white badge" aria-current="page"
-                            href="https://etherscan.io/gastracker">Qavel 1.4</a>
+                        <a id="gas-prices"
+                           class="nav-link active btn-register text-white badge"
+                           aria-current="page"
+                           href="https://etherscan.io/gastracker"
+                           target="_blank"   <!-- Opens in new tab -->
+                        >
+                            Loading gas prices...
+                        </a>
                     </li>
+                    
 
                 </ul>
             </div>
@@ -338,6 +379,34 @@
                 console.log('Toggle state:', switcher.classList.contains('active') ? 'YES' : 'NO');
             });
         });
+
+        async function fetchGasPrices() {
+            try {
+                const response = await fetch('http://localhost:3000/api/Qavel');
+                const data = await response.json();
+
+                if (data.status === '1' && data.message === 'OK') {
+                    const { SafeGasPrice, ProposeGasPrice, FastGasPrice } = data.result;
+
+                    document.getElementById('gas-prices').innerHTML = `
+                        <span class="gas safe">🟢 Safe: ${SafeGasPrice}</span>
+                        <span class="gas proposed">🟡 Proposed: ${ProposeGasPrice}</span>
+                        <span class="gas fast">🔴 Fast: ${FastGasPrice} Gwei</span>
+                    `;
+                } else {
+                    document.getElementById('gas-prices').innerText = 'Failed to load gas prices.';
+                }
+            } catch (error) {
+                document.getElementById('gas-prices').innerText = 'Error loading gas prices.';
+            }
+        }
+
+        window.onload = () => {
+            fetchGasPrices();
+            setInterval(fetchGasPrices, 60000);
+        };
+
+
     </script>
 
 

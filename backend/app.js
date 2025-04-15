@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const signInRouter = require('./router/signInRouter');
 const signUpRouter = require('./router/signUpRouter');
+const qavelRouter = require('./router/qavelRouter');
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(qavelRouter);
 app.use(signInRouter);
 app.use(signUpRouter);
 
