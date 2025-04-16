@@ -2,7 +2,7 @@ const express = require('express');
 
 const ETHERSCAN_API_KEY = 'EYGCV35PFHEK6DT4SANUSHVRY9D8YBIMPH';
 
-exports.getQavel = async (req, res) => {
+exports.getGwei = async (req, res) => {
   try {
     const url = `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`;
     const response = await fetch(url);

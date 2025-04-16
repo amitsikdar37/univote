@@ -382,7 +382,7 @@
 
         async function fetchGasPrices() {
             try {
-                const response = await fetch('http://localhost:3000/api/Qavel');
+                const response = await fetch('http://localhost:3000/api/Gwei');
                 const data = await response.json();
 
                 if (data.status === '1' && data.message === 'OK') {

@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const signInRouter = require('./router/signInRouter');
 const signUpRouter = require('./router/signUpRouter');
 const homepageRouter = require('./router/homepageRouter');
-const qavelRouter = require('./router/qavelRouter');
+const gweiRouter = require('./router/gweiRouter');
 
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-app.use(qavelRouter);
+app.use(gweiRouter);
 app.use(signInRouter);
 app.use(signUpRouter);
 app.use(homepageRouter);
