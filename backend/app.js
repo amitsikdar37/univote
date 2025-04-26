@@ -3,7 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-//const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const signInRouter = require('./router/signInRouter');
 const signUpRouter = require('./router/signUpRouter');
@@ -11,6 +11,8 @@ const homepageRouter = require('./router/homepageRouter');
 const gweiRouter = require('./router/gweiRouter');
 const verificationRouter = require('./router/verificationRouter');
 const registrationRouter = require('./router/registrationRouter');
+const votePageRouter = require('./router/votePageRouter');
+
 
 
 const app = express();
@@ -20,10 +22,19 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.json()); 
-//app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'univote',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // Set to true only if using HTTPS
+    maxAge: 1000 * 60 * 10 // Optional: session timeout (10 mins here)
+  }
+}));
+
 app.use(cookieParser());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 app.use(gweiRouter);
@@ -32,6 +43,8 @@ app.use(signUpRouter);
 app.use(homepageRouter);
 app.use(verificationRouter);
 app.use(registrationRouter);
+app.use(votePageRouter)
+
 
 app.use((req, res, next) => {
   res.setHeader(

@@ -4,11 +4,12 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), rgba(18, 18, 18, 1)) no-repeat center center fixed;
-  background-size: cover;
-  overflow: hidden;
+  background: linear-gradient(135deg, #000000, #1a1a1a, #333333, #000000);
+  background-size: 400% 400%; /* Create a dynamic gradient effect */
+  animation: gradient-shift 10s ease infinite; /* Animate the gradient */
   color: #ffffff;
   font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 body::before {
@@ -139,5 +140,17 @@ button:hover {
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

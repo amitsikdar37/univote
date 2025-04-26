@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const VoterSchema = new mongoose.Schema({
-  phone: { 
+  email: { 
     type: String, 
     required: true, 
     unique: true 

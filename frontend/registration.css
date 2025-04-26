@@ -4,9 +4,9 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff6a65, #ff5e3a, #ff4f00);
-  background-size: 300% 300%; /* Create a dynamic gradient effect */
-  animation: gradient-shift 8s ease infinite; /* Animate the gradient */
+  background: linear-gradient(135deg, #000000, #1a1a1a, #333333, #000000);
+  background-size: 400% 400%; /* Create a dynamic gradient effect */
+  animation: gradient-shift 10s ease infinite; /* Animate the gradient */
   color: #ffffff;
   font-family: Arial, sans-serif;
   overflow: hidden;

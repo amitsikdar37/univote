@@ -5,17 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Phone Number and OTP Verification</title>
   <link rel="stylesheet" href="verification.css" />
+  <style>
+    /* Optional: You can keep this in your verification.css */
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <!-- Phone Number Form -->
-    <div class="form-container fade-in" id="phone-form">
-      <h2>Enter Your Phone Number</h2>
+    <div class="form-container fade-in" id="email-form">
+      <h2>Enter Your Registered Email Id</h2>
       <form>
-        <input type="tel" name="phoneNo" id="phoneNo" placeholder="Phone Number" required />
+        <input type="tel" name="email" id="email" placeholder="Email Id" required />
         <button type="submit" id="sendOtpButton">Send OTP</button>
-        <p class="response-message" id="phoneResponse"></p> <!-- Response message -->
-        <div class="loading hidden" id="otpLoading">Sending OTP...</div> <!-- Loading animation -->
+        <p class="response-message" id="emailResponse"></p>
+        <div class="loading hidden" id="otpLoading">Sending OTP...</div>
       </form>
     </div>
 
@@ -25,28 +32,30 @@
       <form>
         <input type="text" name="otp" id="otp" placeholder="OTP" required />
         <button type="submit">Verify OTP</button>
-        <p class="response-message" id="otpResponse"></p> <!-- Response message -->
+        <button type="button" id="resendOtpButton">Resend OTP</button>
+        <p class="response-message" id="otpResponse"></p>
+        <div class="loading hidden" id="otpLoading">Sending OTP...</div>
       </form>
     </div>
   </div>
 
   <script>
-    const phoneForm = document.querySelector('#phone-form form');
+    const emailForm = document.querySelector('#email-form form');
     const otpForm = document.querySelector('#otp-form form');
-    const phoneResponse = document.getElementById('phoneResponse');
+    const emailResponse = document.getElementById('emailResponse');
     const otpResponse = document.getElementById('otpResponse');
     const otpLoading = document.getElementById('otpLoading');
-    let storedPhoneNo = '';
+    const resendOtpButton = document.getElementById('resendOtpButton');
+    let storedEmail = '';
 
     // Send OTP
-    phoneForm.addEventListener('submit', async function (e) {
+    emailForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const phoneNo = document.getElementById('phoneNo').value;
-      storedPhoneNo = phoneNo;
+      const email = document.getElementById('email').value;
+      storedEmail = email;
 
-      // Show loading animation
       otpLoading.classList.remove('hidden');
-      phoneResponse.textContent = ''; // Clear previous messages
+      emailResponse.textContent = '';
 
       try {
         const response = await fetch('http://localhost:3000/api/Send-Otp', {
@@ -54,27 +63,26 @@
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ phoneNo }),
+          body: JSON.stringify({ email }),
           credentials: 'include'
         });
 
         const result = await response.json();
 
         if (response.ok) {
-          phoneResponse.textContent = result.message;
-          phoneResponse.style.color = 'green';
-          document.getElementById('phone-form').classList.add('hidden');
+          emailResponse.textContent = result.message;
+          emailResponse.style.color = 'green';
+          document.getElementById('email-form').classList.add('hidden');
           document.getElementById('otp-form').classList.remove('hidden');
         } else {
-          phoneResponse.textContent = result.message || 'Failed to send OTP';
-          phoneResponse.style.color = 'red';
+          emailResponse.textContent = result.message || 'Failed to send OTP';
+          emailResponse.style.color = 'red';
         }
       } catch (error) {
         console.error('Error sending OTP:', error);
-        phoneResponse.textContent = 'An error occurred while sending OTP';
-        phoneResponse.style.color = 'red';
+        emailResponse.textContent = 'An error occurred while sending OTP';
+        emailResponse.style.color = 'red';
       } finally {
-        // Hide loading animation
         otpLoading.classList.add('hidden');
       }
     });
@@ -90,7 +98,7 @@
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ phoneNo: storedPhoneNo, otp }),
+          body: JSON.stringify({ email: storedEmail, otp }),
           credentials: 'include'
         });
 
@@ -99,7 +107,7 @@
         if (response.ok) {
           otpResponse.textContent = result.message;
           otpResponse.style.color = 'green';
-          // You can redirect the user or show a success message here
+          window.location.href = result.redirect;
         } else {
           otpResponse.textContent = result.message || 'Invalid OTP';
           otpResponse.style.color = 'red';
@@ -108,6 +116,50 @@
         console.error('Error verifying OTP:', error);
         otpResponse.textContent = 'An error occurred while verifying OTP';
         otpResponse.style.color = 'red';
+      }
+    });
+
+    // Resend OTP
+    resendOtpButton.addEventListener('click', async function () {
+      otpResponse.textContent = '';
+      otpLoading.classList.remove('hidden');
+      resendOtpButton.disabled = true;
+
+      let countdown = 30;
+      resendOtpButton.textContent = `Resend OTP in ${countdown}s`;
+
+      const countdownInterval = setInterval(() => {
+        countdown--;
+        resendOtpButton.textContent = `Resend OTP in ${countdown}s`;
+
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          resendOtpButton.textContent = 'Resend OTP';
+          resendOtpButton.disabled = false;
+        }
+      }, 1000);
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/Resend-Otp`, {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          otpResponse.textContent = result.message;
+          otpResponse.style.color = 'green';
+        } else {
+          otpResponse.textContent = result.message || 'Failed to resend OTP';
+          otpResponse.style.color = 'red';
+        }
+      } catch (error) {
+        console.error('Error resending OTP:', error);
+        otpResponse.textContent = 'An error occurred while resending OTP';
+        otpResponse.style.color = 'red';
+      } finally {
+        otpLoading.classList.add('hidden');
       }
     });
   </script>
