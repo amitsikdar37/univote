@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Number and OTP Verification</title>
+  <link rel="stylesheet" href="verification.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Phone Number Form -->
+    <div class="form-container fade-in" id="phone-form">
+      <h2>Enter Your Phone Number</h2>
+      <form>
+        <input type="tel" name="phoneNo" id="phoneNo" placeholder="Phone Number" required />
+        <button type="submit" id="sendOtpButton">Send OTP</button>
+        <p class="response-message" id="phoneResponse"></p> <!-- Response message -->
+        <div class="loading hidden" id="otpLoading">Sending OTP...</div> <!-- Loading animation -->
+      </form>
+    </div>
+
+    <!-- OTP Form -->
+    <div class="form-container hidden fade-in" id="otp-form">
+      <h2>Enter OTP</h2>
+      <form>
+        <input type="text" name="otp" id="otp" placeholder="OTP" required />
+        <button type="submit">Verify OTP</button>
+        <p class="response-message" id="otpResponse"></p> <!-- Response message -->
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const phoneForm = document.querySelector('#phone-form form');
+    const otpForm = document.querySelector('#otp-form form');
+    const phoneResponse = document.getElementById('phoneResponse');
+    const otpResponse = document.getElementById('otpResponse');
+    const otpLoading = document.getElementById('otpLoading');
+    let storedPhoneNo = '';
+
+    // Send OTP
+    phoneForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const phoneNo = document.getElementById('phoneNo').value;
+      storedPhoneNo = phoneNo;
+
+      // Show loading animation
+      otpLoading.classList.remove('hidden');
+      phoneResponse.textContent = ''; // Clear previous messages
+
+      try {
+        const response = await fetch('http://localhost:3000/api/Send-Otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ phoneNo }),
+          credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          phoneResponse.textContent = result.message;
+          phoneResponse.style.color = 'green';
+          document.getElementById('phone-form').classList.add('hidden');
+          document.getElementById('otp-form').classList.remove('hidden');
+        } else {
+          phoneResponse.textContent = result.message || 'Failed to send OTP';
+          phoneResponse.style.color = 'red';
+        }
+      } catch (error) {
+        console.error('Error sending OTP:', error);
+        phoneResponse.textContent = 'An error occurred while sending OTP';
+        phoneResponse.style.color = 'red';
+      } finally {
+        // Hide loading animation
+        otpLoading.classList.add('hidden');
+      }
+    });
+
+    // Verify OTP
+    otpForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const otp = document.getElementById('otp').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/api/Verify-Otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ phoneNo: storedPhoneNo, otp }),
+          credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          otpResponse.textContent = result.message;
+          otpResponse.style.color = 'green';
+          // You can redirect the user or show a success message here
+        } else {
+          otpResponse.textContent = result.message || 'Invalid OTP';
+          otpResponse.style.color = 'red';
+        }
+      } catch (error) {
+        console.error('Error verifying OTP:', error);
+        otpResponse.textContent = 'An error occurred while verifying OTP';
+        otpResponse.style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -3,11 +3,14 @@ const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+//const bodyParser = require('body-parser');
 
 const signInRouter = require('./router/signInRouter');
 const signUpRouter = require('./router/signUpRouter');
 const homepageRouter = require('./router/homepageRouter');
 const gweiRouter = require('./router/gweiRouter');
+const verificationRouter = require('./router/verificationRouter');
+const registrationRouter = require('./router/registrationRouter');
 
 
 const app = express();
@@ -18,6 +21,7 @@ app.use(cors({
 }));
 
 app.use(express.json()); 
+//app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
@@ -26,7 +30,16 @@ app.use(gweiRouter);
 app.use(signInRouter);
 app.use(signUpRouter);
 app.use(homepageRouter);
+app.use(verificationRouter);
+app.use(registrationRouter);
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;"
+  );
+  next();
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
