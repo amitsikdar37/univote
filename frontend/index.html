@@ -4,101 +4,244 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UNI- VOTE</title>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" /> -->
+    <title>UNI-VOTE</title>
+    <link rel="icon" type="image/x-icon" href="favicon.jpg"  sizes="48x48">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
     <link rel="stylesheet" href="ujj.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg ">
         <div class="container">
-            <a class="navbar-brand text-white"><img src="navbar.png" height="90px" width="90px">
-                <span>UNI-VOTE</span></a>
+            <a class="navbar-brand text-white" href="index.html"><img src="UNI VOTE[1].svg" style="height: 153px; width: 160px;">
+                <span></span></a>
             <button class="navbar-toggler bg-danger" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <!-- <a class="nav-link active text-white" aria-current="page" href="#">Home</a> -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Track vote</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">View results</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="index2.html">SIGN IN</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active btn-register text-white" aria-current="page"
-                         href="signup.html">
-                            REGISTER
+                        <a class="nav-link active text-white" aria-current="page" href="#"> Services
                         </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Track
+                            vote</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active  text-white" aria-current="page" href="frorm.html">Register</a>
+
+
+                    </li>
+
+                    <li class="nav-item d-flex align-items-center">
+                        <div class="gas-price-box" id="propose">Propose: ...</div>
                     </li>
 
                 </ul>
             </div>
         </div>
     </nav>
+    
+
+
+
     <div class="animated-grid-bg"></div>
     <div style="position: relative; z-index: 1; color: white; padding: 100px;">
-
-        <section class="hero">
-            <h1 class="heading"><span style="color: #b46bf2">Dec</span><span style="color: #41e2e1">entralized
+        <section class="hero text-center">
+            <h1 class="heading"><span style="color: #870af5">Dec</span><span style="color: #12f1f1">entralized 
                     Trust.</span></h1>
             <h2>On the fastest Evm.</h2>
             <p>Experience Truly Secret & Verifiable Voting: Powered by Zero-
-                <br>Knowledge Proofs with the power of
-                <a href="#" style="color: #2ba7f7; text-decoration: none;">
-                    <img src="base2.png" class="harinat" height="20px" width="50px" style="margin-top: 2px;">
+                <br>Knowledge Proofs with the speed of
+                <a href="https://docs.base.org/" style="color: #2ba7f7; text-decoration: none;">
+                    <img src="https://docs.base.org/favicon.ico" class="harinat" height="16px" width="16px"
+                        style="margin-top: 0px;"> <span class="base">Base</span>
                 </a>
             </p>
-            <a href="http://localhost:3000/api/Homepage"><button class="launch-btn">Launch app</button></a>
+
+            <!-- 🚀 Launch App Button -->
+            <!-- <button   class="btn  mt-4" onclick="launchApp()">Launch App</button> -->
+
+            <!-- From Uiverse.io by barisdogansutcu -->
+            <!-- <button onclick="launchApp()">
+                <div class="default-btn">
+
+                    <span>Launch App</span>
+                </div>
+                <div class="hover-btn">
+                    <span>Launch App</span>
+                </div>
+            </button> -->
+
+
+        
+               <button onclick="launchApp()" class="app">
+               <span class="text">Launch</span>
+                 </button>
+  
         </section>
 
-
-
-
-
-
-
-
         <footer>
-
             <div class="footer-cols">
                 <div class="logo">
                     <figure>
                         <img src="navbar.png" alt="UNI-VOTE Logo" class="footer-logo" height="100rem" width="30px" />
-                        <p>Uni-Vote is utilizing Base evm for a decentralized,<br> transparent, and immutable record
+                        <p>UNI-VOTE is utilizing Base evm for a decentralized,<br> transparent, and immutable record
                             of<br> the election process and
                             results.</p>
+
                     </figure>
                 </div>
-                <div>COMPANY</div>
-                <div>SERVICES</div>
+
+
+                <a href="us.html" class="team">MEET OUR TEAM</a>
+                <!-- From Uiverse.io by barisdogansutcu -->
+
+                <a href="img.html"> ROADMAP</a>
                 <div>RESOURCES</div>
             </div>
             <div class="social-icons">
-                <i class="fa-brands fa-facebook"></i>
-                <a href="https://www.linkedin.com/in/ujjawal-tiwari-017b30347"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://x.com/amroxxo"><i class="fa-brands fa-twitter"></i></a>
-                <a href="https://www.instagram.com/_egoist.1?igsh=NGN0bW0wc3h3OXVw"><i
-                        class="fa-brands fa-instagram"></i></a>
+                <div class="container">
+                    <!-- From Uiverse.io by 0800Gonza -->
+                    <div class="card">
+                        <a class="socialContainer containerFour" href="mailto:UNIVOTE.TECH@GMAIL.COM
+                        ">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                class="socialSvg whatsappSvg"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path
+                                    d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                            </svg>
+                        </a>
+                        <a class="socialContainer containersix" href="https://t.me/c/2512359544/1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="socialSvg telegrambSvg"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M248 8C111 8 0 119 0 256S111 504 248 504 496 393 496 256 385 8 248 8zM363 176.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7 .2-.7 .3-3.1-1.2-4.4s-3.6-.8-5.1-.5q-3.3 .7-104.6 69.1-14.8 10.2-26.9 9.9c-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3q.8-6.7 18.5-13.7 108.4-47.2 144.6-62.3c68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6 .5 9.6 2.9a10.5 10.5 0 0 1 3.5 6.7A43.8 43.8 0 0 1 363 176.7z"/></svg>
+                        </a>
+                        <a class="socialContainer containerfive" href="https://github.com/amitsikdar37/univote">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"
+                                class="socialSvg githubSvg"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path
+                                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+                            </svg>
+                        </a>
+                        <a class="socialContainer containerOne" href="https://www.instagram.com/_egoist.1?igsh=NGN0bW0wc3h3OXVw">
+                            <svg viewBox="0 0 16 16" class="socialSvg instagramSvg">
+                                <path
+                                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <a class="socialContainer containerTwo" href="https://x.com/amroxxo">
+                            <svg viewBox="0 0 16 16" class="socialSvg twitterSvg">
+                                <path
+                                    d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <a class="socialContainer containerThree" href="https://www.linkedin.com/in/ujjawal-tiwari-017b30347?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+                            <svg viewBox="0 0 448 512" class="socialSvg linkdinSvg">
+                                <path
+                                    d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
+                                </path>
+                            </svg>
+                        </a>
+
+                       
+                    </div>
+
+                </div>
+
+
             </div>
-        </footer>
+    </div>
+
+
+
+    <!-- <div class="chat-btn"><a href="FAQ.html"><i class="fa-solid fa-message"></i></a></div> -->
+
+
+
+    <!-- From Uiverse.io by vinodjangid07 -->
+    <div class="chat-btn"><a href="FAQ.html">
+            <div class="faq-button ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                    <path
+                        d="M80 160c0-35.3 28.7-64 64-64h32c35.3 0 64 28.7 64 64v3.6c0 21.8-11.1 42.1-29.4 53.8l-42.2 27.1c-25.2 16.2-40.4 44.1-40.4 74V320c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.4c0-8.2 4.2-15.8 11-20.2l42.2-27.1c36.6-23.6 58.8-64.1 58.8-107.7V160c0-70.7-57.3-128-128-128H144C73.3 32 16 89.3 16 160c0 17.7 14.3 32 32 32s32-14.3 32-32zm80 320a40 40 0 1 0 0-80 40 40 0 1 0 0 80z">
+                    </path>
+                </svg>
+                <span class="tooltip">FAQ</span>
+            </div>
+        </a></div>
+
+
+
+
+
+    </footer>
+    <!-- <div class="admin text-center mt-5"><p>ADMIN</p></div> -->
+    </div>
+
+    <script>
+        function launchApp() {
+            const isRegistered = localStorage.getItem("isRegistered");
+            if (isRegistered === "true") {
+                window.location.href = "about2.html"; // Redirect to app page if registered
+            } else {
+                window.location.href = "frorm.html"; // Redirect to registration if not registered
+            }
+        }
+
+        function logout() {
+            // Remove registration status from localStorage
+            localStorage.removeItem("isRegistered");
+
+            // Redirect to registration page (form.html)
+            window.location.href = "form.html";
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const apiKey = "EYGCV35PFHEK6DT4SANUSHVRY9D8YBIMPH";
+        const propose = document.getElementById("propose");
+
+        async function fetchGasPrice() {
+            try {
+                const url = `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${apiKey}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.status === "1") {
+                    propose.innerText = ` ${data.result.ProposeGasPrice} Gas Fee`;
+                } else {
+                    propose.innerText = "Error!";
+                }
+            } catch (err) {
+                propose.innerText = "API Failed!";
+            }
+        }
+
+        fetchGasPrice();
+        setInterval(fetchGasPrice, 5000);
+    </script>
 
 
 
@@ -107,21 +250,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-            crossorigin="anonymous"></script>
 </body>
 
 </html>

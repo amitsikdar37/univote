@@ -1,0 +1,312 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- <title>Register - UNI-VOTE</title> -->
+  <title>UNI-VOTE</title>
+  <link rel="icon" type="image/x-icon" href="favicon.jpg" sizes="48x48">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    
+/* Fullscreen background video */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Make sure video stays in the background */
+}
+
+/* Make the video cover the full page */
+video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* Content section style */
+.hero {
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding: 100px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url("tiwari.jpg") no-repeat center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .png {
+      position: relative;
+      top: 40px;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .main-box {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .form-box {
+      flex: 1;
+      color: white;
+    }
+
+    .form-box h1 {
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+
+    .form-box form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-box input {
+      padding: 12px;
+      margin-bottom: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #111;
+      color: #fff;
+      font-size: 15px;
+      box-shadow: inset 0 0 5px #0ff3;
+    }
+
+    .form-box input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    .form-box button {
+      padding: 12px;
+      background: #0077ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #0077ff80;
+    }
+
+    .form-box button:hover {
+      background: #0055cc;
+    }
+
+    .image-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      filter: drop-shadow(0 0 20px #00ffffaa);
+    }
+
+    h4 {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #2954aa;
+    }
+
+    .nav-item{
+      text-align: center;
+      font-weight: bold;
+     & a{
+ color: #fff;
+ text-decoration: none;
+     }
+    }
+
+
+
+
+
+    @media (max-width: 850px) {
+      .main-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+      }
+
+      .image-box {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div class="main-box">
+    <!-- Left: Sign Up Form -->
+    <div class="form-box">
+      <h1>Create Account</h1>
+      <form id="registerForm">
+        <input type="text" placeholder="First Name" id="firstName" required />
+        <input type="text" placeholder="Last Name" id="lastName" required />
+        <input type="email" id="emailInput" placeholder="you@iitp.ac.in" required />
+        <small id="error" style="color: red;"></small>
+        <input type="password" id="password" placeholder="Password" required />
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+        <button type="submit">Register</button>
+        <h4>Already have an account? <a href="#">Sign In</a></h4>
+      </form>
+      <li class="nav-item">
+        <a class="nav-link active text-white" aria-current="page" href="#" onclick="logout()">Logout</a>
+    </li>
+    </div> 
+   
+
+
+
+
+
+
+
+    <!-- Right: Voting Image -->
+     <div class="image-box">
+      <img src="back.png" alt="Voting Box" />
+    </div>
+
+  </div>
+
+
+
+  <div class="video-background">
+    <video autoplay muted loop>
+        <source src="video2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div> 
+
+
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const emailInput = document.getElementById('emailInput');
+    const error = document.getElementById('error');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = emailInput.value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Email validation
+      if (!email.endsWith('@iitp.ac.in')) {
+        error.textContent = "❌ Your email is not matching @iitp.ac.in";
+        emailInput.focus();
+        return;
+      }
+
+      // Password match check
+      if (password !== confirmPassword) {
+        error.textContent = "❌ Passwords do not match";
+        return;
+      }
+
+      // All checks passed
+      error.textContent = "";
+      alert("WELCOME TO UNI-VOTE ❤️‍🩹🎉! YOU HAVE SUCCESSFULLY REGISTERED WITH YOUR IITP EMAIL.");
+      
+      // Store registration status
+      localStorage.setItem("isRegistered", "true");
+
+      // Redirect to loading page
+      window.location.href = "loder.html";
+    });
+
+    // Live email validation
+    emailInput.addEventListener('input', () => {
+      const email = emailInput.value.trim();
+      if (email === "" || email.endsWith("@iitp.ac.in")) {
+        error.textContent = "";
+        emailInput.setCustomValidity("");
+      } else {
+        error.textContent = "❌ Your email is not matching @iitp.ac.in";
+        emailInput.setCustomValidity("Invalid email domain");
+      }
+    });
+  </script>
+  <script>
+    
+    function logout() {
+            // Remove registration status from localStorage
+            localStorage.removeItem("isRegistered");
+
+            // Redirect to registration page (form.html)
+            window.location.href = "form.html";
+        }
+  </script>
+  <script>
+    
+        function logout() {
+            localStorage.removeItem("isRegistered");
+            window.location.href = "index.html";
+        }
+    </script>
+  
+</body>
+</html>
+
+
+
+
+
+

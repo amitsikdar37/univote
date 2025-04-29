@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <title>UNI-VOTE</title> -->
+    <title>UNI-VOTE</title>
+    <link rel="icon" type="image/x-icon" href="favicon.jpg"  sizes="48x48">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="about2.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+          <img src="UNI VOTE[1].svg" alt="Logo" style="height: 153px; width: 160px;">
+          <!-- <span>UNI-VOTE</span> -->
+        </div>
+      
+        <!-- Navbar -->
+        <div class="navbar">
+          <a href="voting.html">Vote</a>
+          <!-- <a href="#">Governance</a> -->
+          <a href="Track.html">Track Vote</a>
+          <a href="#">View Results</a>
+      
+          <div class="connect-wallet">
+            <span>Connect Wallet</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Wallet Icon">
+          </div>
+        </div>
+      
+        <!-- Right side buttons (example) -->
+        <!-- <div class="right-buttons">
+          <button>0xe4...</button>
+        </div> -->
+        <div class="gas-price-box" id="propose">Propose: ...</div>
+
+      </div>
+    
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="form-check form-switch ">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Private mode</label>
+        </div>
+    </div>
+
+
+
+
+    <div class="container my-4 me-5 ">
+        <div class="row g-5">
+            <div class="col-lg-4 mb-4 w-50">
+
+                <div class="card  ">
+
+                    <div class="image-container">
+                        <!-- Yahan apna image lagana -->
+                        <img src="Bank Card.png" alt="Proposal Graphic">
+                    </div>
+                    <div class="proposal-details">
+                        <div class="rows ">
+                            <img src="Credit Card Rectangle.png">
+                            <span>
+                                <div class="input-group flex-nowrap ms-3">
+                                    <!-- <span class="input-group-text" id="addon-wrapping">@</span> -->
+                                    <input type="text" class="form-control" placeholder="Enter Topic"
+                                        aria-label="Username" aria-describedby="addon-wrapping">
+                                </div>
+                            </span>
+                        </div>
+                        <div class="topic">
+                            <h2 style="font-weight: bold;"> Dfine Your Topic</h2>
+                            <span></span>
+                            <!-- Dfine Under 45 Words -->
+                        </div>
+                        <div class="mb-0 ">
+                            <label for="exampleFormControlTextarea1" class="form-label bg"></label>
+                            <textarea class="form-control bg" id="exampleFormControlTextarea1" rows="5" placeholder="Dfine Under 45 Words"></textarea>
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <span class="save-btn">Start</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 mb-4 w-50">
+                <div class="card ">
+                    <div class="proposal-details">
+                        <div class="rows">
+                            <div class="input-group flex-nowrap me-5 ">
+                                <!-- <span class="input-group-text" id="addon-wrapping">@</span> -->
+                                <input type="text" class="form-control" placeholder="Proposal Topic"
+                                    aria-label="Proposal Topic" aria-describedby="addon-wrapping">
+                            </div>
+                            <span> <button>+</button></span>
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <!-- Yahan apna image lagana -->
+                        <img src="Bank Card (1).png" alt="Proposal Graphic">
+                    </div>
+                    <div class="proposal-details">
+                        <div class="rows ">
+                            <img src="Credit Card Rectangle.png">
+                            <span class="text-black">
+                                ****
+                            </span>
+                        </div>
+                        <div class="topic">
+                            <h2 style="font-weight: bold; "> Dfine Your Proposal</h2>
+                            <span></span>
+                            <!-- Dfine Under 45 Words. user will also get this column for comment -->
+                        </div>
+                        <div class="mb-0 ">
+                            <label for="exampleFormControlTextarea1" class="form-label bg"></label>
+                            <textarea class="form-control bg" id="exampleFormControlTextarea1" rows="5"placeholder="Dfine Under 45 Words. user will also get this column for comment"></textarea>
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <!-- <div class="save-btn"><a href="about2.html"> <i class="fa-solid fa-arrow-left"></i> Privous</a></div> -->
+                        <!-- <div class="save-btn">Start</div> -->
+                        <span class="save-btn">Start</span>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+ 
+        <p>By Default all the Governance related activities will happen in public mode , check <a
+                href="FAQ.html">FAQ</a> for more details</p> 
+    </div>
+
+
+
+
+
+
+    <script>
+        const apiKey = "EYGCV35PFHEK6DT4SANUSHVRY9D8YBIMPH";
+        const propose = document.getElementById("propose");
+
+        async function fetchGasPrice() {
+            try {
+                const url = `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${apiKey}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.status === "1") {
+                    propose.innerText = ` ${data.result.ProposeGasPrice} Gas Fee`;
+                } else {
+                    propose.innerText = "Error!";
+                }
+            } catch (err) {
+                propose.innerText = "API Failed!";
+            }
+        }
+
+        fetchGasPrice();
+        setInterval(fetchGasPrice, 5000);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
