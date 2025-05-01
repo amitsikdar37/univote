@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
-const PORT = 3000;
+const PORT =  process.env.PORT || 3000;
 mongoose.connect('mongodb+srv://sikdara477:omikun@cluster0.qyjcazl.mongodb.net/voters', { 
   useNewUrlParser: true, 
   useUnifiedTopology: true 
