@@ -4,6 +4,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+require('dotenv').config();
+
 
 const signInRouter = require('./router/signInRouter');
 const signUpRouter = require('./router/signUpRouter');
@@ -60,7 +62,7 @@ app.use((err, req, res, next) => {
 });
 
 const PORT =  process.env.PORT || 3000;
-mongoose.connect('mongodb+srv://sikdara477:omikun@cluster0.qyjcazl.mongodb.net/voters', { 
+mongoose.connect(process.env.MONGODB_URI, { 
   useNewUrlParser: true, 
   useUnifiedTopology: true 
 })
