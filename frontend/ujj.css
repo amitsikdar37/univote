@@ -62,16 +62,15 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  
   background-color: #000;
   color: white;
   overflow-x: hidden;
   background: #faf8f8;
    background-image: url("daap.jpg");
    /* background-image: url("https://my.spline.design/tvatimedoor-uC3aIWTZiczYd6TSTDB6eFQo/"); */
-   /* background-image: url("C:\Users\ujjaw\OneDrive\Documents\microsaft.svg"); */
-   /* background: url("https://my.spline.design/tvatimedoor-uC3aIWTZiczYd6TSTDB6eFQo/"); */
-
+   font-family: 'Rajdhani', sans-serif;
+ font-size: 1.5rem;
    background-position: center;
 
      background-size: cover; 
@@ -216,6 +215,7 @@ nav a {
   font-weight: 700;
   /* background: linear-gradient(to right, violet, cyan); */
   background: linear-gradient(92deg, rgba(255, 28, 232, 0.21) 2.47%, #D83FF0 39.77%, #00FFC8 104.55%);
+  /* color: #A855F7;  */
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -231,8 +231,9 @@ nav a {
 
 .hero p {
   margin-top: 20px;
-  font-size: 1rem;
-  color: #ccc;
+  font-size: 1.5rem;
+  color: #bda2a2;
+  /* color: #000; */
 }
 
 
