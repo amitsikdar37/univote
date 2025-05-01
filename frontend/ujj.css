@@ -67,10 +67,10 @@ body {
   color: white;
   overflow-x: hidden;
   background: #faf8f8;
-   /* background-image: url("microsaft.svg/?"); */
+   background-image: url("daap.jpg");
    /* background-image: url("https://my.spline.design/tvatimedoor-uC3aIWTZiczYd6TSTDB6eFQo/"); */
    /* background-image: url("C:\Users\ujjaw\OneDrive\Documents\microsaft.svg"); */
-   background: url("https://my.spline.design/tvatimedoor-uC3aIWTZiczYd6TSTDB6eFQo/");
+   /* background: url("https://my.spline.design/tvatimedoor-uC3aIWTZiczYd6TSTDB6eFQo/"); */
 
    background-position: center;
 
@@ -490,6 +490,7 @@ button {
   position: relative;
   left: 35%;
   gap: 20px;
+  
 }
 
 .card {
@@ -502,6 +503,7 @@ button {
   justify-content: center;
   padding: 25px 25px;
   gap: 20px;
+  border: none;
 }
 
 
