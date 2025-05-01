@@ -278,7 +278,15 @@
     </script>
 
 
-
+<script>
+    window.onload = function () {
+      if (window.innerWidth < 1024) {
+        alert("🚫 UNI-VOTE is only supported on desktop/laptop. Please use a larger screen.");
+        document.body.innerHTML = "<h2 style='text-align:center;margin-top:20%;'>📵 Please use a desktop or laptop to access UNI-VOTE.</h2>";
+      }
+    };
+  </script>
+  
 
 
 
