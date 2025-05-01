@@ -386,8 +386,8 @@ button {
     width: 300px;
     color: #fff;
     /* border: 1px solid #374151; */
-    position: relative;
-    left: 76%;
+     position: relative;
+    left: 60%; 
   }
   .cards h2 {
     /* font-size: 25px ; */
@@ -533,6 +533,7 @@ button {
 /**********************************************NAVBAR API STARE*************************/
 
 /***************************** NAVBAR END***********************************/
+
 
 
 
