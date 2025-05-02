@@ -19,20 +19,41 @@ const votePageRouter = require('./router/votePageRouter');
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:5500', // local frontend
+  'https://univote.tech/' // future hosted
+];
+
 app.use(cors({
-  origin: 'http://localhost:5500',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(session({
   secret: 'univote',
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: false, // Set to true only if using HTTPS
-    maxAge: 1000 * 60 * 10 // Optional: session timeout (10 mins here)
+    secure: isProduction,        // true only in production (HTTPS)
+    httpOnly: true,
+    sameSite: isProduction ? 'none' : 'lax', // required for cross-site cookies in production
+    maxAge: 1000 * 60 * 10       // 10 minutes
   }
 }));
+
 
 app.use(cookieParser());
 app.use(express.json()); 
