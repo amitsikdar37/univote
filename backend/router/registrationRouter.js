@@ -1,7 +1,7 @@
 const express = require('express'); 
 const registrationRouter = express.Router();
 
-const authenticate = require('../authenticate/jwtCheck');
+const { authenticate } = require('../authenticate/jwtCheck');
 const { sendRegOtp,verifyRegOtp, resendOtp } = require('../controller/registrationController');
 
 registrationRouter.post('/api/Register', authenticate, sendRegOtp);

@@ -23,7 +23,7 @@ document.getElementById("signinForm").addEventListener("submit", async function(
       body: JSON.stringify(data),
     })
     if (response.ok) {
-      window.location.href = response.url;
+      window.location.href = './about2.html';
     }
     else {
       const errorMessage = document.getElementById("errorMessage");

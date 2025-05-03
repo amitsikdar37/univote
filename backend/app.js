@@ -9,11 +9,11 @@ require('dotenv').config();
 
 const signInRouter = require('./router/signInRouter');
 const signUpRouter = require('./router/signUpRouter');
-const homepageRouter = require('./router/homepageRouter');
 const gweiRouter = require('./router/gweiRouter');
 const verificationRouter = require('./router/verificationRouter');
 const registrationRouter = require('./router/registrationRouter');
 const votePageRouter = require('./router/votePageRouter');
+const authenticateRouter = require('./router/authenticateRouter');
 
 
 
@@ -66,10 +66,10 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'scripts')));
 app.use(gweiRouter);
 app.use(signInRouter);
 app.use(signUpRouter);
-app.use(homepageRouter);
 app.use(verificationRouter);
 app.use(registrationRouter);
 app.use(votePageRouter)
+app.use(authenticateRouter);
 
 
 app.use((req, res, next) => {

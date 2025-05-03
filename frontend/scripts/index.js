@@ -43,7 +43,7 @@ const registerButton = document.getElementById("register-btn");
 
 const launchapp = async function launchApp() {
   try{
-    const response = await fetch (`${BACKEND_URL}/api/Homepage`,{
+    const response = await fetch (`${BACKEND_URL}/api/Authenticate`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -52,35 +52,9 @@ const launchapp = async function launchApp() {
       credentials: "include",
     });
     if (response.ok) {
-      window.location.href = `${BACKEND_URL}/api/Homepage`;
-      const data = await response.json();
+      window.location.href = './about2.html';
     } else {
-      const data = await response.json();
-      window.location.href = `${BACKEND_URL}${data.redirectTo}`;
-      console.error("Error:", data.message);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
-const registerapp = async function registerApp() {
-  try{
-    const response = await fetch (`${BACKEND_URL}/api/SignUp`,{
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      credentials: "include",
-    });
-    if (response.ok) {
-      window.location.href = `${BACKEND_URL}/api/SignUp`;
-      const data = await response.json();
-    } else {
-      const data = await response.json();
-      window.location.href = `${BACKEND_URL}${data.redirectTo}`;
-      console.error("Error:", data.message);
+      window.location.href = './frorm.html';
     }
   } catch (error) {
     console.error("Error:", error);
@@ -88,4 +62,3 @@ const registerapp = async function registerApp() {
 }
 
 launchButton.addEventListener("click", launchapp);
-registerButton.addEventListener("click", registerapp);

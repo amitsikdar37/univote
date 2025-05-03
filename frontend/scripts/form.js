@@ -36,12 +36,10 @@ const form = document.getElementById('registerForm');
                 // display data.errors on the form
                 console.log(data.errors); // Show them as alerts or in the DOM
             } else {
-                if (response.redirected) {
-                    window.location.href = response.url;
-                } else {
-                    const data = await response.json();
-                    console.log(data);
-                }
+                const data = await response.json();
+                console.log('Success:', data.message);
+                // Redirect to the login page or show a success message
+                window.location.href = './about2.html'; // Adjust the path as needed
             }            
         } catch (error) {
             console.error('Error:', error);

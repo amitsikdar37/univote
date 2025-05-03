@@ -6,10 +6,6 @@ const { check, validationResult } = require('express-validator');
 
 const Voters = require('../models/voter');
 
-exports.getSignIn = (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'frontend', 'sign-in.html'));
-};
-
 exports.signIn = [
   check('email')
   .normalizeEmail()
@@ -29,10 +25,7 @@ exports.signIn = [
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        return res.render('/api/SignIn', { 
-          errors: errors.mapped(),
-          formData: { email }
-        });
+        return res.status(422).json({ errors: errors.array() });
       }
 
       const voter =  await Voters.findOne({ email });
@@ -55,7 +48,9 @@ exports.signIn = [
         maxAge: 7 * 24 * 60 * 60 * 1000 
       });
 
-      res.redirect('/api/Homepage');
+      res.status(200).json({ 
+        message: 'SignIn successful'
+      });
 
       console.log('Received:', email, password); 
 

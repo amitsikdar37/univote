@@ -2,11 +2,11 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        return res.status(401).json({ message: 'Unauthorized access. No token provided.', redirectTo: '/api/SignUp' }); 
+        return res.status(401).json({ message: 'Unauthorized access. No token provided.' }); 
     }
     const Secret_Key = process.env.SECRET_KEY;
     try {
@@ -18,4 +18,5 @@ const authenticate = (req, res, next) => {
     }
 };
 
-module.exports = authenticate;
+module.exports = { authenticate };
+
