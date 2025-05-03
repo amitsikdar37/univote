@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const path = require('path');
 
 const { check, validationResult } = require('express-validator');
 const Voters = require('../models/voter'); 
@@ -51,7 +53,7 @@ exports.signUp = [
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        return res.render('/api/SignUp', { 
+        return res.status(400).json({
           errors: errors.array(),
           formData: { firstname, lastname, email }
         });
@@ -74,18 +76,21 @@ exports.signUp = [
           return res.status(500).json({ message: 'Error saving voter' });
         });
 
-      const Secret_Key = 'univote';
+      const isProduction = process.env.NODE_ENV === 'production';  
+
+      const Secret_Key = process.env.SECRET_KEY;
       const userPayload = { firstname, lastname, email };
       const token = jwt.sign(userPayload, Secret_Key, { expiresIn: '7d' });
       
       res.cookie('token', token, { 
         httpOnly: true, 
-        secure: false, 
-        sameSite: 'Lax',
+        secure: isProduction, 
+        sameSite: isProduction ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000 
       });
 
-      res.redirect('/api/Homepage');
+      res.status(201).json({ message: 'User registered successfully', 
+        redirectTo:`/api/Homepage` });
     } catch (error) {
       console.error('SignUp error:', error);
       res.status(500).json({ message: 'Server error' });

@@ -184,12 +184,13 @@ video {
     <div class="form-box">
       <h1>Create Account</h1>
       <form id="registerForm">
-        <input type="text" placeholder="First Name" id="firstName" required />
-        <input type="text" placeholder="Last Name" id="lastName" required />
-        <input type="email" id="emailInput" placeholder="you@iitp.ac.in" required />
+        <input type="text" name="firstname" placeholder="First Name" id="firstname" required />
+        <input type="text" name="lastname" placeholder="Last Name" id="lastname" required />
+        <input type="email" name="email" id="email" placeholder="you@iitp.ac.in" required />
         <small id="error" style="color: red;"></small>
-        <input type="password" id="password" placeholder="Password" required />
-        <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+        <input type="password" name="password" id="password" placeholder="Password" required />
+        <input type="password" name="confirmPassword"id="confirmPassword" placeholder="Confirm Password" required />
+        <small id="confirmPasswordError" style="color: red; display: none;">Passwords do not match</small>
         <button type="submit">Register</button>
         <h4>Already have an account? <a href="sign in .html">Sign In</a></h4>
       </form>
@@ -219,78 +220,9 @@ video {
         <source src="video2.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-</div> 
+  </div> 
 
-
-
-  <script>
-    const form = document.getElementById('registerForm');
-    const emailInput = document.getElementById('emailInput');
-    const error = document.getElementById('error');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = emailInput.value.trim();
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-
-      // Email validation
-      if (!email.endsWith('@iitp.ac.in')) {
-        error.textContent = "❌ Your email is not matching @iitp.ac.in";
-        emailInput.focus();
-        return;
-      }
-
-      // Password match check
-      if (password !== confirmPassword) {
-        error.textContent = "❌ Passwords do not match";
-        return;
-      }
-
-      // All checks passed
-      error.textContent = "";
-      alert("WELCOME TO UNI-VOTE ❤️‍🩹🎉! YOU HAVE SUCCESSFULLY REGISTERED WITH YOUR IITP EMAIL.");
-      
-      // Store registration status
-      localStorage.setItem("isRegistered", "true");
-
-      // Redirect to loading page
-      window.location.href = "loder.html";
-    });
-
-    // Live email validation
-    emailInput.addEventListener('input', () => {
-      const email = emailInput.value.trim();
-      if (email === "" || email.endsWith("@iitp.ac.in")) {
-        error.textContent = "";
-        emailInput.setCustomValidity("");
-      } else {
-        error.textContent = "❌ Your email is not matching @iitp.ac.in";
-        emailInput.setCustomValidity("Invalid email domain");
-      }
-    });
-  </script>
-  <script>
-    
-    function logout() {
-            // Remove registration status from localStorage
-            localStorage.removeItem("isRegistered");
-
-            // Redirect to registration page (form.html)
-            window.location.href = "form.html";
-        }
-  </script>
-  <script>
-    
-        function logout() {
-            localStorage.removeItem("isRegistered");
-            window.location.href = "index.html";
-        }
-    </script>
-  
+<script type="module" src="./scripts/form.js"></script>  
 </body>
 </html>
 
