@@ -4,7 +4,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0",
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
