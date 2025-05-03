@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const authenticate = (req, res, next) => {
     const token = req.cookies.token;
@@ -7,9 +8,9 @@ const authenticate = (req, res, next) => {
     if (!token) {
         return res.redirect('/api/SignIn'); 
     }
-
+    const Secret_Key = process.env.SECRET_KEY;
     try {
-        const decoded = jwt.verify(token, 'univote');
+        const decoded = jwt.verify(token, Secret_Key);
         req.user = decoded;
         next();
     } catch (err) {
