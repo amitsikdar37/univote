@@ -21,7 +21,9 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5500', // local frontend
-  'https://univote.tech/' // future hosted
+  'https://univote.tech/',
+  'http://localhost:3000', // local backend
+  'https://univote-backend.onrender.com', // production backend
 ];
 
 app.use(cors({
@@ -59,6 +61,7 @@ app.use(cookieParser());
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'scripts')));
 
 app.use(gweiRouter);
 app.use(signInRouter);

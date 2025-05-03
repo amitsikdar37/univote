@@ -7,6 +7,9 @@ const path = require('path');
 const { check, validationResult } = require('express-validator');
 const Voters = require('../models/voter'); 
 
+exports.getSignUp = (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'frontend', 'frorm.html'));
+}
 
 exports.signUp = [
   check('firstname')
@@ -89,8 +92,7 @@ exports.signUp = [
         maxAge: 7 * 24 * 60 * 60 * 1000 
       });
 
-      res.status(201).json({ message: 'User registered successfully', 
-        redirectTo:`/api/Homepage` });
+      res.redirect('/api/Homepage'); // Redirect to the homepage after successful sign-up
     } catch (error) {
       console.error('SignUp error:', error);
       res.status(500).json({ message: 'Server error' });

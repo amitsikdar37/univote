@@ -6,7 +6,7 @@ const authenticate = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        return res.redirect('/api/SignIn'); 
+        return res.status(401).json({ message: 'Unauthorized access. No token provided.', redirectTo: '/api/SignUp' }); 
     }
     const Secret_Key = process.env.SECRET_KEY;
     try {
