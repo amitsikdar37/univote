@@ -1,4 +1,9 @@
-@media (max-width: 768px) {
+@media (max-width: 489px) {
+  body{
+    width: 20rem;;
+  }
+
+
   header {
     flex-direction: column;
     padding: 20px;
@@ -10,20 +15,20 @@
   }
 
   .hero {
-    margin-bottom: 10rem  !important     ;
+    margin-bottom: 1rem      ;
   }
 
 
   .hero h1 {
-    font-size: 2.5rem !important;
-    font-weight: 300;
+    font-size: 2rem !important;
+    font-weight:bolder;
   }
 
   .footer-cols p br {
     display: none;
   }
 
-  .hero p br {
+  .hero p  {
     display: none;
   }
 
@@ -31,12 +36,15 @@
 
 
   .hero h2 {
-    font-size: 1.5rem;
+    font-size: 1rem;
+    font-weight: 200;
   }
 
-  .launch-btn {
-    width: 50%;
-    padding: 5px 0;
+     button  .app {
+    /* width: 50%;
+    padding: 5px 0; */
+    position: relative;
+    right: 70%;
   }
 
   .footer-cols {
@@ -68,7 +76,6 @@ body {
   overflow-x: hidden;
   background: #faf8f8;
    background-image: url("daap.jpg");
-   /* background-image: url("https://my.spline.design/tvatimedoor-uC3aIWTZiczYd6TSTDB6eFQo/"); */
    font-family: 'Rajdhani', sans-serif;
  font-size: 1.5rem;
    background-position: center;
@@ -79,8 +86,18 @@ body {
 
 
 
-/***************************************  Animated Grid Background *************************************/
-    /* .animated-grid-bg {
+
+
+
+
+
+  
+    /***************************************  Animated Grid Background *************************************/    /* .animated-grid-bg ;
+      -webkit-transition:/***************************************  Animated Grid Background *************************************/    /* .animated-grid-bg ;
+      -moz-transition:/***************************************  Animated Grid Background *************************************/    /* .animated-grid-bg ;
+      -ms-transition:/***************************************  Animated Grid Background *************************************/    /* .animated-grid-bg ;
+      -o-transition:/***************************************  Animated Grid Background *************************************/    /* .animated-grid-bg ;
+{
   position: fixed;
   top: 0;
   left: 0;
@@ -317,7 +334,7 @@ footer a {
 
 
  /***************************************** LAUCH BTN START *****************************************/
-button {
+button  .app{
   position: relative;
   overflow: hidden;
   outline: none;
@@ -744,3 +761,14 @@ button:active {
   background-color: #ddd;
 } */
 /**********************************************NAVBAR SECTION START**********************************************/
+
+
+
+
+.navbar-toggler {
+  border: 1px solid white;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
