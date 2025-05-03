@@ -39,6 +39,7 @@ window.addEventListener('resize', function() {
 });
 
 const launchButton = document.getElementById("launch-app-btn");
+const registerButton = document.getElementById("register-btn");
 
 const launchapp = async function launchApp() {
   try{
@@ -54,12 +55,37 @@ const launchapp = async function launchApp() {
       window.location.href = `${BACKEND_URL}/api/Homepage`;
       const data = await response.json();
     } else {
-      window.location.href = `${BACKEND_URL}/api/SignIn`;
       const data = await response.json();
+      window.location.href = `${BACKEND_URL}${data.redirectTo}`;
+      console.error("Error:", data.message);
     }
   } catch (error) {
     console.error("Error:", error);
   }
-}  
+}
+
+const registerapp = async function registerApp() {
+  try{
+    const response = await fetch (`${BACKEND_URL}/api/SignUp`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      credentials: "include",
+    });
+    if (response.ok) {
+      window.location.href = `${BACKEND_URL}/api/SignUp`;
+      const data = await response.json();
+    } else {
+      const data = await response.json();
+      window.location.href = `${BACKEND_URL}${data.redirectTo}`;
+      console.error("Error:", data.message);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 launchButton.addEventListener("click", launchapp);
+registerButton.addEventListener("click", registerapp);

@@ -7,7 +7,7 @@ const { check, validationResult } = require('express-validator');
 const Voters = require('../models/voter');
 
 exports.getSignIn = (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'frontend', 'about2.html'));
+  res.sendFile(path.join(__dirname, '..', '..', 'frontend', 'sign-in.html'));
 };
 
 exports.signIn = [

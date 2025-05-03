@@ -1,7 +1,10 @@
-import { BACKEND_URL } from '../config.js';  
+import { BACKEND_URL } from '../config.js'; 
+
+window.addEventListener('error', (e) => {
+    console.error('Script error:', e.message);
+});
 
 const form = document.getElementById('registerForm');
-    const emailInput = document.getElementById('emailInput');
     const error = document.getElementById('error');
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -33,9 +36,11 @@ const form = document.getElementById('registerForm');
                 // display data.errors on the form
                 console.log(data.errors); // Show them as alerts or in the DOM
             } else {
-                const data = await response.json();
-                if (data.redirectTo) {
-                    window.location.href = `${BACKEND_URL}${data.redirectTo}`;
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    const data = await response.json();
+                    console.log(data);
                 }
             }            
         } catch (error) {
