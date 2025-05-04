@@ -1,15 +1,11 @@
 import { BACKEND_URL } from "../config.js";
 
-const apiKey = "EYGCV35PFHEK6DT4SANUSHVRY9D8YBIMPH";
-const propose = document.getElementById("propose");
-
 async function fetchGasPrice() {
   try {
-    const url = `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${apiKey}`;
-    const response = await fetch(url);
+    const response = await fetch(`${BACKEND_URL}/api/Gwei`);
     const data = await response.json();
 
-    if (data.status === "1") {
+    if (data.status === "1" & data.message === "OK") {
       propose.innerText = ` ${data.result.ProposeGasPrice} Gas Fee`;
     } else {
       propose.innerText = "Error!";
