@@ -30,11 +30,7 @@ exports.signUp = [
   .withMessage('Valid email is required'),
 
   check('password')
-  .trim()
-  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)
-  .withMessage('Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, and one number')
-  .isLength({ min: 6 })
-  .withMessage('Password must be at least 6 characters long'),
+  .trim(),
 
   check('confirmPassword')
   .trim()
@@ -72,7 +68,16 @@ exports.signUp = [
         })
         .catch((error) => {
           console.error('Error saving voter:', error);
-          return res.status(500).json({ message: 'Error saving voter' });
+          if (error.code === 11000 && error.keyPattern?.email) {
+            return res.status(400).json({
+              errors: [{ param: 'email', msg: 'Email already exists' }]
+            });
+          }
+        
+          // Fallback for other DB errors
+          return res.status(500).json({
+            errors: [{ param: 'form', msg: 'Something went wrong. Please try again.' }]
+          });
         });
 
       const isProduction = process.env.NODE_ENV === 'production';  
@@ -89,12 +94,14 @@ exports.signUp = [
       });
 
       res.status(201).json({
-        message: 'Voter registered successfully'
+        errors: [{ param: 'form', msg: 'User Registered Succesfully.' }]
       });
 
     } catch (error) {
       console.error('SignUp error:', error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ 
+        errors: [{ param: 'form', msg: 'Server Error.' }]
+      });
     }
   }
 ]  
