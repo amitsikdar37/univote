@@ -94,7 +94,7 @@ exports.signUp = [
       });
 
       res.status(201).json({
-        errors: [{ param: 'form', msg: 'User Registered Succesfully.' }]
+        message: 'User Registered Succesfully.' 
       });
 
     } catch (error) {

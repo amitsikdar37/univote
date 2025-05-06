@@ -50,7 +50,7 @@ const launchapp = async function launchApp() {
     if (response.ok) {
       window.location.href = './about2.html';
     } else {
-      window.location.href = './frorm.html';
+      window.location.href = './sign-in.html';
     }
   } catch (error) {
     console.error("Error:", error);

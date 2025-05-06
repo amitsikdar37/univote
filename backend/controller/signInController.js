@@ -27,11 +27,15 @@ exports.signIn = [
 
       const voter =  await Voters.findOne({ email });
       if (!voter) {
-        return res.status(401).json({ message: 'Invalid email or password' });
+        return res.status(401).json({ 
+          errors: [{ param: 'email', msg: 'Email Not Found' }]
+        });
       }
       const isMatch = await bcrypt.compare(password, voter.password);
       if (!isMatch) {
-        return res.status(401).json({ message: 'Invalid email or password' });
+        return res.status(401).json({
+          errors: [{ param: 'password', msg: 'Invalid Password' }]
+        });
       }
       
       const isProduction = process.env.NODE_ENV === 'production';  
@@ -55,7 +59,7 @@ exports.signIn = [
 
     } catch (error) {
       console.error('SignIn error:', error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ errors: [{ param: 'form', msg: 'Server Error.' }] });
     }
   }
 ] 
