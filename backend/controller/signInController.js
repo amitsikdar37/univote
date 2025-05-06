@@ -14,12 +14,8 @@ exports.signIn = [
   .withMessage('Valid email is required'),
 
   check('password')
-  .trim()
-  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)
-  .withMessage('Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, and one number')
-  .isLength({ min: 6 })
-  .withMessage('Password must be at least 6 characters long'),
-
+  .trim(),
+  
   async (req, res) => {
     try {
       const { email, password } = req.body;

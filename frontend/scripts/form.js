@@ -10,8 +10,8 @@ const form = document.getElementById('registerForm');
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Reset errors
-      //document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+      document.getElementById('loadingMessage').style.display = 'block';
+      document.getElementById('successMessage').style.display = 'none';
       
       const formData = {
           firstname: document.getElementById('firstname').value,
@@ -22,7 +22,7 @@ const form = document.getElementById('registerForm');
         };
 
       try {
-          const response = await fetch(`${BACKEND_URL}/api/SignUp`, {
+            const response = await fetch(`${BACKEND_URL}/api/SignUp`, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
@@ -31,15 +31,49 @@ const form = document.getElementById('registerForm');
               body: JSON.stringify(formData)
             });
 
-          if (!response.ok) {
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            if (!response.ok) {
                 const data = await response.json();
                 // display data.errors on the form
-                console.log(data.errors); // Show them as alerts or in the DOM
+                const errors = data.errors || [];
+
+                // Clear all previous errors
+                ['firstname', 'lastname', 'email', 'password', 'confirmPassword'].forEach(field => {
+                    const errorElement = document.getElementById(`${field}Error`);
+                    if (errorElement) errorElement.textContent = '';
+                });
+                
+                // Display new errors
+                errors.forEach(err => {
+                    const field = err.param;
+                    const message = err.msg;
+                    const errorElement = document.getElementById(`${field}Error`);
+                if (errorElement) {
+                    errorElement.textContent = message;
+
+                } else if (field === 'form') {
+                    // Display a global form error somewhere (you can add a div with id="formError")
+                    const formError = document.getElementById('formError');
+                    if (formError) formError.textContent = message;
+
+                } else {
+                // fallback if some unknown error
+                console.error(`${field}: ${message}`);
+                }
+            });
+            console.log(data.errors); // Show them as alerts or in the DOM
             } else {
                 const data = await response.json();
                 console.log('Success:', data.message);
-                // Redirect to the login page or show a success message
-                window.location.href = './about2.html'; // Adjust the path as needed
+
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+
+                // Redirect after short delay
+                setTimeout(() => {
+                    window.location.href = './about2.html';
+                }, 2000); // 2 seconds delay
             }            
         } catch (error) {
             console.error('Error:', error);
