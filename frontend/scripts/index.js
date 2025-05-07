@@ -18,13 +18,7 @@ async function fetchGasPrice() {
 fetchGasPrice();
 setInterval(fetchGasPrice, 5000);
 
-// Check on window resize
-window.addEventListener('resize', function() {
-  checkDevice();
-});
-
 const launchButton = document.getElementById("launch-app-btn");
-const registerButton = document.getElementById("register-btn");
 
 const launchapp = async function launchApp() {
   try{
