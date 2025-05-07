@@ -7,6 +7,10 @@ window.addEventListener('error', (e) => {
 
 document.getElementById("signinForm").addEventListener("submit", async function(e) {
   e.preventDefault();
+
+  document.getElementById('loadingMessage').style.display = 'block';
+  document.getElementById('successMessage').style.display = 'none';
+
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -22,18 +26,64 @@ document.getElementById("signinForm").addEventListener("submit", async function(
       credentials: "include",
       body: JSON.stringify(data),
     })
+
+    document.getElementById('loadingMessage').style.display = 'none';
+
     if (response.ok) {
-      window.location.href = './about2.html';
+      const data = await response.json();
+      console.log('Success:', data.message);
+
+      // Show success message
+      document.getElementById('successMessage').style.display = 'block';
+
+      // Redirect after short delay
+      setTimeout(() => {
+          window.location.href = './about2.html';
+      }, 1000); // 1 seconds delay
     }
     else {
-      const errorMessage = document.getElementById("errorMessage");
-      errorMessage.textContent = "Invalid email or password";
-      errorMessage.style.display = "block";
+      const data = await response.json();
+      const errors = data.errors || [];
+
+      ['email', 'password'].forEach(field => {
+        const errorElement = document.getElementById(`${field}Error`);
+        if (errorElement) errorElement.textContent = '';
+      });
+
+      errors.forEach(err => {
+        const field = err.param || err.path;
+        const message = err.msg;
+        const errorElement = document.getElementById(`${field}Error`);
+        if (errorElement) {
+            errorElement.style.display = 'block';
+            errorElement.textContent = message;
+
+        } else if (field === 'form') {
+            const formError = document.getElementById('formError');
+            if (formError) formError.textContent = message;
+
+        } else {
+            console.error(`${field}: ${message}`);
+        }
+      });
+      console.log(data.errors); // Show them as alerts or in the DOM
     }
   } catch (error) {
-    const errorMessage = document.getElementById("errorMessage");
-    errorMessage.textContent = "An error occurred. Please try again later.";
-    errorMessage.style.display = "block";
+    console.error('Error:', error);
+    document.open();
+    console.error('Error:', error);
+    document.close();
+  }
+});
+
+['email', 'password'].forEach(field => {
+  const input = document.getElementById(field);
+  const errorElement = document.getElementById(`${field}Error`);
+  if (input && errorElement) {
+    input.addEventListener('input', () => {
+      errorElement.textContent = '';
+      errorElement.style.display = 'none';
+    });
   }
 });
 
