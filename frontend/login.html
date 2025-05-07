@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UNI-VOTE Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      /* background: url('https://wallpapercave.com/wp/wp2757874.jpg') no-repeat center center fixed; */
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 10px;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .login-box {
+      background-color: white;
+      display: flex;
+      flex-direction: row;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .left-box, .right-box {
+      padding: 30px;
+    }
+
+    .left-box {
+      flex: 1;
+    }
+
+    .left-box h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .left-box p {
+      margin: 4px 0 16px;
+      font-size: 14px;
+    }
+
+    .left-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .left-box button {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .left-box button:hover {
+      background-color: #00449e;
+    }
+
+    .right-box {
+      background: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 0.5;
+    }
+
+    .microsoft-btn, .cookies {
+      background: #f25022;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 5px 0;
+      width: 100%;
+    }
+
+    .microsoft-btn i, .cookies i {
+      margin-right: 10px;
+    }
+
+    .box {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .photo img {
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+      .login-box {
+        flex-direction: column;
+      }
+
+      .right-box {
+        flex: 1;
+        padding: 20px;
+        width: 100%;
+      }
+
+      .left-box {
+        padding: 20px;
+      }
+
+      .box {
+        /* flex-direction: column; */
+        align-items: flex-start;
+        align-items: center;
+      }
+
+      .microsoft-btn, .cookies {
+        width: 100%;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="left-box">
+      <div class="box">
+        <div class="photo">
+          <img src="uni vote.png" width="80" alt="IIT Patna Logo">
+        </div>
+        <div class="uni">
+          <!-- <h2> Welcome to UNI-VOTE</h2> -->
+          <h2 style="text-align:center;">Welcome to uni-vote</h2>
+
+        </div>
+      </div>
+      <input type="text"   id="email"  placeholder="you@iitp.ac.in" />
+      <input type="password"  id="password"  placeholder="Password" />
+      <button>Log in</button>
+      <p style="margin-top: 15px; font-size: 12px; text-align: center;">
+        <a href="frorm.html" style="text-decoration: none; font-weight: bold; font-size:1rem;">Register.</a>
+      </p>
+    </div>
+    <div class="right-box">
+      <p>Sign in with</p>
+      <button class="microsoft-btn"><i class="fab fa-microsoft"></i>Microsoft</button>
+      <button class="cookies"><i class="fab fa-google"></i>Google</button>
+    </div>
+  </div>
+  <script type="module" src="./scripts/signIn.js"></script>
+</body>
+</html>
