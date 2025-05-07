@@ -18,10 +18,6 @@ async function fetchGasPrice() {
 fetchGasPrice();
 setInterval(fetchGasPrice, 5000);
 
-
-// Initial check when page loads
-checkDevice();
-
 // Check on window resize
 window.addEventListener('resize', function() {
   checkDevice();
