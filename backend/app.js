@@ -86,7 +86,10 @@ app.use((err, req, res, next) => {
 });
 
 const PORT =  process.env.PORT || 3000;
-mongoose.connect(process.env.MONGODB_URI, { 
+
+const mongo_db = isProduction ? process.env.MONGODB_URI_PRODUCTION : process.env.MONGODB_URI_TESTING; 
+
+mongoose.connect(mongo_db, { 
   useNewUrlParser: true, 
   useUnifiedTopology: true 
 })
