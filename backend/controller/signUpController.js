@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const path = require('path');
+const { validateEmailWithMailboxlayer } = require('../utils/emailValidator');
 
 const { check, validationResult } = require('express-validator');
 const Voters = require('../models/voter'); 
@@ -51,6 +52,14 @@ exports.signUp = [
         return res.status(400).json({
           errors: errors.array(),
           formData: { firstname, lastname, email }
+        });
+      }
+
+      const emailCheck = await validateEmailWithMailboxlayer(email);
+
+      if (!emailCheck.valid) {
+        return res.status(400).json({
+          errors: [{ msg: emailCheck.reason, param: 'email' }]
         });
       }
 
