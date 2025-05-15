@@ -117,7 +117,7 @@ sizes="48x48" style="border-radius: 50%;">
           href="#"><img src="base word.png" height="20px" width="40px" margin-top="20px"></a></p>
       <!-- <button class="launch-btn" id="launch-app-btn">Launch</button> -->
       
-      <button onclick="launchApp()" class="launch-btn">
+      <button id="launch-app-btn" class="launch-btn">
         <span class="text">Launch</span>
           </button>
   </section>
@@ -288,108 +288,7 @@ sizes="48x48" style="border-radius: 50%;">
 
   </footer>
 
-
-
-
-
-
-
-
-
-
-
-  
-
-    <script>
-        window.addEventListener('load', () => {
-            const splashScreen = document.getElementById('splash-screen');
-            const mainContent = document.getElementById('main-content');
-
-            // Splash screen ko 2.5 seconds tak dikhayein
-            setTimeout(() => {
-                splashScreen.classList.add('hidden'); // Fade out class add karein
-
-                // Splash screen ke poori tarah se gayab hone ke baad (transition duration ke baad)
-                // main content ko visible karein
-                setTimeout(() => {
-                    splashScreen.style.display = 'none'; // DOM se remove karein (optional, par accha practice hai)
-                    mainContent.classList.add('visible'); // Fade in class add karein
-                }, 800); // Yeh duration splash screen ke CSS transition se match hona chahiye (0.8s)
-            }, 2500); // 2.5 seconds ka delay
-        });
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-  <script>
-    function launchApp() {
-        const isRegistered = localStorage.getItem("isRegistered");
-        if (isRegistered === "true") {
-            window.location.href = "about2.html"; // Redirect to app page if registered
-        } else {
-            window.location.href = "frorm.html"; // Redirect to registration if not registered
-        }
-    }
-
-    function logout() {
-        // Remove registration status from localStorage
-        localStorage.removeItem("isRegistered");
-
-        // Redirect to registration page (form.html)
-        window.location.href = "frorm.html";
-    }
-</script>
-
-
-
-
-
-
-
-  <script>
-    const apiKey = "EYGCV35PFHEK6DT4SANUSHVRY9D8YBIMPH";
-    const propose = document.getElementById("propose");
-
-    async function fetchGasPrice() {
-      try {
-        const url = `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${apiKey}`;
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (data.status === "1") {
-          propose.innerText = ` ${data.result.ProposeGasPrice} Gas Fee`;
-        } else {
-          propose.innerText = "Error!";
-        }
-      } catch (err) {
-        propose.innerText = "API Failed!";
-      }
-    }
-
-    fetchGasPrice();
-    setInterval(fetchGasPrice, 5000);
-  </script>
- 
-
-
-<script>
-  // Check registration status from localStorage
-  const isRegistered = localStorage.getItem("isRegistered");
-  if (isRegistered === "true") {
-    document.addEventListener("DOMContentLoaded", () => {
-    });
-  }
-</script>
-
+  <script type="module" src="./scripts/index.js"></script>
 
 <!-- <script type="module" src="./scripts/index.js"></script> -->
 
