@@ -6,19 +6,11 @@
   <!-- <title>Register - UNI-VOTE</title> -->
   <title>UNI-VOTE</title>
   <link rel="icon" type="image/x-icon" href="favicon.jpg" sizes="48x48">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    small {
-      font-size: 13px;
-      margin-bottom: 8px;
-      display: block;
     }
 
     
@@ -49,10 +41,25 @@ video {
 }
 
 
-    body {
-      font-family: 'Rajdhani', sans-serif;
 
-      background: url("tiwari.jpg") no-repeat center fixed;
+
+
+
+
+
+
+
+
+
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      /* background: url("tiwari.jpg") no-repeat center fixed; */
+      background-image: url("pbg.jpg");
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+      background-size: cover;
       background-size: cover;
       min-height: 100vh;
       display: flex;
@@ -189,36 +196,16 @@ video {
     <!-- Left: Sign Up Form -->
     <div class="form-box">
       <h1>Create Account</h1>
-      <form id="registerForm" method="POST">
-        
-        <small id="formError" style="color: red;"></small>
-
-        <input type="text" name="firstname" placeholder="First Name" id="firstname" required />
-        <small id="firstnameError" style="color: red;"></small>
-
-        <input type="text" name="lastname" placeholder="Last Name" id="lastname" required />
-        <small id="lastnameError" style="color: red;"></small>
-
-        <input type="email" name="email" id="email" placeholder="you@iitp.ac.in" required />
-        <small id="emailError" style="color: red;"></small>
-
-        <input type="password" name="password" id="password" placeholder="Password" required />
-        <small id="passwordError" style="color: red;"></small>
-        
-        <input type="password" name="confirmPassword"id="confirmPassword" placeholder="Confirm Password" required />
-        <small id="confirmPasswordError" style="color: red; display: none;">Passwords do not match</small>
-        
+      <form id="registerForm">
+        <input type="text" placeholder="First Name" id="firstName" required />
+        <input type="text" placeholder="Last Name" id="lastName" required />
+        <input type="email" id="emailInput" placeholder="you@iitp.ac.in" required />
+        <small id="error" style="color: red;"></small>
+        <input type="password" id="password" placeholder="Password" required />
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
         <button type="submit">Register</button>
         <h4>Already have an account? <a href="login.html">Sign In</a></h4>
       </form>
-
-      <div id="loadingMessage" style="display: none; color: #00ffff; text-align: center; margin-bottom: 10px;">
-        Sending data to server...
-      </div>
-      <div id="successMessage" style="display: none; color: lightgreen; text-align: center; margin-bottom: 10px;">
-        Sign up successful! Redirecting...
-      </div>
-      
       <li class="nav-item">
         <a class="nav-link active text-white" aria-current="page" href="#" onclick="logout()">Logout</a>
     </li>
@@ -232,22 +219,95 @@ video {
 
 
     <!-- Right: Voting Image -->
-     <div class="image-box">
+     <!-- <div class="image-box">
       <img src="back.png" alt="Voting Box" />
-    </div>
+    </div> -->
 
   </div>
 
 
 
-  <div class="video-background">
+  <!-- <div class="video-background">
     <video autoplay muted loop>
         <source src="video2.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-  </div> 
+</div>  -->
+ 
 
-<script type="module" src="./scripts/form.js"></script>  
+  <script>
+    const form = document.getElementById('registerForm');
+    const emailInput = document.getElementById('emailInput');
+    const error = document.getElementById('error');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = emailInput.value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Email validation
+      if (!email.endsWith('@iitp.ac.in')) {
+        error.textContent = "❌ Your email is not matching @iitp.ac.in";
+        emailInput.focus();
+        return;
+      }
+
+      // Password match check
+      if (password !== confirmPassword) {
+        error.textContent = "❌ Passwords do not match";
+        return;
+      }
+
+      // All checks passed
+      error.textContent = "";
+      // alert("WELCOME TO UNI-VOTE ❤️‍🩹🎉! YOU HAVE SUCCESSFULLY REGISTERED WITH YOUR IITP EMAIL.");
+      
+      // Store registration status
+      localStorage.setItem("isRegistered", "true");
+
+      // Redirect to loading page
+      // window.location.href = "login.html";
+      window.location.href = "otp.html";
+
+
+
+    });
+
+    // Live email validation
+    emailInput.addEventListener('input', () => {
+      const email = emailInput.value.trim();
+      if (email === "" || email.endsWith("@iitp.ac.in")) {
+        error.textContent = "";
+        emailInput.setCustomValidity("");
+      } else {
+        error.textContent = "❌ Your email is not matching @iitp.ac.in";
+        emailInput.setCustomValidity("Invalid email domain");
+      }
+    });
+  </script>
+  <script>
+    
+    function logout() {
+            // Remove registration status from localStorage
+            localStorage.removeItem("isRegistered");
+
+            // Redirect to registration page (form.html)
+            window.location.href = "form.html";
+        }
+  </script>
+  <script>
+    
+        function logout() {
+            localStorage.removeItem("isRegistered");
+            window.location.href = "pandit.html";
+        }
+    </script>
+      
+  
 </body>
 </html>
 

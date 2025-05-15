@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OTP Verification</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      /* background: linear-gradient(to right, #e3f2fd, #90caf9); */
+      /* style="text-align:center; color: #ccc;" */
+      background-image: url("pbg.jpg");
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      /* background-color: rgba(0, 0, 0, 0.6); */
+
+    }
+    .otp-box {
+      /* background: #fff; */
+      background-color: rgba(0, 0, 0, 0.6);
+
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 400px;
+ 
+
+    }
+    .otp-box h2 {
+      color: #1565c0;
+      margin-bottom: 20px;
+    }
+    .otp-inputs {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+
+    }
+    .otp-inputs input {
+      width: 50px;
+      height: 60px;
+      font-size: 24px;
+      text-align: center;
+      border-radius: 10px;
+      border: 2px solid #90caf9;
+      outline: none;
+      /* background-color: rgba(0, 0, 0, 0.6); */
+
+    }
+    .btn {
+      background-color: #1565c0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0d47a1;
+    }
+    .success { color: green; margin-top: 10px; }
+    .error { color: red; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="otp-box">
+  <img src="uni vote[1].png" width="80" alt="IIT Patna Logo" style="border-radius: 50%;">
+  <h2>Enter 6-Digit OTP</h2>
+  <div class="otp-inputs">
+    <input type="text" id="otp1" maxlength="1" oninput="moveNext(this, 'otp2')" autofocus>
+    <input type="text" id="otp2" maxlength="1" oninput="moveNext(this, 'otp3')">
+    <input type="text" id="otp3" maxlength="1" oninput="moveNext(this, 'otp4')">
+    <input type="text" id="otp4" maxlength="1" oninput="moveNext(this, 'otp5')">
+    <input type="text" id="otp5" maxlength="1" oninput="moveNext(this, 'otp6')">
+    <input type="text" id="otp6" maxlength="1">
+  </div>
+  <button class="btn" onclick="verifyOTP()">Verify</button>
+  <div id="message"></div>
+</div>
+
+<script>
+  const realOTP = "123456"; // Demo OTP
+
+  function moveNext(current, nextId) {
+    if (current.value.length === 1 && nextId) {
+      document.getElementById(nextId).focus();
+    }
+  }
+
+  function verifyOTP() {
+    const otp = document.getElementById("otp1").value +
+                document.getElementById("otp2").value +
+                document.getElementById("otp3").value +
+                document.getElementById("otp4").value +
+                document.getElementById("otp5").value +
+                document.getElementById("otp6").value;
+    const message = document.getElementById("message");
+
+    if (otp === realOTP) {
+      message.textContent = "✅ OTP Verified!";
+      message.className = "success";
+      setTimeout(() => {
+        window.location.href = "about2.html";
+      }, 1000);
+    } else {
+      message.textContent = "❌ Incorrect OTP. Try again.";
+      message.className = "error";
+    }
+  }
+</script>
+
+</body>
+</html>

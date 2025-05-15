@@ -5,24 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>UNI-VOTE Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      /* background: url('https://wallpapercave.com/wp/wp2757874.jpg') no-repeat center center fixed; */
+     /* background-image: url("pbg.jpg") no-repeat center center fixed; */
+     background-image: url("pbg.jpg");
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
       background-size: cover;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
       padding: 10px;
-      font-family: 'Rajdhani', sans-serif;
+      background-color: rgba(0, 0, 0, 0.6);
+
     }
 
     .login-box {
-      background-color: white;
+      /* background-color: white; */
+      background-color: rgba(0, 0, 0, 0.938);
+
       display: flex;
       flex-direction: row;
       border-radius: 10px;
@@ -30,6 +35,7 @@
       overflow: hidden;
       max-width: 700px;
       width: 100%;
+      /* font-size: 20rem; */
     }
 
     .left-box, .right-box {
@@ -76,7 +82,9 @@
     }
 
     .right-box {
-      background: #f7f7f7;
+      /* background: #f7f7f7; */
+      background-color: rgba(0, 0, 0, 0.6);
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -147,47 +155,27 @@
     <div class="left-box">
       <div class="box">
         <div class="photo">
-          <img src="uni vote.png" width="80" alt="IIT Patna Logo">
+          <!-- <img src="uni_vote[1].png" width="80" alt="IIT Patna Logo"> -->
+           <img src="uni vote[1].png" width="80" alt="IIT Patna Logo">
         </div>
         <div class="uni">
           <!-- <h2> Welcome to UNI-VOTE</h2> -->
-          <h2 style="text-align:center;">Welcome to uni-vote</h2>
+          <h2 style="text-align:center; color: #ccc;">Welcome to uni-vote</h2>
 
         </div>
       </div>
-      <form id="signinForm">
-        <small id="formError" style="color: red;"></small> <!-- Don't Change -->
-        <div class="mb-3">
-          <label for="email" class="form-label">IITP Email address</label>
-          <input type="email" name="email" class="form-control" id="email" placeholder="example@iitp.ac.in" required> <!-- add tag name="email" in input -->
-          <small id="emailError" style="color: red;"></small>  <!-- add this after both the input -->
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required> <!-- add tag name="password" in input -->
-          <small id="passwordError" style="color: red;"></small> <!-- add this after both the input -->
-        </div>
-        <button type="submit" class="btn btn-custom w-100">Sign In</button> <!-- add type="submit" -->
-      </form>
-      <div id="loadingMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
-        Sending data to server...  <!-- add this div to show messages for sending data to server -->
-      </div>
-      <div id="successMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
-        Sign In successful! Redirecting... <!-- add this div to show messages for sign in succesful -->
-      </div>
-      <!-- <input type="text"   id="email"  placeholder="you@iitp.ac.in" />
-      <input type="password"  id="password"  placeholder="Password" />
-      <button>Log in</button> -->
+      <input type="text" placeholder="you@iitp.ac.in" />
+      <input type="password" placeholder="Password" />
+      <button>Log in</button>
       <p style="margin-top: 15px; font-size: 12px; text-align: center;">
-        <a href="frorm.html" style="text-decoration: none; font-weight: bold; font-size:1rem;">Register.</a>
+        <a href="frorm.html" style="text-decoration: none;">Register.</a>
       </p>
     </div>
     <div class="right-box">
-      <p>Sign in with</p>
+      <h3 style="text-align:center; color: #ccc;">Sign in with</h3>
       <button class="microsoft-btn"><i class="fab fa-microsoft"></i>Microsoft</button>
       <button class="cookies"><i class="fab fa-google"></i>Google</button>
     </div>
   </div>
-  <script type="module" src="./scripts/signIn.js"></script>
 </body>
 </html>
