@@ -32,8 +32,8 @@ const verifyOtp = async function verifyOTP() {
               document.getElementById("otp6").value;
 
   const messageDiv = document.getElementById('message');
-  messageDiv.innerText = ''; 
-  messageDiv.style.color = 'red'; 
+  messageDiv.style.color = 'green';
+  messageDiv.innerText = 'Verifying OTP...';
 
   try {
     const response = await fetch (`${BACKEND_URL}/api/VerifyOtp`,{
@@ -49,6 +49,7 @@ const verifyOtp = async function verifyOTP() {
     const data = await response.json()
 
     if (!response.ok) {
+      messageDiv.style.color = 'red'; 
       if (data?.errors?.length > 0) {
         messageDiv.innerText = data.errors[0].msg;
       } else {
@@ -67,6 +68,7 @@ const verifyOtp = async function verifyOTP() {
 
   } catch (error) {
     console.error('Error:', error);
+    messageDiv.style.color = 'red';
     messageDiv.innerText = "Server error. Please try again later.";
   }
 
