@@ -81,47 +81,18 @@
   <img src="uni vote[1].png" width="80" alt="IIT Patna Logo" style="border-radius: 50%;">
   <h2>Enter 6-Digit OTP</h2>
   <div class="otp-inputs">
-    <input type="text" id="otp1" maxlength="1" oninput="moveNext(this, 'otp2')" autofocus>
-    <input type="text" id="otp2" maxlength="1" oninput="moveNext(this, 'otp3')">
-    <input type="text" id="otp3" maxlength="1" oninput="moveNext(this, 'otp4')">
-    <input type="text" id="otp4" maxlength="1" oninput="moveNext(this, 'otp5')">
-    <input type="text" id="otp5" maxlength="1" oninput="moveNext(this, 'otp6')">
+    <input type="text" id="otp1" maxlength="1" autofocus>
+    <input type="text" id="otp2" maxlength="1">
+    <input type="text" id="otp3" maxlength="1">
+    <input type="text" id="otp4" maxlength="1">
+    <input type="text" id="otp5" maxlength="1">
     <input type="text" id="otp6" maxlength="1">
   </div>
-  <button class="btn" onclick="verifyOTP()">Verify</button>
+  <button class="btn" id="verify-otp-btn">Verify</button>
   <div id="message"></div>
 </div>
 
-<script>
-  const realOTP = "123456"; // Demo OTP
-
-  function moveNext(current, nextId) {
-    if (current.value.length === 1 && nextId) {
-      document.getElementById(nextId).focus();
-    }
-  }
-
-  function verifyOTP() {
-    const otp = document.getElementById("otp1").value +
-                document.getElementById("otp2").value +
-                document.getElementById("otp3").value +
-                document.getElementById("otp4").value +
-                document.getElementById("otp5").value +
-                document.getElementById("otp6").value;
-    const message = document.getElementById("message");
-
-    if (otp === realOTP) {
-      message.textContent = "✅ OTP Verified!";
-      message.className = "success";
-      setTimeout(() => {
-        window.location.href = "about2.html";
-      }, 1000);
-    } else {
-      message.textContent = "❌ Incorrect OTP. Try again.";
-      message.className = "error";
-    }
-  }
-</script>
+<script type="module" src="./scripts/otp.js"></script>
 
 </body>
 </html>

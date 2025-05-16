@@ -19,7 +19,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     };
 
     try {
-        const response = await fetch(`${BACKEND_URL}/api/SignUp`, {
+        const response = await fetch(`${BACKEND_URL}/api/SendOtp`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
             // Redirect after short delay
             setTimeout(() => {
-                window.location.href = './about2.html';
+                window.location.href = './otp.html';
             }, 1000); // 1 seconds delay
         }            
     } catch (error) {

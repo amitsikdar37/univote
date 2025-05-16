@@ -1,8 +1,9 @@
 const express = require('express'); 
 const signUpRouter = express.Router();
 
-const { signUp } = require('../controller/signUpController');
+const { signUp, saveUserToDb } = require('../controller/signUpController');
 
-signUpRouter.post('/api/SignUp', signUp);
+signUpRouter.post('/api/SendOtp', signUp);
+signUpRouter.post('/api/verifyOtp', saveUserToDb);
 
 module.exports = signUpRouter;
