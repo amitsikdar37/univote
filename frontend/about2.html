@@ -12,13 +12,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
     <link href="about2.css" rel="stylesheet" />
 
 </head>
 
 <body>
 
-     
+
     <!-- <div class="container  navujj">
         <div class="logo-section">
             <img src="UNI VOTE[1].svg" alt="Logo" style="height: 153px; width: 160px;">
@@ -53,9 +57,9 @@
 
             <!-- Left: Logo -->
             <!-- <a class="navbar-brand fw-bold fs-3 text-warning" href="#">🚀 DevX</a> -->
-             <a href="about2.html">
-            <img src="uni vote[1].png" width="60" style="border-radius: 50%;">
-</a>
+            <a href="about2.html">
+                <img src="uni vote[1].png" width="60" style="border-radius: 50%;">
+            </a>
 
             <!-- Hamburger -->
             <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
@@ -68,10 +72,17 @@
 
                 <!-- Center: Links -->
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3 text-center">
-                    <li class="nav-item"><a class="nav-link text-dark" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="voting.html">Vote</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="about2.html">Governance</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="Track.html">Track Votes</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6 " href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6 " href="voting.html">Vote</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6 " href="about2.html">Governance</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6 " href="Track.html">Track Votes</a>
+                    </li>
+<!-- 
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6 " href="Track.html"></a>
+
+                    </li> -->
+
                     <!-- <li class="nav-item-4"><a class="nav-link" href="#social-icons">social media</a></li> -->
 
                 </ul>
@@ -80,9 +91,13 @@
                 <div class="d-flex align-items-center gap-3">
 
                     <!-- 🌐 Language Dropdown -->
+                                         <button id="connectWalletBtn" class="btn btn-danger">Connect Wallet</button>
+<span id="walletAddress" class="ms-2 text-success"></span>
+
                     <div class="dropdown">
-                        <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3 bg-danger" type="button"
-                            id="propose">
+
+                        <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3 bg-danger"
+                            type="button" id="propose">
                             🌐 Propose: ...
                         </button>
 
@@ -91,10 +106,10 @@
 
 
                     <!-- 🔐 Login Button -->
-                     <!-- <a href="frorm.html"> -->
-        <!-- <button class="btn btn-login rounded-pill px-4">Login</button> -->
+                    <!-- <a href="frorm.html"> -->
+                    <!-- <button class="btn btn-login rounded-pill px-4">Login</button> -->
 
-<!-- </a>  -->
+                    <!-- </a>  -->
                 </div>
 
             </div>
@@ -110,22 +125,27 @@
 
 
 
-<!-- 
+    
 
     <div class="container">
         <div class="form-check form-switch ">
             <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
             <label class="form-check-label" for="switchCheckDefault">Private mode</label>
         </div>
+    </div> 
+<!-- 
+
+    <div class="container">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Private mode</label>
+        </div>
     </div> -->
 
-
-             <div class="container">
-         <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="switchCheckDefault">
-      <label class="form-check-label" for="switchCheckDefault">Private mode</label>
-    </div>
-    </div>
+    <!-- <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+  <label class="form-check-label" for="switchCheckDefault">Default switch checkbox input</label>
+</div> -->
 
 
 
@@ -230,32 +250,65 @@
                     <div class="rows">
                         <!-- <div class="save-btn"></div> -->
 
-    
+
                         <div class="save-btn"><a href="Proposal.html"> Next <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-            
+
                     </div>
 
                 </div>
             </div>
 
-            <!-- 
-            <div class="container">
+
+            <!-- <div class="container">
                 <div class="cards">
                     <h2>Send via Email</h2>
                     <p>Recipients can view directly via the link. For added security, link requires login with an
                         existing
-                        account with us. For public proposals, recipients without an account can sign up.</p>
+                        account with us. For public proposals, recipients without an account can sign up.
+                    </p>
                     <div class="input-group">
                         <input type="email" placeholder="Email address">
                         <button>Send</button>
                     </div>
                 </div>
 
+            </div> -->
+
+
+
+
+
+            
+    <footer>
+        <div class="footer-cols">
+            <div class="logo">
+                <figure>
+                    <img src="uni vote[1].png" alt="UNI-VOTE Logo" class="footer-logo " height="100rem" width="30px" />
+                    <p>Uni-Vote is utilizing Base evm for a decentralized,<br> transparent, and immutable record
+                        of<br> the election process and
+                        results.</p>
+
+                </figure>
             </div>
 
 
- -->
+            <a href="us.html" class="team">MEET OUR TEAM</a>
+
+            <a href="img.html" class="team"> ROADMAP</a>
+            <div class="team">RESOURCES</div>
+        </div>
+
+
+        <!-- <p>© 2025 UNI-VOTE. All rights reserved.</p> -->
+
+    </footer> 
+
+
+
+
+
+
 
 
 
@@ -263,11 +316,42 @@
 
             <script type="module" src="./scripts/about2.js"></script>
 
+            <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+
+            <script>
+  const connectWalletBtn = document.getElementById("connectWalletBtn");
+  const walletAddressDisplay = document.getElementById("walletAddress");
+
+  connectWalletBtn.addEventListener("click", async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+
+        walletAddressDisplay.innerText = address.slice(0, 6) + "..." + address.slice(-4);
+        connectWalletBtn.innerText = "Connected";
+        connectWalletBtn.disabled = true;
+
+      } catch (err) {
+        console.error("User rejected the request or something went wrong:", err);
+        walletAddressDisplay.innerText = "Connection Failed";
+      }
+    } else {
+      alert("MetaMask is not installed. Please install it to connect.");
+    }
+  });
+</script>
 
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+
+
+             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-                crossorigin="anonymous"></script>
+                crossorigin="anonymous"></script> 
+                <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script> -->
+  </body>
 </body>
 
 </html>
