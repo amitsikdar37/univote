@@ -164,9 +164,21 @@
 
         </div>
       </div>
-      <input type="text" placeholder="you@iitp.ac.in" />
-      <input type="password" placeholder="Password" />
-      <button>Log in</button>
+      <form id="signinForm">
+        <small id="formError" style="color: red;"></small>
+        <input type="email" name="email" id="email" placeholder="example@iitp.ac.in" required>
+        <small id="emailError" style="color: red;"></small>
+
+        <input type="password" name="password"  id="password" placeholder="Enter your password" required>
+        <small id="passwordError" style="color: red;"></small>
+        <button type="submit">Sign In</button>
+      </form>
+      <div id="loadingMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
+        Sending data to server...  <!-- add this div to show messages for sending data to server -->
+      </div>
+      <div id="successMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
+        Sign In successful! Redirecting... <!-- add this div to show messages for sign in succesful -->
+      </div>
       <p style="margin-top: 15px; font-size: 12px; text-align: center;">
         <a href="frorm.html" style="text-decoration: none;">Register.</a>
       </p>
@@ -177,5 +189,6 @@
       <button class="cookies"><i class="fab fa-google"></i>Google</button>
     </div>
   </div>
+  <script type="module" src="./scripts/signIn.js"></script>
 </body>
 </html>
