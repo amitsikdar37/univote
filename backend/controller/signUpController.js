@@ -72,6 +72,8 @@ exports.signUp = [
       }
       else {
         req.session.formData = { firstname, lastname, email, password };
+        console.log('Session ID:', req.sessionID);
+        console.log('Session Data:', req.session);
 
         return res.status(200).json({
           errors:[{ msg: otpSent.message, param: 'email' }]

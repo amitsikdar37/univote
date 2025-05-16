@@ -45,6 +45,10 @@ app.use((req, res, next) => {
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+if (isProduction) {
+  app.set('trust proxy', 1); // important for secure cookies behind proxies
+}
+
 app.use(session({
   secret: 'univote',
   resave: false,
