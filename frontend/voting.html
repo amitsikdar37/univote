@@ -1,6 +1,20 @@
 <!doctype html>
 <html lang="en">
+<style>
+  #loading-screen {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+  }
 
+  body {
+    display: none;
+  }
+</style>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +30,8 @@
 
 <body>
 
- 
+    <div id="loading-screen">Verifying access...</div>
+
     <nav class="navbar navbar-expand-lg glass fixed-top mt-3 mx-auto px-4 py-3 rounded-4 shadow-lg shadow-lg w-100 bg-info-subtle" style="max-width: 95%;"
       style="max-width: 95%;">
       <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -226,7 +241,7 @@
 
 
 
-
+    <script type="module" src="./scripts/voting.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"

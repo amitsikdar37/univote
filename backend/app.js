@@ -14,6 +14,8 @@ const verificationRouter = require('./router/verificationRouter');
 const registrationRouter = require('./router/registrationRouter');
 const votePageRouter = require('./router/votePageRouter');
 const authenticateRouter = require('./router/authenticateRouter');
+const verifyTokenRouter = require('./authenticate/tokenVerifyRouter');
+const tokenVerifyRouter = require('./authenticate/tokenVerifyRouter');
 
 
 
@@ -75,7 +77,7 @@ app.use(verificationRouter);
 app.use(registrationRouter);
 app.use(votePageRouter)
 app.use(authenticateRouter);
-
+app.use(tokenVerifyRouter);
 
 app.use((req, res, next) => {
   res.setHeader(

@@ -1,5 +1,22 @@
 <!doctype html>
 <html lang="en">
+
+<style>
+  #loading-screen {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+  }
+
+  body {
+    display: none;
+  }
+</style>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +32,8 @@
 </head>
 
 <body>
+
+  <div id="loading-screen">Verifying access...</div> 
 
   <!-- ========= LOGO + NAVBAR ========= -->
   <div class="container-xxl pt-4">
@@ -159,6 +178,8 @@
   <!-- =====================================  -->
 
     <!-- ======== SCRIPTS ======== -->
+
+  <script type="module" src="./scripts/track.js"></script>  
     
 </body>
 
