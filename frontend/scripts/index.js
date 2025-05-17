@@ -59,22 +59,3 @@ window.addEventListener('load', () => {
 
 launchButton.addEventListener("click", launchapp);
 
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-  

@@ -24,6 +24,7 @@ const allowedOrigins = [
   'https://univote.tech',
   'http://localhost:3000', // local backend
   'https://univote-backend.onrender.com', // production backend
+  'https://univote-gfvv.onrender.com'
 ];
 
 app.use(cors({
@@ -43,6 +44,10 @@ app.use((req, res, next) => {
 });
 
 const isProduction = process.env.NODE_ENV === 'production';
+
+if (isProduction) {
+  app.set('trust proxy', 1); // important for secure cookies behind proxies
+}
 
 app.use(session({
   secret: 'univote',
