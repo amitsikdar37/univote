@@ -28,7 +28,13 @@ exports.signUp = [
   check('email')
   .normalizeEmail()
   .isEmail()
-  .withMessage('Valid email is required'),
+  .withMessage('Valid email is required')
+  .custom((value) => {
+    if (!value.endsWith('@iitp.ac.in')) {
+      throw new Error('Email must be an IIT Patna email ending with @iitp.ac.in');
+    }
+    return true;
+  }),
 
   check('password')
   .trim(),
