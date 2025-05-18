@@ -1,5 +1,22 @@
 <!doctype html>
 <html lang="en">
+
+<style>
+  #loading-screen {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+  }
+
+  body {
+    display: none;
+  }
+</style>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,13 +25,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link href="Track.css" rel="stylesheet" />
+  <link href="Track.css" rel="stylesheet" />
 
 
   </style>
 </head>
 
 <body>
+
+  <div id="loading-screen">Verifying access...</div>
 
   <!-- ========= LOGO + NAVBAR ========= -->
   <div class="container-xxl pt-4">
@@ -49,20 +68,19 @@
     </nav> -->
 
 
-     <nav class="navbar navbar-expand-lg glass fixed-top mt-3 mx-auto px-4 py-3 rounded-4 shadow-lg "
+    <nav class="navbar navbar-expand-lg glass fixed-top mt-3 mx-auto px-4 py-3 rounded-4 shadow-lg "
       style="max-width: 95%; background-color: #27548A;">
       <div class="container-fluid d-flex justify-content-between align-items-center">
 
 
-         <a href="Track.html">
-        <img src="uni vote[1].png" width="60" style="border-radius: 50%;"></a>
+        <a href="Track.html">
+          <img src="uni vote[1].png" width="60" style="border-radius: 50%;"></a>
 
 
-        
-                    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
 
         <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
@@ -73,40 +91,38 @@
             <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6" href="voting.html">Vote</a></li>
             <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6" href="about2.html">Governance</a></li>
             <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6" href="Track.html">Track Votes</a></li>
-            
+
           </ul>
 
-          
+
           <div class="d-flex align-items-center gap-3">
 
-            </div>
-
-
-           
           </div>
 
+
+
         </div>
+
       </div>
-    </nav> 
+  </div>
+  </nav>
 
 
 
 
-    <!-- ========= SEARCH BARS ========= -->
-    <section class="container-xxl mb-5 bar">
-      <div class="row g-3 justify-content-center">
-        <div class="col-12 col-md-5">
-          <input type="text" class="form-control search-bar py-3" placeholder="Search by Txn Hash">
-        </div>
-        <div class="col-12 col-md-5">
-          <input type="text" class="form-control search-bar py-3" placeholder="Search by Proposal Title">
-        </div>
+  <!-- ========= SEARCH BARS ========= -->
+  <section class="container-xxl mb-5 bar">
+    <div class="row g-3 justify-content-center">
+      <div class="col-12 col-md-5">
+        <input type="text" class="form-control search-bar py-3" placeholder="Search by Txn Hash">
       </div>
-    </section>
+      <div class="col-12 col-md-5">
+        <input type="text" class="form-control search-bar py-3" placeholder="Search by Proposal Title">
+      </div>
+    </div>
+  </section>
 
-    <!
-
-    <!-- ========= TRACKER CARD ========= -->
+  <! <!--=========TRACKER CARD=========-->
     <section class="container-xxl d-flex justify-content-center mb-5">
       <div class="card glass-card w-100" style="max-width:600px">
 
@@ -142,20 +158,20 @@
       </div>
     </section>
 
-  <footer class="text-center text-light py-4 small">
+    <footer class="text-center text-light py-4 small">
       <!-- © 2025 UNI-VOTE. All rights reserved. -->
-  </footer>
-  
+    </footer>
 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"></script>
+
+    <<<<<<< HEAD=======<!--========SCRIPTS========-->
+
+      <script type="module" src="./scripts/track.js"></script>
+      >>>>>>> 31e9e1bdfd367cafe73c58d9b1cb61846476f50c
+
 </body>
 
 </html>
-
-
-
-

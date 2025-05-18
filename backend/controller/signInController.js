@@ -6,12 +6,19 @@ const { check, validationResult } = require('express-validator');
 require('dotenv').config();
 
 const Voters = require('../models/voter');
+const { sendJwtToken } =  require('../authenticate/jwtCheck');
 
 exports.signIn = [
   check('email')
   .normalizeEmail()
   .isEmail()
-  .withMessage('Valid email is required'),
+  .withMessage('Valid email is required')
+  .custom((value) => {
+    if (!value.endsWith('@iitp.ac.in')) {
+      throw new Error('Email must be an IIT Patna email ending with @iitp.ac.in');
+    }
+    return true;
+  }),
 
   check('password')
   .trim(),
@@ -38,18 +45,7 @@ exports.signIn = [
         });
       }
       
-      const isProduction = process.env.NODE_ENV === 'production';  
-
-      const Secret_Key = 'univote';
-      const userPayload = { email, password };
-      const token = jwt.sign(userPayload, Secret_Key, { expiresIn: '7d' });
-      
-      res.cookie('token', token, { 
-        httpOnly: true, 
-        secure: isProduction, 
-        sameSite: isProduction ? 'None' : 'Lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000 
-      });
+      sendJwtToken(res, { email });
 
       res.status(200).json({ 
         message: 'SignIn successful'

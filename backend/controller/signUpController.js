@@ -7,6 +7,7 @@ const path = require('path');
 const { check, validationResult } = require('express-validator');
 const Voters = require('../models/voter'); 
 const { sendOtp, verifyOtp } = require('../utils/emailOtp');
+const { sendJwtToken } = require('../authenticate/jwtCheck');
 
 exports.signUp = [
   check('firstname')
@@ -28,7 +29,13 @@ exports.signUp = [
   check('email')
   .normalizeEmail()
   .isEmail()
-  .withMessage('Valid email is required'),
+  .withMessage('Valid email is required')
+  .custom((value) => {
+    if (!value.endsWith('@iitp.ac.in')) {
+      throw new Error('Email must be an IIT Patna email ending with @iitp.ac.in');
+    }
+    return true;
+  }),
 
   check('password')
   .trim(),
@@ -122,18 +129,7 @@ exports.saveUserToDb = async (req,res) => {
         });
       });
 
-    const isProduction = process.env.NODE_ENV === 'production';  
-
-    const Secret_Key = process.env.SECRET_KEY;
-    const userPayload = { firstname, lastname, email };
-    const token = jwt.sign(userPayload, Secret_Key, { expiresIn: '7d' });
-    
-    res.cookie('token', token, { 
-      httpOnly: true, 
-      secure: isProduction, 
-      sameSite: isProduction ? 'none' : 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000 
-    });
+    sendJwtToken(res, { firstname, lastname, email });
 
     res.status(201).json({
       message: 'User Registered Succesfully.' 
