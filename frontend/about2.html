@@ -2,19 +2,19 @@
 <html lang="en">
 
 <style>
-  #loading-screen {
-    position: fixed;
-    inset: 0;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
-  }
+    #loading-screen {
+        position: fixed;
+        inset: 0;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+    }
 
-  body {
-    display: none;
-  }
+    body {
+        display: none;
+    }
 </style>
 
 <head>
@@ -38,7 +38,7 @@
 
 <body>
 
-    <div id="loading-screen">Verifying access...</div>    
+    <div id="loading-screen">Verifying access...</div>
 
     <!-- <div class="container  navujj">
         <div class="logo-section">
@@ -70,7 +70,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg glass  mt-3 mx-auto px-4 py-3 rounded-4 shadow-lg"
         style="max-width: 95%; background-color: #8DD8FF;">
-        
+
 
         <div class="container-fluid d-flex justify-content-between align-items-center">
 
@@ -97,7 +97,7 @@
                     </li>
                     <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6 " href="Track.html">Track Votes</a>
                     </li>
-<!-- 
+                    <!-- 
                     <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6 " href="Track.html"></a>
 
                     </li> -->
@@ -110,8 +110,8 @@
                 <div class="d-flex align-items-center gap-3">
 
                     <!-- 🌐 Language Dropdown -->
-                                         <button id="connectWalletBtn" class="btn btn-danger">Connect Wallet</button>
-<span id="walletAddress" class="ms-2 text-success"></span>
+                    <button id="connectWalletBtn" class="btn btn-danger">Connect Wallet</button>
+                    <span id="walletAddress" class="ms-2 text-success"></span>
 
                     <div class="dropdown">
 
@@ -144,15 +144,15 @@
 
 
 
-    
+
 
     <div class="container">
         <div class="form-check form-switch ">
             <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
             <label class="form-check-label" for="switchCheckDefault">Private mode</label>
         </div>
-    </div> 
-<!-- 
+    </div>
+    <!-- 
 
     <div class="container">
         <div class="form-check form-switch">
@@ -170,8 +170,9 @@
 
 
     <div class="container my-2" style="display: flex; justify-content: center; align-items: center;">
-       <!-- <div class="d-flex container justify-content-center align-items-center gap-4 flex-wrap" style="margin-top: 50px;"> -->
-        <div class="row g-5 d-flex container justify-content-center align-items-center gap-4 flex-wrap"style="margin-top: 5px;">
+        <!-- <div class="d-flex container justify-content-center align-items-center gap-4 flex-wrap" style="margin-top: 50px;"> -->
+        <div class="row g-5 d-flex container justify-content-center align-items-center gap-4 flex-wrap"
+            style="margin-top: 5px;">
             <div class="col-lg-4 mb-4 ">
 
                 <div class="card ">
@@ -299,30 +300,32 @@
 
 
 
-            
-    <footer>
-        <div class="footer-cols">
-            <div class="logo">
-                <figure>
-                    <img src="uni vote[1].png" alt="UNI-VOTE Logo" class="footer-logo  " height="100rem" width="30px" />
-                    <p class="text-dark">Uni-Vote is utilizing Base evm for a decentralized,<br> transparent, and immutable record
-                        of<br> the election process and
-                        results.</p>
 
-                </figure>
-            </div>
+            <footer>
+                <div class="footer-cols">
+                    <div class="logo">
+                        <figure>
+                            <img src="uni vote[1].png" alt="UNI-VOTE Logo" class="footer-logo  " height="100rem"
+                                width="30px" />
+                            <p class="text-dark">Uni-Vote is utilizing Base evm for a decentralized,<br> transparent,
+                                and immutable record
+                                of<br> the election process and
+                                results.</p>
 
-
-            <a href="us.html" class="team" style="color: #000;">MEET OUR TEAM</a>
-
-            <a href="img.html" style="color: #000;"> ROADMAP</a>
-            <div style="color: #000;">RESOURCES</div>
-        </div>
+                        </figure>
+                    </div>
 
 
-        <!-- <p>© 2025 UNI-VOTE. All rights reserved.</p> -->
+                    <a href="us.html" class="team" style="color: #000;">MEET OUR TEAM</a>
 
-    </footer> 
+                    <a href="img.html" style="color: #000;"> ROADMAP</a>
+                    <div style="color: #000;">RESOURCES</div>
+                </div>
+
+
+                <!-- <p>© 2025 UNI-VOTE. All rights reserved.</p> -->
+
+            </footer>
 
 
 
@@ -339,39 +342,39 @@
             <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 
             <script>
-  const connectWalletBtn = document.getElementById("connectWalletBtn");
-  const walletAddressDisplay = document.getElementById("walletAddress");
+                const connectWalletBtn = document.getElementById("connectWalletBtn");
+                const walletAddressDisplay = document.getElementById("walletAddress");
 
-  connectWalletBtn.addEventListener("click", async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
+                connectWalletBtn.addEventListener("click", async () => {
+                    if (typeof window.ethereum !== "undefined") {
+                        try {
+                            const provider = new ethers.providers.Web3Provider(window.ethereum);
+                            await provider.send("eth_requestAccounts", []);
+                            const signer = provider.getSigner();
+                            const address = await signer.getAddress();
 
-        walletAddressDisplay.innerText = address.slice(0, 6) + "..." + address.slice(-4);
-        connectWalletBtn.innerText = "Connected";
-        connectWalletBtn.disabled = true;
+                            walletAddressDisplay.innerText = address.slice(0, 6) + "..." + address.slice(-4);
+                            connectWalletBtn.innerText = "Connected";
+                            connectWalletBtn.disabled = true;
 
-      } catch (err) {
-        console.error("User rejected the request or something went wrong:", err);
-        walletAddressDisplay.innerText = "Connection Failed";
-      }
-    } else {
-      alert("MetaMask is not installed. Please install it to connect.");
-    }
-  });
-</script>
-
-
+                        } catch (err) {
+                            console.error("User rejected the request or something went wrong:", err);
+                            walletAddressDisplay.innerText = "Connection Failed";
+                        }
+                    } else {
+                        alert("MetaMask is not installed. Please install it to connect.");
+                    }
+                });
+            </script>
 
 
-             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-                crossorigin="anonymous"></script> 
-                <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script> -->
-  </body>
+                crossorigin="anonymous"></script>
+            <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script> -->
+</body>
 </body>
 
 </html>
