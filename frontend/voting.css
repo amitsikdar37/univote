@@ -5,7 +5,8 @@ body {
     font-family: 'Poppins', sans-serif;
     color: white;
     overflow-x: hidden;
-    background-image: url("download.jpeg");
+    /* background-image: url("download.jpeg"); */
+    background-color: #129990;
 
     background-position: center;
     background-size: cover;
@@ -66,7 +67,9 @@ body {
 /****************************CARD SECTION START******************************************************/
 
 .card { 
-    background: rgba(255, 255, 255, 0.1);
+    /* background: rgba(255, 255, 255, 0.1); */
+    background: rgb(15, 13, 13);
+
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
     padding: 20px;
