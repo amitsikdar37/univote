@@ -13,6 +13,19 @@ body {
     background-repeat: no-repeat;
 }
 
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+body {
+  display: none;
+}
 
 
 
