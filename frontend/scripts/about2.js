@@ -41,7 +41,25 @@ async function fetchGasPrice() {
 fetchGasPrice();
 setInterval(fetchGasPrice, 5000);
 
+const connectWalletButton = document.getElementById('connectWalletBtn');
 
+const connectWallet = async () => {
+  if (typeof window.ethereum !== 'undefined') {
+    try{
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+
+      const walletAddress = accounts[0];
+      document.getElementById('walletAddress').textContent = `Connected: ${walletAddress}`;
+      connectWalletButton.style.display = "none";
+    } catch(error){
+      console.error("User rejected connection or other error", error);
+    }
+  } else {
+    alert("Please install MetaMask to use this feature.");
+  }
+}
+
+connectWalletButton.addEventListener('click', connectWallet);
 
 // Function to check and show the message if on mobile or tablet
 function checkDevice() {
