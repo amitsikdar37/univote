@@ -9,8 +9,8 @@
     body {
       font-family: 'Poppins', sans-serif;
       color: #fff;
-      /* background: url("download.jpeg") center/cover no-repeat fixed; */
-      background-color: #27548A;
+      background: url("download.jpeg") center/cover no-repeat fixed;
+      /* background-color: #27548A; */
       min-height: 100vh;
     }
 

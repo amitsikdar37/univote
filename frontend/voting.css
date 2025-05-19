@@ -5,8 +5,8 @@ body {
     font-family: 'Poppins', sans-serif;
     color: white;
     overflow-x: hidden;
-    /* background-image: url("download.jpeg"); */
-    background-color: #129990;
+    background-image: url("download.jpeg");
+    /* background-color: #129990; */
 
     background-position: center;
     background-size: cover;
