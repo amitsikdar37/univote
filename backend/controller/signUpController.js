@@ -6,7 +6,7 @@ const path = require('path');
 
 const { check, validationResult } = require('express-validator');
 const Voters = require('../models/voter'); 
-const { sendOtp, verifyOtp } = require('../utils/emailOtp');
+const { sendOtp, verifyOtp, resendOtp } = require('../utils/emailOtp');
 const { sendJwtToken } = require('../authenticate/jwtCheck');
 
 exports.signUp = [
@@ -130,4 +130,30 @@ exports.saveUserToDb = async (req,res) => {
     });
   }
 }
-        
+
+exports.resendOtp = async (req,res) => {
+
+try{
+  const { email } = req.session.formData;
+
+  if (!email) {
+    return res.status(400).json({ sent: false, message: 'Email is required' });
+  }
+
+  const response = await resendOtp(email);
+  if (response.sent === false) {
+    return res.status(400).json({ 
+      errors: [{ param: 'form', msg: response.message }]
+    })
+  }
+  return res.status(200).json({
+    message: response.message
+  });
+} catch (error) {
+    console.error('Resend OTP Error:', error);
+    return res.status(500).json({
+      errors: [{ param: 'form', msg: 'Server error while resending OTP' }]
+    });
+  }
+}
+  

@@ -84,3 +84,24 @@ exports.verifyOtp = async ( email, otp) => {
       message: 'Failed to verify OTP' });
   }
 }
+
+exports.resendOtp = async (email) => {
+  
+ try {
+    // Delete previous OTPs for the email (optional but recommended)
+    await Otp.deleteMany({ email });
+
+    // Call the original sendOtp function
+    const result = await exports.sendOtp(email); // assuming sendOtp is exported as sendOtp.sendOtp
+
+    return result;
+
+  } catch (error) {
+    console.error('Error resending OTP:', error);
+    return {
+      sent: false,
+      message: 'Failed to resend OTP',
+    };
+  }
+}
+
