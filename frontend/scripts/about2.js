@@ -1,4 +1,4 @@
-import { BACKEND_URL } from "../config.js"; 
+import { BACKEND_URL } from "../config.js";
 
 window.addEventListener('DOMContentLoaded', async () => {
   // Wait for config.js to set BACKEND_URL
@@ -126,3 +126,58 @@ function checkDevice() {
 }
 
 checkDevice();
+
+// Logout functionality
+const logoutBtn = document.getElementById('logoutBtn');
+
+logoutBtn.addEventListener('click', async () => {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'text-center mt-3';
+  messageDiv.style.fontFamily = 'Poppins, sans-serif';
+  messageDiv.style.fontSize = '1rem';
+  document.querySelector('.container').prepend(messageDiv);
+  messageDiv.style.color = 'green';
+  messageDiv.textContent = 'Logging out...';
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/Logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      credentials: 'include'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      messageDiv.style.color = 'red';
+      if (data?.errors?.length > 0) {
+        messageDiv.textContent = data.errors[0].msg;
+      } else {
+        messageDiv.textContent = 'Logout failed. Try again.';
+      }
+      setTimeout(() => messageDiv.remove(), 3000);
+      return;
+    }
+
+    messageDiv.style.color = 'green';
+    messageDiv.textContent = data.message || 'Logged out successfully!';
+    
+    // Clear wallet state
+    walletAddressSpan.textContent = '';
+    connectWalletButton.classList.remove('d-none');
+    disconnectWalletButton.classList.add('d-none');
+
+    // Redirect to login page
+    setTimeout(() => {
+      window.location.href = './login.html';
+    }, 1000);
+  } catch (error) {
+    console.error('Logout error:', error);
+    messageDiv.style.color = 'red';
+    messageDiv.textContent = 'Server error. Try again later.';
+    setTimeout(() => messageDiv.remove(), 3000);
+  }
+});
