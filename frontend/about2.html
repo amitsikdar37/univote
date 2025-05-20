@@ -110,15 +110,21 @@
                 <div class="d-flex align-items-center gap-3">
 
                     <!-- 🌐 Language Dropdown -->
-                    <button id="connectWalletBtn" class="btn btn-danger">Connect Wallet</button>
-                    <span id="walletAddress" class="ms-2 text-success"></span>
+                   <div class="d-flex align-items-center gap-3">
+    <!-- Connect Wallet Button -->
+    <button id="connectWalletBtn" class="btn btn-danger">Connect Wallet</button>
+    <!-- Disconnect Wallet Button (hidden initially) -->
+    <button id="disconnectWalletBtn" class="btn btn-outline-danger d-none">Disconnect</button>
+    <!-- Wallet Address -->
+    <span id="walletAddress" class="ms-2 text-success"></span>
 
-                    <div class="dropdown">
-
-                        <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3 bg-danger"
-                            type="button" id="propose">
-                            🌐 Propose: ...
-                        </button>
+    <!-- Propose Button -->
+    <div class="dropdown">
+        <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3 bg-danger" type="button" id="propose">
+            🌐 Propose: ...
+        </button>
+    </div>
+</div>
 
                         <!-- <button class="btn glow-button btn-sm px-3" id="propose">Propose: ...</button> -->
                     </div>
