@@ -130,7 +130,7 @@ resendButton.addEventListener('click', async () => {
     // Start cooldown
     startCooldown();
   } catch (error) {
-    console.error('Error:', error);
+    console.error(`Error: ${error}`);
     messageDiv.style.color = 'red';
     messageDiv.innerText = 'Server error. Please try again later.';
   }
