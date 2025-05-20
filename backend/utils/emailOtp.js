@@ -12,7 +12,8 @@ exports.sendOtp = async (email) => {
   auth: {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASS // Use App Password (not your Gmail password)
-  }
+  },
+  tls: process.env.NODE_ENV !== 'production' ? { rejectUnauthorized: false } : undefined
 });
 
   // Generate a random OTP
