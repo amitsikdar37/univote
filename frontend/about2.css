@@ -687,6 +687,6 @@ footer {
 }
 
 .logout-btn:focus {
-    outline: none;
+    outline: gold;
     box-shadow: 0 0 0 0.2rem rgba(211, 47, 47, 0.25);
 }
