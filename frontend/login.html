@@ -9,25 +9,41 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-     /* background-image: url("pbg.jpg") no-repeat center center fixed; */
-     background-image: url("pbg.jpg");
-     background-position: center;
-     background-repeat: no-repeat;
-     background-size: cover;
+      background-color: #1a1a1a; /* Dark background for techy effect */
+      background-position: center;
+      background-repeat: no-repeat;
       background-size: cover;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
       padding: 10px;
-      background-color: rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
 
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 135, 0.1), transparent),
+                  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80"><path fill="none" stroke="%2300ff87" stroke-width="1" d="M20 10 L60 10 L70 30 L60 50 L20 50 L10 30 Z"/></svg>');
+      background-size: 80px 80px;
+      opacity: 0.3;
+      animation: shimmer 8s linear infinite;
+      z-index: -1; /* Place hexagons behind login box */
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 200px; }
     }
 
     .login-box {
-      /* background-color: white; */
       background-color: rgba(0, 0, 0, 0.938);
-
       display: flex;
       flex-direction: row;
       border-radius: 10px;
@@ -35,7 +51,6 @@
       overflow: hidden;
       max-width: 700px;
       width: 100%;
-      /* font-size: 20rem; */
     }
 
     .left-box, .right-box {
@@ -82,9 +97,7 @@
     }
 
     .right-box {
-      /* background: #f7f7f7; */
       background-color: rgba(0, 0, 0, 0.6);
-
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -138,8 +151,6 @@
       }
 
       .box {
-        /* flex-direction: column; */
-        align-items: flex-start;
         align-items: center;
       }
 
@@ -155,29 +166,25 @@
     <div class="left-box">
       <div class="box">
         <div class="photo">
-          <!-- <img src="uni_vote[1].png" width="80" alt="IIT Patna Logo"> -->
-           <img src="uni vote[1].png" width="80" alt="IIT Patna Logo">
+          <img src="uni vote[1].png" width="80" alt="IIT Patna Logo">
         </div>
         <div class="uni">
-          <!-- <h2> Welcome to UNI-VOTE</h2> -->
           <h2 style="text-align:center; color: #ccc;">Welcome to uni-vote</h2>
-
         </div>
       </div>
       <form id="signinForm">
         <small id="formError" style="color: red;"></small>
         <input type="email" name="email" id="email" placeholder="example@iitp.ac.in" required>
         <small id="emailError" style="color: red;"></small>
-
-        <input type="password" name="password"  id="password" placeholder="Enter your password" required>
+        <input type="password" name="password" id="password" placeholder="Enter your password" required>
         <small id="passwordError" style="color: red;"></small>
         <button type="submit">Sign In</button>
       </form>
       <div id="loadingMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
-        Sending data to server...  <!-- add this div to show messages for sending data to server -->
+        Sending data to server...
       </div>
       <div id="successMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
-        Sign In successful! Redirecting... <!-- add this div to show messages for sign in succesful -->
+        Sign In successful! Redirecting...
       </div>
       <p style="margin-top: 15px; font-size: 12px; text-align: center;">
         <a href="frorm.html" style="text-decoration: none;">Register.</a>

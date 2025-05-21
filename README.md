@@ -10,3 +10,4 @@ wallet disconnection button bg colour
 resend otp button
 log out button 
 log out button bg change
+login page background change 
