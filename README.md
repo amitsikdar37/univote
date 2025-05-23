@@ -13,3 +13,4 @@ log out button bg change
 login page background change 
 fixed background of sign up section 
 ensured visibility of base evm tag line in about.2html
+footer bg
