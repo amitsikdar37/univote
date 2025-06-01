@@ -10,7 +10,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Orbitron', sans-serif;
     }
 
     body {
@@ -18,152 +18,165 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #1a1a1a, #2c3e50);
-      background-size: 200% 200%;
-      animation: gradientShift 15s ease infinite;
+      background: #0a0a0a;
       padding: 10px;
       position: relative;
       overflow: hidden;
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    body::before {
-      content: '';
+    #scene-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80"><path fill="none" stroke="%2300ff87" stroke-width="1" d="M20 10 L60 10 L70 30 L60 50 L20 50 L10 30 Z"/></svg>');
-      background-size: 80px 80px;
-      opacity: 0.2;
-      animation: shimmer 10s linear infinite;
       z-index: -1;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: 0 0; }
-      100% { background-position: 200px 200px; }
     }
 
     .login-box {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(0, 255, 135, 0.2);
+      border: 1px solid rgba(0, 255, 135, 0.3);
       display: flex;
       flex-direction: row;
-      max-width: 800px;
+      max-width: 900px;
       width: 100%;
       overflow: hidden;
       position: relative;
-      transition: transform 0.3s ease;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      z-index: 1;
     }
 
     .login-box:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 50px rgba(0, 255, 135, 0.5);
     }
 
     .left-box, .right-box {
-      padding: 40px;
+      padding: 50px;
     }
 
     .left-box {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 25px;
     }
 
     .box {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 20px;
+      margin-bottom: 25px;
     }
 
     .photo img {
       border-radius: 50%;
-      border: 2px solid #00ff88;
-      padding: 5px;
-      background: rgba(255, 255, 255, 0.1);
+      border: 3px solid #00ff88;
+      padding: 8px;
+      background: radial-gradient(circle, rgba(0, 255, 135, 0.3), transparent);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
     }
 
     .uni h2 {
       color: #fff;
-      font-size: 26px;
-      font-weight: 600;
+      font-size: 30px;
+      font-weight: 700;
       text-align: center;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 255, 135, 0.7);
     }
 
     .input-group {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .input-group input {
       width: 100%;
-      padding: 12px 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      border-radius: 10px;
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 255, 135, 0.2);
+      border-radius: 12px;
       color: #fff;
       font-size: 16px;
       outline: none;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .input-group input:focus {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 10px rgba(0, 255, 135, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #00ff88;
+      box-shadow: 0 0 15px rgba(0, 255, 135, 0.5);
     }
 
     .input-group label {
       position: absolute;
       top: 50%;
-      left: 15px;
+      left: 20px;
       transform: translateY(-50%);
       color: #ccc;
       font-size: 16px;
       pointer-events: none;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      text-shadow: 0 0 5px rgba(0, 255, 135, 0.3);
     }
 
     .input-group input:focus + label,
     .input-group input:not(:placeholder-shown) + label {
-      top: -10px;
-      left: 10px;
+      top: -12px;
+      left: 15px;
       font-size: 12px;
-      background: #00ff88;
-      color: #1a1a1a;
-      padding: 2px 8px;
-      border-radius: 5px;
+      background: linear-gradient(45deg, #00ff88, #00ddeb);
+      color: #0a0a0a;
+      padding: 3px 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0, 255, 135, 0.5);
     }
 
     .left-box button {
-      background: linear-gradient(45deg, #0056b3, #00ff88);
-      color: #fff;
+      background: linear-gradient(45deg, #00ff88, #00ddeb);
+      color: #0a0a0a;
       border: none;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 15px;
+      border-radius: 12px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .left-box button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .left-box button:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .left-box button:hover {
-      background: linear-gradient(45deg, #00449e, #00ddeb);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(0, 255, 135, 0.7);
     }
 
     #formError, #emailError, #passwordError {
@@ -171,6 +184,7 @@
       font-size: 12px;
       margin-top: 5px;
       display: block;
+      text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
     }
 
     #loadingMessage, #successMessage {
@@ -178,66 +192,90 @@
       text-align: center;
       font-size: 14px;
       margin-top: 10px;
+      text-shadow: 0 0 5px rgba(0, 255, 135, 0.5);
     }
 
     .left-box p {
       text-align: center;
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .left-box p a {
       color: #00ff88;
       text-decoration: none;
       font-weight: 600;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px rgba(0, 255, 135, 0.5);
     }
 
     .left-box p a:hover {
       color: #00ddeb;
+      text-shadow: 0 0 10px rgba(0, 221, 235, 0.7);
     }
 
     .right-box {
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       flex: 0.5;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
     }
 
     .right-box h3 {
       color: #fff;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 500;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       text-align: center;
+      text-shadow: 0 0 10px rgba(0, 255, 135, 0.5);
     }
 
     .microsoft-btn, .cookies {
       background: linear-gradient(45deg, #f25022, #ff6f61);
       color: #fff;
-      padding: 12px;
+      padding: 15px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       width: 100%;
-      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .microsoft-btn::before, .cookies::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .microsoft-btn:hover::before, .cookies:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .microsoft-btn:hover, .cookies:hover {
       background: linear-gradient(45deg, #d43f1a, #e55a50);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(255, 77, 77, 0.7);
     }
 
     .microsoft-btn i, .cookies i {
-      margin-right: 10px;
+      margin-right: 12px;
     }
 
     @media (max-width: 768px) {
@@ -247,7 +285,7 @@
       }
 
       .left-box, .right-box {
-        padding: 20px;
+        padding: 25px;
       }
 
       .right-box {
@@ -255,7 +293,7 @@
       }
 
       .uni h2 {
-        font-size: 22px;
+        font-size: 24px;
       }
 
       .microsoft-btn, .cookies {
@@ -265,6 +303,7 @@
   </style>
 </head>
 <body>
+  <canvas id="scene-canvas"></canvas>
   <div class="login-box">
     <div class="left-box">
       <div class="box">
@@ -305,6 +344,150 @@
       <button class="cookies"><i class="fab fa-google"></i>Google</button>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script>
+    // Three.js Complex Animated Background
+    const canvas = document.getElementById('scene-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    camera.position.set(0, 0, 50);
+
+    // Particle System
+    const particleCount = 1000;
+    const particlesGeometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const velocities = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 100;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 100;
+      colors[i * 3] = 0.0;
+      colors[i * 3 + 1] = Math.random() * 0.5 + 0.5;
+      colors[i * 3 + 2] = Math.random() * 0.5 + 0.5;
+      velocities[i * 3] = (Math.random() - 0.5) * 0.1;
+      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
+      velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const particleMaterial = new THREE.PointsMaterial({
+      size: 0.5,
+      vertexColors: true,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true
+    });
+
+    const particles = new THREE.Points(particlesGeometry, particleMaterial);
+    scene.add(particles);
+
+    // Nebula Background
+    const nebulaGeometry = new THREE.PlaneGeometry(200, 200, 32, 32);
+    const nebulaMaterial = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float time;
+        uniform vec2 mouse;
+        varying vec2 vUv;
+        float noise(vec2 p) {
+          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+        }
+        void main() {
+          vec2 uv = vUv;
+          float n = noise(uv * 3.0 + time * 0.1);
+          float dist = distance(uv, mouse);
+          float glow = 0.05 / (dist + 0.1);
+          vec3 color = vec3(0.0, 0.6 + n * 0.2, 0.8 + n * 0.2);
+          color += glow * vec3(0.0, 1.0, 0.8);
+          gl_FragColor = vec4(color, 0.5);
+        }
+      `,
+      uniforms: {
+        time: { value: 0.0 },
+        mouse: { value: new THREE.Vector2(0, 0) }
+      },
+      transparent: true
+    });
+
+    const nebula = new THREE.Mesh(nebulaGeometry, nebulaMaterial);
+    nebula.position.z = -10;
+    scene.add(nebula);
+
+    // Light Flare
+    const flareGeometry = new THREE.SphereGeometry(2, 32, 32);
+    const flareMaterial = new THREE.MeshBasicMaterial({
+      color: 0x00ff88,
+      transparent: true,
+      opacity: 0.3,
+      blending: THREE.AdditiveBlending
+    });
+    const flare = new THREE.Mesh(flareGeometry, flareMaterial);
+    flare.position.z = -5;
+    scene.add(flare);
+
+    // Mouse interaction
+    document.addEventListener('mousemove', (event) => {
+      const x = (event.clientX / window.innerWidth) * 2 - 1;
+      const y = -(event.clientY / window.innerHeight) * 2 + 1;
+      nebulaMaterial.uniforms.mouse.value.set(x, y);
+      flare.position.x = x * 50;
+      flare.position.y = y * 50;
+    });
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      nebulaMaterial.uniforms.time.value += 0.02;
+
+      // Animate particles
+      const positions = particlesGeometry.attributes.position.array;
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] += velocities[i * 3];
+        positions[i * 3 + 1] += velocities[i * 3 + 1];
+        positions[i * 3 + 2] += velocities[i * 3 + 2];
+
+        // Orbit effect
+        const radius = Math.sqrt(positions[i * 3] ** 2 + positions[i * 3 + 2] ** 2);
+        positions[i * 3] = Math.cos(radius * 0.1 + nebulaMaterial.uniforms.time.value * 0.1) * radius;
+        positions[i * 3 + 2] = Math.sin(radius * 0.1 + nebulaMaterial.uniforms.time.value * 0.1) * radius;
+
+        // Boundary check
+        if (Math.abs(positions[i * 3]) > 100 || Math.abs(positions[i * 3 + 1]) > 100 || Math.abs(positions[i * 3 + 2]) > 100) {
+          positions[i * 3] = (Math.random() - 0.5) * 100;
+          positions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+          positions[i * 3 + 2] = (Math.random() - 0.5) * 100;
+        }
+      }
+      particlesGeometry.attributes.position.needsUpdate = true;
+
+      // Animate flare
+      flare.scale.set(1 + Math.sin(nebulaMaterial.uniforms.time.value) * 0.2, 1 + Math.sin(nebulaMaterial.uniforms.time.value) * 0.2, 1);
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
   <script type="module" src="./scripts/signIn.js"></script>
 </body>
 </html>

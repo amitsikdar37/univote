@@ -1,6 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,10 +11,241 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="media.css">
-</head>
+  <style>
+    /* Signup Section Styles */
+    .signup-blur-section {
+      padding: 80px 10%;
+      max-width: 1000px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.08) !important;
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
 
+    .signup-blur-section .signup-content {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 40px;
+    }
+
+    .signup-blur-section .signup-content h2 {
+      font-size: 3rem !important;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .signup-blur-section .signup-content p {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem !important;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .signup-blur-section .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .signup-blur-section .signup-form input {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .signup-blur-section .signup-form input:focus {
+      border-color: #00FFC8;
+      box-shadow: 0 0 8px rgba(0, 255, 200, 0.3);
+    }
+
+    .signup-blur-section .signup-form button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(90deg, #D83FF0, #00FFC8) !important;
+      border: none;
+      border-radius: 12px;
+      color: #000;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .signup-blur-section .signup-form button:hover {
+      opacity: 0.9;
+    }
+
+    /* Footer Styles */
+    .footer {
+      padding: 60px 10%;
+      background: #0a0a0a !important;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .footer .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer .footer-branding img {
+      width: 80px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .footer .footer-branding p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer .footer-links h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer .footer-links a {
+      color: rgba(255, 255, 255, 0.7) !important;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer .footer-links a:hover {
+      color: #00FFC8 !important;
+    }
+
+    .footer .footer-social {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer .footer-social h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer .footer-social .social-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer .footer-social a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+
+    .footer .footer-social a:hover {
+      background: rgba(0, 255, 200, 0.3);
+    }
+
+    .footer .footer-social a svg {
+      width: 20px;
+      fill: #fff;
+    }
+
+    .footer .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 40px;
+      padding-top: 20px;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    /* Responsive Styles to Align with media.css */
+    @media (max-width: 768px) {
+      .signup-blur-section {
+        padding: 60px 5%;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .signup-blur-section .signup-content h2 {
+        font-size: 2.2rem !important;
+      }
+
+      .signup-blur-section .signup-content p {
+        font-size: 1rem !important;
+      }
+
+      .signup-blur-section .signup-form {
+        width: 100%;
+      }
+
+      .signup-blur-section .signup-form input,
+      .signup-blur-section .signup-form button {
+        padding: 14px;
+        font-size: 0.95rem;
+      }
+
+      .footer .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer .footer-branding img {
+        margin: 0 auto 10px;
+      }
+
+      .footer .footer-links,
+      .footer .footer-social {
+        align-items: center;
+      }
+
+      .footer .footer-links h4,
+      .footer .footer-social h4 {
+        margin-bottom: 10px;
+      }
+
+      .footer .footer-social .social-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
 <body>
   <div id="splash-screen">
     <div class="splash-logo">
@@ -97,85 +327,74 @@
     </div>
   </section>
 
-  <section class="signup-blur-section" style="background: linear-gradient(135deg, rgba(216, 63, 240, 0.2) 0%, rgba(0, 255, 200, 0.2) 100%); padding: 60px 20px; backdrop-filter: blur(10px); border-radius: 15px; margin: 40px auto; max-width: 800px;">
-    <div class="signup-content" style="text-align: center; color: #fff; font-family: 'Syne', sans-serif;">
-      <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 20px;">Signup to <br> Contribute <br> to Our Initiative</h2>
-      <p style="font-family: 'Sora', sans-serif; font-size: 1.2rem; opacity: 0.9;">Stay connected and join the movement</p>
+  <section class="signup-blur-section">
+    <div class="signup-content">
+      <h2>Join the Future of Voting</h2>
+      <p>Become a part of UNI-VOTE's mission to deliver secure, transparent, and decentralized voting.</p>
     </div>
-    <form class="signup-form" id="signup-form" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
-      <input type="email" placeholder="Email" id="email" required style="padding: 12px; border: none; border-radius: 25px; background: rgba(255, 255, 255, 0.1); color: #fff; font-family: 'Sora', sans-serif; font-size: 1rem; transition: background 0.3s;">
-      <div class="input-wrapper" style="position: relative;">
-        <input type="password" placeholder="Password" id="password" required style="padding: 12px; border: none; border-radius: 25px; background: rgba(255, 255, 255, 0.1); color: #fff; font-family: 'Sora', sans-serif; font-size: 1rem; width: 100%; transition: background 0.3s;">
-        <button type="submit" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: #D83FF0; border: none; border-radius: 50%; width: 40px; height: 40px; color: #fff; font-size: 1.2rem; cursor: pointer; transition: background 0.3s;">→</button>
-      </div>
+    <form class="signup-form" id="signup-form">
+      <input type="email" placeholder="Enter your email" required>
+      <input type="password" placeholder="Create a password" required>
+      <button type="submit">Sign Up</button>
     </form>
   </section>
 
   <footer class="footer">
-    <div class="footer-top">
+    <div class="footer-container">
+      <div class="footer-branding">
+        <img src="uni vote[1].png" alt="UNI-VOTE Logo">
+        <p>UNI-VOTE: Empowering Trust in Decentralized Voting</p>
+      </div>
       <div class="footer-links">
+        <h4>Explore</h4>
         <a href="us.html">Team</a>
         <a href="img.html">Roadmap</a>
+        <a href="FAQ.html">FAQ</a>
       </div>
-      <div class="footer-logo">
-        <img src="uni vote[1].png" alt="UNI-VOTE Logo" style="border-radius: 50%;">
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>
-        <div class="social-icons">
-          <div class="container" id="social-icons">
-            <div class="card">
-              <a class="socialContainer containerFour" href="mailto:UNIVOTE.TECH@GMAIL.COM">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="socialSvg whatsappSvg">
-                  <path
-                    d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
-                </svg>
-              </a>
-              <a class="socialContainer containersix" href="https://t.me/c/2512359544/1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="socialSvg telegrambSvg">
-                  <path
-                    d="M248 8C111 8 0 119 0 256S111 504 248 504 496 393 496 256 385 8 248 8zM363 176.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7 .2-.7 .3-3.1-1.2-4.4s-3.6-.8-5.1-.5q-3.3 .7-104.6 69.1-14.8 10.2-26.9 9.9c-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3q.8-6.7 18.5-13.7 108.4-47.2 144.6-62.3c68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6 .5 9.6 2.9a10.5 10.5 0 0 1 3.5 6.7A43.8 43.8 0 0 1 363 176.7z" />
-                </svg>
-              </a>
-              <a class="socialContainer containerfive" href="https://github.com/amitsikdar37/univote">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="socialSvg githubSvg">
-                  <path
-                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
-                </svg>
-              </a>
-              <a class="socialContainer containerOne" href="https://www.instagram.com/_egoist.1?igsh=NGN0bW0wc3h3OXVw">
-                <svg viewBox="0 0 16 16" class="socialSvg instagramSvg">
-                  <path
-                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z">
-                  </path>
-                </svg>
-              </a>
-              <a class="socialContainer containerTwo" href="https://x.com/amroxxo">
-                <svg viewBox="0 0 16 16" class="socialSvg twitterSvg">
-                  <path
-                    d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z">
-                  </path>
-                </svg>
-              </a>
-              <a class="socialContainer containerThree" href="https://www.linkedin.com/company/uni-vote/?viewAsMember=true">
-                <svg viewBox="0 0 448 512" class="socialSvg linkdinSvg">
-                  <path
-                    d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
-                  </path>
-                </svg>
-              </a>
-            </div>
-          </div>
+      <div class="footer-social">
+        <h4>Connect</h4>
+        <div class="social-links">
+          <a href="mailto:UNIVOTE.TECH@GMAIL.COM">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </a>
+          <a href="https://t.me/c/2512359544/1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S12 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.07-.99-.36-1.58-.67-.73-.39-1.13-.63-1.83 1.24-.2-.51.32-.73.32-.73l-.02-.03c.77-.3 1.43-1.1 1.49-1.16.76-.77 1-1.01 1.23-1.65.23-.66-.11-1.78-.34-2.47-.15-.45-.29-.86-.38-1.18-.05-.17-.08-.31-.1-.43-.02-.12-.01-.22.03-.31.09-.18.27-.2.43-.04l.02.02c.36.37.73.93 1.09 1.58.24.44.45.95.61 1.49z"/>
+            </svg>
+          </a>
+          <a href="https://github.com/amitsikdar37/univote">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2.03 1.03-2.75-.1-.25-.45-1.31.1-2.73 0 0 .84-.27 2.75.98.8-.22 1.65-.33 2.5-.33s1.7.11 2.5.33c1.91-1.25 2.75-.98 2.75-.98.55 1.42.2 2.48.1 2.73.65.72 1.03 1.64 1.03 2.75 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/_egoist.1?igsh=NGN0bW0wc3h3OXVw">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.326 3.608 1.301.975.975 1.24 2.242 1.301 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.326 2.633-1.301 3.608-.975.975-2.242 1.24-3.608 1.301-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.326-3.608-1.301-.975-.975-1.24-2.242-1.301-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.326-2.633 1.301-3.608.975-.975 2.242-1.24 3.608-1.301 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.425.065-2.684.328-3.894 1.538-1.21 1.21-1.473 2.469-1.538 3.894-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.065 1.425.328 2.684 1.538 3.894 1.21 1.21 2.469 1.473 3.894 1.538 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.425-.065 2.684-.328 3.894-1.538 1.21-1.21 1.473-2.469 1.538-3.894.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.065-1.425-.328-2.684-1.538-3.894-1.21-1.21-2.469-1.473-3.894-1.538-1.28-.058-1.688-.072-4.947-.072zm0 5.838c-3.313 0-6 2.687-6 6 0 3.313 2.687 6 6 6 3.313 0 6-2.687 6-6 0-3.313-2.687-6-6-6zm0 10c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm4.843-10.148c0 .779-.635 1.414-1.414 1.414s-1.414-.635-1.414-1.414.635-1.414 1.414-1.414 1.414.635 1.414 1.414z"/>
+            </svg>
+          </a>
+          <a href="https://x.com/amroxxo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/company/uni-vote/?viewAsMember=true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
+    <div class="footer-bottom">
+      © 2025 UNI-VOTE. All rights reserved.
+    </div>
   </footer>
 
-  <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./Scripts/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbsAu9OCUj5zNLiq"
     crossorigin="anonymous"></script>
 </body>
-
 </html>

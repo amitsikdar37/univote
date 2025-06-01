@@ -16,3 +16,4 @@ ensured visibility of base evm tag line in about.2html
 footer bg
 register button visibility
 login page ui change 
+home page ui changes 

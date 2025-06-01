@@ -69,26 +69,6 @@
 
 
 
-/**************************************SIGNUP SECTION START*******************************************/
-
-@media (max-width: 768px) {
-    .signup-blur-section {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 40px;
-        padding: 60px 5%;
-    }
-
-    .signup-content h2 {
-        font-size: 2.5rem;
-    }
-
-    .signup-form {
-        width: 100%;
-    }
-}
-
-/**************************************SIGNUP SECTION END*******************************************/
 
 
 
