@@ -6,20 +6,30 @@
   <title>UNI-VOTE Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #1a1a1a;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
       padding: 10px;
       position: relative;
       overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     body::before {
@@ -29,11 +39,10 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(0, 255, 135, 0.1), transparent),
-                  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80"><path fill="none" stroke="%2300ff87" stroke-width="1" d="M20 10 L60 10 L70 30 L60 50 L20 50 L10 30 Z"/></svg>');
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80"><path fill="none" stroke="%2300ff87" stroke-width="1" d="M20 10 L60 10 L70 30 L60 50 L20 50 L10 30 Z"/></svg>');
       background-size: 80px 80px;
-      opacity: 0.3;
-      animation: shimmer 8s linear infinite;
+      opacity: 0.2;
+      animation: shimmer 10s linear infinite;
       z-index: -1;
     }
 
@@ -43,85 +52,33 @@
     }
 
     .login-box {
-      background-color: rgba(0, 0, 0, 0.938);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       flex-direction: row;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      max-width: 700px;
+      max-width: 800px;
       width: 100%;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .login-box:hover {
+      transform: translateY(-5px);
     }
 
     .left-box, .right-box {
-      padding: 30px;
+      padding: 40px;
     }
 
     .left-box {
       flex: 1;
-    }
-
-    .left-box h2 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .left-box p {
-      margin: 4px 0 16px;
-      font-size: 14px;
-    }
-
-    .left-box input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    .left-box button {
-      background-color: #0056b3;
-      color: white;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .left-box button:hover {
-      background-color: #00449e;
-    }
-
-    .right-box {
-      background-color: rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 0.5;
-    }
-
-    .microsoft-btn, .cookies {
-      background: #f25022;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-weight: bold;
-      margin: 5px 0;
-      width: 100%;
-    }
-
-    .microsoft-btn i, .cookies i {
-      margin-right: 10px;
+      gap: 20px;
     }
 
     .box {
@@ -133,29 +90,175 @@
 
     .photo img {
       border-radius: 50%;
+      border: 2px solid #00ff88;
+      padding: 5px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .uni h2 {
+      color: #fff;
+      font-size: 26px;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 135, 0.3);
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #ccc;
+      font-size: 16px;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 10px;
+      font-size: 12px;
+      background: #00ff88;
+      color: #1a1a1a;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
+    .left-box button {
+      background: linear-gradient(45deg, #0056b3, #00ff88);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .left-box button:hover {
+      background: linear-gradient(45deg, #00449e, #00ddeb);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    #formError, #emailError, #passwordError {
+      color: #ff4d4d;
+      font-size: 12px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    #loadingMessage, #successMessage {
+      color: #00ff88;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .left-box p {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .left-box p a {
+      color: #00ff88;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .left-box p a:hover {
+      color: #00ddeb;
+    }
+
+    .right-box {
+      background: rgba(0, 0, 0, 0.7);
+      flex: 0.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .right-box h3 {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .microsoft-btn, .cookies {
+      background: linear-gradient(45deg, #f25022, #ff6f61);
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .microsoft-btn:hover, .cookies:hover {
+      background: linear-gradient(45deg, #d43f1a, #e55a50);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .microsoft-btn i, .cookies i {
+      margin-right: 10px;
     }
 
     @media (max-width: 768px) {
       .login-box {
         flex-direction: column;
+        max-width: 90%;
+      }
+
+      .left-box, .right-box {
+        padding: 20px;
       }
 
       .right-box {
         flex: 1;
-        padding: 20px;
-        width: 100%;
       }
 
-      .left-box {
-        padding: 20px;
-      }
-
-      .box {
-        align-items: center;
+      .uni h2 {
+        font-size: 22px;
       }
 
       .microsoft-btn, .cookies {
-        width: 100%;
         font-size: 14px;
       }
     }
@@ -169,29 +272,35 @@
           <img src="uni vote[1].png" width="80" alt="IIT Patna Logo">
         </div>
         <div class="uni">
-          <h2 style="text-align:center; color: #ccc;">Welcome to uni-vote</h2>
+          <h2>Welcome to UNI-VOTE</h2>
         </div>
       </div>
       <form id="signinForm">
         <small id="formError" style="color: red;"></small>
-        <input type="email" name="email" id="email" placeholder="example@iitp.ac.in" required>
+        <div class="input-group">
+          <input type="email" name="email" id="email" placeholder=" " required>
+          <label for="email">example@iitp.ac.in</label>
+        </div>
         <small id="emailError" style="color: red;"></small>
-        <input type="password" name="password" id="password" placeholder="Enter your password" required>
+        <div class="input-group">
+          <input type="password" name="password" id="password" placeholder=" " required>
+          <label for="password">Enter your password</label>
+        </div>
         <small id="passwordError" style="color: red;"></small>
         <button type="submit">Sign In</button>
       </form>
-      <div id="loadingMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
+      <div id="loadingMessage" style="display: none; text-align: center; margin-bottom: 10px;">
         Sending data to server...
       </div>
-      <div id="successMessage" style="display: none; color: #0084ff; text-align: center; margin-bottom: 10px;">
+      <div id="successMessage" style="display: none; text-align: center; margin-bottom: 10px;">
         Sign In successful! Redirecting...
       </div>
-      <p style="margin-top: 15px; font-size: 14px; text-align: center;">
-        <a href="frorm.html" style="text-decoration: underline; color: #00ff88; font-weight: bold; transition: color 0.3s;">Register</a>
+      <p>
+        <a href="frorm.html" style="text-decoration: underline;">Register</a>
       </p>
     </div>
     <div class="right-box">
-      <h3 style="text-align:center; color: #ccc;">Sign in with</h3>
+      <h3>Sign in with</h3>
       <button class="microsoft-btn"><i class="fab fa-microsoft"></i>Microsoft</button>
       <button class="cookies"><i class="fab fa-google"></i>Google</button>
     </div>
