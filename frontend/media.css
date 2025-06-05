@@ -119,15 +119,15 @@
 
 @media (max-width: 768px) {
 
-  .social-icons {
+    .social-icons {
 
-    display: none !important;
+        display: none !important;
 
-  }
+    }
 
-  .footer {
-    height: 20vh;
-  }
+    .footer {
+        height: 20vh;
+    }
 
 
 }
@@ -138,19 +138,19 @@
 
 
 
-  .nav-item-4 {
-    display: none !important;
-  }
+    .nav-item-4 {
+        display: none !important;
+    }
 
 
 }
 
 @media (min-width: 992px) {
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-     width: 100%;
-  z-index: 9999;
-  }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+    }
 }
