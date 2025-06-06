@@ -10,21 +10,12 @@ const { sendOtp, verifyOtp, resendOtp } = require('../utils/emailOtp');
 const { sendJwtToken } = require('../authenticate/jwtCheck');
 
 exports.signUp = [
-  check('firstname')
+  check('username')
   .trim()
-  .isLength({ min: 2 })
-  .matches(/^[a-zA-Z]+$/)
-  .withMessage('First name must be at least 2 characters long and contain only letters')
+  .isLength({ min: 6 })
+  .withMessage('Username must be at least 6 characters long')
   .notEmpty()
-  .withMessage('First name is required'),
-
-  check('lastname')
-  .trim()
-  .isLength({ min: 2 })
-  .matches(/^[a-zA-Z]+$/)
-  .withMessage('Last name must be at least 2 characters long and contain only letters')
-  .notEmpty().
-  withMessage('Last name is required'), 
+  .withMessage('Username is required'),
 
   check('email')
   .normalizeEmail()
@@ -46,13 +37,13 @@ exports.signUp = [
 
   async (req, res) => {
     try {
-      const { firstname, lastname, email, password } = req.body;
+      const { username, email, password } = req.body;
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          formData: { firstname, lastname, email }
+          formData: { username, email }
         });
       }
 
@@ -64,6 +55,13 @@ exports.signUp = [
         })
       }
 
+      const usernameExists = await Voters.findOne({ username });
+      if (usernameExists) {
+        return res.status(409).json({
+          errors: [{ param: 'username', msg: 'Username Already Exists' }]
+        });
+      }
+
       const otpSent = await sendOtp(email);
 
       if (otpSent.sent === false){
@@ -72,11 +70,12 @@ exports.signUp = [
         });
       }
       else {
-        req.session.formData = { firstname, lastname, email, password };
+        req.session.formData = { username, email, password };
         
         return res.status(200).json({
           errors:[{ msg: otpSent.message, param: 'email' }]
-        })}
+        })
+      }
     } catch (error) {
         console.error('SignUp error:', error);
         res.status(500).json({ 
@@ -88,7 +87,7 @@ exports.signUp = [
 
 exports.saveUserToDb = async (req,res) => {
   const { otp } = req.body;
-  const { firstname, lastname, email, password } = req.session.formData;
+  const { username, email, password } = req.session.formData;
 
   const otpVerified = await verifyOtp(email, otp);
 
@@ -99,8 +98,7 @@ exports.saveUserToDb = async (req,res) => {
   } else {
     const hashedPassword = await bcrypt.hash(password, 12);
     const voter = new Voters({
-      firstname,
-      lastname,
+      username,
       email,
       password: hashedPassword
     });
@@ -123,7 +121,7 @@ exports.saveUserToDb = async (req,res) => {
         });
       });
 
-    sendJwtToken(res, { firstname, lastname, email });
+    sendJwtToken(res, { username, email });
 
     res.status(201).json({
       message: 'User Registered Succesfully.' 
