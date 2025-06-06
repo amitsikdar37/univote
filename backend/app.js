@@ -15,7 +15,7 @@ const registrationRouter = require('./router/registrationRouter');
 const votePageRouter = require('./router/votePageRouter');
 const authenticateRouter = require('./router/authenticateRouter');
 const tokenVerifyRouter = require('./authenticate/tokenVerificationRouter');
-
+const publicClaimRouter = require('./ORACLE/routers/publicClaim');
 
 
 
@@ -78,6 +78,7 @@ app.use(registrationRouter);
 app.use(votePageRouter)
 app.use(authenticateRouter);
 app.use(tokenVerifyRouter);
+app.use(publicClaimRouter);
 
 app.use((req, res, next) => {
   res.setHeader(
