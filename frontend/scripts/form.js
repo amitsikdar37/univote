@@ -13,29 +13,6 @@ function checkDevice() {
 }
 checkDevice(); // Run on page load
 
-// Username validation
-function checkUsername() {
-    const username = document.getElementById('username').value;
-    const errorMsg = document.getElementById('errorMsg');
-    const successMsg = document.getElementById('successMsg');
-    // Regex: At least 8 chars, 1 uppercase, 1 symbol, 1 digit
-    const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
-
-    if (!errorMsg || !successMsg) {
-        console.error('Error: errorMsg or successMsg element not found in HTML');
-        return false;
-    }
-
-    if (regex.test(username)) {
-        errorMsg.style.display = 'none';
-        successMsg.style.display = 'block';
-        return true;
-    } else {
-        errorMsg.style.display = 'block';
-        successMsg.style.display = 'none';
-        return false;
-    }
-}
 
 // Form submission
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -44,12 +21,6 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     document.getElementById('loadingMessage').style.display = 'block';
     document.getElementById('successMessage').style.display = 'none';
     
-    // Client-side username validation
-    if (!checkUsername()) {
-        document.getElementById('loadingMessage').style.display = 'none';
-        return; // Stop submission if username is invalid
-    }
-
     const formData = {
         username: document.getElementById('username').value,
         email: document.getElementById('email').value,
@@ -120,21 +91,6 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
             formError.textContent = 'An error occurred. Please try again.';
             formError.style.display = 'block';
         }
-    }
-});
-
-// Clear errors on input and add real-time validation
-['username', 'email', 'password', 'confirmPassword'].forEach(field => {
-    const input = document.getElementById(field);
-    const errorElement = document.getElementById(`${field}Error`);
-    if (input && errorElement) {
-        input.addEventListener('input', () => {
-            errorElement.textContent = '';
-            errorElement.style.display = 'none';
-            if (field === 'username') {
-                checkUsername(); // Real-time username validation
-            }
-        });
     }
 });
 
