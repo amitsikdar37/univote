@@ -1,20 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    #loading-screen {
-        position: fixed;
-        inset: 0;
-        background: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: sans-serif;
-    }
-
-    body {
-        display: none;
-    }
-</style>
 
 <head>
     <meta charset="utf-8">
@@ -29,6 +14,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link href="about2.css" rel="stylesheet" />
+    <style>
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        body {
+            display: none;
+        }
+    </style>
+</head>
+<title>UNI-VOTE</title>
+<link rel="icon" type="image/x-icon" href="favicon.jpg" sizes="48x48">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="about2.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -61,39 +71,43 @@
                 <!-- Right: Wallet + Logout -->
                 <div class="d-flex align-items-center gap-3">
                     <!-- Connect Wallet Button -->
-                    <button id="connectWalletBtn" class="btn btn-danger">Connect Wallet</button>
+                    <button id="connectWalletBtn" class="nav-action-btn">Connect Wallet</button>
                     <!-- Disconnect Wallet Button (hidden initially) -->
-                    <button id="disconnectWalletBtn" class="btn btn-outline-danger d-none">Disconnect</button>
+                    <button id="disconnectWalletBtn" class="nav-action-btn d-none">Disconnect</button>
                     <!-- Wallet Address -->
                     <span id="walletAddress" class="ms-2 text-success"></span>
                     <!-- Propose Button -->
                     <div class="dropdown">
-                        <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3 bg-danger"
+                        <button class="nav-action-btn d-flex align-items-center gap-2 px-3"
                             type="button" id="propose">
                             🌐 Propose: ...
                         </button>
                     </div>
                     <!-- Logout Button -->
-                    <button id="logoutBtn" class="btn logout-btn">Log Out</button>
+                    <button id="logoutBtn" class="nav-action-btn">Log Out</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="proposal-mode-center">
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            <label class="form-check-label" for="switchCheckDefault">Private mode</label>
+            <label class="form-check-label" for="switchCheckDefault">Proposal mode</label>
         </div>
     </div>
 
     <div class="container my-2" style="display: flex; justify-content: center; align-items: center;">
         <div class="row g-5 d-flex container justify-content-center align-items-center gap-4 flex-wrap"
             style="margin-top: 5px;">
-            <div class="col-lg-4 mb-4">
+            <!-- Define your topic card -->
+            <div class="col-lg-4 mb-4" id="defineTopicCard">
                 <div class="card">
                     <div class="image-container">
                         <img src="Bank Card.png" alt="Proposal Graphic">
+                    </div>
+                    <div class="col-lg-4 mb-4" id="defineTopicCard">
+                        <!-- ...Define your topic card content... -->
                     </div>
                     <div class="proposal-details">
                         <div class="rows">
@@ -114,13 +128,34 @@
                             <textarea class="form-control bg" id="exampleFormControlTextarea1" rows="3"
                                 placeholder="Define Under 45 Words"></textarea>
                         </div>
+                        <!-- Checkboxes start -->
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" id="checkbox1">
+                            <label class="form-check-label" for="checkbox1">
+                                Only recipient of IIT-P id
+                            </label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox2">
+                            <label class="form-check-label" for="checkbox2">
+                                Account must be 10 days old
+                            </label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox3">
+                            <label class="form-check-label" for="checkbox3">
+                                only those who connected x (Account must be 10 days old)
+                            </label>
+                        </div>
+                        <!-- Checkboxes end -->
                     </div>
                     <div class="rows">
                         <span class="save-btn">Start</span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <!-- Proposal card -->
+            <div class="col-lg-4" id="proposalCard">
                 <div class="card">
                     <div class="proposal-details">
                         <div class="rows">
@@ -133,6 +168,11 @@
                     </div>
                     <div class="image-container">
                         <img src="Bank Card (1).png" alt="Proposal Graphic">
+                    </div>
+                    <div class="col-lg-4" id="proposalCard">
+                        <div class="card">
+                            <!-- ...Proposal card content... -->
+                        </div>
                     </div>
                     <div class="proposal-details">
                         <div class="rows">
@@ -159,10 +199,34 @@
                             <strong>Time:</strong>
                             <input type="text" placeholder="Enter Time" class="w-50">
                         </div>
+                        <div class="topic">
+                            <h2 style="font-weight: bold;">Define your topic</h2>
+                            <span></span>
+                            <!-- Checkboxes start -->
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="checkbox1">
+                                <label class="form-check-label" for="checkbox1">
+                                    Only recipient of IIT-P id
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="checkbox2">
+                                <label class="form-check-label" for="checkbox2">
+                                    Account must be 10 days old
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="checkbox3">
+                                <label class="form-check-label" for="checkbox3">
+                                    only those who connected x (Account must be 10 days old)
+                                </label>
+                            </div>
+                            <!-- Checkboxes end -->
+                        </div>
                     </div>
                     <div class="rows">
                         <div class="save-btn"><a href="Proposal.html">Next <i class="fa-solid fa-arrow-right"></i></a>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -171,13 +235,12 @@
     </div>
 
     <footer>
-        <div class="footer-cols">
-            <div class="logo">
-                <figure>
-                    <img src="uni vote[1].png" alt="UNI-VOTE Logo" class="footer-logo" height="100rem" width="30px" />
-                    <p class="text-dark">Uni-Vote is utilizing Base EVM for a decentralized, transparent, and immutable
-                        record of the election process and results.</p>
-                </figure>
+        <div class="footer-cols" style="flex-direction: column; align-items: center;">
+            <img src="uni vote[1].png" alt="UNI-VOTE Logo" class="footer-logo" />
+            <div class="footer-tagline">
+                Empowering Transparent<br>
+                &amp; Secure Voting<br>
+                For Everyone
             </div>
             <a href="us.html" style="color: #fff;">MEET OUR TEAM</a>
             <a href="img.html" style="color: #fff;">ROADMAP</a>
