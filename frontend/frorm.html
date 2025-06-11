@@ -1,13 +1,10 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- <title>Register - UNI-VOTE</title> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UNI-VOTE</title>
-  <link rel="icon" type="image/x-icon" href="favicon.jpg" sizes="48x48">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
-
+  <link rel="icon" type="image/x-icon" href="favicon.jpg" sizes="48x48">
   <style>
     * {
       margin: 0;
@@ -15,38 +12,36 @@
       box-sizing: border-box;
     }
 
-    
-/* Fullscreen background video */
-.video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Make sure video stays in the background */
-}
+    /* Fullscreen background video */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
 
-/* Make the video cover the full page */
-video {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
 
-/* Content section style */
-.hero {
-    position: relative;
-    z-index: 1;
-    color: white;
-    padding: 100px;
-    text-align: center;
-}
-
+    /* Content section style */
+    .hero {
+      position: relative;
+      z-index: 1;
+      color: white;
+      padding: 100px;
+      text-align: center;
+    }
 
     body {
-      font-family: 'Rajdhani', sans-serif;
-
-      background: url("tiwari.jpg") no-repeat center fixed;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url("pbg.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
       background-size: cover;
       min-height: 100vh;
       display: flex;
@@ -54,6 +49,7 @@ video {
       justify-content: center;
       position: relative;
     }
+
     .png {
       position: relative;
       top: 40px;
@@ -150,18 +146,27 @@ video {
       color: #2954aa;
     }
 
-    .nav-item{
+    .nav-item {
       text-align: center;
       font-weight: bold;
-     & a{
- color: #fff;
- text-decoration: none;
-     }
     }
 
+    .nav-item a {
+      color: #fff;
+      text-decoration: none;
+    }
 
+    .error {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
 
-
+    .success {
+      color: lightgreen;
+      font-size: 14px;
+      display: none;
+    }
 
     @media (max-width: 850px) {
       .main-box {
@@ -184,50 +189,50 @@ video {
     <div class="form-box">
       <h1>Create Account</h1>
       <form id="registerForm" method="POST">
-        <input type="text" name="firstname" placeholder="First Name" id="firstname" required />
-        <input type="text" name="lastname" placeholder="Last Name" id="lastname" required />
-        <input type="email" name="email" id="email" placeholder="you@iitp.ac.in" required />
-        <small id="error" style="color: red;"></small>
+        <small id="formError" class="error"></small>
+
+        <input type="text" name="username" placeholder="Username" id="username" required />
+        <small id="usernameError" class="error"></small>
+        <small id="successMsg" class="success">Username is valid!</small>
+
+        <input type="email" name="email" id="email" placeholder="Enter Your Email" required />
+        <small id="emailError" class="error"></small>
+
         <input type="password" name="password" id="password" placeholder="Password" required />
-        <input type="password" name="confirmPassword"id="confirmPassword" placeholder="Confirm Password" required />
-        <small id="confirmPasswordError" style="color: red; display: none;">Passwords do not match</small>
+        <small id="passwordError" class="error"></small>
+
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required />
+        <small id="confirmPasswordError" class="error" style="display: none;">Passwords do not match</small>
+
         <button type="submit">Register</button>
-        <h4>Already have an account? <a href="sign-in.html">Sign In</a></h4>
+        <h4>Already have an account? <a href="login.html">Sign In</a></h4>
       </form>
+
+      <div id="loadingMessage" style="display: none; color: #00ffff; text-align: center; margin-bottom: 10px;">
+        Sending data to server...
+      </div>
+      <div id="successMessage" style="display: none; color: lightgreen; text-align: center; margin-bottom: 10px;">
+        Sending Otp...
+      </div>
+
       <li class="nav-item">
         <a class="nav-link active text-white" aria-current="page" href="#" onclick="logout()">Logout</a>
-    </li>
-    </div> 
-   
-
-
-
-
-
-
-
-    <!-- Right: Voting Image -->
-     <div class="image-box">
-      <img src="back.png" alt="Voting Box" />
+      </li>
     </div>
 
+    <!-- Right: Voting Image -->
+    <!-- <div class="image-box">
+      <img src="back.png" alt="Voting Box" />
+    </div> -->
   </div>
 
-
-
-  <div class="video-background">
+  <!-- <div class="video-background">
     <video autoplay muted loop>
         <source src="video2.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-  </div> 
+  </div> -->
 
-<script type="module" src="./scripts/form.js"></script>  
+  <script type="module" src="./scripts/form.js"></script>
 </body>
 </html>
-
-
-
-
-
-

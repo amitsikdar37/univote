@@ -14,6 +14,8 @@ const verificationRouter = require('./router/verificationRouter');
 const registrationRouter = require('./router/registrationRouter');
 const votePageRouter = require('./router/votePageRouter');
 const authenticateRouter = require('./router/authenticateRouter');
+const tokenVerifyRouter = require('./authenticate/tokenVerificationRouter');
+const publicClaimRouter = require('./ORACLE/routers/publicClaim');
 
 
 
@@ -24,6 +26,7 @@ const allowedOrigins = [
   'https://univote.tech',
   'http://localhost:3000', // local backend
   'https://univote-backend.onrender.com', // production backend
+  'https://univote-gfvv.onrender.com'
 ];
 
 app.use(cors({
@@ -43,6 +46,10 @@ app.use((req, res, next) => {
 });
 
 const isProduction = process.env.NODE_ENV === 'production';
+
+if (isProduction) {
+  app.set('trust proxy', 1); // important for secure cookies behind proxies
+}
 
 app.use(session({
   secret: 'univote',
@@ -70,7 +77,8 @@ app.use(verificationRouter);
 app.use(registrationRouter);
 app.use(votePageRouter)
 app.use(authenticateRouter);
-
+app.use(tokenVerifyRouter);
+app.use(publicClaimRouter);
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -86,7 +94,10 @@ app.use((err, req, res, next) => {
 });
 
 const PORT =  process.env.PORT || 3000;
-mongoose.connect(process.env.MONGODB_URI, { 
+
+const mongo_db = isProduction ? process.env.MONGODB_URI_PRODUCTION : process.env.MONGODB_URI_TESTING; 
+
+mongoose.connect(mongo_db, { 
   useNewUrlParser: true, 
   useUnifiedTopology: true 
 })

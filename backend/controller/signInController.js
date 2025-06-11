@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 require('dotenv').config();
 
 const Voters = require('../models/voter');
+const { sendJwtToken } =  require('../authenticate/jwtCheck');
 
 exports.signIn = [
   check('email')
@@ -14,12 +15,8 @@ exports.signIn = [
   .withMessage('Valid email is required'),
 
   check('password')
-  .trim()
-  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)
-  .withMessage('Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, and one number')
-  .isLength({ min: 6 })
-  .withMessage('Password must be at least 6 characters long'),
-
+  .trim(),
+  
   async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -27,29 +24,22 @@ exports.signIn = [
 
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
-      }
+      }      
 
       const voter =  await Voters.findOne({ email });
       if (!voter) {
-        return res.status(401).json({ message: 'Invalid email or password' });
+        return res.status(401).json({ 
+          errors: [{ param: 'email', msg: 'Email Not Found' }]
+        });
       }
       const isMatch = await bcrypt.compare(password, voter.password);
       if (!isMatch) {
-        return res.status(401).json({ message: 'Invalid email or password' });
+        return res.status(401).json({
+          errors: [{ param: 'password', msg: 'Invalid Password' }]
+        });
       }
       
-      const isProduction = process.env.NODE_ENV === 'production';  
-
-      const Secret_Key = 'univote';
-      const userPayload = { email, password };
-      const token = jwt.sign(userPayload, Secret_Key, { expiresIn: '7d' });
-      
-      res.cookie('token', token, { 
-        httpOnly: true, 
-        secure: isProduction, 
-        sameSite: isProduction ? 'None' : 'Lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000 
-      });
+      sendJwtToken(res, { email });
 
       res.status(200).json({ 
         message: 'SignIn successful'
@@ -59,7 +49,7 @@ exports.signIn = [
 
     } catch (error) {
       console.error('SignIn error:', error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ errors: [{ param: 'form', msg: 'Server Error.' }] });
     }
   }
 ] 

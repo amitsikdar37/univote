@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UNI-VOTE Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="./login.css"/>
+</head>
+<body>
+  <canvas id="scene-canvas"></canvas>
+  <div class="login-box">
+    <div class="left-box">
+      <div class="box">
+        <div class="photo">
+          <img src="uni vote[1].png" width="80" alt="IIT Patna Logo">
+        </div>
+        <div class="uni">
+          <h2>Welcome to UNI-VOTE</h2>
+        </div>
+      </div>
+      <form id="signinForm">
+        <small id="formError" style="color: red; display: none;"></small>
+        <div class="input-group">
+          <input type="email" name="email" id="email" placeholder="" required>
+          <label for="email">Enter Your Registered Email</label>
+        </div>
+        <small id="emailError" style="color: red; display: none;"></small>
+        <div class="input-group">
+          <input type="password" name="password" id="password" placeholder=" " required>
+          <label for="password">Enter your password</label>
+        </div>
+        <small id="passwordError" style="color: red; display: none;"></small>
+        <button type="submit">Sign In</button>
+      </form>
+      <div id="loadingMessage" style="display: none; text-align: center; margin-bottom: 10px;">
+        Sending data to server...
+      </div>
+      <div id="successMessage" style="display: none; text-align: center; margin-bottom: 10px;">
+        Sign In successful! Redirecting...
+      </div>
+      <p>
+        <a href="frorm.html">Register</a>
+      </p>
+    </div>
+    <div class="right-box">
+      <h3>Sign in with</h3>
+      <button class="microsoft-btn"><i class="fab fa-microsoft"></i>Microsoft</button>
+      <button class="google-btn"><i class="fab fa-google"></i>Google</button>
+      <button class="x-btn" onclick="loginWithX()"><i class="fab fa-x-twitter"></i>X</button>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script type="module" src="./scripts/signIn.js"></script>
+</body>
+</html>

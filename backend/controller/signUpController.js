@@ -6,23 +6,16 @@ const path = require('path');
 
 const { check, validationResult } = require('express-validator');
 const Voters = require('../models/voter'); 
+const { sendOtp, verifyOtp, resendOtp } = require('../utils/emailOtp');
+const { sendJwtToken } = require('../authenticate/jwtCheck');
 
 exports.signUp = [
-  check('firstname')
+  check('username')
   .trim()
-  .isLength({ min: 2 })
-  .matches(/^[a-zA-Z]+$/)
-  .withMessage('First name must be at least 2 characters long and contain only letters')
+  .isLength({ min: 6 })
+  .withMessage('Username must be at least 6 characters long')
   .notEmpty()
-  .withMessage('First name is required'),
-
-  check('lastname')
-  .trim()
-  .isLength({ min: 2 })
-  .matches(/^[a-zA-Z]+$/)
-  .withMessage('Last name must be at least 2 characters long and contain only letters')
-  .notEmpty().
-  withMessage('Last name is required'), 
+  .withMessage('Username is required'),
 
   check('email')
   .normalizeEmail()
@@ -30,11 +23,7 @@ exports.signUp = [
   .withMessage('Valid email is required'),
 
   check('password')
-  .trim()
-  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)
-  .withMessage('Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, and one number')
-  .isLength({ min: 6 })
-  .withMessage('Password must be at least 6 characters long'),
+  .trim(),
 
   check('confirmPassword')
   .trim()
@@ -48,53 +37,121 @@ exports.signUp = [
 
   async (req, res) => {
     try {
-      const { firstname, lastname, email, password } = req.body;
+      const { username, email, password } = req.body;
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          formData: { firstname, lastname, email }
+          formData: { username, email }
         });
       }
 
-      const hashedPassword = await bcrypt.hash(password, 12);
-      const voter = new Voters({
-        firstname,
-        lastname,
-        email,
-        password: hashedPassword
-      });
+      const voterExists = await Voters.findOne({ email });
 
-      await voter.save()
-        .then(() => {
-          console.log('Voter saved successfully', voter);
+      if (voterExists) {
+        return res.status(409).json({
+          errors:[{ param: 'email', msg: 'Email Already Exists' }]
         })
-        .catch((error) => {
-          console.error('Error saving voter:', error);
-          return res.status(500).json({ message: 'Error saving voter' });
+      }
+
+      const usernameExists = await Voters.findOne({ username });
+      if (usernameExists) {
+        return res.status(409).json({
+          errors: [{ param: 'username', msg: 'Username Already Exists' }]
         });
+      }
 
-      const isProduction = process.env.NODE_ENV === 'production';  
+      const otpSent = await sendOtp(email);
 
-      const Secret_Key = process.env.SECRET_KEY;
-      const userPayload = { firstname, lastname, email };
-      const token = jwt.sign(userPayload, Secret_Key, { expiresIn: '7d' });
-      
-      res.cookie('token', token, { 
-        httpOnly: true, 
-        secure: isProduction, 
-        sameSite: isProduction ? 'none' : 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000 
-      });
-
-      res.status(201).json({
-        message: 'Voter registered successfully'
-      });
-
+      if (otpSent.sent === false){
+        return res.status(400).json({
+          errors: [{ msg: otpSent.message, param: 'email' }]
+        });
+      }
+      else {
+        req.session.formData = { username, email, password };
+        
+        return res.status(200).json({
+          errors:[{ msg: otpSent.message, param: 'email' }]
+        })
+      }
     } catch (error) {
-      console.error('SignUp error:', error);
-      res.status(500).json({ message: 'Server error' });
-    }
+        console.error('SignUp error:', error);
+        res.status(500).json({ 
+          errors: [{ param: 'form', msg: 'Server Error.' }]
+        }); 
+      }
+  }     
+]
+
+exports.saveUserToDb = async (req,res) => {
+  const { otp } = req.body;
+  const { username, email, password } = req.session.formData;
+
+  const otpVerified = await verifyOtp(email, otp);
+
+  if (otpVerified.verified === false){
+    return res.status(400).json({
+      errors: [{ msg: otpVerified.message, param: 'email' }]
+    });
+  } else {
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const voter = new Voters({
+      username,
+      email,
+      password: hashedPassword
+    });
+
+    await voter.save()
+      .then(() => {
+        console.log('Voter saved successfully', voter);
+      })
+      .catch((error) => {
+        console.error('Error saving voter:', error);
+        if (error.code === 11000 && error.keyPattern?.email) {
+          return res.status(400).json({
+            errors: [{ param: 'email', msg: 'Email already exists' }]
+          });
+        }
+      
+        // Fallback for other DB errors
+        return res.status(500).json({
+          errors: [{ param: 'form', msg: 'Something went wrong. Please try again.' }]
+        });
+      });
+
+    sendJwtToken(res, { username, email });
+
+    res.status(201).json({
+      message: 'User Registered Succesfully.' 
+    });
   }
-]  
+}
+
+exports.resendOtp = async (req,res) => {
+
+try{
+  const { email } = req.session.formData;
+
+  if (!email) {
+    return res.status(400).json({ sent: false, message: 'Email is required' });
+  }
+
+  const response = await resendOtp(email);
+  if (response.sent === false) {
+    return res.status(400).json({ 
+      errors: [{ param: 'form', msg: response.message }]
+    })
+  }
+  return res.status(200).json({
+    message: response.message
+  });
+} catch (error) {
+    console.error('Resend OTP Error:', error);
+    return res.status(500).json({
+      errors: [{ param: 'form', msg: 'Server error while resending OTP' }]
+    });
+  }
+}
+  

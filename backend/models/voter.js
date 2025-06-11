@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 
 const voterSchema = new mongoose.Schema({
-  firstname: {
+  username: {
     type: String,
     required: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -17,11 +14,7 @@ const voterSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  }
+},{ timestamps: true });
 
 module.exports = mongoose.model('Voter', voterSchema);

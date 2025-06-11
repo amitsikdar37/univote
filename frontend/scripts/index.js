@@ -18,24 +18,7 @@ async function fetchGasPrice() {
 fetchGasPrice();
 setInterval(fetchGasPrice, 5000);
 
-// Function to check and show the message if on mobile or tablet
- function checkDevice() {
-   if (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|Tablet/i.test(navigator.userAgent)) {
-       alert("This application is only supported on Windows. It is not supported on Android or mobile devices.");
-      window.location.href = "unsupported.html"; // Or window.history.back();
-  }
-}
-
-// Initial check when page loads
-checkDevice();
-
-// Check on window resize
-window.addEventListener('resize', function() {
-  checkDevice();
-});
-
 const launchButton = document.getElementById("launch-app-btn");
-const registerButton = document.getElementById("register-btn");
 
 const launchapp = async function launchApp() {
   try{
@@ -50,11 +33,29 @@ const launchapp = async function launchApp() {
     if (response.ok) {
       window.location.href = './about2.html';
     } else {
-      window.location.href = './frorm.html';
+      window.location.href = './login.html';
     }
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
+window.addEventListener('load', () => {
+  const splashScreen = document.getElementById('splash-screen');
+  const mainContent = document.getElementById('main-content');
+
+  // Splash screen ko 2.5 seconds tak dikhayein
+  setTimeout(() => {
+      splashScreen.classList.add('hidden'); // Fade out class add karein
+
+      // Splash screen ke poori tarah se gayab hone ke baad (transition duration ke baad)
+      // main content ko visible karein
+      setTimeout(() => {
+          splashScreen.style.display = 'none'; // DOM se remove karein (optional, par accha practice hai)
+          mainContent.classList.add('visible'); // Fade in class add karein
+      }, 800); // Yeh duration splash screen ke CSS transition se match hona chahiye (0.8s)
+  }, 2500); // 2.5 seconds ka delay
+});
+
 launchButton.addEventListener("click", launchapp);
+
