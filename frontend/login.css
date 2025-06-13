@@ -181,13 +181,16 @@ body {
   display: block;
   text-shadow: 0 0 3px rgba(255, 82, 82, 0.3);
 }
-#emailError{
+#emailError {
   font-size: 12px;
   margin-bottom: 20px;
-  margin-left:400px ;
-  align-items: center;
-  justify-content: center;
+  color: #ff5252;
+  text-align: right;           /* Yeh line add karein */
+  width: 100%;                 /* Full width le */
+  display: block;
   text-shadow: 0 0 3px rgba(255, 82, 82, 0.3);
+  /* margin-left: 100px;  <-- isko hata dein */
+  /* align-items, justify-content ki zarurat nahi */
 }
 
 #loadingMessage, #successMessage {
