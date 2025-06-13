@@ -57,14 +57,14 @@ exports.signIn = [
 ] 
 
 exports.googleSignIn = async (req, res) => {
-  const { idToken } = req.body;
-  if (!idToken) {
-    return res.status(400).json({ errors: [{ param: 'idToken', msg: 'ID Token is required' }] });
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ errors: [{ param: 'token', msg: 'ID Token is required' }] });
   }
 
   try {
     const ticket = await client.verifyIdToken({
-      idToken,
+      idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
