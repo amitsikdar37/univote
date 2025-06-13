@@ -6,7 +6,8 @@ async function fetchGasPrice() {
     const data = await response.json();
 
     if (data.status === "1" & data.message === "OK") {
-      propose.innerText = ` ${data.result.ProposeGasPrice} Gas Fee`;
+      const gasPrice = parseFloat(data.result.ProposeGasPrice);
+      propose.innerText = ` ${gasPrice.toFixed(2)} Gas Fee`;
     } else {
       propose.innerText = "Error!";
     }

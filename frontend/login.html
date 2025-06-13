@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="referrer" content="no-referrer-when-downgrade">
   <title>UNI-VOTE Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="stylesheet" href="./login.css"/>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
   <canvas id="scene-canvas"></canvas>
@@ -22,8 +24,8 @@
       <form id="signinForm">
         <small id="formError" style="color: red; display: none;"></small>
         <div class="input-group">
-          <input type="email" name="email" id="email" placeholder=" " required>
-          <label for="email">example@iitp.ac.in</label>
+          <input type="email" name="email" id="email" placeholder="" required>
+          <label for="email">Enter Your Registered Email</label>
         </div>
         <small id="emailError" style="color: red; display: none;"></small>
         <div class="input-group">
@@ -45,8 +47,8 @@
     </div>
     <div class="right-box">
       <h3>Sign in with</h3>
-      <button class="microsoft-btn"><i class="fab fa-microsoft"></i>Microsoft</button>
-      <button class="google-btn"><i class="fab fa-google"></i>Google</button>
+      <button class="microsoft-btn" ><i class="fab fa-microsoft"></i>Microsoft</button>
+      <button class="google-btn" id="g_id_signin"><i class="fab fa-google"></i>Google</button>
       <button class="x-btn" onclick="loginWithX()"><i class="fab fa-x-twitter"></i>X</button>
     </div>
   </div>

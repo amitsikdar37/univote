@@ -1,9 +1,16 @@
 const crypto = require('crypto');
-const { poseidon } = require('circomlibjs');
+const circomlib = require('circomlibjs');
+
+let poseidonInstance;
+(async () => {
+  poseidonInstance = await circomlib.buildPoseidon();
+})();
 
 const Voters = require('../../models/voter');
 
 const ElectionCriteria = require('../../models/election_criteria');
+
+
 
 function sha256ToBigInt(data) {
   const hash = crypto.createHash('sha256').update(data).digest('hex');
@@ -15,10 +22,20 @@ function generatePublicAttestationNonce(userId, electionId) {
   const electionHash = sha256ToBigInt(electionId);
   const randomField = BigInt('0x' + crypto.randomBytes(31).toString('hex')); // 248-bit
 
-  const nonce = poseidon([userHash, electionHash, randomField]);
+  if (!poseidonInstance) {
+    throw new Error("Poseidon not initialized yet");
+  }
+
+  const hashOutput = poseidonInstance([userHash, electionHash, randomField]);
+  const nonce = poseidonInstance.F.toString(hashOutput);
+
   return {
-    nonce: nonce.toString(),
-    components: { userHash: userHash.toString(), electionHash: electionHash.toString(), randomField: randomField.toString() }
+    nonce,
+    components: {
+      userHash: userHash.toString(),
+      electionHash: electionHash.toString(),
+      randomField: randomField.toString()
+    }
   };
 }
 

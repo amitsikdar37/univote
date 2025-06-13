@@ -80,7 +80,8 @@ async function fetchGasPrice() {
     const data = await response.json();
 
     if (data.status === "1" && data.message === "OK" && data.result?.ProposeGasPrice) {
-      proposeButton.innerText = `🌐 Propose: ${data.result.ProposeGasPrice} Gas Fee`;
+      const gasPrice = parseFloat(data.result.ProposeGasPrice).toFixed(2);
+      proposeButton.innerText = `🌐 Propose: ${gasPrice} Gas Fee`;
     } else {
       proposeButton.innerText = "🌐 Propose: Error!";
       console.warn("Invalid gas price response:", data);
