@@ -14,7 +14,7 @@ exports.sendOtp = async (email) => {
     pass: process.env.EMAIL_PASS // Use App Password (not your Gmail password)
   },
   tls: process.env.NODE_ENV !== 'production' ? { rejectUnauthorized: false } : undefined
-});
+  });
 
   // Generate a random OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
@@ -24,7 +24,7 @@ exports.sendOtp = async (email) => {
     from: 'univote.tech@gmail.com',
     to: email,
     subject: 'Your OTP Code',
-    text: `Your OTP is ${otp}. It is valid for 1 minutes.`
+    text: `Your OTP is ${otp}. It is valid for 10 minutes.`
   };
   
   try {
@@ -58,7 +58,7 @@ exports.verifyOtp = async ( email, otp) => {
     const now = Date.now();
     const otpAge = now - savedOtp.createdAt.getTime();
 
-    if (otpAge > 60 * 1000) {
+    if (otpAge > 10 * 60 * 1000) {
       await Otp.deleteOne({ email }); // Clean up
       return ({ 
         verified: false,
