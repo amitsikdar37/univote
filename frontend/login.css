@@ -191,6 +191,14 @@ body {
   display: block;
   text-shadow: 0 0 3px rgba(255, 82, 82, 0.3);
 }
+#emailError{
+  font-size: 12px;
+  margin-bottom: 25px;
+  margin-left:400px ;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0 3px rgba(255, 82, 82, 0.3);
+}
 
 #loadingMessage, #successMessage {
   color: #00bfff;
