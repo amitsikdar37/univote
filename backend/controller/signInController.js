@@ -71,9 +71,11 @@ exports.googleSignIn = async (req, res) => {
     const payload = ticket.getPayload();
     const { email, sub: googleId, name } = payload;
 
+    const username = email.split('@')[0];
+
     let voter = await Voters.findOne({ googleId });
     if (!voter) {
-      voter = new Voters({ email, googleId, name });
+      voter = new Voters({ email, googleId, name, username });
       await voter.save();
     }
 
