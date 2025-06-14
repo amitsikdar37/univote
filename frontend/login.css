@@ -11,35 +11,25 @@ body {
   justify-content: center;
   min-height: 100vh;
   background: #000000;
-  padding: 20px;
-  position: relative;
+  padding: 0;
+  margin: 0;
   overflow: hidden;
 }
 
 #scene-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0.85;
+  display: none;
 }
 
 .login-box {
-  background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 191, 255, 0.2);
-  border: 1px solid rgba(0, 191, 255, 0.25);
-  display: flex;
-  flex-direction: row;
-  max-width: 900px;
+  position: relative;
+  z-index: 2;
+  max-width: 400px;       /* Fixed width for classic look */
   width: 100%;
   overflow: hidden;
-  position: relative;
   transition: all 0.4s ease;
-  z-index: 1;
+  background: rgba(26, 26, 26, 0.92);
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 191, 255, 0.3);
 }
 
 .login-box:hover {
@@ -191,6 +181,17 @@ body {
   display: block;
   text-shadow: 0 0 3px rgba(255, 82, 82, 0.3);
 }
+#emailError {
+  font-size: 12px;
+  margin-bottom: 20px;
+  color: #ff5252;
+  text-align: right;           /* Yeh line add karein */
+  width: 100%;                 /* Full width le */
+  display: block;
+  text-shadow: 0 0 3px rgba(255, 82, 82, 0.3);
+  /* margin-left: 100px;  <-- isko hata dein */
+  /* align-items, justify-content ki zarurat nahi */
+}
 
 #loadingMessage, #successMessage {
   color: #00bfff;
@@ -220,14 +221,15 @@ body {
 }
 
 .right-box {
-  background: linear-gradient(135deg, #1a1a1a, #252525);
-  flex: 0.5;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;   /* row se column kar diya */
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  border-left: 1px solid rgba(0, 191, 255, 0.15);
+  gap: 16px;                /* thoda gap vertical */
+  background: none;
+  border-left: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 .right-box h3 {
@@ -240,7 +242,8 @@ body {
 }
 
 .microsoft-btn, .google-btn, .x-btn {
-  width: 100%;
+  width: 100%;              /* har button full width le */
+  margin-bottom: 0;         /* agar pehle margin diya ho to hata dein */
 }
 
 .microsoft-btn i, .google-btn i, .x-btn i {
