@@ -32,16 +32,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ==== Proposal mode toggle logic START ====
     const proposalSwitch = document.getElementById('switchCheckDefault');
-    const defineTopicCard = document.getElementById('defineTopicCard');
+    const voting-toping-card = document.getElementById('voting-toping-card');
     const proposalCard = document.getElementById('proposalCard');
 
     function toggleProposalMode() {
-      if (proposalSwitch && defineTopicCard && proposalCard) {
+      if (proposalSwitch && voting-toping-card && proposalCard) {
         if (proposalSwitch.checked) {
-          defineTopicCard.style.display = 'none';
+          voting-toping-card.style.display = 'none';
           proposalCard.style.display = '';
         } else {
-          defineTopicCard.style.display = '';
+          voting-toping-card.style.display = '';
           proposalCard.style.display = '';
         }
       }
