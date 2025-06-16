@@ -282,11 +282,13 @@
               🌐 Propose: ...
             </button>
           </div>
-          <!-- Username container, hidden by default -->
-          <div id="navbar-username" class="bg-light text-dark rounded-pill px-3 py-1" style="display: none; font-weight: 600;"></div>
-          <a href="login.html" id="login-btn">
-            <button class="btn btn-login rounded-pill px-4">Login</button>
-          </a>
+          <!-- Username/Login placeholder: Show only one at a time -->
+          <div id="navbar-user-placeholder">
+            <a href="login.html" id="login-btn">
+              <button class="btn btn-login rounded-pill px-4">Login</button>
+            </a>
+            <span id="navbar-username" class="bg-light text-dark rounded-pill px-3 py-1" style="display: none; font-weight: 600;"></span>
+          </div>
         </div>
       </div>
     </div>
