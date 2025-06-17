@@ -40,8 +40,10 @@ exports.signIn = [
           errors: [{ param: 'password', msg: 'Invalid Password' }]
         });
       }
-      
-      sendJwtToken(res, { email });
+
+      const username = voter.username; 
+
+      sendJwtToken(res, { email, username });
 
       res.status(200).json({ 
         message: 'SignIn successful'
@@ -69,17 +71,17 @@ exports.googleSignIn = async (req, res) => {
     });
 
     const payload = ticket.getPayload();
-    const { email, sub: googleId, name } = payload;
+    const { email, sub: googleId } = payload;
 
     const username = email.split('@')[0];
 
     let voter = await Voters.findOne({ googleId });
     if (!voter) {
-      voter = new Voters({ email, googleId, name, username });
+      voter = new Voters({ email, googleId, username });
       await voter.save();
     }
 
-    sendJwtToken(res, { email });
+    sendJwtToken(res, { email, username });
 
     res.status(200).json({ message: 'Google SignIn successful' });
   } catch (error) {
