@@ -49,6 +49,7 @@ body {
     background-color: rgb(0, 0, 0, 1);
     color: white;
 }
+
 #connectWalletBtn,
 #disconnectWalletBtn,
 #logoutBtn {
@@ -164,15 +165,15 @@ body {
     min-height: 600px;
     max-height: 100vh;
     flex-shrink: 0;
-    border-radius: 32px;
-    border: 14px solid #EFF0F6;
-    background: #FFF;
-    box-shadow: 0px 2px 12px 0px rgba(20, 20, 43, 0.08);
+    border-radius: 16px;
+    border: 1px solid #E5E7EB;
+    background: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: stretch;
     align-items: stretch;
-    margin: 32px 0;
+    margin: 0;
     overflow: hidden;
 }
 
@@ -180,10 +181,10 @@ body {
     width: 656px;
     height: 200px;
     flex-shrink: 0;
-    border-radius: 32px;
-    border: 14px solid #EFF0F6;
+    border-radius: 16px;
+    border: 1px solid #E5E7EB;
     background: #183EC2;
-    box-shadow: 0px 2px 12px 0px rgba(20, 20, 43, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     padding: 24px;
     color: #fff;
     display: flex;
@@ -268,10 +269,10 @@ body {
 #voting-buttons-card,
 .custom-card,
 .timer-card {
-    background: #FFF;
-    border: 14px solid #EFF0F6;
-    border-radius: 32px;
-    box-shadow: 0px 2px 12px 0px rgba(20, 20, 43, 0.08);
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     padding: 34px 31px;
     width: 313px;
     box-sizing: border-box;
@@ -343,8 +344,8 @@ body {
     #progress-card {
         width: 98vw;
         min-width: unset;
-        border-width: 6px;
-        border-radius: 16px;
+        border-width: 1px;
+        border-radius: 12px;
     }
 
     .card-body {
@@ -383,6 +384,13 @@ body {
         left: 36px;
         width: 2px;
         height: calc(100% + 16px);
+    }
+
+    .card-container {
+        width: 98vw;
+        height: auto;
+        padding: 24px;
+        border-radius: 24px;
     }
 }
 
@@ -723,7 +731,7 @@ footer {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 0;
     box-sizing: border-box;
     width: 100%;
     max-width: 313px;
@@ -751,13 +759,23 @@ footer {
 .control-btn {
     max-width: 100%;
     color: #0496FF;
-    white-space: normal;        /* Text wrap ho */
-    word-break: break-word;     /* Lambe words bhi wrap ho */
-    overflow-wrap: break-word;  /* Extra safety for wrapping */
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
     box-sizing: border-box;
     padding-left: 16px;
     padding-right: 16px;
     border-radius: 14px;
+}
+
+.card-container {
+    width: 1093px;
+    height: 1349px;
+    border-radius: 37px;
+    background: lightgray url('background-pattern.jpg') 0% 0% / 105.49999475479126px 105.49999475479126px repeat;
+    padding: 48px;
+    box-sizing: border-box;
+    margin: 0 auto;
 }
 
 .container-row {
@@ -765,14 +783,14 @@ footer {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 48px;
+    gap: 32px;
 }
 
 .card-column {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 32px;
+    align-items: flex-start;
+    gap: 24px;
 }
 
 /* Navbar text styling */
@@ -823,10 +841,10 @@ footer {
 #voting-buttons-card,
 #live-result-card,
 #progress-indicator-card {
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px 0 rgba(24, 62, 194, 0.07);
-    border: none;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E5E7EB;
 }
 
 /* Button text */

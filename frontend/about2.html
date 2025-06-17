@@ -70,185 +70,188 @@
     <div class="layout-gradient-bg min-vh-100 d-flex flex-column">
         <div class="flex-grow-1 d-flex justify-content-center align-items-start" style="padding-top: 40px;">
             <div class="container">
-                <div class="row justify-content-center align-items-start g-4">
-                    <!-- Left Column: Voting Topic Card and Progress Card -->
-                    <div class="col-auto d-flex flex-column gap-4">
-                        <!-- Voting Topic Card -->
-                        <div id="voting-topic-card">
-                            <div class="card-body p-4">
-                                <!-- Voting Topic Placeholder -->
-                                <div style="position: relative; width: 589px; height: 255px; margin: 0 auto;">
-                                    <div class="placeholder-wrapper" id="topicPlaceholderWrapper">
-                                        <div class="custom-placeholder-inside" id="customPlaceholder" onclick="activateTopicInput()"
-                                            style="cursor: text;">
-                                            <div class="placeholder-title-inside">
-                                              <span style="color: #000; font-weight: 700;">Voting </span>
-                                              <span style="color: #ff3ea5; font-weight: 700;">Topic</span>
+                <!-- New Card Container -->
+                <div class="card-container">
+                    <div class="row justify-content-center align-items-start g-4">
+                        <!-- Left Column: Voting Topic Card and Progress Card -->
+                        <div class="col-auto d-flex flex-column gap-4 align-items-start">
+                            <!-- Voting Topic Card -->
+                            <div id="voting-topic-card">
+                                <div class="card-body p-4">
+                                    <!-- Voting Topic Placeholder -->
+                                    <div style="position: relative; width: 589px; height: 255px; margin: 0 auto;">
+                                        <div class="placeholder-wrapper" id="topicPlaceholderWrapper">
+                                            <div class="custom-placeholder-inside" id="customPlaceholder" onclick="activateTopicInput()"
+                                                style="cursor: text;">
+                                                <div class="placeholder-title-inside">
+                                                  <span style="color: #000; font-weight: 700;">Voting </span>
+                                                  <span style="color: #ff3ea5; font-weight: 700;">Topic</span>
+                                                </div>
+                                                <div class="placeholder-desc-inside">Define here</div>
                                             </div>
-                                            <div class="placeholder-desc-inside">Define here</div>
+                                            <textarea class="form-control bg mt-2 topic-textarea"
+                                                id="exampleFormControlTextarea1"
+                                                style="display: none;"
+                                                maxlength="200"
+                                                placeholder=""
+                                                onblur="deactivateTopicInput()"
+                                            ></textarea>
                                         </div>
-                                        <textarea class="form-control bg mt-2 topic-textarea"
-                                            id="exampleFormControlTextarea1"
-                                            style="display: none;"
-                                            maxlength="200"
-                                            placeholder=""
-                                            onblur="deactivateTopicInput()"
-                                        ></textarea>
                                     </div>
-                                </div>
 
-                                <!-- Details Section -->
-                                <div class="details-section mt-3">
-                                    <div class="details-title">Details</div>
-                                    <div class="details-content details-column">
-                                        <div class="detail-item">
-                                            <span class="detail-label">Election ID:</span>
-                                            <span class="detail-value" id="electionIdValue">12345</span>
-                                        </div>
-                                        <div class="detail-item">
-                                            <span class="detail-label">Count Till Now:</span>
-                                            <span class="detail-value" id="countTillNowValue">67</span>
+                                    <!-- Details Section -->
+                                    <div class="details-section mt-3">
+                                        <div class="details-title">Details</div>
+                                        <div class="details-content details-column">
+                                            <div class="detail-item">
+                                                <span class="detail-label">Election ID:</span>
+                                                <span class="detail-value" id="electionIdValue">12345</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="detail-label">Count Till Now:</span>
+                                                <span class="detail-value" id="countTillNowValue">67</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Bootstrap Switch Checkboxes -->
-                                <div class="mt-4">
-                                    <div class="form-check form-switch mb-2">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheck1">
-                                        <label class="form-check-label" for="flexSwitchCheck1">Only receipents of IIT-P i'd</label>
+                                    <!-- Bootstrap Switch Checkboxes -->
+                                    <div class="mt-4">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck1">
+                                            <label class="form-check-label" for="flexSwitchCheck1">Only receipents of IIT-P i'd</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck2">
+                                            <label class="form-check-label" for="flexSwitchCheck2">Account must be 10 days old</label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck3">
+                                            <label class="form-check-label" for="flexSwitchCheck3">X Account must be 10 days old</label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck4">
+                                            <label class="form-check-label" for="flexSwitchCheck4">G-mail Account must be 10 days old</label>
+                                        </div>
                                     </div>
-                                    <div class="form-check form-switch mb-2">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheck2">
-                                        <label class="form-check-label" for="flexSwitchCheck2">Account must be 10 days old</label>
+                                    <!-- After the last checkbox -->
+                                    <div class="mt-3 mb-2 text-center fw-semibold" style="color: #2355d6; cursor: pointer;">
+                                        Click to add more sections
                                     </div>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheck3">
-                                        <label class="form-check-label" for="flexSwitchCheck3">X Account must be 10 days old</label>
-                                    </div>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheck4">
-                                        <label class="form-check-label" for="flexSwitchCheck4">G-mail Account must be 10 days old</label>
+                                    <div class="input-section-list d-flex flex-column gap-3">
+                                        <div class="input-section d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control section-input" placeholder="Section Title">
+                                            <button class="btn btn-outline-primary plus-btn" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-section d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control section-input" placeholder="Section Title">
+                                            <button class="btn btn-outline-primary plus-btn" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-section d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control section-input" placeholder="Section Title">
+                                            <button class="btn btn-outline-primary plus-btn" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- After the last checkbox -->
-                                <div class="mt-3 mb-2 text-center fw-semibold" style="color: #2355d6; cursor: pointer;">
-                                    Click to add more sections
+                            </div>
+                            <!-- Progress Card -->
+                            <div id="progress-card">
+                                <div class="progress-steps">
+                                    <div class="step completed">
+                                        <div class="step-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="step-label">Transaction passed ZKP circuit</div>
+                                    </div>
+                                    <div class="step completed">
+                                        <div class="step-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="step-label">Transaction signed</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-icon">3</div>
+                                        <div class="step-label">Waiting for block confirmation</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-icon">4</div>
+                                        <div class="step-label">Transaction confirmed successfully</div>
+                                    </div>
                                 </div>
-                                <div class="input-section-list d-flex flex-column gap-3">
-                                    <div class="input-section d-flex align-items-center gap-2">
-                                        <input type="text" class="form-control section-input" placeholder="Section Title">
-                                        <button class="btn btn-outline-primary plus-btn" type="button">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="input-section d-flex align-items-center gap-2">
-                                        <input type="text" class="form-control section-input" placeholder="Section Title">
-                                        <button class="btn btn-outline-primary plus-btn" type="button">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="input-section d-flex align-items-center gap-2">
-                                        <input type="text" class="form-control section-input" placeholder="Section Title">
-                                        <button class="btn btn-outline-primary plus-btn" type="button">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                                <div class="progress-date">17 Jun 2025 20:55</div>
                             </div>
                         </div>
-                        <!-- Progress Card -->
-                        <div id="progress-card">
-                            <div class="progress-steps">
-                                <div class="step completed">
-                                    <div class="step-icon">
-                                        <i class="fas fa-check-circle"></i>
+                        <!-- Right Column: Timer, Live Results, and Voting Buttons Cards -->
+                        <div class="col-auto d-flex flex-column gap-4 card-column align-items-start">
+                            <!-- Timer Card -->
+                            <div class="timer-card d-flex flex-column align-items-center justify-content-center">
+                                <div class="timer-title mb-3">Timer</div>
+                                <div class="timer-circle-wrapper d-flex align-items-center justify-content-center" style="position: relative;">
+                                    <svg class="timer-svg" width="180" height="180" viewBox="0 0 180 180">
+                                        <defs>
+                                            <linearGradient id="timerGradient" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+                                                <stop offset="0.4" stop-color="#E8EDFF"/>
+                                                <stop offset="1" stop-color="#183EC2"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <circle
+                                            cx="90"
+                                            cy="90"
+                                            r="80"
+                                            stroke="url(#timerGradient)"
+                                            stroke-width="12"
+                                            fill="none"
+                                            stroke-linecap="round"
+                                            stroke-dasharray="502"
+                                            stroke-dashoffset="0"
+                                            id="timerCircle"
+                                        />
+                                    </svg>
+                                    <div class="timer-value" id="timerValue"
+                                         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                                                font-size: 2.2rem; font-weight: 700; color: #183EC2; font-family: 'Inter', sans-serif;">
+                                        00:00
                                     </div>
-                                    <div class="step-label">Transaction passed ZKP circuit</div>
                                 </div>
-                                <div class="step completed">
-                                    <div class="step-icon">
-                                        <i class="fas fa-check-circle"></i>
+                            </div>
+                            <!-- Live Result Card -->
+                            <div id="live-result-card" style="display:flex; flex-direction:column; justify-content:flex-start; padding:34px 31px;">
+                                <div style="font-weight:700; font-size:1.3rem; color:#183EC2; margin-bottom:32px;">Live Results</div>
+                                <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#00C5C9; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">No</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#3A0CA3; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">Maybe</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#FFD600; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">Yes</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:16px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#F72585; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">IDK</span>
+                                </div>
+                            </div>
+                            <!-- Voting Buttons Card -->
+                            <div id="voting-buttons-card">
+                                <div class="voting-card-title" style="font-weight: 700; font-size: 1.2rem; color: #183EC2; margin-bottom: 24px;">
+                                    Voting Controls
+                                </div>
+                                <div class="voting-buttons-list" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <button class="voting-btn start-voting">Start Voting</button>
+                                    <div style="display: flex; flex-direction: row; gap: 16px;">
+                                        <button class="control-btn">Copy Voting Link</button>
+                                        <button class="control-btn">Track Rxn</button>
                                     </div>
-                                    <div class="step-label">Transaction signed</div>
+                                    <button class="voting-btn end-voting">End Voting</button>
                                 </div>
-                                <div class="step">
-                                    <div class="step-icon">3</div>
-                                    <div class="step-label">Waiting for block confirmation</div>
-                                </div>
-                                <div class="step">
-                                    <div class="step-icon">4</div>
-                                    <div class="step-label">Transaction confirmed successfully</div>
-                                </div>
-                            </div>
-                            <div class="progress-date">17 Jun 2025 15:01</div>
-                        </div>
-                    </div>
-                    <!-- Right Column: Timer, Live Results, and Voting Buttons Cards -->
-                    <div class="col-auto d-flex flex-column gap-4 card-column">
-                        <!-- Timer Card -->
-                        <div class="timer-card d-flex flex-column align-items-center justify-content-center">
-                            <div class="timer-title mb-3">Timer</div>
-                            <div class="timer-circle-wrapper d-flex align-items-center justify-content-center" style="position: relative;">
-                                <svg class="timer-svg" width="180" height="180" viewBox="0 0 180 180">
-                                    <defs>
-                                        <linearGradient id="timerGradient" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
-                                            <stop offset="0.4" stop-color="#E8EDFF"/>
-                                            <stop offset="1" stop-color="#183EC2"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <circle
-                                        cx="90"
-                                        cy="90"
-                                        r="80"
-                                        stroke="url(#timerGradient)"
-                                        stroke-width="12"
-                                        fill="none"
-                                        stroke-linecap="round"
-                                        stroke-dasharray="502"
-                                        stroke-dashoffset="0"
-                                        id="timerCircle"
-                                    />
-                                </svg>
-                                <div class="timer-value" id="timerValue"
-                                     style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                                            font-size: 2.2rem; font-weight: 700; color: #183EC2; font-family: 'Inter', sans-serif;">
-                                    00:00
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Live Result Card -->
-                        <div id="live-result-card" style="display:flex; flex-direction:column; justify-content:flex-start; padding:34px 31px;">
-                            <div style="font-weight:700; font-size:1.3rem; color:#183EC2; margin-bottom:32px;">Live Results</div>
-                            <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
-                                <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#00C5C9; margin-right:16px;"></span>
-                                <span style="font-size:1.1rem; font-weight:500;">No</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
-                                <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#3A0CA3; margin-right:16px;"></span>
-                                <span style="font-size:1.1rem; font-weight:500;">Maybe</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
-                                <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#FFD600; margin-right:16px;"></span>
-                                <span style="font-size:1.1rem; font-weight:500;">Yes</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:16px;">
-                                <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#F72585; margin-right:16px;"></span>
-                                <span style="font-size:1.1rem; font-weight:500;">IDK</span>
-                            </div>
-                        </div>
-                        <!-- Voting Buttons Card -->
-                        <div id="voting-buttons-card">
-                            <div class="voting-card-title" style="font-weight: 700; font-size: 1.2rem; color: #183EC2; margin-bottom: 24px;">
-                                Voting Controls
-                            </div>
-                            <div class="voting-buttons-list" style="display: flex; flex-direction: column; gap: 12px;">
-                                <button class="voting-btn start-voting">Start Voting</button>
-                                <div style="display: flex; flex-direction: row; gap: 16px;">
-                                    <button class="control-btn">Copy Voting Link</button>
-                                    <button class="control-btn">Track Rxn</button>
-                                </div>
-                                <button class="voting-btn end-voting">End Voting</button>
                             </div>
                         </div>
                     </div>
