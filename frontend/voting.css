@@ -4,8 +4,7 @@ body {
     box-sizing: border-box;
 }
 
-body,
-html {
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -13,7 +12,12 @@ html {
 
 body {
     min-height: 100vh;
-    background: linear-gradient(189deg, #E8EDFF 39.84%, #183EC2 92.29%);
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 .navbar {
@@ -481,6 +485,9 @@ footer {
     color: #fff;
     padding: 60px 0;
     box-sizing: border-box;
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .univote-footer {
