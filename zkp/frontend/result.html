@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Results</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+  <div class="container py-5 text-center">
+    <h2>Election Results</h2>
+    <div id="results" class="mt-4"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="js/config.js"></script>
+  <script>
+    async function loadResults() {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+      let resultHTML = "";
+
+      for (let i = 0; i < 5; i++) {
+        const votes = await contract.proposalVotes(i);
+        resultHTML += `<p>Proposal ${i}: ${votes.toString()} votes</p>`;
+      }
+
+      document.getElementById("results").innerHTML = resultHTML;
+    }
+    loadResults();
+  </script>
+</body>
+</html>
