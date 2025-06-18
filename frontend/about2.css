@@ -311,7 +311,7 @@ body {
 }
 
 .section-input {
-    border游客: none;
+    border: none;
     background: transparent;
     font-size: 1rem;
     flex: 1;
@@ -472,7 +472,6 @@ body {
     min-height: 100vh;
     background: linear-gradient(135deg, #E8EDFF 0%, #FFF 100%);
 }
-
 /* Footer Styles */
 footer {
     display: flex;
@@ -511,7 +510,7 @@ footer {
 
 .footer-cols {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 30px;
     margin: 0 auto;
 }
@@ -521,13 +520,14 @@ footer {
     max-width: 300px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .footer-logo {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    box-shadow: rgb(102, 17, 24);
+    /* border-radius: 50%; */
     background: #fff;
     margin-bottom: 10px;
     margin-right: 32px;
@@ -542,14 +542,14 @@ footer {
     margin-bottom: 10px;
 }
 
-.footer-description {
+/* .footer-description {
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     font-weight: 400;
     color: #fff;
     line-height: 1.5;
-    max-width: 300px;
-}
+    max-width: 300px; */
+/* } */
 
 .footer-col-title {
     font-family: 'Poppins', sans-serif;
@@ -563,7 +563,7 @@ footer {
 .footer-links {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 35px;
 }
 
 .footer-link {
@@ -582,7 +582,7 @@ footer {
 .footer-contact {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 35px;
 }
 
 .contact-item {
@@ -602,11 +602,10 @@ footer {
 
 .footer-copyright {
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 400;
+    font-size: 1.5rem;
+    font-weight:bolder;
     color: #fff;
-    text-align: center;
-    margin-top: 20px;
+  
 }
 
 .footer-container,
@@ -626,7 +625,7 @@ footer {
     font-size: 1.18rem;
     font-weight: 700;
     color: #f3f6ff;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
     text-transform: uppercase;
 }
 
@@ -674,8 +673,8 @@ footer {
     }
 
     .footer-logo {
-        width: 48px;
-        height: 48px;
+        width: 90px;
+        height: 90px;
     }
 
     .footer-tagline {
@@ -685,13 +684,14 @@ footer {
     .footer-description,
     .footer-link,
     .contact-item {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 
     .footer-col-title {
         font-size: 0.95rem;
     }
 }
+
 
 .timer-card {
     height: 407px;
