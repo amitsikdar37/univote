@@ -32,16 +32,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ==== Proposal mode toggle logic START ====
     const proposalSwitch = document.getElementById('switchCheckDefault');
-    const defineTopicCard = document.getElementById('defineTopicCard');
+    const votingTopicCard = document.getElementById('voting-topic-card');
     const proposalCard = document.getElementById('proposalCard');
 
     function toggleProposalMode() {
-      if (proposalSwitch && defineTopicCard && proposalCard) {
+      if (proposalSwitch && votingTopicCard && proposalCard) {
         if (proposalSwitch.checked) {
-          defineTopicCard.style.display = 'none';
+          votingTopicCard.style.display = 'none';
           proposalCard.style.display = '';
         } else {
-          defineTopicCard.style.display = '';
+          votingTopicCard.style.display = '';
           proposalCard.style.display = '';
         }
       }
@@ -192,3 +192,58 @@ async function logout() {
 document.getElementById('connectWalletBtn').addEventListener('click', connectWallet);
 document.getElementById('disconnectWalletBtn').addEventListener('click', disconnectWallet);
 document.getElementById('logoutBtn').addEventListener('click', logout);
+
+let timerInterval = null;
+let timerSeconds = 0;
+let timerInitialSeconds = 0;
+
+function updateTimerDisplay() {
+    const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const secs = String(timerSeconds % 60).padStart(2, '0');
+    document.getElementById('timerValue').textContent = `${mins}:${secs}`;
+}
+
+function startTimer() {
+    if (timerInterval) return; // Prevent multiple intervals
+    const input = document.getElementById('timerInput');
+    let mins = parseInt(input.value, 10);
+    if (isNaN(mins) || mins < 1) mins = 1;
+    timerSeconds = mins * 60;
+    timerInitialSeconds = timerSeconds;
+    updateTimerDisplay();
+
+    timerInterval = setInterval(() => {
+        timerSeconds--;
+        updateTimerDisplay();
+        if (timerSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 0;
+            updateTimerDisplay();
+            // Optional: Alert or visual effect
+            document.getElementById('timerValue').style.color = "#F72585";
+        }
+    }, 1000);
+    document.getElementById('timerValue').style.color = "#183EC2";
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerSeconds = timerInitialSeconds || (parseInt(document.getElementById('timerInput').value, 10) || 1) * 60;
+    updateTimerDisplay();
+    document.getElementById('timerValue').style.color = "#183EC2";
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateTimerDisplay();
+    document.getElementById('startTimerBtn').addEventListener('click', startTimer);
+    document.getElementById('resetTimerBtn').addEventListener('click', resetTimer);
+    document.getElementById('timerInput').addEventListener('input', function() {
+        if (!timerInterval) {
+            timerSeconds = (parseInt(this.value, 10) || 1) * 60;
+            timerInitialSeconds = timerSeconds;
+            updateTimerDisplay();
+        }
+    });
+});

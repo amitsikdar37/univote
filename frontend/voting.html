@@ -1,216 +1,252 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UNI-VOTE</title>
-    <link rel="icon" type="image/x-icon" href="favicon.jpg"  sizes="48x48">
-
+    <link rel="icon" type="image/x-icon" href="favicon.jpg" sizes="48x48">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link href="voting.css" rel="stylesheet" />
 </head>
-
 <body>
-
-     <div id="loading-screen">Verifying access...</div>
-
-    <nav class="navbar navbar-expand-lg glass fixed-top mt-3 mx-auto px-4 py-3 rounded-4 shadow-lg"
-      style="max-width: 95%; background-color: #129990;">
-      <div class="container-fluid d-flex justify-content-between align-items-center">
-
-        <!-- Left: Logo -->
-        <!-- <a class="navbar-brand fw-bold fs-3 text-warning" href="#">🚀 DevX</a> -->
-        <img src="uni vote[1].png" width="60" style="border-radius: 50%;">
-
-
-        <!-- Hamburger -->
-        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Center + Right -->
-        <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
-
-          <!-- Center: Links -->
-          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3 text-center">
-            <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#">Vote</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#">Governance</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#">Track Votes</a></li>
-            <!-- <li class="nav-item-4"><a class="nav-link" href="#social-icons">social media</a></li> -->
-
-          </ul>
-
-          <!-- Right: Language + Login -->
-          <div class="d-flex align-items-center gap-3">
-
-            <!-- 🌐 Language Dropdown -->
-            <!-- <div class="dropdown">
-              <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3" type="button" id="propose">
-                🌐 Propose: ...
-              </button> -->
-
-              <!-- <button class="btn glow-button btn-sm px-3" id="propose">Propose: ...</button> -->
+  <div class="layout-gradient-bg">
+    <!-- Navbar starts here, no empty lines or tags above -->
+    <nav class="navbar navbar-expand-lg glass mx-auto px-4 py-3 rounded-4 shadow-lg">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <!-- Left: UNI-VOTE SVG Logo -->
+            <a href="about2.html" class="navbar-brand d-flex align-items-center" style="width:194px; height:40px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="194" height="41" viewBox="0 0 194 41" fill="none" style="width:194px; height:40px;">
+                <path d="M7.0727 0.393677V16.844C7.0727 18.4908 7.49234 19.7618 8.33635 20.6568C9.18979 21.5428 10.4487 21.9814 12.1085 21.9814C13.754 21.9814 15.0177 21.5428 15.8994 20.6568C16.7764 19.7618 17.2197 18.4908 17.2197 16.844V0.393677H24.2924V16.8082C24.2924 19.2695 23.736 21.3504 22.6326 23.0554C21.5387 24.7515 20.0582 26.0268 18.2004 26.8861C16.3379 27.7453 14.2633 28.1749 11.9764 28.1749C9.69902 28.1749 7.65737 27.7542 5.84676 26.904C4.04558 26.0582 2.62161 24.7828 1.56542 23.0733C0.518664 21.3549 0 19.2695 0 16.8082V0.393677H7.0727Z" fill="#212121"/>
+                <path d="M54.152 27.9064H47.0982L35.2726 10.9369V27.9064H28.2188V0.393677H35.2726L47.0982 17.4347V0.393677H54.152V27.9064Z" fill="#212121"/>
+                <path d="M65.3007 0.393677V27.9064H58.2469V0.393677H65.3007Z" fill="#212121"/>
+                <path d="M87.1465 11.3666V16.9336H68.9838V11.3666H87.1465Z" fill="#212121"/>
+                <path d="M119.538 0.393677L109.259 27.9064H100.414L90.1346 0.393677H97.6411L104.827 21.158L112.069 0.393677H119.538Z" fill="#212121"/>
+                <path d="M135.153 28.175C132.423 28.175 129.92 27.5798 127.647 26.385C125.384 25.1812 123.578 23.4986 122.234 21.3371C120.9 19.1801 120.235 16.7546 120.235 14.0696C120.235 11.3756 120.9 8.95908 122.234 6.82C123.578 4.67197 125.384 3.00277 127.647 1.80793C129.92 0.604134 132.423 0 135.153 0C137.879 0 140.378 0.604134 142.641 1.80793C144.914 3.00277 146.705 4.67197 148.016 6.82C149.322 8.95908 149.978 11.3756 149.978 14.0696C149.978 16.7546 149.318 19.1801 147.997 21.3371C146.677 23.4986 144.885 25.1812 142.622 26.385C140.368 27.5798 137.879 28.175 135.153 28.175ZM135.153 22.071C137.464 22.071 139.312 21.3371 140.698 19.8693C142.094 18.4015 142.792 16.4682 142.792 14.0696C142.792 11.6352 142.094 9.69746 140.698 8.25202C139.312 6.79762 137.464 6.06819 135.153 6.06819C132.815 6.06819 130.947 6.79315 129.552 8.23412C128.166 9.66614 127.477 11.6128 127.477 14.0696C127.477 16.504 128.166 18.4507 129.552 19.9051C130.947 21.3505 132.815 22.071 135.153 22.071Z" fill="#212121"/>
+                <path d="M173.734 0.393677V5.76375H166.039V27.9064H158.985V5.76375H151.309V0.393677H173.734Z" fill="#212121"/>
+                <path d="M183.306 5.76375V11.3307H192.774V16.5039H183.306V22.5363H194V27.9064H176.252V0.393677H194V5.76375H183.306Z" fill="#FF00E5"/>
+              </svg>
+            </a>
+            <!-- Hamburger -->
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Center + Right -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+                <!-- Center: Links -->
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3 text-center">
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6" href="voting.html">Vote</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6" href="about2.html">Governance</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-bold fs-6" href="Track.html">Track Votes</a></li>
+                </ul>
+                <!-- Right: Wallet + Logout -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Connect Wallet Button -->
+                    
+                    <!-- Wallet Address -->
+                   
+                    <!-- Propose Button -->
+                    <div class="dropdown">
+                        
+                    </div>
+                    <!-- Logout Button -->
+                    <button id="logoutBtn" class="nav-action-btn">Log Out</button>
+                </div>
             </div>
-
-
-            <!-- 🔐 Login Button -->
-            <!-- <a href="frorm.html"> -->
-            <!-- <button class="btn btn-login rounded-pill px-4">Login</button> -->
-
-            <!-- </a>  -->
-          </div>
-
         </div>
-      </div>
     </nav>
 
+    <!-- Gradient background wrapper START -->
+    <div class="layout-gradient-bg min-vh-100 d-flex flex-column">
+        <div class="flex-grow-1 d-flex justify-content-center align-items-start" style="padding-top: 40px;">
+            <div class="container">
+                <!-- New Card Container -->
+                <div class="card-container">
+                    <div class="row justify-content-center align-items-start g-4">
+                        <!-- Left Column: Voting Topic Card and Progress Card -->
+                        <div class="col-auto d-flex flex-column gap-4 align-items-start">
+                            <!-- Voting Topic Card -->
+                            <div id="voting-topic-card">
+                                <div class="card-body p-4">
+                                    <!-- Voting Topic Placeholder -->
+                                    <div style="position: relative; width: 589px; height: 255px; margin: 0 auto;">
+                                        <div class="placeholder-wrapper" id="topicPlaceholderWrapper">
+                                            <div class="custom-placeholder-inside" id="customPlaceholder" onclick="activateTopicInput()"
+                                                style="cursor: text;">
+                                                <div class="placeholder-title-inside">
+                                                  <span style="color: #000; font-weight: 700;">Voting </span>
+                                                  <span style="color: #ff3ea5; font-weight: 700;">Topic</span>
+                                                </div>
+                                                <div class="placeholder-desc-inside">Define here</div>
+                                            </div>
+                                            <textarea class="form-control bg mt-2 topic-textarea"
+                                                id="exampleFormControlTextarea1"
+                                                style="display: none;"
+                                                maxlength="200"
+                                                placeholder=""
+                                                onblur="deactivateTopicInput()"
+                                            ></textarea>
+                                        </div>
+                                    </div>
 
+                                    <!-- Details Section -->
+                                    <div class="details-section mt-3">
+                                        <div class="details-title">Details</div>
+                                        <div class="details-content details-column">
+                                            <div class="detail-item">
+                                                <span class="detail-label">Election ID:</span>
+                                                <span class="detail-value" id="electionIdValue">12345</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="detail-label">Count Till Now:</span>
+                                                <span class="detail-value" id="countTillNowValue">67</span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-
-
-
-
-    <div class="container ">
-        <div class="input-group flex-nowrap bg w-25  ">
-            <!-- <span class="input-group-text" id="addon-wrapping">@</span> -->
-            <input type="text" class="form-controls bg" placeholder="Enter Topic" aria-label="Username"
-                aria-describedby="addon-wrapping">
-        </div>
-    </div>
-
-
-<!-- <p class="note">NOTE: All the  data which are shown here are for demo purpose only ... we will launch working model soon.</p> -->
-
-
-
-    <div class="container my-4">
-        <form class="d-flex justify-content-center align-items-center" id="voteSearchForm" autocomplete="off" style="max-width: 240px; margin: 0 auto;">
-            <input
-                type="text"
-                class="form-control"
-                id="voteSearchInput"
-                placeholder="Election ID"
-                aria-label="Voting ID"
-                style="background: rgba(255,255,255,0.13); color: #ffffff; border: 1.5px solid #00bfff; font-size: 0.98rem; width: 120px;"
-            >
-            <button class="btn ms-2 d-flex align-items-center justify-content-center" id="electionIdSearchButton"
-                type="submit"
-                style="background: linear-gradient(90deg,#00bfff,#1a8cff); border: none; color: #fff; padding: 6px 12px;">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-    </div>
-
-    <div class="container my-4">
-        <div class="row  ">
-            <div class="col-lg-4 mb-4">
-
-                <div class="card ">
-
-                    <div class="image-container">
-                        <!-- Yahan apna image lagana -->
-                        <img src="Bank Card.png" alt="Proposal Graphic">
-                    </div>
-                    <div class="proposal-details">
-                        <div class="rows ">
-                            <img src="Credit Card Rectangle.png">
-                            <span>
-
-                            </span>
+                                    <!-- Bootstrap Switch Checkboxes -->
+                                    <div class="mt-4">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck1">
+                                            <label class="form-check-label" for="flexSwitchCheck1">Only receipents of IIT-P i'd</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck2">
+                                            <label class="form-check-label" for="flexSwitchCheck2">Account must be 10 days old</label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck3">
+                                            <label class="form-check-label" for="flexSwitchCheck3">X Account must be 10 days old</label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheck4">
+                                            <label class="form-check-label" for="flexSwitchCheck4">G-mail Account must be 10 days old</label>
+                                        </div>
+                                    </div>
+                                    <!-- After the last checkbox -->
+                                    <div class="mt-3 mb-2 text-center fw-semibold add-more-sections" style="color: #2355d6; cursor: pointer;">
+                                        Click to add more sections
+                                    </div>
+                                    <div class="input-section-list d-flex flex-column gap-3">
+                                        <div class="input-section d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control section-input" placeholder="Section Title">
+                                            <button class="btn btn-outline-primary plus-btn" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-section d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control section-input" placeholder="Section Title">
+                                            <button class="btn btn-outline-primary plus-btn" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-section d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control section-input" placeholder="Section Title">
+                                            <button class="btn btn-outline-primary plus-btn" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Progress Card -->
+                            <div id="progress-card">
+                                <div class="progress-steps">
+                                    <div class="step completed">
+                                        <div class="step-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="step-label">Transaction passed ZKP circuit</div>
+                                    </div>
+                                    <div class="step completed">
+                                        <div class="step-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="step-label">Transaction signed</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-icon">3</div>
+                                        <div class="step-label">Waiting for block confirmation</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-icon">4</div>
+                                        <div class="step-label">Transaction confirmed successfully</div>
+                                    </div>
+                                </div>
+                                <div class="progress-date">17 Jun 2025 21:35</div>
+                            </div>
                         </div>
-                        <div class="topic">
-                            <h2 style="font-weight: bold;">Crypto</h2>
-                            <span></span>
-                            Dfine Under 45 Words
-                        </div>
-                        <div class="mb-0 ">
-                            <label for="exampleFormControlTextarea1" class="form-label bg"></label>
-                            <textarea class="form-control bg" id="exampleFormControlTextarea1" rows="10"></textarea>
-                        </div>
-
-                        <p class="mt-5">Contract - 0X5649954fd55d8w874</p>
-                        <div class="rows">
-                            <div class="save-btn">Yes</div>
-                            <div class="save-btn">No</div>
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-            <div class="col-lg-4 mb-4 ">
-                <div class="card">
-                   
-                    <div class="image-container">
-                        <!-- Yahan apna image lagana -->
-                        <img src="Bank Card (1).png" alt="Proposal Graphic">
-                    </div>
-                    <div class="proposal-details">
-                        <div class="rows ">
-                            <img src="Credit Card Rectangle.png">
-                            <span class="text-black">
-                                ****
-                            </span>
-                        </div>
-                        <div class="topic">
-                            <h2 style="font-weight: bold; ">should we change ui?</h2>
-                            <span></span>
-                            If yes tell us how we can implement it ? |Give response under 16 hours .
-                        </div>
-                        <div class="mb-0 ">
-                            <label for="exampleFormControlTextarea1" class="form-label bg"></label>
-                            <textarea class="form-control bg" id="exampleFormControlTextarea1" rows="11"
-                                placeholder="Your comments why and how?? "></textarea>
-                        </div>
-                        <p class="m-2">ontract - 0X5649954fd55d8w874</p>
-
-                        <div class="rows">
-
-                            <div class="save-btn">Yes</div>
-                            <div class="save-btn">No</div>
-                            <div class="save-btn">ABSTAIN</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="col-lg-4  ">
-                <div class="card ">
-                    <img src="Bank Card.png" alt="Image">
-                    <p>Is 5G better than 4G?</p>
-                    <div class="proposal-details">
-                        <div class="rows">
-                            <div class="save-btn">Yes</div>
-                            <div class="save-btn">No</div>
-                        </div>
-                    </div>
-                 </div>
-
-                
-                    <div class="card ">
-                        <img src="Bank Card.png" alt="Image" style="padding-bottom: 40px; margin-bottom: 1rem;">
-                        <p style=" margin-top: -90px; margin-bottom: 0rem;">Should I buy a car?</p>
-                        <!-- <div class="buttons"> -->
-                            <div class="proposal-details">
-                                <div class="rows">
-                                    <div class="save-btn">Yes</div>
-                                    <div class="save-btn">No</div>
+                        <!-- Right Column: Timer, Live Results, and Voting Buttons Cards -->
+                        <div class="col-auto d-flex flex-column gap-4 card-column align-items-start">
+                            <!-- Timer Card -->
+                            <div class="timer-card d-flex flex-column align-items-center justify-content-center">
+                                <div class="timer-title mb-3">Time Left</div>
+                                <div class="timer-circle-wrapper d-flex align-items-center justify-content-center" style="position: relative;">
+                                    <svg class="timer-svg" width="180" height="180" viewBox="0 0 180 180">
+                                        <defs>
+                                            <linearGradient id="timerGradient" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+                                                <stop offset="0.4" stop-color="#E8EDFF"/>
+                                                <stop offset="1" stop-color="#183EC2"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <circle
+                                            cx="90"
+                                            cy="90"
+                                            r="80"
+                                            stroke="url(#timerGradient)"
+                                            stroke-width="12"
+                                            fill="none"
+                                            stroke-linecap="round"
+                                            stroke-dasharray="502"
+                                            stroke-dashoffset="0"
+                                            id="timerCircle"
+                                        />
+                                    </svg>
+                                    <div class="timer-value" id="timerValue"
+                                         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                                                font-size: 2.2rem; font-weight: 700; color: #183EC2; font-family: 'Inter', sans-serif;">
+                                        00:00
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Live Result Card -->
+                            <div id="live-result-card" style="display:flex; flex-direction:column; justify-content:flex-start; padding:34px 31px;">
+                                <div style="font-weight:700; font-size:1.3rem; color:#183EC2; margin-bottom:32px;">Live Results</div>
+                                <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#00C5C9; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">No</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#3A0CA3; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">Maybe</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:16px; margin-bottom:22px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#FFD600; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">Yes</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:16px;">
+                                    <span style="display:inline-block; width:28px; height:28px; border-radius:6px; background:#F72585; margin-right:16px;"></span>
+                                    <span style="font-size:1.1rem; font-weight:500;">IDK</span>
+                                </div>
+                            </div>
+                            <!-- Voting Buttons Card -->
+                            <div id="voting-buttons-card">
+                                <div class="voting-card-title" style="font-weight: 700; font-size: 1.2rem; color: #183EC2; margin-bottom: 24px;">
+                                    Voting Controls
+                                </div>
+                                <div class="voting-buttons-list" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <button class="voting-btn start-voting">Submit Vote</button>
+                                    <div style="display: flex; flex-direction: row; gap: 16px;">
+                                        <button class="control-btn">Copy Voting Link</button>
+                                        <button class="control-btn">Copy TXN Hash</button>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -219,48 +255,118 @@
             </div>
         </div>
     </div>
+    <!-- Gradient background wrapper END -->
 
-
-<!-- 
-
-    <footer>
-        <div class="footer-cols">
-            <div class="logo">
-                <figure>
-                    <img src="navbar.png" alt="UNI-VOTE Logo" class="footer-logo" height="100rem" width="30px" />
-                    <p>Uni-Vote is utilizing Base evm for a decentralized,<br> transparent, and immutable record
-                        of<br> the election process and
-                        results.</p>
-
-                </figure>
+    <!-- Footer OUTSIDE the gradient bg -->
+    <footer class="univote-footer">
+        <div class="footer-container">
+            <!-- Top Horizontal Line -->
+            <hr class="footer-divider">
+            
+            <!-- Footer Columns -->
+            <div class="footer-cols">
+                <!-- Left Column: Company Info -->
+                <div class="footer-col">
+                    <img src="uni vote[1].png" alt="UNI-VOTE Logo" class="footer-logo" />
+                    <div class="footer-tagline">
+                        Empowering Transparent & Secure Voting For Everyone
+                    </div>
+                    
+                </div>
+                
+                <!-- Center Column: Quick Links -->
+                <div class="footer-col">
+                    <div class="footer-col-title">QUICK LINKS</div>
+                    <div class="footer-links">
+                        <a href="us.html" class="footer-link">Meet Our Team</a>
+                        <a href="img.html" class="footer-link">Roadmap</a>
+                        <a href="#" class="footer-link">Contact Us</a>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Get in Touch -->
+                <div class="footer-col">
+                    <div class="footer-col-title">GET IN TOUCH</div>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email:univote.tech@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>Phone: +91 830 666 0305</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Address: IIT-PATNA,BIHTA,BIHAR</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-            <a href="us.html" class="team">MEET OUR TEAM</a>
-
-            <a href="img.html"> ROADMAP</a>
-            <div>RESOURCES</div>
+            
+            <!-- Bottom Horizontal Line -->
+            <hr class="footer-divider">
+            
+            <!-- Copyright -->
+            <div class="footer-copyright">
+                © 2025 Uni Vote. All rights reserved.
+            </div>
         </div>
+    </footer>
 
-
-        <p>© 2025 UNI-VOTE. All rights reserved.</p>
-
-    </footer> -->
-
-
-
-
-
-
-        <script type="module" src="./scripts/voting.js"></script>
-
-
-
-
-
+    <!-- Scripts as before -->
+    <script type="module" src="./scripts/about2.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
-</body>
+    <script>
+        function activateTopicInput() {
+            document.getElementById('customPlaceholder').style.opacity = 0;
+            const textarea = document.getElementById('exampleFormControlTextarea1');
+            textarea.style.display = 'block';
+            textarea.focus();
+        }
+        function deactivateTopicInput() {
+            const textarea = document.getElementById('exampleFormControlTextarea1');
+            if (!textarea.value) {
+                document.getElementById('customPlaceholder').style.opacity = 1;
+                textarea.style.display = 'none';
+            }
+        }
 
+        // Function to add a new section dynamically
+        function addNewSection() {
+            const sectionList = document.querySelector('.input-section-list');
+            const newSection = document.createElement('div');
+            newSection.className = 'input-section d-flex align-items-center gap-2';
+            newSection.innerHTML = `
+                <input type="text" class="form-control section-input" placeholder="Section Title">
+                <button class="btn btn-outline-primary plus-btn" type="button">
+                    <i class="fa fa-plus"></i>
+                </button>
+            `;
+            sectionList.appendChild(newSection);
+
+            // Re-attach event listeners to all plus buttons, including the new one
+            attachPlusButtonListeners();
+        }
+
+        // Function to attach event listeners to all plus buttons
+        function attachPlusButtonListeners() {
+            const plusButtons = document.querySelectorAll('.plus-btn');
+            plusButtons.forEach(button => {
+                // Remove existing event listeners to avoid duplicates
+                button.removeEventListener('click', addNewSection);
+                // Add new event listener
+                button.addEventListener('click', addNewSection);
+            });
+        }
+
+        // Initial attachment of event listeners when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            attachPlusButtonListeners();
+        });
+    </script>
+   
+</body>
 </html>
