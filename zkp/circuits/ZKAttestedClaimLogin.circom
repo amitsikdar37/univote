@@ -1,8 +1,8 @@
+
+
 pragma circom 2.0.0;
 
-// Step 1: Include the Poseidon hash function from the circomlib library.
-// The path is corrected to find the node_modules folder from the circuits directory.
-include "../node_modules/circomlib/circuits/poseidon.circom";
+include "./poseidonHasher.circom";   // <-- agar tera file me yeh sahi path ho
 
 /*
  * @title ZKAttestedClaimLogin

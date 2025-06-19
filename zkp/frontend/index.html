@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZKP Voting DApp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ZKP Voting DApp</h1>
+
+        <section id="connect-wallet-section">
+            <h2>Connect Your Wallet</h2>
+            <button id="connectWalletBtn">Connect MetaMask</button>
+            <p id="walletAddressDisplay">Not connected</p>
+        </section>
+
+        <hr>
+
+        <section id="create-election-section">
+            <h2>Create New Election (Admin Only)</h2>
+            <form id="createElectionForm">
+                <label>Generated Election ID:</label>
+                <p id="generatedElectionIdDisplay" class="hint"></p> 
+                <label for="electionName">Election Name:</label>
+                <input type="text" id="electionName" placeholder="e.g., School President Election" required>
+
+                <label for="duration">Duration (minutes):</label>
+                <input type="number" id="duration" min="1" value="60" required>
+
+                <label for="candidateNames">Candidate Names (comma-separated):</label>
+                <input type="text" id="candidateNames" placeholder="Candidate A, Candidate B, Candidate C" required>
+                <p class="hint">Please enter at least 2 candidates.</p>
+
+                <button type="submit">Create Election</button>
+            </form>
+            <p id="createElectionStatus"></p>
+        </section>
+
+        <hr>
+
+        <section id="vote-section">
+            <h2>Cast Your Vote</h2>
+            <label for="selectElectionVote">Select Election:</label>
+            <select id="selectElectionVote"></select>
+            
+            <div id="candidatesList">
+                </div>
+
+            <p class="hint">Note: ZK Proof generation is an advanced step. For this basic example, you'd manually input your proof values obtained from an external ZKP tool (like SnarkJS).</p>
+            
+            <form id="voteForm">
+                <h3>ZK Proof Inputs:</h3>
+                <label for="proofA">Proof A (uint[2]):</label>
+                <input type="text" id="proofA" placeholder="e.g., [123, 456]" required>
+                <label for="proofB">Proof B (uint[2][2]):</label>
+                <input type="text" id="proofB" placeholder="e.g., [[1,2],[3,4]]" required>
+                <label for="proofC">Proof C (uint[2]):</label>
+                <input type="text" id="proofC" placeholder="e.g., [789, 101]" required>
+                <label for="publicInput">Public Input (uint[4]):</label>
+                <input type="text" id="publicInput" placeholder="e.g., [1,2,3,4]" required>
+                <label for="selectedCandidateIndex">Selected Candidate Index:</label>
+                <input type="number" id="selectedCandidateIndex" min="0" required>
+
+                <button type="submit">Vote</button>
+            </form>
+            <p id="voteStatus"></p>
+        </section>
+
+        <hr>
+
+        <section id="manage-results-section">
+            <h2>Election Management & Results</h2>
+            <label for="selectElectionManage">Select Election:</label>
+            <select id="selectElectionManage"></select>
+            
+            <div id="electionDetails">
+                </div>
+
+            <button id="endElectionBtn" class="admin-action">End Election (Admin Only)</button>
+            <button id="showResultsBtn">Show Results</button>
+            <p id="manageElectionStatus"></p>
+
+            <div id="resultsDisplay">
+                </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" type="application/javascript"></script>
+    <script src="app.js"></script>
+</body>
+</html>
