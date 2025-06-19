@@ -22,7 +22,7 @@ main {
     z-index: 0;
     padding-top: 80px;
     background: linear-gradient(135deg, #e0e7ff, #d1e8ff);
-    flex: 1 0 auto; /* Ensure it takes available space */
+    flex: 1 0 auto;
 }
 
 .navbar {
@@ -31,7 +31,7 @@ main {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: linear-gradient(135deg, #e0e7ff, #d1e8ff); /* Match body gradient */
+    background: linear-gradient(135deg, #e0e7ff, #d1e8ff);
     font-size: larger;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -218,7 +218,7 @@ footer {
     color: #fff;
     padding: 60px 0;
     box-sizing: border-box;
-    flex-shrink: 0; /* Prevent footer from shrinking */
+    flex-shrink: 0;
 }
 
 .univote-footer {
@@ -232,8 +232,8 @@ footer {
 
 .footer-container {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -245,13 +245,16 @@ footer {
     border: none;
     border-top: 1px solid #fff;
     margin: 30px 0;
+    width: 100%;
 }
 
 .footer-cols {
     display: flex;
-    justify-content: space-around;
-    gap: 30px;
-    margin: 0 auto;
+    justify-content: space-between;
+    gap: 50px; /* Increased space between columns */
+    margin: 0 auto 30px; /* Added bottom margin to separate from copyright */
+    width: 100%;
+    max-width: 1000px; /* Adjusted for better alignment */
 }
 
 .footer-col {
@@ -331,9 +334,13 @@ footer {
 
 .footer-copyright {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #cfd8ee;
+    margin-top: 20px; /* Space above copyright */
+    text-align: center;
+    width: 100%;
+    padding-bottom: 20px; /* Ensure it stays at the bottom */
 }
 
 .footer-container,
@@ -373,12 +380,4 @@ footer {
 
 .footer-link:hover {
     color: #7bb6ff;
-}
-
-.footer-copyright {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #cfd8ee;
-    margin-top: 24px;
-    letter-spacing: 0.04em;
 }
