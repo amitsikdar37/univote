@@ -2,430 +2,203 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNI-VOTE</title>
-  <link rel="icon" type="image/x-icon" href="favicon.jpg" sizes="48x48" style="border-radius: 50%;">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/8f68262e98.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="media.css">
-  <style>
-    /* Signup Section Styles */
-    .signup-blur-section {
-      padding: 80px 10%;
-      max-width: 1000px;
-      margin: 60px auto;
-      background: rgba(255, 255, 255, 0.08) !important;
-      backdrop-filter: blur(15px);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    }
-
-    .signup-blur-section .signup-content {
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 40px;
-    }
-
-    .signup-blur-section .signup-content h2 {
-      font-size: 3rem !important;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-
-    .signup-blur-section .signup-content p {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.2rem !important;
-      color: rgba(255, 255, 255, 0.8);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .signup-blur-section .signup-form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .signup-blur-section .signup-form input {
-      width: 100%;
-      padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.1) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-
-    .signup-blur-section .signup-form input:focus {
-      border-color: #00FFC8;
-      box-shadow: 0 0 8px rgba(0, 255, 200, 0.3);
-    }
-
-    .signup-blur-section .signup-form button {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(90deg, #D83FF0, #00FFC8) !important;
-      border: none;
-      border-radius: 12px;
-      color: #000;
-      font-family: 'Inter', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-    }
-
-    .signup-blur-section .signup-form button:hover {
-      opacity: 0.9;
-    }
-
-    /* Footer Styles */
-    .footer {
-      padding: 60px 10%;
-      background: #0a0a0a !important;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .footer .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-    }
-
-    .footer .footer-branding img {
-      width: 80px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-    }
-
-    .footer .footer-branding p {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .footer .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer .footer-links h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 16px;
-    }
-
-    .footer .footer-links a {
-      color: rgba(255, 255, 255, 0.7) !important;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-
-    .footer .footer-links a:hover {
-      color: #00FFC8 !important;
-    }
-
-    .footer .footer-social {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer .footer-social h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 16px;
-    }
-
-    .footer .footer-social .social-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .footer .footer-social a {
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease;
-    }
-
-    .footer .footer-social a:hover {
-      background: rgba(0, 255, 200, 0.3);
-    }
-
-    .footer .footer-social a svg {
-      width: 20px;
-      fill: #fff;
-    }
-
-    .footer .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 40px;
-      padding-top: 20px;
-      text-align: center;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6) !important;
-    }
-
-    /* Responsive Styles to Align with media.css */
-    @media (max-width: 768px) {
-      .signup-blur-section {
-        padding: 60px 5%;
-        flex-direction: column !important;
-        align-items: center !important;
-      }
-
-      .signup-blur-section .signup-content h2 {
-        font-size: 2.2rem !important;
-      }
-
-      .signup-blur-section .signup-content p {
-        font-size: 1rem !important;
-      }
-
-      .signup-blur-section .signup-form {
-        width: 100%;
-      }
-
-      .signup-blur-section .signup-form input,
-      .signup-blur-section .signup-form button {
-        padding: 14px;
-        font-size: 0.95rem;
-      }
-
-      .footer .footer-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .footer .footer-branding img {
-        margin: 0 auto 10px;
-      }
-
-      .footer .footer-links,
-      .footer .footer-social {
-        align-items: center;
-      }
-
-      .footer .footer-links h4,
-      .footer .footer-social h4 {
-        margin-bottom: 10px;
-      }
-
-      .footer .footer-social .social-links {
-        justify-content: center;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div id="splash-screen">
-    <div class="splash-logo">
-      <img src="uni vote[1].png" style="width: 150px; border-radius: 50%;">
-    </div>
-    <div class="splash-text"
-      style="background: linear-gradient(92deg, rgba(255, 28, 232, 0.21) 2.42%, #D83FF0 41.02%, #00FFC8 108.06%);
-      background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Syne', sans-serif; font-weight: 600;">
-      <h1> Uni-Vote Decentralized Trust</h1>
-    </div>
-  </div>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg glass mt-0 mx-auto px-4 py-3 rounded-0 shadow-lg w-100"
-    style="font-family: 'Manrope', sans-serif;">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-      <img src="uni vote[1].png" width="50" style="border-radius: 50%;">
-      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3 text-center">
-          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
-          <li class="nav-item"><a class="nav-link" href="about2.html">GOVERNANCE</a></li>
-          <li class="nav-item"><a class="nav-link" href="voting.html">VOTE</a></li>
-          <li class="nav-item"><a class="nav-link" href="Track.html">TRACK VOTE</a></li>
-          <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQ</a></li>
-        </ul>
-        <div class="d-flex align-items-center gap-3">
-          <div class="dropdown">
-            <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3" type="button" id="propose">
-              🌐 Propose: ...
-            </button>
-          </div>
-          <!-- Username container, hidden by default -->
-          <div id="navbar-username" class="bg-light text-dark rounded-pill px-3 py-1" style="display: none; font-weight: 600;"></div>
-          <a href="login.html" id="login-btn">
-            <button class="btn btn-login rounded-pill px-4">Login</button>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <h1
-        style="background: linear-gradient(92deg, rgba(255, 28, 232, 0.21) 2.42%, #D83FF0 41.02%, #00FFC8 108.06%);
-        background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Syne', sans-serif;">
-        Decentralized Trust.
-      </h1>
-      <h2 style="font-family: 'Sora', sans-serif;">On the fastest Evm.</h2>
-      <p style="font-family: 'Sora', sans-serif;">
-        Experience Truly Secret & Verifiable Voting. Powered by Zero-Knowledge Proofs with the speed of
-        <a href="#"><img src="base word.png" height="20px" width="40px" margin-top="20px"></a>
-      </p>
-      <button id="launch-app-btn" class="launch-btn">
-        <span class="text">Launch</span>
-      </button>
-    </div>
-  </section>
-
-  <section class="zkp-section">
-    <div class="zkp-text">
-      <h2>What is ZKPs in Voting system?</h2>
-      <p>
-        ZKPs? Zero-Knowledge Proofs. Crypto tech. Lets you prove you're eligible to vote without showing who you are or
-        how you voted. For UNI-VOTE, it means total privacy + trusted results. Simple.
-      </p>
-    </div>
-    <div class="zkp-graphic">
-      <div class="infinity"></div>
-      <div class="loop">
-        <svg xmlns="http://www.w3.org/2000/svg" width="604" height="215" viewBox="0 0 604 215" fill="none">
-          <path
-            d="M603.15 107.317C603.15 166.03 554.134 213.632 493.679 213.632C425.235 213.632 356.83 160.494 302.075 107.317C247.319 54.1386 178.915 1 110.47 1C50.015 1 1 48.6025 1 107.317C1 166.03 50.015 213.632 110.47 213.632C178.915 213.632 247.319 160.494 302.075 107.317C356.83 54.1386 425.235 1 493.679 1C554.134 1 603.15 48.6025 603.15 107.317Z"
-            stroke="white" stroke-miterlimit="10" stroke-linecap="square" />
+  <div>
+    <nav id="main-nav" class="navbar">
+      <div class="navbar-logo" id="logo-univote">
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="33" viewBox="0 0 150 33" fill="none">
+          <path d="M5.46858 0.814026V13.9352C5.46858 15.2488 5.79305 16.2625 6.44563 16.9764C7.10551 17.6831 8.07891 18.0329 9.36221 18.0329C10.6346 18.0329 11.6116 17.6831 12.2934 16.9764C12.9715 16.2625 13.3142 15.2488 13.3142 13.9352V0.814026H18.7827V13.9067C18.7827 15.8698 18.3526 17.5296 17.4995 18.8896C16.6536 20.2424 15.5089 21.2597 14.0725 21.945C12.6324 22.6303 11.0283 22.973 9.26013 22.973C7.49924 22.973 5.92065 22.6375 4.52069 21.9593C3.12803 21.2846 2.02702 20.2674 1.21038 18.9038C0.401029 17.5332 0 15.8698 0 13.9067V0.814026H5.46858Z" fill="#212121"/>
+          <path d="M41.8701 22.7588H36.4161L27.2726 9.22358V22.7588H21.8186V0.814026H27.2726L36.4161 14.4064V0.814026H41.8701V22.7588Z" fill="#212121"/>
+          <path d="M50.4904 0.814026V22.7588H45.0364V0.814026H50.4904Z" fill="#212121"/>
+          <path d="M67.3812 9.56622V14.0066H53.3379V9.56622H67.3812Z" fill="#212121"/>
+          <path d="M92.4264 0.814026L84.4787 22.7588H77.6393L69.6917 0.814026H75.4956L81.0517 17.3761L86.6515 0.814026H92.4264Z" fill="#212121"/>
+          <path d="M104.5 22.9731C102.389 22.9731 100.453 22.4983 98.6962 21.5453C96.9462 20.5851 95.5499 19.243 94.5109 17.519C93.4791 15.7985 92.9651 13.8639 92.9651 11.7223C92.9651 9.57346 93.4791 7.64598 94.5109 5.93979C95.5499 4.22647 96.9462 2.89508 98.6962 1.94205C100.453 0.981872 102.389 0.5 104.5 0.5C106.607 0.5 108.54 0.981872 110.29 1.94205C112.047 2.89508 113.432 4.22647 114.446 5.93979C115.456 7.64598 115.962 9.57346 115.962 11.7223C115.962 13.8639 115.452 15.7985 114.431 17.519C113.41 19.243 112.025 20.5851 110.275 21.5453C108.532 22.4983 106.607 22.9731 104.5 22.9731ZM104.5 18.1044C106.287 18.1044 107.716 17.519 108.788 16.3482C109.867 15.1774 110.406 13.6355 110.406 11.7223C110.406 9.78049 109.867 8.23493 108.788 7.08201C107.716 5.92195 106.287 5.34013 104.5 5.34013C102.692 5.34013 101.248 5.91838 100.169 7.06773C99.0972 8.20994 98.5649 9.76264 98.5649 11.7223C98.5649 13.664 99.0972 15.2167 100.169 16.3768C101.248 17.5297 102.692 18.1044 104.5 18.1044Z" fill="#212121"/>
+          <path d="M134.33 0.814026V5.09733H128.38V22.7588H122.926V5.09733H116.991V0.814026H134.33Z" fill="#212121"/>
+          <path d="M141.732 5.09733V9.53768H149.052V13.6639H141.732V18.4755H150V22.7588H136.278V0.814026H150V5.09733H141.732Z" fill="#FF00E5"/>
         </svg>
       </div>
-      <div class="loop-text absolute-privacy">Absolute Privacy</div>
-      <div class="loop-text verifiable-integrity">Verifiable Integrity</div>
+      <ul class="nav-links">
+        <li class="nav-item" id="nav-home"><a href="index.html">Home</a></li>
+        <li class="nav-item" id="nav-governance"><a href="about2.html">Governance</a></li>
+        <li class="nav-item" id="nav-vote"><a href="voting.html">Vote</a></li>
+        <li class="nav-item" id="nav-track"><a href="Track.html">Track Vote</a></li>
+        <li class="nav-item" id="nav-login"><a href="login.html">Login</a></li>
+        <li class="nav-item" id="nav-register"><a href="frorm.html">Register</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="cylinder"></div>
+  <main class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="highlight-de">Dec<span class="highlight-de-e">e</span>ntralized Trust.<br>
+        On The Fastest E<span class="highlight-evm">vm</span>
+      </h1>
+      <p class="hero-desc">
+        Secure, transparent, and easy online voting for your university community.<br>
+        Register now and make your vote count!
+      </p>
+      <a href="frorm.html" class="hero-btn">Launch</a>
+    </div>
+    <div class="hero-visual">
+      <!-- Visual content will be styled via CSS -->
+    </div>
+  </main>
+  <!-- Page 2 Section -->
+  <section class="page-2">
+    <div class="page-2-content">
+      <h1 class="page-2-title">The Future of Verifiable <br> & Private Voting</h1>
+      <p class="page-2-desc">
+        Leverage the power of Zero-Knowledge Proofs to cast completely anonymous votes. Our blockchain-based platform provides cryptographic proof of an election’s integrity, ensuring every voice is counted, but never revealed.
+      </p>
+      <div class="page-2-features">
+        <div class="feature-item">
+          <span class="feature-icon">🔒</span>
+          <h3 class="feature-title">Zero-Knowledge Privacy</h3>
+          <p class="feature-text">Cast your vote with absolute confidence. Our ZK-proof system ensures your choice remains secret, forever decoupled from your identity.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📊</span>
+          <h3 class="feature-title">Unbreakable Transparency</h3>
+          <p class="feature-text">Every valid vote is recorded immutably on the blockchain. Verify election results with cryptographic certainty, ensuring no vote is ever tampered with or silenced.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">💪</span>
+          <h3 class="feature-title">Powerful Election Hosting</h3>
+          <p class="feature-text">From small groups to large-scale elections, empower your own voting events with custom eligibility rules to ensure only the right people participate.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🌐</span>
+          <h3 class="feature-title">Effortless Participation</h3>
+          <p class="feature-text">Forget Web3 complexities. With a simple profile setup and an intuitive interface, participating in a secure, decentralized election is just a few clicks away.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="signup-blur-section">
-    <div class="signup-content">
-      <h2>Join the Future of Voting</h2>
-      <p>Become a part of UNI-VOTE's mission to deliver secure, transparent, and decentralized voting.</p>
+  <!-- Page 3 Section -->
+  <!-- Page 3 Section (Image-Based) -->
+  <section class="page-3">
+    <div class="page-3-image-container">
+      <img src="page3.png" alt="Voting Interface" class="page-3-image">
     </div>
-    <form class="signup-form" id="signup-form">
-      <input type="email" placeholder="Enter your email" required>
-      <input type="password" placeholder="Create a password" required>
-      <button type="submit">Sign Up</button>
-    </form>
   </section>
-
+  <!-- Page 4 Section -->
+  <section class="page-4">
+    <div class="page-4-container">
+      <h3 class="page-4-heading">Everything you need</h3>
+      <h2 class="page-4-title">Powerful Tools for Trusted Elections</h2>
+      <p class="page-4-subtitle">From defining voter eligibility to tracking results in real-time, UNI-VOTE gives you a complete and intuitive toolkit to host secure, transparent, and fair elections with confidence.</p>
+      <div class="page-4-tools">
+        <div class="tool-card">
+          <div class="tool-visual cross"><img src="cube.png" alt="Customizable Eligibility Visual"></div>
+          <h3 class="tool-title">Customizable Eligibility</h3>
+          <p class="tool-desc">Define exactly who can participate. Create rules based on profiles, email domains, or specific criteria of your choice to ensure the integrity of your vote.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tool-visual cube"><img src="cubehelix.png" alt="Robust Result Tracking Visual"></div>
+          <h3 class="tool-title">Robust Result Tracking</h3>
+          <p class="tool-desc">Monitor your election’s progress through a live dashboard. Access transparent, aggregated results the moment the voting period concludes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Page 5 Section (FAQs) -->
+  <section class="page-5">
+    <div class="page-5-container">
+      <h2 class="page-5-title">FAQs.</h2>
+      <div class="faq-item highlighted">
+        <h3 class="faq-question">What is UNI-VOTE? <span class="faq-icon">⭐</span></h3>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-question">Is my vote really anonymous? How?</h3>
+      </div>
+      <div class="faq-item green-bg">
+        <h3 class="faq-question">If it’s anonymous, how can I be sure the results are fair?</h3>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-question">Why do I need to connect my accounts, like Google or X?</h3>
+      </div>
+      <div class="faq-item green-bg">
+        <h3 class="faq-question">What is a “gas fee” and do I need to pay to vote?</h3>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-question">How does UNI-VOTE’s technology actually work?</h3>
+      </div>
+      <div class="faq-item green-bg">
+        <h3 class="faq-question">What is the voting process in simple steps?</h3>
+      </div>
+    </div>
+  </section>
+  <!-- Page 6 Section (Join Us) -->
+  <section class="page-6">
+    <div class="page-6-container">
+      <div class="visual-left"></div>
+      <div class="join-content">
+        <h1 class="join-title">Join us today</h1>
+        <p class="join-desc">Become a part of UNI-VOTE's mission to deliver secure, transparent, and decentralized voting.</p>
+        <form class="join-form">
+          <input type="email" placeholder="Enter your Email" class="join-input">
+          <button type="submit" class="join-button">Send</button>
+        </form>
+      </div>
+      <div class="visual-right"></div>
+    </div>
+  </section>
+  <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-container">
-      <div class="footer-branding">
-        <img src="uni vote[1].png" alt="UNI-VOTE Logo">
-        <p>UNI-VOTE: Empowering Trust in Decentralized Voting</p>
+      <div class="footer-column">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Roadmap</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
       </div>
-      <div class="footer-links">
-        <h4>Explore</h4>
-        <a href="us.html">Team</a>
-        <a href="img.html">Roadmap</a>
-        <a href="FAQ.html">FAQ</a>
+      <div class="footer-column">
+        <h3>Elsewhere</h3>
+        <ul>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Github</a></li>
+          <li><a href="#">Telegram</a></li>
+        </ul>
       </div>
-      <div class="footer-social">
-        <h4>Connect</h4>
-        <div class="social-links">
-          <a href="mailto:UNIVOTE.TECH@GMAIL.COM">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-            </svg>
-          </a>
-          <a href="https://t.me/c/2512359544/1">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S12 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.07-.99-.36-1.58-.67-.73-.39-1.13-.63-1.83 1.24-.2-.51.32-.73.32-.73l-.02-.03c.77-.3 1.43-1.1 1.49-1.16.76-.77 1-1.01 1.23-1.65.23-.66-.11-1.78-.34-2.47-.15-.45-.29-.86-.38-1.18-.05-.17-.08-.31-.1-.43-.02-.12-.01-.22.03-.31.09-.18.27-.2.43-.04l.02.02c.36.37.73.93 1.09 1.58.24.44.45.95.61 1.49z" />
-            </svg>
-          </a>
-          <a href="https://github.com/amitsikdar37/univote">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2.03 1.03-2.75-.1-.25-.45-1.31.1-2.73 0 0 .84-.27 2.75.98.8-.22 1.65-.33 2.5-.33s1.7.11 2.5.33c1.91-1.25 2.75-.98 2.75-.98.55 1.42.2 2.48.1 2.73.65.72 1.03 1.64 1.03 2.75 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
-            </svg>
-          </a>
-          <a href="https://www.instagram.com/_egoist.1?igsh=NGN0bW0wc3h3OXVw">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.326 3.608 1.301.975.975 1.24 2.242 1.301 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.326 2.633-1.301 3.608-.975.975-2.242 1.24-3.608 1.301-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.326-3.608-1.301-.975-.975-1.24-2.242-1.301-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.326-2.633 1.301-3.608.975-.975 2.242-1.24 3.608-1.301 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.425.065-2.684.328-3.894 1.538-1.21 1.21-1.473 2.469-1.538 3.894-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.065 1.425.328 2.684 1.538 3.894 1.21 1.21 2.469 1.473 3.894 1.538 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.425-.065 2.684-.328 3.894-1.538 1.21-1.21 1.473-2.469 1.538-3.894.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.065-1.425-.328-2.684-1.538-3.894-1.21-1.21-2.469-1.473-3.894-1.538-1.28-.058-1.688-.072-4.947-.072zm0 5.838c-3.313 0-6 2.687-6 6 0 3.313 2.687 6 6 6 3.313 0 6-2.687 6-6 0-3.313-2.687-6-6-6zm0 10c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm4.843-10.148c0 .779-.635 1.414-1.414 1.414s-1.414-.635-1.414-1.414.635-1.414 1.414-1.414 1.414.635 1.414 1.414z" />
-            </svg>
-          </a>
-          <a href="https://x.com/amroxxo">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/company/uni-vote/?viewAsMember=true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-            </svg>
-          </a>
-        </div>
+      <div class="footer-column">
+        <h3>Product</h3>
+        <ul>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Integrations</a></li>
+          <li><a href="#">Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-logo">
+        <img src="uni-vote[1].png" alt="UNI-VOTE Logo" class="footer-logo-img">
       </div>
     </div>
     <div class="footer-bottom">
-      © 2025 UNI-VOTE. All rights reserved.
+      <p>© 2025 Welcome. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div class="footer-social">
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#"><i class="fa-brands fa-github"></i></a>
+      </div>
     </div>
   </footer>
-
-  <script type="module" src="./scripts/index.js"></script>
-  <script>
-    // Example: Replace with your actual login logic
-    // Simulate user login and username display
-    document.addEventListener('DOMContentLoaded', function () {
-      // Example: Check if user is logged in (replace with real check)
-      const username = localStorage.getItem('username'); // Set this on login
-      const usernameContainer = document.getElementById('navbar-username');
-      const loginBtn = document.getElementById('login-btn');
-      if (username) {
-        usernameContainer.textContent = username;
-        usernameContainer.style.display = 'block';
-        if (loginBtn) loginBtn.style.display = 'none';
-      } else {
-        usernameContainer.style.display = 'none';
-        if (loginBtn) loginBtn.style.display = 'block';
-      }
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbsAu9OCUj5zNLiq"
-    crossorigin="anonymous"></script>
 </body>
 
 </html>
