@@ -4,13 +4,15 @@ body {
   background: linear-gradient(135deg, #f0f4ff, #e0eaff);
   font-family: 'Inter', sans-serif;
 }
-
+html, body {
+  overflow-x: hidden;
+}
 /* Navbar Styles */
 .navbar {
   display: flex;
   width: 100%;
   padding: 20px 40px;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background: #f0f4ff;
   backdrop-filter: blur(8px);
@@ -26,6 +28,8 @@ body {
   align-items: center;
   font-family: 'DM Sans', sans-serif;
   color: black;
+  justify-items: left;
+  margin-left: 20px;
 }
 
 .burger-menu {
@@ -88,17 +92,18 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
+  padding: 0 80px;
   text-align: left;
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, #f0f4ff, #e0eaff);
+  
 }
 
 .hero-content {
   max-width: 1000px;
   text-align: left;
-  padding: 60px 40px;
+  padding: 60px 0;
   z-index: 1;
 }
 
@@ -160,6 +165,7 @@ body {
   background-size: cover;
   transform: rotate(-45deg);
   transform-origin: bottom right 60px;
+  margin-right: 170px;
   position: relative;
   right: -100px;
   top: 50%;
@@ -169,7 +175,7 @@ body {
 
 .cylinder {
   width: 250px;
-  height: 400px;
+  height: 300px;
   flex-shrink: 0;
   border-radius: 98.5px;
   background: url('cylinder.png') no-repeat;
@@ -177,7 +183,8 @@ body {
   top: 80px;
   left: 600px;
   z-index: 1;
-  margin-left: 450px;
+  margin-left: 180px;
+  margin-top: 20px;
 }
 
 /* Page 2 Styles */
@@ -863,50 +870,73 @@ body {
   }
 }
 
-@media (min-width: 1025px) {
-  .burger-menu {
-    display: none;
-  }
-
-  .nav-links {
-    display: flex;
-  }
-
-  .hero-section {
-    padding: 0;
-  }
-
-  .hero-content {
-    padding: 60px 40px;
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .hero-title {
+    font-size: 90px;
+    line-height: 90px;
   }
 
   .hero-visual {
-    width: 110vh;
-    height: 100vh;
+    width: 90vh;
+    height: 90vh;
   }
 
   .cylinder {
-    width: 250px;
-    height: 400px;
-    top: 80px;
-    left: 600px;
-    margin-left: 450px;
+    width: 200px;
+    height: 300px;
+  }
+
+  .page-4-title {
+    font-size: 60px;
+  }
+
+  .tool-visual {
+    width: 110px;
+    height: 110px;
+  }
+
+  .join-title {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .hero-section {
+    padding: 0 80px;
+  }
+
+  .hero-content {
+    padding: 80px 0;
+  }
+
+  .hero-visual {
+    width: 120vh;
+    height: 110vh;
+  }
+
+  .cylinder {
+    width: 300px;
+    height: 450px;
   }
 
   .page-2 {
-    padding: 60px 50px;
+    padding: 80px 60px;
   }
 
-  .page-2-features {
-    flex-direction: row;
+  .page-4-title {
+    font-size: 90px;
   }
 
-  .page-4-tools {
-    flex-direction: row;
+  .tool-visual {
+    width: 130px;
+    height: 130px;
   }
 
-  .page-6 .visual-left,
-  .page-6 .visual-right {
-    display: block;
+  .join-title {
+    font-size: 70px;
   }
+}
+
+.burger-menu.active .fas.fa-bars::before {
+  content: "\f00d"; /* Font Awesome 'times' icon */
 }
