@@ -67,6 +67,45 @@ document.addEventListener('DOMContentLoaded', async () => {
   setInterval(fetchGasPrice, 30000); // Update gas price every 30 seconds
 });
 
+
+
+const startVotingButton = document.getElementById('start-voting');
+
+const saveCriteria = async () => {
+
+  const criteria = {
+  onlyIITP: document.getElementById('onlyIITP').checked,
+  account10Days: document.getElementById('account10Days').checked,
+  xAccount10Days: document.getElementById('xAccount10Days').checked,
+  gmail10Days: document.getElementById('gmail10Days').checked
+  };
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/Save-Election-Criteria`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        election_id: 'your-election-id', // Replace with actual election ID
+        criteria: criteria
+      })
+    });
+    const data = await response.json();
+    // handle success (e.g., show a confirmation message)
+    if (data.status === "1") {
+      console.log("Criteria set successfully:", data);
+    } else {
+      console.warn("Failed to set criteria:", data.message);
+    }
+  } catch (error) {
+    console.error("Error setting criteria:", error);
+    alert("Failed to set election criteria. Please try again.");
+  }
+};
+
+// Add event listener for the start voting button
+startVotingButton.addEventListener('click', saveCriteria);
+
 // Fetch gas price for proposals
 async function fetchGasPrice() {
   const proposeButton = document.getElementById('propose');
