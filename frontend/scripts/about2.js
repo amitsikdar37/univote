@@ -80,6 +80,13 @@ const saveCriteria = async () => {
   gmail10Days: document.getElementById('gmail10Days').checked
   };
 
+  const topic = document.getElementById('exampleFormControlTextarea1').value;
+
+  if (!topic.trim()) {
+    alert("Please enter a voting topic.");
+    return;
+  }
+
   try {
     const response = await fetch(`${BACKEND_URL}/api/Save-Election-Criteria`, {
       method: 'POST',
@@ -87,7 +94,8 @@ const saveCriteria = async () => {
       credentials: 'include',
       body: JSON.stringify({
         election_id: 'your-election-id', // Replace with actual election ID
-        criteria: criteria
+        criteria: criteria,
+        topic: topic
       })
     });
     const data = await response.json();
@@ -180,6 +188,9 @@ async function connectWallet() {
     const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
     if (accounts.length > 0) {
       const walletAddress = accounts[0];
+
+      sessionStorage.setItem('connectedWallet', walletAddress);
+
       walletAddressSpan.textContent = `Connected: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
       connectWalletButton.classList.add('d-none');
       disconnectWalletButton.classList.remove('d-none');
@@ -286,3 +297,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+

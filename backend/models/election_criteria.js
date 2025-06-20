@@ -11,6 +11,10 @@ const electionCriteriaSchema = new mongoose.Schema({
     of: mongoose.Schema.Types.Mixed,  // supports string, number, object, etc.
     default: {}
   },
+   topic: {  
+    type: String,
+    required: true
+  },
   created_at: {
     type: Date,
     default: Date.now
