@@ -2,911 +2,55 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNI-VOTE</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;700&display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      /* font-family: 'Inter', sans-serif; */
-      /* font-family: "DM Sans", sans-serif; */
-      font-family: 'DM Sans', sans-serif;
-      font-family: 'Poppins', sans-serif;
-      /* background: linear-gradient(to right, #c8d6ff, #e4e9ff); */
-      /* background: linear-gradient(201.28deg, #EAEEFE 45.21%, #183EC2 97.31%); */
-
-      overflow-x: hidden;
-    }
-
-    .top-alert {
-      background: linear-gradient(to right, #a6c1ff, #d2d2ff);
-      color: #000;
-      padding: 6px 0;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    .navbar {
-      background: transparent;
-      padding: 1rem 2rem;
-    }
-
-    .navbar-brand {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 600;
-      font-size: 24px;
-      color: #000;
-    }
-
-    .navbar-nav .nav-link {
-      margin-right: 15px;
-      color: #000;
-      font-weight: 500;
-    }
-
-    .btn-register {
-      background: #000;
-      color: #fff;
-      border-radius: 6px;
-      padding: 8px 16px;
-      font-weight: 500;
-      border: none;
-    }
-
-    /***********************************popup************************************8*/
-
-
-    .btn-register {
-      padding: 14px 28px;
-      background-color: #6c63ff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .popup-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .popup-box {
-      display: flex;
-      background-color: #fff;
-      width: 90%;
-      max-width: 800px;
-      border-radius: 10px;
-      overflow: hidden;
-      animation: fadeIn 0.4s ease;
-      position: relative;
-    }
-
-    .form-side {
-      flex: 1;
-      padding: 40px;
-    }
-
-    .form-side h2 {
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-group label {
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-
-    .form-group input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-    }
-
-    .form-group input:focus {
-      border-color: #6c63ff;
-      outline: none;
-    }
-
-    .submit-btn {
-      margin-top: 10px;
-      width: 100%;
-      background-color: #0c0c0c;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .submit-btn:hover {
-      background-color: #000000;
-    }
-
-    .image-side {
-      flex: 1;
-      background-color: #eae8ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .image-side img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 24px;
-      color: #fff;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    @keyframes fadeIn {
-      from {
-        transform: scale(0.95);
-        opacity: 0;
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .popup-box {
-        flex-direction: column;
-      }
-
-      .image-side {
-        order: -1;
-        padding: 20px;
-      }
-    }
-
-    /****************************************8popup*****************************************/
-
-
-    .home {
-      background: linear-gradient(201.28deg, #EAEEFE 45.21%, #183EC2 97.31%);
-      height: 50rem;
-
-
-    }
-
-    .hero {
-      padding: 80px 10% 50px;
-      position: relative;
-      margin-top: 3.5rem;
-
-
-    }
-
-    .hero h1 {
-      font-size: 5.2rem;
-      font-weight: 700;
-      line-height: 1.2;
-      color: #000;
-       font-family: 'DM Sans', sans-serif;
-    }
-
-    .hero h1 .pink {
-      color: #ec008c;
-    }
-
-    .hero h1 .purple {
-      color: #7e00ff;
-    }
-
-    .hero p {
-      margin-top: 20px;
-      font-size: 1.1rem;
-      color: #333;
-      max-width: 500px;
-    }
-
-    .btn-launch {
-      margin-top: 30px;
-      padding: 10px 30px;
-      background: #000;
-      color: white;
-      border-radius: 15px;
-      font-weight: 500;
-      border: none;
-      transition: 0.3s;
-    }
-
-    .btn-launch:hover {
-      background: #222;
-    }
-
-    .graphic {
-      position: absolute;
-      top: 0px;
-      right: 0;
-      left: 60%;
-      width: 640px;
-      max-width: 100%;
-      transform: rotate(-135deg);
-      /* height: 531px; */
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        padding: 60px 20px;
-        text-align: center;
-      }
-
-      .graphic {
-        position: static;
-        margin-top: 40px;
-      }
-    }
-
-    /*********************************888888 cards *************************************88*/
-
-    .features-section {
-      padding: 80px 20px;
-      position: relative;
-      background: linear-gradient(120deg, #f3f7ff 0%, #fff0ff 100%);
-      text-align: center;
-    }
-
-    .features-section h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #111;
-      /* font-family: 'DM Sans'; */
-      text-align: center;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .features-section h2 span {
-      color: #6200ea;
-    }
-
-    .features-section p.description {
-      font-size: 1rem;
-      max-width: 700px;
-      margin: 20px auto 60px;
-      color: #444;
-    }
-
-    .feature-icon {
-      font-size: 2rem;
-      color: #6200ea;
-      margin-bottom: 10px;
-    }
-
-    .feature-card {
-      text-align: left;
-      padding: 10px;
-    }
-
-    .feature-card h5 {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #000;
-    }
-
-    .feature-card p {
-      font-size: 0.95rem;
-      color: #555;
-    }
-
-    .corner-img {
-      position: absolute;
-      top: 0;
-      right: 45px;
-      width: 200px;
-      transform: rotate(25deg);
-      bottom: 900px;
-    }
-
-    @media (max-width: 768px) {
-      .feature-card {
-        text-align: center;
-      }
-    }
-
-    .dashboard-img {
-      width: 100%;
-      max-width: 1200px;
-      margin: 60px auto 20px;
-      display: block;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    /*********************************888888 cards *************************************88*/
-
-    .sign {
-      margin-top: 20px;
-      margin-left: 80px;
-    }
-
-
-    /*************************************8tools.html ***************************************88*/
-    .trusted-section {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(135deg, #cfc1cf, #fef0ff);
-
-    }
-
-    .trusted-section small {
-      display: inline-block;
-      background: #f0f0ff;
-      color: #666;
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    .trusted-section h2 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #111;
-      margin-bottom: 20px;
-    }
-
-    .trusted-section p.lead {
-      color: #444;
-      max-width: 700px;
-      margin: 0 auto 60px;
-      font-size: 1rem;
-    }
-
-    .features-card {
-      background: white;
-      border-radius: 20px;
-      padding: 40px 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-      width: 87%;
-    }
-
-    .features-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .features-card img {
-      width: 300px;
-      margin-bottom: 20px;
-    }
-
-    .features-card h5 {
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .features-card p {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    /* .dot-icon {
-      width: 10px;
-      height: 10px;
-      background-color: #00bcd4;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 8px;
-    } */
-
-    @media (max-width: 768px) {
-      .feature-card {
-        margin-bottom: 20px;
-      }
-    }
-
-    /*************************************8tools.html ***************************************88*/
-
-    /*****************************8faq.html************************************8*/
-
-    .faq-container {
-      max-width: 800px;
-      margin: auto;
-      padding: 50px 20px;
-
-    }
-
-    .faq-item {
-      background: #fff;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .faq-question {
-      padding: 16px 20px;
-      cursor: pointer;
-      font-weight: 600;
-      position: relative;
-    }
-
-    .faq-question::after {
-      content: '+';
-      position: absolute;
-      right: 20px;
-      font-size: 22px;
-      transition: transform 0.3s ease;
-    }
-
-    .faq-item.active .faq-question::after {
-      content: '−';
-    }
-
-    .faq-answer {
-      padding: 0 20px 16px;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, opacity 0.3s ease;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 300px;
-      opacity: 1;
-    }
-
-    /*****************************8faq.html************************************8*/
-
-    /*******************************join us today****************************8*/
-    .subscribe-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px;
-      background: linear-gradient(to bottom, #fff, #94a2e7);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .subscribe-content {
-      /* background: white; */
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      max-width: 700px;
-      /* box-shadow: 0 4px 30px rgba(0,0,0,0.05); */
-      z-index: 2;
-    }
-
-    .subscribe-content h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .subscribe-content p {
-      color: #666;
-      font-size: 1rem;
-      margin-bottom: 25px;
-    }
-
-    .email-form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      /* background-color: #fff; */
-      /* box-shadow: 0 4px 30px rgb(216, 8, 8); */
-      /* border: 2px solid #fff; */
-      /* border-radius: 50px; */
-      width: 60%;
-      margin-left: 150px;
-
-    }
-
-    .email-form input {
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid #fff;
-      min-width: 220px;
-      font-size: 1rem;
-    }
-
-    .email-form button {
-      background-color: #000;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    /* Decorative images */
-    .img-left,
-    .img-right {
-      position: absolute;
-      z-index: 1;
-    }
-
-    .img-left {
-      left: 0;
-      top: 20%;
-      width: 350px;
-    }
-
-    .img-right {
-      right: 100px;
-      bottom: 0;
-      width: 350px;
-    }
-
-    @media (max-width: 600px) {
-      .subscribe-content {
-        padding: 30px 20px;
-      }
-    }
-
-    /*******************************join us today****************************8*/
-
-    /***********************************footer***************************************/
-    .footer {
-      width: 100%;
-      background: #000316;
-      padding: 50px 20px;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 40px;
-    }
-
-    .footer-column {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .footer-column h3 {
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #D3D8E0;
-    }
-
-    .footer-column ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .footer-column ul li {
-      margin-bottom: 10px;
-    }
-
-    .footer-column ul li a {
-      color: #A0AEC0;
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .footer-column ul li a:hover {
-      color: #fff;
-    }
-
-    .footer-logo {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .footer-logo-img {
-      width: 100px;
-      height: 100px;
-      margin-top: 0px;
-      margin-right: 80px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 30px auto 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-bottom p {
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      color: #A0AEC0;
-      margin: 0;
-    }
-
-    .footer-links a {
-      color: #A0AEC0;
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      margin-left: 15px;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: #fff;
-    }
-
-    .footer-social a {
-      color: #A0AEC0;
-      font-size: 16px;
-      margin-left: 15px;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-social a:hover {
-      color: #fff;
-    }
-
-    /* Footer Styles */
-    .footer {
-      width: 100%;
-      background: #000316;
-      padding: 50px 20px;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 40px;
-    }
-
-    .footer-column {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .footer-column h3 {
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #D3D8E0;
-    }
-
-    .footer-column ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .footer-column ul li {
-      margin-bottom: 10px;
-    }
-
-    .footer-column ul li a {
-      color: #A0AEC0;
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .footer-column ul li a:hover {
-      color: #fff;
-    }
-
-    .footer-logo {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .footer-logo-img {
-      width: 100px;
-      height: 100px;
-      margin-top: 0px;
-      margin-right: 80px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
-      border: 5px solid #A3A3A3;
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 30px auto 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-bottom p {
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      color: #A0AEC0;
-      margin: 0;
-    }
-
-    .footer-links a {
-      color: #A0AEC0;
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      margin-left: 15px;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: #fff;
-    }
-
-    .footer-social a {
-      color: #A0AEC0;
-      font-size: 16px;
-      margin-left: 15px;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-social a:hover {
-      color: #fff;
-    }
-
-    /**************************************footer**************************************8*/
-    .highlight-de-e {
-      color: #FF00E5;
-    }
-  </style>
+  <script src="https://kit.fontawesome.com/8f68262e98.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <!-- 
-  <div class="top-alert">
-    This page is currently under development. Please be aware of bugs! 🐞
-  </div> -->
-  <div class="home">
-    <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="#"><img src="Frame 41.svg" style="height: 32px; width: 150px;"></a>
-      <div class="ms-auto d-flex align-items-center">
-        <ul class="navbar-nav d-none d-lg-flex flex-row">
-          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="gov.html">Governance</a></li>
-          <li class="nav-item"><a class="nav-link" href="vote.html">Vote</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Track Vote</a></li>
-        </ul>
-        <!-- <button class="btn btn-register ms-3" id="registerBtn">Register</button> -->
-        <!-- <button class="register-btn btn btn-register ms-3" onclick="openModal()">Register</button> -->
-        <!-- <button class="register-btn" onclick="openModal()">Register</button> -->
-        <button class="btn-register" onclick="openPopup()"
-          style="background-color: #000; border-radius: 10px; padding: 10px 10px;">Register</button>
-
+  <div>
+    <nav id="main-nav" class="navbar">
+      <div class="navbar-logo" id="logo-univote">
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="33" viewBox="0 0 150 33" fill="none">
+          <path d="M5.46858 0.814026V13.9352C5.46858 15.2488 5.79305 16.2625 6.44563 16.9764C7.10551 17.6831 8.07891 18.0329 9.36221 18.0329C10.6346 18.0329 11.6116 17.6831 12.2934 16.9764C12.9715 16.2625 13.3142 15.2488 13.3142 13.9352V0.814026H18.7827V13.9067C18.7827 15.8698 18.3526 17.5296 17.4995 18.8896C16.6536 20.2424 15.5089 21.2597 14.0725 21.945C12.6324 22.6303 11.0283 22.973 9.26013 22.973C7.49924 22.973 5.92065 22.6375 4.52069 21.9593C3.12803 21.2846 2.02702 20.2674 1.21038 18.9038C0.401029 17.5332 0 15.8698 0 13.9067V0.814026H5.46858Z" fill="#212121"/>
+          <path d="M41.8701 22.7588H36.4161L27.2726 9.22358V22.7588H21.8186V0.814026H27.2726L36.4161 14.4064V0.814026H41.8701V22.7588Z" fill="#212121"/>
+          <path d="M50.4904 0.814026V22.7588H45.0364V0.814026H50.4904Z" fill="#212121"/>
+          <path d="M67.3812 9.56622V14.0066H53.3379V9.56622H67.3812Z" fill="#212121"/>
+          <path d="M92.4264 0.814026L84.4787 22.7588H77.6393L69.6917 0.814026H75.4956L81.0517 17.3761L86.6515 0.814026H92.4264Z" fill="#212121"/>
+          <path d="M104.5 22.9731C102.389 22.9731 100.453 22.4983 98.6962 21.5453C96.9462 20.5851 95.5499 19.243 94.5109 17.519C93.4791 15.7985 92.9651 13.8639 92.9651 11.7223C92.9651 9.57346 93.4791 7.64598 94.5109 5.93979C95.5499 4.22647 96.9462 2.89508 98.6962 1.94205C100.453 0.981872 102.389 0.5 104.5 0.5C106.607 0.5 108.54 0.981872 110.29 1.94205C112.047 2.89508 113.432 4.22647 114.446 5.93979C115.456 7.64598 115.962 9.57346 115.962 11.7223C115.962 13.8639 115.452 15.7985 114.431 17.519C113.41 19.243 112.025 20.5851 110.275 21.5453C108.532 22.4983 106.607 22.9731 104.5 22.9731ZM104.5 18.1044C106.287 18.1044 107.716 17.519 108.788 16.3482C109.867 15.1774 110.406 13.6355 110.406 11.7223C110.406 9.78049 109.867 8.23493 108.788 7.08201C107.716 5.92195 106.287 5.34013 104.5 5.34013C102.692 5.34013 101.248 5.91838 100.169 7.06773C99.0972 8.20994 98.5649 9.76264 98.5649 11.7223C98.5649 13.664 99.0972 15.2167 100.169 16.3768C101.248 17.5297 102.692 18.1044 104.5 18.1044Z" fill="#212121"/>
+          <path d="M134.33 0.814026V5.09733H128.38V22.7588H122.926V5.09733H116.991V0.814026H134.33Z" fill="#212121"/>
+          <path d="M141.732 5.09733V9.53768H149.052V13.6639H141.732V18.4755H150V22.7588H136.278V0.814026H150V5.09733H141.732Z" fill="#FF00E5"/>
+        </svg>
       </div>
+      <button class="burger-menu" aria-label="Toggle Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li class="nav-item" id="nav-home"><a href="index.html">Home</a></li>
+        <li class="nav-item" id="nav-governance"><a href="about2.html">Governance</a></li>
+        <li class="nav-item" id="nav-vote"><a href="voting.html">Vote</a></li>
+        <li class="nav-item" id="nav-track"><a href="Track.html">Track Vote</a></li>
+        <li class="nav-item" id="nav-login"><a href="login.html">Login</a></li>
+        <li class="nav-item" id="nav-register"><a href="frorm.html">Register</a></li>
+      </ul>
     </nav>
-    <!-- <button class="register-btn btn btn-register ms-3" onclick="openModal()">Register</button> -->
-    <!-- <button class="register-btn" onclick="openModal()">Register</button> -->
-    <!------------------------------popup----------------------------------------->
-    <!-- <button class="btn-register" onclick="openPopup()">Register</button> -->
-
-    <div class="popup-container" id="popupForm">
-      <div class="close-btn" onclick="closePopup()">×</div>
-      <div class="popup-box">
-        <div class="form-side">
-          <h2>Create Account</h2>
-          <form>
-            <div class="form-group">
-              <label>Username</label>
-              <input type="text" placeholder="Enter your username" required>
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" placeholder="Enter password" required>
-            </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input type="password" placeholder="Confirm password" required>
-            </div>
-            <button type="submit" class="submit-btn">Register</button>
-          </form>
-        </div>
-        <div class="image-side">
-          <img src="sign in.png" alt="Illustration">
-        </div>
-      </div>
-    </div>
-
-    <!------------------------------------------popup------------------------------------>
-
-    <section class="hero">
-      <h1>
-        D<span class="highlight-de-e">e</span>centralized Trust.<br>
-        On The Fastest E<span class="highlight-de-e">vm</span></span>
-      </h1>
-      <p>
-        Experience Truly Secret & Verifiable Voting:<br>
-        Powered by Zero-Knowledge Proofs with the speed of <a href="http://base.org/" target="_blank"><img
-            src="Base_Wordmark_Blue.svg" width="64px" height="17px"></a>
-      </p>
-
-      <button class="btn-launch" id="launch-app-btn">Launch</button>
-      <img src="ujjawal.png" alt="3D Graphic" class="graphic">
-    </section>
   </div>
-
-  <!---------------- cards ------------------------>
-  <section class="features-section">
-    <img src="curved.png" alt="curve art" class="corner-img" />
-
-    <h2>The Future of Verifiable &<br> Private Voting </h2>
-    <p class="description">
-      Leverage the power of Zero-Knowledge Proofs to cast completely anonymous votes.
-      Our blockchain-based platform provides cryptographic proof of an election’s integrity,
-      ensuring every vote is counted, but never revealed.
-    </p>
-
-    <div class="container">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        <div class="col">
-          <div class="feature-card">
-            <div class="feature-icon">🛡️</div>
-            <h5>Zero-Knowledge Privacy</h5>
-            <p>Cast your vote with absolute confidence. Our ZK-proof system ensures your vote remains
-              secure, shielded from your identity.</p>
-          </div>
+  <div class="cylinder"></div>
+  <main class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="highlight-de">Dec<span class="highlight-de-e">e</span>ntralized Trust.<br>
+        On The Fastest E<span class="highlight-evm">vm</span>
+      </h1>
       <p class="hero-desc">
         Secure, transparent, and easy online voting for your university community.<br>
         Register now and make your vote count!
       </p>
+      <a href="frorm.html" class="hero-btn">Launch</a>
     </div>
     <div class="hero-visual">
       <!-- Visual content will be styled via CSS -->
@@ -925,176 +69,95 @@
           <h3 class="feature-title">Zero-Knowledge Privacy</h3>
           <p class="feature-text">Cast your vote with absolute confidence. Our ZK-proof system ensures your choice remains secret, forever decoupled from your identity.</p>
         </div>
-        <div class="col">
-          <div class="feature-card">
-            <div class="feature-icon"><img src="Icons.png"></div>
-            <h5>Unbreakable Transparency</h5>
-            <p>Every valid vote is recorded immutably on the blockchain. Verifying election data with
-              cryptographic certainty, ensuring nothing can be tampered without detection.</p>
-          </div>
+        <div class="feature-item">
+          <span class="feature-icon">📊</span>
+          <h3 class="feature-title">Unbreakable Transparency</h3>
+          <p class="feature-text">Every valid vote is recorded immutably on the blockchain. Verify election results with cryptographic certainty, ensuring no vote is ever tampered with or silenced.</p>
         </div>
-        <div class="col">
-          <div class="feature-card">
-            <div class="feature-icon"><img src="lock Icons (1).png"></div>
-            <h5>Powerful Election Hosting</h5>
-            <p>From small group polls to large-scale elections, create and manage public or private voting
-              with unique registration protocols.</p>
-          </div>
+        <div class="feature-item">
+          <span class="feature-icon">💪</span>
+          <h3 class="feature-title">Powerful Election Hosting</h3>
+          <p class="feature-text">From small groups to large-scale elections, empower your own voting events with custom eligibility rules to ensure only the right people participate.</p>
         </div>
-        <div class="col">
-          <div class="feature-card">
-            <div class="feature-icon"><img src="well Icons (2).png"></div>
-            <h5>Effortless Participation</h5>
-            <p>Forget Web3 complexities. With a simple voting interface and flexible accessibility,
-              participating in elections is just a few clicks away.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <img src="gpt2.png" alt="Voting Dashboard" class="dashboard-img" />
-
-  </section>
-  <!-- <div id="voteSection"></div>/ -->
-  <!---------------- cards ------------------------>
-  <!------------------------------ tool.html-------------------------------->
-  <section class="trusted-section">
-    <small>Everything you need</small>
-    <h2>Powerful Tools for Trusted<br />Elections</h2>
-    <p class="lead">
-      From defining voter eligibility to tracking results in real-time,
-      UNI-VOTE gives you a complete and intuitive toolkit to host secure,
-      transparent, and fair elections with confidence.
-    </p>
-
-    <div class="container">
-      <div class="row justify-content-center g-4">
-        <div class="col-md-5">
-          <div class="features-card">
-            <img src="cubic.png" alt="Eligibility Icon">
-            <h5>Customizable Eligibility</h5>
-            <p>
-              Define exactly who can participate. Create rules based on social profiles, email domains,
-              or specific on-chain credentials to ensure the integrity of your vote.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="features-card">
-            <img src="cub.png" alt="Tracking Icon">
-            <h5><span class="dot-icon"></span>Robust Result Tracking</h5>
-            <p>
-              Monitor your election’s progress through a live dashboard.
-              Access transparent, aggregated results the moment the voting period concludes.
-            </p>
-          </div>
+        <div class="feature-item">
+          <span class="feature-icon">🌐</span>
+          <h3 class="feature-title">Effortless Participation</h3>
+          <p class="feature-text">Forget Web3 complexities. With a simple profile setup and an intuitive interface, participating in a secure, decentralized election is just a few clicks away.</p>
         </div>
       </div>
     </div>
   </section>
-  <!------------------------------ tool.html------------------------------->
-  <!--------------------------------faq.htm-------------------------------------->
 
-  <div class="faq-container">
-    <h2 style="text-align: center; margin-bottom: 30px;">Frequently Asked Questions</h2>
-
-    <div class="faq-item">
-      <div class="faq-question">What is UNI-VOTE?</div>
-      <div class="faq-answer">
-        UNI-VOTE is a secure, next-generation voting platform that uses blockchain technology and Zero-Knowledge
-        Proofs. It allows anyone to host and participate in elections where every vote is completely private and
-        the final results are fully verifiable and tamper-proof.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">Is my vote really anonymous? How?</div>
-      <div class="faq-answer">
-        Yes, your vote is 100% anonymous. When you cast your ballot, our Zero-Knowledge Proof (ZKP) system
-        generates a cryptographic proof that confirms you are an eligible voter without revealing who you are.
-        Your vote is mathematically separated from your identity before it's ever recorded on the blockchain. No
-        one, not even us, can link you to your specific vote.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">If it's anonymous, how can I be sure the results are fair?</div>
-      <div class="faq-answer">
-        This is the power of blockchain. While your identity is private, the vote itself is recorded on a
-        public, unchangeable ledger. This creates a transparent audit trail where anyone can verify that all
-        valid votes were counted correctly and that no votes were added or removed. It’s the perfect balance of
-        individual privacy and public verifiability.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">Why do I need to connect my accounts, like Google or X?</div>
-      <div class="faq-answer">
-        Connecting accounts is used to verify your eligibility for specific elections that have custom rules set
-        by the host (e.g., "Only for members with an @iitp.ac.in email"). Our system only checks that you meet
-        the criteria; your personal data is never linked to your final vote. This allows for powerful, flexible,
-        and secure community voting.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">What is a "gas fee" and do I need to pay to vote?</div>
-      <div class="faq-answer">
-        A gas fee is a very small transaction cost required by the blockchain network to record a transaction.
-        We've built UNI-VOTE on the Base blockchain, where these fees are typically extremely low (often less
-        than a cent). While this small network fee is part of the process, we are actively exploring ways to
-        sponsor these fees for users in the future to make voting completely free.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">How does UNI-VOTE's technology actually work?</div>
-      <div class="faq-answer">
-        At its core, UNI-VOTE uses an "Attested Claim-Nonce" model. First, our secure backend (acting as an
-        Oracle) verifies your eligibility for an election based on the host's rules. If you are eligible, it
-        issues you a unique, single-use "digital ticket" (a nonce). You then use this ticket, along with a
-        personal secret only you know, to generate a Zero-Knowledge Proof. This proof confirms to the blockchain
-        that you hold a valid ticket, without revealing which ticket belongs to you, ensuring your vote is
-        secure and anonymous.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">What is the voting process in simple steps?</div>
-      <div class="faq-answer">
-        Voting on UNI-VOTE is designed to be simple:
-        1. Register: For each election, you first register to have your eligibility checked. If successful, you
-        receive your unique "digital ticket" for that vote.
-        2. Vote: Choose your preferred option and click the "Vote" button. Our system generates a secure ZK
-        proof for you in the background.
-        3. Confirm: A transaction will pop up in your wallet. Simply approve it to cast your vote securely and
-        privately onto the blockchain.
-      </div>
-    </div>
-
-  </div>
-  <!--------------------------------faq.htm-------------------------------------->
-
-  <!---------------------------Join us today------------------------------------>
-
-
-  <section class="subscribe-section">
-    <!-- Decorative Images -->
-    <img src="left.png" alt="Decor Left" class="img-left">
-    <img src="helix2 1.png" alt="Decor Right" class="img-right">
-
-    <!-- Main content -->
-    <div class="subscribe-content">
-      <h2>Join us today</h2>
-      <p>Become a part of UNI-VOTE’s mission to deliver secure, transparent, and decentralized voting.</p>
-      <form class="email-form">
-        <input type="email" placeholder="Enter your Email" required>
-        <button type="submit">Send</button>
-      </form>
+  <!-- Page 3 Section -->
+  <!-- Page 3 Section (Image-Based) -->
+  <section class="page-3">
+    <div class="page-3-image-container">
+      <img src="page3.png" alt="Voting Interface" class="page-3-image">
     </div>
   </section>
-  <!---------------------------Join us today------------------------------------>
-
-  <!------------------------------footer------------------------------->
+  <!-- Page 4 Section -->
+  <section class="page-4">
+    <div class="page-4-container">
+      <h3 class="page-4-heading">Everything you need</h3>
+      <h2 class="page-4-title">Powerful Tools for Trusted Elections</h2>
+      <p class="page-4-subtitle">From defining voter eligibility to tracking results in real-time, UNI-VOTE gives you a complete and intuitive toolkit to host secure, transparent, and fair elections with confidence.</p>
+      <div class="page-4-tools">
+        <div class="tool-card">
+          <div class="tool-visual cross"><img src="cube.png" alt="Customizable Eligibility Visual"></div>
+          <h3 class="tool-title">Customizable Eligibility</h3>
+          <p class="tool-desc">Define exactly who can participate. Create rules based on profiles, email domains, or specific criteria of your choice to ensure the integrity of your vote.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tool-visual cube"><img src="cubehelix.png" alt="Robust Result Tracking Visual"></div>
+          <h3 class="tool-title">Robust Result Tracking</h3>
+          <p class="tool-desc">Monitor your election’s progress through a live dashboard. Access transparent, aggregated results the moment the voting period concludes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Page 5 Section (FAQs) -->
+  <section class="page-5">
+    <div class="page-5-container">
+      <h2 class="page-5-title">FAQs.</h2>
+      <div class="faq-item highlighted">
+        <h3 class="faq-question">What is UNI-VOTE? <span class="faq-icon">⭐</span></h3>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-question">Is my vote really anonymous? How?</h3>
+      </div>
+      <div class="faq-item green-bg">
+        <h3 class="faq-question">If it’s anonymous, how can I be sure the results are fair?</h3>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-question">Why do I need to connect my accounts, like Google or X?</h3>
+      </div>
+      <div class="faq-item green-bg">
+        <h3 class="faq-question">What is a “gas fee” and do I need to pay to vote?</h3>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-question">How does UNI-VOTE’s technology actually work?</h3>
+      </div>
+      <div class="faq-item green-bg">
+        <h3 class="faq-question">What is the voting process in simple steps?</h3>
+      </div>
+    </div>
+  </section>
+  <!-- Page 6 Section (Join Us) -->
+  <section class="page-6">
+    <div class="page-6-container">
+      <div class="visual-left"></div>
+      <div class="join-content">
+        <h1 class="join-title">Join us today</h1>
+        <p class="join-desc">Become a part of UNI-VOTE's mission to deliver secure, transparent, and decentralized voting.</p>
+        <form class="join-form">
+          <input type="email" placeholder="Enter your Email" class="join-input">
+          <button type="submit" class="join-button">Send</button>
+        </form>
+      </div>
+      <div class="visual-right"></div>
+    </div>
+  </section>
+  <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-column">
@@ -1139,63 +202,15 @@
       </div>
     </div>
   </footer>
-  <!------------------------footer------------------------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-------------------------------faq-------------------------------------------->
   <script>
-    document.querySelectorAll('.faq-question').forEach(item => {
-      item.addEventListener('click', () => {
-        const parent = item.parentElement;
-        parent.classList.toggle('active');
-      });
+    const burgerMenu = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    burgerMenu.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      burgerMenu.classList.toggle('active');
     });
   </script>
-  <!-------------------------------faq-------------------------------------------->
-
-
-  <!---------------------------popup--------------------------------------->
-
-  <script>
-    function openPopup() {
-      document.getElementById('popupForm').style.display = 'flex';
-    }
-
-    function closePopup() {
-      document.getElementById('popupForm').style.display = 'none';
-    }
-
-    // Close when clicking outside
-    window.addEventListener("click", function (e) {
-      const popup = document.getElementById("popupForm");
-      if (e.target === popup) {
-        closePopup();
-      }
-    });
-  </script>
-  <!--------------------------------popup---------------------------------------->
-
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-    crossorigin="anonymous"></script>
-
-
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
