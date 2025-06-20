@@ -26,6 +26,9 @@
           <path d="M141.732 5.09733V9.53768H149.052V13.6639H141.732V18.4755H150V22.7588H136.278V0.814026H150V5.09733H141.732Z" fill="#FF00E5"/>
         </svg>
       </div>
+      <button class="burger-menu" aria-label="Toggle Menu">
+        <i class="fas fa-bars"></i>
+      </button>
       <ul class="nav-links">
         <li class="nav-item" id="nav-home"><a href="index.html">Home</a></li>
         <li class="nav-item" id="nav-governance"><a href="about2.html">Governance</a></li>
@@ -199,6 +202,15 @@
       </div>
     </div>
   </footer>
+  <script>
+    const burgerMenu = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    burgerMenu.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      burgerMenu.classList.toggle('active');
+    });
+  </script>
 </body>
 
 </html>
