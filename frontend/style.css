@@ -158,16 +158,16 @@ html, body {
 
 /* Visual Content Styles */
 .hero-visual {
-  width: 110vh;
-  height: 100vh;
+  width: 100px;
+  height: 100px;
   flex-shrink: 0;
   background: url('star-visual.png') no-repeat;
   background-size: cover;
   transform: rotate(-45deg);
   transform-origin: bottom right 60px;
-  margin-right: 170px;
+  margin-right: 200px;
   position: relative;
-  right: -100px;
+  right: -10px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 0;
@@ -183,7 +183,7 @@ html, body {
   top: 80px;
   left: 600px;
   z-index: 1;
-  margin-left: 180px;
+  margin-left: 200px;
   margin-top: 20px;
 }
 
