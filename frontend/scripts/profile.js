@@ -1,30 +1,7 @@
 import { BACKEND_URL } from "../config.js";
 
-const launchButton = document.getElementById("launch-app-btn");
-
-const launchapp = async function launchApp() {
-  try{
-    const response = await fetch (`${BACKEND_URL}/api/Authenticate`,{
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      credentials: "include",
-    });
-    if (response.ok) {
-      window.location.href = './about2.html';
-    } else {
-      window.location.href = './login.html';
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
 function updateUsername() {
-    const showUsername = document.getElementById('navbar-username');
-    const loginButton = document.getElementById('login-btn');
+    const showUsername = document.getElementById('span-username');
 
     try {
         fetch(`${BACKEND_URL}/api/Username`, {
@@ -46,11 +23,9 @@ function updateUsername() {
             if (data.username) {
                 showUsername.innerText = data.username;
                 showUsername.style.display = 'inline-block'; // Ensure username is visible
-                loginButton.style.display = 'none'; // Hide login button
             } else {
                 showUsername.innerText = '';
                 showUsername.style.display = 'none';
-                loginButton.style.display = 'inline-block';
             }
         })
         .catch(error => {
@@ -70,5 +45,19 @@ window.addEventListener('pageshow', function(event) {
     }
 });
 
-launchButton.addEventListener("click", launchapp);
+function loadWalletFromSession() {
+  const profileWalletAddressSpan = document.getElementById('profile-wallet-address');
+  const walletAddress = sessionStorage.getItem('connectedWallet');
+  if (walletAddress && profileWalletAddressSpan) {
+    const shortAddress = `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
+    profileWalletAddressSpan.textContent = shortAddress;
+  }
+}
 
+document.addEventListener('DOMContentLoaded', loadWalletFromSession);
+// Run when page is shown from bfcache or normal navigation
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        loadWalletFromSession();
+    }
+});
