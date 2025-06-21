@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Initialize wallet check and gas price fetch
   await checkWallet();
   fetchGasPrice();
-  setInterval(fetchGasPrice, 30000); // Update gas price every 30 seconds
+  setInterval(fetchGasPrice, 5000); // Update gas price every 5 seconds
 });
 
 
