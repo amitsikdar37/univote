@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UNI-VOTE | Blockchain Voting</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png'), linear-gradient(to bottom right, #0a0a0a, #020202);
+            background-size: cover;
+            background-repeat: repeat;
+            color: #f8f9fa;
+        }
+
+        section {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .accordion-item {
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FAQs Section -->
+    <section>
+        <div class="container" data-aos="fade-up" data-aos-duration="1500">
+            <h2 class="text-center text-info fw-bold mb-4">❓ Frequently Asked Questions</h2>
+            <p class="text-center mb-5 heading">Clear your doubts about how UNI-VOTE works.</p>
+
+            <div class="accordion accordion-flush" id="faqAccordion">
+
+                <!-- FAQ: Why Use UNI-VOTE? -->
+                <div class="accordion-item mb-3 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="faqHeadingOne">
+                        <button class="accordion-button collapsed bg-dark text-light fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="false"
+                            aria-controls="faqCollapseOne">
+                            ⭐ Why Use UNI-VOTE?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseOne" class="accordion-collapse collapse"
+                        aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            BCZ UNI-VOTE is a secure and transparent voting platform made for <strong>IIT Patna students.</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ: Anonymous Vote -->
+                <div class="accordion-item mb-3 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="faqHeadingTwo">
+                        <button class="accordion-button collapsed bg-dark text-light fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false"
+                            aria-controls="faqCollapseTwo">
+                            🛡️ Is my vote anonymous and secure?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseTwo" class="accordion-collapse collapse"
+                        aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Yes! UNI-VOTE uses blockchain to ensure that all votes are <strong>anonymous, encrypted, and immutable</strong>. No one — not even admins — can trace or alter your vote.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ: Eligibility -->
+                <div class="accordion-item mb-3 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="faqHeadingThree">
+                        <button class="accordion-button collapsed bg-dark text-light fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false"
+                            aria-controls="faqCollapseThree">
+                            📧 Who is eligible to vote?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseThree" class="accordion-collapse collapse"
+                        aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Only users with a valid <code>@iitp.ac.in</code> email ID can participate. This ensures that only <strong>verified IIT Patna students</strong> cast their votes. or participants verified <strong>𝕏</strong> (Twitter) account that was <strong>created at least 6 months ago.</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ: One Vote Only -->
+                <div class="accordion-item mb-3 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="faqHeadingFour">
+                        <button class="accordion-button collapsed bg-dark text-light fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false"
+                            aria-controls="faqCollapseFour">
+                            ⏱️ Can I vote more than once?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseFour" class="accordion-collapse collapse"
+                        aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Nope. Each user gets just <strong>one vote per election</strong>. The smart contract ensures fairness by preventing duplicates automatically.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ: Blockchain Used -->
+                <div class="accordion-item mb-3 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="faqHeadingFive">
+                        <button class="accordion-button collapsed bg-dark text-light fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false"
+                            aria-controls="faqCollapseFive">
+                            🌐 What blockchain does UNI-VOTE use?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseFive" class="accordion-collapse collapse"
+                        aria-labelledby="faqHeadingFive" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            UNI-VOTE is deployed on the <strong>BASE blockchain</strong> — a secure, fast, and developer-friendly L2 solution by Coinbase, perfect for scalable dApps.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ: ZKP vs Regular Voting -->
+                <div class="accordion-item mb-3 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="faqHeadingSix">
+                        <button class="accordion-button collapsed bg-dark text-light fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#faqCollapseSix" aria-expanded="false"
+                            aria-controls="faqCollapseSix">
+                            📊 What’s the difference between ZKP-based voting and regular voting?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseSix" class="accordion-collapse collapse"
+                        aria-labelledby="faqHeadingSix" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            In ZKP-based voting, a voter can prove their vote is valid without revealing their identity or the vote itself. This makes the voting process private, secure, and verifiable. In regular voting, a vote can sometimes be linked to the voter, while ZKPs ensure anonymity and trustless verification.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ: What is ZKP -->
+                <div class="accordion-item mb-3 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="faqHeadingSeven">
+                        <button class="accordion-button collapsed bg-dark text-light fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#faqCollapseSeven" aria-expanded="false"
+                            aria-controls="faqCollapseSeven">
+                            🧠 What is Zero-Knowledge Proof (ZKP)?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseSeven" class="accordion-collapse collapse"
+                        aria-labelledby="faqHeadingSeven" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            A Zero-Knowledge Proof (ZKP) is a cryptographic method that allows someone to prove they know something without revealing the actual information. For example, a person can prove they are eligible to vote without revealing their identity. ZKPs help ensure privacy, security, and trust in digital systems—especially useful in voting, authentication, and blockchain applications.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
