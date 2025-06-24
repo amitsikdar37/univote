@@ -13,7 +13,7 @@ const launchapp = async function launchApp() {
       credentials: "include",
     });
     if (response.ok) {
-      window.location.href = './about2.html';
+      window.location.href = './governance.html';
     } else {
       window.location.href = './login.html';
     }
