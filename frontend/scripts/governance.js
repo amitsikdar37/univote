@@ -1,3 +1,5 @@
+import { BACKEND_URL } from "../config.js";
+
 //  <script defer>
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -175,6 +177,7 @@
                     
                     alert('Election created successfully! Updating dashboard...');
                     await updateDashboardWithLatestElection();
+                    saveCriteria(currentElectionId);
 
                 } catch (error) {
                     console.error("Election creation failed:", error);
@@ -359,4 +362,45 @@
             init();
         });
     // </script>
-    
+
+const saveCriteria = async (yourElectionId) => {
+
+  const criteria = {
+    onlyIITP: document.getElementById('onlyIITP').checked,
+    account10Days: document.getElementById('account10Days').checked,
+    completedPartX: document.getElementById('completedPartX').checked,
+    connectedGoogleAccount: document.getElementById('connectedGoogleAccount').checked
+  };
+
+  const topic = document.getElementById('votingTopic').value;
+
+  if (!topic.trim()) {
+    alert("Please enter a voting topic.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/Save-Election-Criteria`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        election_id: yourElectionId, // Replace with actual election ID
+        criteria: criteria,
+        topic: topic
+      })
+    });
+    const data = await response.json();
+    // handle success (e.g., show a confirmation message)
+    if (data.status === "1") {
+      console.log("Criteria set successfully:", data);
+    } else {
+      console.warn("Failed to set criteria:", data.message);
+    }
+  } catch (error) {
+    console.error("Error setting criteria:", error);
+    alert("Failed to set election criteria. Please try again.");
+  }
+};
+
+
