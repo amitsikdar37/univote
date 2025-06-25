@@ -68,6 +68,9 @@ import { BACKEND_URL } from "../config.js";
                     signer = provider.getSigner();
                     contract = new ethers.Contract(contractAddress, contractABI, signer);
                     const address = await signer.getAddress();
+
+                    sessionStorage.setItem('connectedWallet', address);
+                    
                     connectWalletBtn.textContent = `Connected: ${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
                     connectWalletBtn.disabled = true;
                     startVotingBtn.disabled = false;
