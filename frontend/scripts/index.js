@@ -72,3 +72,32 @@ window.addEventListener('pageshow', function(event) {
 
 launchButton.addEventListener("click", launchapp);
 
+
+//  function openPopup() {
+//       document.getElementById('popupForm').style.display = 'flex';
+//     }
+
+//     function closePopup() {
+//       document.getElementById('popupForm').style.display = 'none';
+//     }
+
+//     // Close when clicking outside
+//     window.addEventListener("click", function (e) {
+//       const popup = document.getElementById("popupForm");
+//       if (e.target === popup) {
+//         closePopup();
+//       }
+//     });
+
+
+
+
+
+
+function openModal() {
+      document.getElementById("popupModal").classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("popupModal").classList.remove("active");
+    }
