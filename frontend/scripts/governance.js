@@ -172,14 +172,17 @@ import { BACKEND_URL } from "../config.js";
 
                 try {
                     const tx = await contract.createElection(topic, duration, candidateNames);
+
+                    trackTransaction(tx.hash);
                     startVotingBtn.textContent = 'Confirming on Blockchain...';
                     
                     const receipt = await tx.wait();
                     lastTxHash = receipt.transactionHash;
                     console.log("Transaction confirmed:", receipt);
-                    
-                    alert('Election created successfully! Updating dashboard...');
+
                     await updateDashboardWithLatestElection();
+                    alert('Election created successfully! Updating dashboard...');
+                    
                     saveCriteria(currentElectionId);
 
                 } catch (error) {
@@ -199,12 +202,13 @@ import { BACKEND_URL } from "../config.js";
 
                 try {
                     const tx = await contract.endElection(currentElectionId);
+                    trackTransaction(tx.hash);
                     const receipt = await tx.wait();
                     lastTxHash = receipt.transactionHash;
-                    
-                    alert('Election ended successfully!');
+
                     await updateDashboardWithLatestElection();
-                    
+                    alert('Election ended successfully!');
+
                 } catch (error) {
                     console.error("Failed to end election:", error);
                     alert(`Error ending election: ${error.message}`);
@@ -361,6 +365,64 @@ import { BACKEND_URL } from "../config.js";
                 copyText(voteUrl);
             }
 
+            function setStepperStatus(currentStep) {
+                for (let i = 1; i <= 4; i++) {
+                    const step = document.getElementById(`step-${i}`);
+                    if (!step) continue;
+                    if (i < currentStep) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (i === currentStep) {
+                        if (i === 4) {
+                            step.classList.add('completed');
+                            step.classList.remove('active');
+                        } else {
+                            step.classList.add('active');
+                            step.classList.remove('completed');
+                        }
+                        
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                }
+            }
+
+                // Set timestamp text for each step
+            function setStepTimestamp(step, ts) {
+                const el = document.getElementById(`ts-${step}`);
+                if (el) el.textContent = ts;
+                }
+
+                // Function to track transaction status live and update UI
+            async function trackTransaction(txHash) {
+                if (!provider) return;
+                
+                // Step 1: Transaction passed ZKP circuit (assumed immediate)
+                setStepperStatus(1);
+                setStepTimestamp(1, new Date().toLocaleString());
+
+                // Step 2: Transaction signed (immediate)
+                setStepperStatus(2);
+                setStepTimestamp(2, new Date().toLocaleString());
+
+                // Step 3: Waiting for block confirmation (immediate simulation)
+                setStepperStatus(3);
+                setStepTimestamp(3, new Date().toLocaleString());
+
+                // Step 4: Wait for actual blockchain confirmation
+                try {
+                    const receipt = await provider.waitForTransaction(txHash);
+                    setStepperStatus(4);
+                    setStepTimestamp(4, new Date().toLocaleString());
+                } catch (err) {
+                    console.error("Transaction confirmation error:", err);
+                    // Optionally handle error UI here
+                }
+            }
+
+
+
+
             // Start the application
             init();
         });
@@ -406,4 +468,4 @@ const saveCriteria = async (yourElectionId) => {
   }
 };
 
-
+// Update stepper UI based on current step (1 to 4)

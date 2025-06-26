@@ -383,4 +383,128 @@
             }
         }
 
-    
+.txn-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 24px 12px 12px 12px;
+  margin-top: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.txn-stepper .step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.txn-stepper .circle {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #4caf50;
+  border-radius: 50%;
+  background: #fff;
+  color: #4caf50;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  font-size: 18px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.txn-stepper .step.active .circle,
+.txn-stepper .step.completed .circle {
+  background: #4caf50;
+  color: #fff;
+}
+
+.txn-stepper .label {
+  text-align: center;
+  font-size: 13px;
+  color: #333;
+}
+
+.txn-stepper .timestamp {
+  color: #888;
+  font-size: 11px;
+  display: block;
+  margin-top: 2px;
+}
+
+.txn-stepper .line {
+  height: 2px;
+  background: #4caf50;
+  flex: 1;
+  margin: 0 4px;
+  border-radius: 1px;
+  opacity: 0.3;
+}
+
+.circle {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-number {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #4caf50;
+  font-weight: bold;
+  z-index: 1;
+  transition: opacity 0.2s;
+}
+
+.checkmark {
+  width: 32px;
+  height: 32px;
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 62.8;
+  stroke-dashoffset: 0;
+  stroke-width: 2;
+  stroke: #4caf50;
+  fill: #fff;
+  transition: stroke-dashoffset 0.4s;
+}
+
+.checkmark__check {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  stroke-width: 2.5;
+  stroke: #4caf50;
+  fill: none;
+  transition: stroke-dashoffset 0.3s;
+}
+
+.step.completed .checkmark__check {
+  animation: draw-check 0.3s forwards;
+}
+
+.step.completed .circle-number {
+  opacity: 0;
+}
+
+@keyframes draw-check {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
