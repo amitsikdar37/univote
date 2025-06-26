@@ -65,6 +65,66 @@
                  <!-- Candidate input fields will be added here -->
             </div>
             <button class="add-btn" id="addCandidateBtn">+ Add Candidate</button>
+
+            <!-- Transaction Status Stepper -->
+            <div id="txn-stepper" class="txn-stepper mt-4">
+            <div class="step" id="step-1">
+                <div class="circle">
+                <svg class="checkmark" viewBox="0 0 24 24">
+                    <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                    <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                </svg>
+                <span class="circle-number">1</span>
+                </div>
+                <div class="label">
+                Transaction<br>passed ZKP circuit<br>
+                <span class="timestamp" id="ts-1"></span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="step" id="step-2">
+                <div class="circle">
+                <svg class="checkmark" viewBox="0 0 24 24">
+                    <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                    <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                </svg>
+                <span class="circle-number">2</span>
+                </div>
+                <div class="label">
+                Transaction signed<br>
+                <span class="timestamp" id="ts-2"></span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="step" id="step-3">
+                <div class="circle">
+                <svg class="checkmark" viewBox="0 0 24 24">
+                    <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                    <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                </svg>
+                <span class="circle-number">3</span>
+                </div>
+                <div class="label">
+                Waiting for block<br>confirmation<br>
+                <span class="timestamp" id="ts-3"></span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="step" id="step-4">
+                <div class="circle">
+                <svg class="checkmark" viewBox="0 0 24 24">
+                    <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                    <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                </svg>
+                <span class="circle-number">4</span>
+                </div>
+                <div class="label">
+                Transaction<br>confirmed successfully<br>
+                <span class="timestamp" id="ts-4"></span>
+                </div>
+            </div>
+            </div>
+
         </div>
 
         <!-- Right Card -->
@@ -83,12 +143,7 @@
             <button class="copy-btn" id="copyLinkBtn" disabled>Copy Voting Link</button>
             <button class="copy-btn" id="copyTxnBtn">Copy Txn Hash</button>
 
-            <div class="status-bar">
-                <div class="status-step active">✅ ZK Circuit<br><small>22 Nov, 20:04</small></div>
-                <div class="status-step active">📝 Signed</div>
-                <div class="status-step">⏳ Confirmation</div>
-                <div class="status-step">🎉 Confirmed</div>
-            </div>
+            
         </div>
     </div>
 
