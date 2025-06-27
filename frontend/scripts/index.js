@@ -152,29 +152,17 @@ function openModal() {
       document.getElementById("popupModal").classList.remove("active");
     }
 
-google.accounts.id.initialize({
-  client_id: '537966024039-fm932ftvjcdc8v7dqmd7g0lnr1pi5och.apps.googleusercontent.com',
-  callback: handleCredentialResponse
-});
-google.accounts.id.renderButton(
-  document.getElementById("gsi_button"),
-  { theme: "outline", size: "large" }
-);
-
-
 document.getElementById("g_id_signin").addEventListener("click", function () {
   document.getElementById('loadingMessage').style.display = 'block';
   document.getElementById('successMessage').style.display = 'none';
 
-  // Find the real Google button inside the hidden container and click it
-  const realBtn = document.querySelector("#gsi_button > div");
-  if (realBtn) {
-    realBtn.click();
-  } else {
-    // fallback: show error or try to re-render
-    document.getElementById('loadingMessage').style.display = 'none';
-    alert("Google Sign-In is not available. Please refresh the page.");
-  }
+  // Initialize Google Identity Services
+  google.accounts.id.initialize({
+    client_id: '537966024039-fm932ftvjcdc8v7dqmd7g0lnr1pi5och.apps.googleusercontent.com', // Replace with your actual client ID
+    callback: handleCredentialResponse,
+  });
+
+  google.accounts.id.prompt(); // Show the Google sign-in popup
 });
 
 async function handleCredentialResponse(response) {
@@ -203,7 +191,7 @@ async function handleCredentialResponse(response) {
 
       // Redirect after short delay
       setTimeout(() => {
-        window.location.href = './about2.html';
+        window.location.href = './governance.html';
       }, 1000);
     } else {
       const data = await res.json();
