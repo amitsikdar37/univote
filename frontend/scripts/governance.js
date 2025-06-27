@@ -1,5 +1,38 @@
 import { BACKEND_URL } from "../config.js";
 
+document.addEventListener('DOMContentLoaded', async () => {
+  // Fallback for BACKEND_URL
+  if (!BACKEND_URL) {
+    console.error("BACKEND_URL is not defined. Check config.js.");
+    alert("Configuration error: Backend URL missing.");
+    window.location.href = './login.html';
+    return;
+  }
+
+  // Token verification
+  const loadingScreen = document.getElementById('loading-screen');
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/Verify-Token`, {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    if (!response.ok) {
+      console.warn("Token verification failed:", response.status);
+      window.location.href = './login.html';
+      return;
+    }
+
+  } catch (err) {
+    console.error("Token verification error:", err);
+    if (loadingScreen) loadingScreen.remove();
+    alert("Failed to verify access. Redirecting to login...");
+    window.location.href = './login.html';
+    return;
+  }
+});
+ 
+
 //  <script defer>
         document.addEventListener('DOMContentLoaded', () => {
 

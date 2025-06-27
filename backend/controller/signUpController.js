@@ -10,13 +10,6 @@ const { sendOtp, verifyOtp, resendOtp } = require('../utils/emailOtp');
 const { sendJwtToken } = require('../authenticate/jwtCheck');
 
 exports.signUp = [
-  check('username')
-  .trim()
-  .isLength({ min: 6 })
-  .withMessage('Username must be at least 6 characters long')
-  .notEmpty()
-  .withMessage('Username is required'),
-
   check('email')
   .normalizeEmail()
   .isEmail()
@@ -37,7 +30,8 @@ exports.signUp = [
 
   async (req, res) => {
     try {
-      const { username, email, password } = req.body;
+      const { email, password } = req.body;
+      const username = email.split('@')[0];
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
