@@ -136,8 +136,7 @@
         Secure, transparent, and easy online voting for your university community.<br>
         Register now and make your vote count!
       </p>
-
-      <button class="btn-open" id="launch-app-btn"><a onclick="openModal()" href="#"></a>Launch</button>
+      <button class="btn-open" id="launch-app-btn" onclick="openModal()">Launch</button>
     </div>
     <div class="hero-visual">
       <!-- Visual content will be styled via CSS -->
@@ -331,7 +330,8 @@
           <input type="password" id="signup-password" name="password" placeholder="Enter your password" />
           <small id="signuppasswordError" style="color: red; display: none;"></small>
 
-          <input type="confirm password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" />
+          <input type="confirm password" id="confirmPassword" name="confirmPassword"
+            placeholder="Confirm your password" />
           <small id="confirmPasswordError" style="color: red; display: none;"></small>
 
           <div class="form-options">
@@ -343,13 +343,14 @@
           <div id="signuploadingMessage" style="display: none; text-align: center; color: white; margin-bottom: 10px;">
             Sending data to server...
           </div>
-          <div id="signupsuccessMessage" style="display: none; text-align: center; color: lightgreen; margin-bottom: 10px;">
+          <div id="signupsuccessMessage"
+            style="display: none; text-align: center; color: lightgreen; margin-bottom: 10px;">
             Sending Otp...
           </div>
-        
+
         </form>
 
-          <div class="divider"><span>or</span></div>
+        <div class="divider"><span>or</span></div>
 
         <div class="social-buttons">
 
@@ -416,10 +417,10 @@
             Sign In successful! Redirecting...
           </div>
 
-        </form> 
+        </form>
 
         <div class="divider"><span>or</span></div>
-        
+
         <div class="social-buttons">
           <button class="btn-secondary" id="g_id_signin">
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" />
@@ -430,39 +431,43 @@
             <i class="fa-brands fa-x-twitter"></i>
             Continue with Twitter
           </button>
-        </div>
+
+          </form>
+          <!-- <p class="signup-text">Don't have an account? <button onclick="openRegisterModal()" class="signup-btn">Sign
+              up</button></p> -->
         
-        <p class="signup-text">Don't have an account? <a onclick="openRegisterModal()" href="#">Sign up</a></p>
       </div>
+      <!-- <p class="signup-text">Don't have an account? <button onclick="openRegisterModal()" class="signup-btn">Sign
+              up</button></p> -->
+      <p class="signup-text">Don't have an account? <a onclick="openRegisterModal()" href="#">Sign up</a></p>
     </div>
-  </div>
 
-  <script>
-    const burgerMenu = document.querySelector('.burger-menu');
-    const navLinks = document.querySelector('.nav-links');
+    <script>
+      const burgerMenu = document.querySelector('.burger-menu');
+      const navLinks = document.querySelector('.nav-links');
 
-    burgerMenu.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      burgerMenu.classList.toggle('active');
-    });
+      burgerMenu.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burgerMenu.classList.toggle('active');
+      });
 
-    function openModal() {
-      document.getElementById("registerpopupModal").classList.remove("active");
-      document.getElementById("popupModal").classList.add("active");
-    }
+      function openModal() {
+        document.getElementById("registerpopupModal").classList.remove("active");
+        document.getElementById("popupModal").classList.add("active");
+      }
 
-    function openRegisterModal() {
-      document.getElementById("popupModal").classList.remove("active");
-      document.getElementById("registerpopupModal").classList.add("active");
-    }
+      function openRegisterModal() {
+        document.getElementById("popupModal").classList.remove("active");
+        document.getElementById("registerpopupModal").classList.add("active");
+      }
 
-    function closeModal() {
-      document.getElementById("popupModal").classList.remove("active");
-      document.getElementById("registerpopupModal").classList.remove("active");
-    }
-  </script>
+      function closeModal() {
+        document.getElementById("popupModal").classList.remove("active");
+        document.getElementById("registerpopupModal").classList.remove("active");
+      }
+    </script>
 
-  <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
