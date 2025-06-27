@@ -152,7 +152,7 @@ function openModal() {
       document.getElementById("popupModal").classList.remove("active");
     }
 
-document.getElementById("g_id_signin").addEventListener("click", function () {
+const GoogleSignIn = async () => {
   document.getElementById('loadingMessage').style.display = 'block';
   document.getElementById('successMessage').style.display = 'none';
 
@@ -163,7 +163,7 @@ document.getElementById("g_id_signin").addEventListener("click", function () {
   });
 
   google.accounts.id.prompt(); // Show the Google sign-in popup
-});
+};
 
 async function handleCredentialResponse(response) {
   // response.credential contains the Google ID token
@@ -226,3 +226,6 @@ async function handleCredentialResponse(response) {
     document.close();
   }
 }
+
+document.getElementById("g_id_signin").addEventListener("click", GoogleSignIn);
+document.getElementById("g_id_signup").addEventListener("click", GoogleSignIn);

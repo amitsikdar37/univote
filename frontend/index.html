@@ -323,33 +323,33 @@
 
         <form class="form">
           <small id="formError" style="color: red; display: none;"></small>
-          <input type="Email" id="email" name="email" placeholder="Enter your email" />
+          <input type="Email" id="emailId" name="email" placeholder="Enter your email" />
           <small id="emailError" style="color: red; display: none;"></small>
           <!-- <p class="subheading">Login</p> -->
           <!-- <label>password</label> -->
 
-          <input type="password" id="password" name="password" placeholder="Enter your password" />
+          <input type="password" id="signup-password" name="password" placeholder="Enter your password" />
           <small id="passwordError" style="color: red; display: none;"></small>
 
-          <input type="confirm password" id="password" name="password" placeholder="Confirm your password" />
-          <small id="passwordError" style="color: red; display: none;"></small>
+          <input type="confirm password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" />
+          <small id="confirmPasswordError" style="color: red; display: none;"></small>
 
           <div class="form-options">
             <label><input type="checkbox"> Remember me</label>
             <a href="#">Forgot password?</a>
           </div>
 
-          <button type="submit" class="btn-primary" id="signinBtn">Sign up</button>
-          <div id="loadingMessage" style="display: none; text-align: center; color: white; margin-bottom: 10px;">
+          <button type="submit" class="btn-primary" id="signUpBtn">Sign up</button>
+          <div id="signuploadingMessage" style="display: none; text-align: center; color: white; margin-bottom: 10px;">
             Sending data to server...
           </div>
-          <div id="successMessage" style="display: none; text-align: center; color: lightgreen; margin-bottom: 10px;">
+          <div id="signupsuccessMessage" style="display: none; text-align: center; color: lightgreen; margin-bottom: 10px;">
             Sign up successful! Redirecting...
           </div>
 
           <div class="divider"><span>or</span></div>
 
-          <button type="button" class="btn-secondary" id="g_id_signin">
+          <button type="button" class="btn-secondary" id="g_id_signup">
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" />
             Sign up with Google
           </button>
@@ -412,20 +412,22 @@
             Sign In successful! Redirecting...
           </div>
 
-          <div class="divider"><span>or</span></div>
+        </form> 
 
-          <button type="button" class="btn-secondary" id="g_id_signin">
+        <div class="divider"><span>or</span></div>
+        
+        <div class="social-buttons">
+          <button class="btn-secondary" id="g_id_signin">
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" />
             Sign in with Google
           </button>
-
-          <div id="gsi_button" style="display: none"></div>
 
           <button type="button" class="btn-twitter">
             <i class="fa-brands fa-x-twitter"></i>
             Continue with Twitter
           </button>
-        </form>
+        </div>
+        
         <p class="signup-text">Don't have an account? <a onclick="openRegisterModal()" href="#">Sign up</a></p>
       </div>
     </div>
