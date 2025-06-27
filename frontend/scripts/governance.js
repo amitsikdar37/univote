@@ -1,3 +1,5 @@
+import { BACKEND_URL } from "../config.js";
+
 //  <script defer>
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -66,6 +68,9 @@
                     signer = provider.getSigner();
                     contract = new ethers.Contract(contractAddress, contractABI, signer);
                     const address = await signer.getAddress();
+
+                    sessionStorage.setItem('connectedWallet', address);
+                    
                     connectWalletBtn.textContent = `Connected: ${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
                     connectWalletBtn.disabled = true;
                     startVotingBtn.disabled = false;
@@ -167,14 +172,18 @@
 
                 try {
                     const tx = await contract.createElection(topic, duration, candidateNames);
+
+                    trackTransaction(tx.hash);
                     startVotingBtn.textContent = 'Confirming on Blockchain...';
                     
                     const receipt = await tx.wait();
                     lastTxHash = receipt.transactionHash;
                     console.log("Transaction confirmed:", receipt);
-                    
-                    alert('Election created successfully! Updating dashboard...');
+
                     await updateDashboardWithLatestElection();
+                    alert('Election created successfully! Updating dashboard...');
+                    
+                    saveCriteria(currentElectionId);
 
                 } catch (error) {
                     console.error("Election creation failed:", error);
@@ -193,12 +202,13 @@
 
                 try {
                     const tx = await contract.endElection(currentElectionId);
+                    trackTransaction(tx.hash);
                     const receipt = await tx.wait();
                     lastTxHash = receipt.transactionHash;
-                    
-                    alert('Election ended successfully!');
+
                     await updateDashboardWithLatestElection();
-                    
+                    alert('Election ended successfully!');
+
                 } catch (error) {
                     console.error("Failed to end election:", error);
                     alert(`Error ending election: ${error.message}`);
@@ -355,8 +365,107 @@
                 copyText(voteUrl);
             }
 
+            function setStepperStatus(currentStep) {
+                for (let i = 1; i <= 4; i++) {
+                    const step = document.getElementById(`step-${i}`);
+                    if (!step) continue;
+                    if (i < currentStep) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (i === currentStep) {
+                        if (i === 4) {
+                            step.classList.add('completed');
+                            step.classList.remove('active');
+                        } else {
+                            step.classList.add('active');
+                            step.classList.remove('completed');
+                        }
+                        
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                }
+            }
+
+                // Set timestamp text for each step
+            function setStepTimestamp(step, ts) {
+                const el = document.getElementById(`ts-${step}`);
+                if (el) el.textContent = ts;
+                }
+
+                // Function to track transaction status live and update UI
+            async function trackTransaction(txHash) {
+                if (!provider) return;
+                
+                // Step 1: Transaction passed ZKP circuit (assumed immediate)
+                setStepperStatus(1);
+                setStepTimestamp(1, new Date().toLocaleString());
+
+                // Step 2: Transaction signed (immediate)
+                setStepperStatus(2);
+                setStepTimestamp(2, new Date().toLocaleString());
+
+                // Step 3: Waiting for block confirmation (immediate simulation)
+                setStepperStatus(3);
+                setStepTimestamp(3, new Date().toLocaleString());
+
+                // Step 4: Wait for actual blockchain confirmation
+                try {
+                    const receipt = await provider.waitForTransaction(txHash);
+                    setStepperStatus(4);
+                    setStepTimestamp(4, new Date().toLocaleString());
+                } catch (err) {
+                    console.error("Transaction confirmation error:", err);
+                    // Optionally handle error UI here
+                }
+            }
+
+
+
+
             // Start the application
             init();
         });
     // </script>
-    
+
+const saveCriteria = async (yourElectionId) => {
+
+  const criteria = {
+    onlyIITP: document.getElementById('onlyIITP').checked,
+    account10Days: document.getElementById('account10Days').checked,
+    completedPartX: document.getElementById('completedPartX').checked,
+    connectedGoogleAccount: document.getElementById('connectedGoogleAccount').checked
+  };
+
+  const topic = document.getElementById('votingTopic').value;
+
+  if (!topic.trim()) {
+    alert("Please enter a voting topic.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/Save-Election-Criteria`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        election_id: yourElectionId, // Replace with actual election ID
+        criteria: criteria,
+        topic: topic
+      })
+    });
+    const data = await response.json();
+    // handle success (e.g., show a confirmation message)
+    if (data.status === "1") {
+      console.log("Criteria set successfully:", data);
+    } else {
+      console.warn("Failed to set criteria:", data.message);
+    }
+  } catch (error) {
+    console.error("Error setting criteria:", error);
+    alert("Failed to set election criteria. Please try again.");
+  }
+};
+
+// Update stepper UI based on current step (1 to 4)
