@@ -31,6 +31,7 @@ exports.signUp = [
   async (req, res) => {
     try {
       const { email, password } = req.body;
+      const username = email.split('@')[0];
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
@@ -40,8 +41,6 @@ exports.signUp = [
         });
       }
 
-      const username = email.split('@')[0];
-      
       const voterExists = await Voters.findOne({ email });
 
       if (voterExists) {

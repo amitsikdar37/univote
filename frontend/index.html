@@ -447,10 +447,12 @@
     });
 
     function openModal() {
+      document.getElementById("registerpopupModal").classList.remove("active");
       document.getElementById("popupModal").classList.add("active");
     }
 
     function openRegisterModal() {
+      document.getElementById("popupModal").classList.remove("active");
       document.getElementById("registerpopupModal").classList.add("active");
     }
 

@@ -144,14 +144,6 @@ window.addEventListener('pageshow', function(event) {
 
 launchButton.addEventListener("click", launchapp);
 
-function openModal() {
-      document.getElementById("popupModal").classList.add("active");
-    }
-
-    function closeModal() {
-      document.getElementById("popupModal").classList.remove("active");
-    }
-
 const GoogleSignIn = async () => {
   document.getElementById('loadingMessage').style.display = 'block';
   document.getElementById('successMessage').style.display = 'none';
@@ -255,36 +247,39 @@ document.getElementById('signUpBtn').addEventListener('click', async (e) => {
         document.getElementById('loadingMessage').style.display = 'none';
 
         if (!response.ok) {
-            const data = await response.json();
-            const errors = data.errors || [];
+          const data = await response.json();
+          const errors = data.errors || [];
 
-            // Clear all previous errors
-            ['signupemail', 'signuppassword', 'confirmPassword'].forEach(field => {
-                const errorElement = document.getElementById(`${field}Error`);
-                if (errorElement) {
-                    errorElement.textContent = '';
-                    errorElement.style.display = 'none';
-                }
-            });
-            
-            // Display new errors
-            errors.forEach(err => {
-                const field = err.param || err.path;
-                const message = err.msg;
-                const errorElement = document.getElementById(`${field}Error`);
-                if (errorElement) {
-                    errorElement.style.display = 'block';
-                    errorElement.textContent = message;
-                } else if (field === 'form') {
-                    const formError = document.getElementById('signupformError');
-                    if (formError) {
-                        formError.textContent = message;
-                        formError.style.display = 'block';
-                    }
-                } else {
-                    console.error(`${field}: ${message}`);
-                }
-            });
+          // Clear all previous errors
+          ['signupemail', 'signuppassword', 'confirmPassword'].forEach(field => {
+              const errorElement = document.getElementById(`${field}Error`);
+              if (errorElement) {
+                  errorElement.textContent = '';
+                  errorElement.style.display = 'none';
+              }
+          });
+          
+          const errorFieldMap = {
+            email: 'signupemailError',
+            password: 'signuppasswordError',
+            confirmPassword: 'confirmPasswordError',
+            username: 'signupformError', // or create a specific username error element
+            form: 'signupformError'
+          };
+
+          errors.forEach(err => {
+            const field = err.param || err.path;
+            const message = err.msg;
+            const errorElementId = errorFieldMap[field];
+            const errorElement = errorElementId ? document.getElementById(errorElementId) : null;
+            if (errorElement) {
+              errorElement.style.display = 'block';
+              errorElement.textContent = message;
+            } else {
+              console.error(`${field}: ${message}`);
+            }
+          });
+
         } else {
             const data = await response.json();
             console.log('Success:', data.message);
