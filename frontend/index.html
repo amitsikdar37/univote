@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Inter:400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
@@ -156,7 +157,7 @@
         Register now and make your vote count!
       </p>
 
-      <button class="btn-open" onclick="openModal()">Launch</button>
+      <button class="btn-open" id="launch-app-btn">Launch</button>
       <!-- <button>bn</button> -->
       <!-- class="hero-btn launch-btn" -->
 
@@ -346,34 +347,45 @@
         <p class="subheading">Login</p>
 
         <form class="form">
-          <input type="email" placeholder="Enter your registered email" required />
+          <small id="formError" style="color: red; display: none;"></small>
+          <input type="email" id="email" name="email" placeholder="Enter your registered email"  />
+          <small id="emailError" style="color: red; display: none;"></small>
           <!-- <p class="subheading">Login</p> -->
           <!-- <label>password</label> -->
 
-          <input type="password" placeholder="Enter your password" required />
+          <input type="password" id="password" name="password" placeholder="Enter your password"  />
+          <small id="passwordError" style="color: red; display: none;"></small>
 
           <div class="form-options">
             <label><input type="checkbox"> Remember me</label>
             <a href="#">Forgot password?</a>
           </div>
 
-          <button type="submit" class="btn-primary">Sign in</button>
+          <button type="submit" class="btn-primary" id="signinBtn">Sign in</button>
+          <div id="loadingMessage" style="display: none; text-align: center; color: white; margin-bottom: 10px;">
+            Sending data to server...
+          </div>
+          <div id="successMessage" style="display: none; text-align: center; color: lightgreen; margin-bottom: 10px;">
+            Sign In successful! Redirecting...
+          </div>
 
           <div class="divider"><span>or</span></div>
 
-          <button class="btn-secondary">
+          <button type="button" class="btn-secondary" id="g_id_signin">
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" />
             Sign in with Google
           </button>
 
-          <button class="btn-twitter">
+          <div id="gsi_button" style="display: none"></div>
+
+          <button type="button" class="btn-twitter">
             <!-- <img src="X.com[1].svg" alt="Twitter" /> -->
              <i class="fa-brands fa-x-twitter"></i>
             Continue with Twitter
           </button>
         </form>
 
-        <p class="signup-text">Don't have an account? <a href="#">Sign up now</a></p>
+        <p class="signup-text">Don't have an account? <a href="./frorm.html">Sign up now</a></p>
       </div>
     </div>
   </div>
@@ -387,30 +399,6 @@
     burgerMenu.addEventListener('click', () => {
       navLinks.classList.toggle('active');
       burgerMenu.classList.toggle('active');
-    });
-
-    // Login modal functionality triggered by Launch button
-    const launchBtn = document.querySelector('.launch-btn');
-    const loginModal = document.querySelector('#login-modal');
-
-    launchBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      loginModal.style.display = 'block';
-    });
-
-    loginModal.addEventListener('click', (e) => {
-      if (e.target === loginModal) {
-        loginModal.style.display = 'none';
-      }
-    });
-
-    // Handle form submission (placeholder for actual login logic)
-    const loginForm = document.querySelector('.login-form');
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      // Add your login logic here (e.g., API call)
-      alert('Login submitted!'); // Placeholder
-      loginModal.style.display = 'none';
     });
   </script>
 
