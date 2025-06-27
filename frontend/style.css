@@ -1256,7 +1256,7 @@ html, body {
       padding: 12px 24px;
       font-size: 16px;
       border: none;
-      background-color: #e91e63;
+      background-color: #000;
       color: white;
       cursor: pointer;
       border-radius: 6px;
@@ -1305,7 +1305,7 @@ backdrop-filter: blur(25px);
       right: 16px;
       font-size: 22px;
       cursor: pointer;
-      color: #999;
+      color: #FF00E5;
       font-weight: bold;
     }
 
@@ -1447,7 +1447,10 @@ backdrop-filter: blur(25px);
     }
 
     .btn-secondary:hover {
-      background-color: #f0f0f0;
+      background-color: #2e2a2a;
+    }
+    .btn-twitter:hover {
+      background-color: #2e2a2a;
     }
 
     .btn-twitter {
@@ -1474,7 +1477,7 @@ backdrop-filter: blur(25px);
     }
 
     .signup-text a {
-      color: rgb(10, 10, 10);
+      color: rgb(255, 250, 250);
       font-weight: 600;
       text-decoration: none;
     }

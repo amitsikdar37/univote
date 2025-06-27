@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css?family=Inter:400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -138,8 +139,8 @@
         <li class="nav-item" id="nav-governance"><a href="governance.html">Governance</a></li>
         <li class="nav-item" id="nav-vote"><a href="#">Vote</a></li>
         <li class="nav-item" id="nav-track"><a href="Track.html">Track Vote</a></li>
-        <li class="nav-item" id="nav-login"><a href="#">Login</a></li>
-        <li class="nav-item" id="nav-register"><a href="frorm.html">Register</a></li>
+        <li class="nav-item" id="nav-login"><a onclick="openModal()" href="#">Login</a></li>
+        <li class="nav-item" id="nav-register"><a  href="frorm.html">Register</a></li>
       </ul>
     </nav>
   </div>
@@ -323,7 +324,7 @@
   <!-- Popup Modal -->
   <div class="modal" id="popupModal">
     <div class="container">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <span class="close-btn" onclick="closeModal()">X</span>
 
       <!-- Left Panel -->
       <div class="left-panel">
@@ -340,7 +341,7 @@
       <!-- Right Panel -->
       <div class="right-panel">
         <!-- <h2 class="logo">UNI-<span class="highlight">VOTE</span></h2>? -->
-        <img src="Frame 41.svg" class="logo">
+        <img src="UI-Unicorn-Logo.png" class="logo">
 
         <p class="subheading">Login</p>
 
@@ -366,7 +367,8 @@
           </button>
 
           <button class="btn-twitter">
-            <img src="https://www.svgrepo.com/show/475689/twitter-color.svg" alt="Twitter" />
+            <!-- <img src="X.com[1].svg" alt="Twitter" /> -->
+             <i class="fa-brands fa-x-twitter"></i>
             Continue with Twitter
           </button>
         </form>
@@ -375,6 +377,7 @@
       </div>
     </div>
   </div>
+
 
 
   <script>
@@ -421,6 +424,7 @@
       document.getElementById("popupModal").classList.remove("active");
     }
   </script>
+   
 
   <script type="module" src="./scripts/index.js"></script>
 </body>
