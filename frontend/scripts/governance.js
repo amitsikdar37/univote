@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Token verification
-  const loadingScreen = document.getElementById('loading-screen');
+
   try {
     const response = await fetch(`${BACKEND_URL}/api/Verify-Token`, {
       method: 'GET',
@@ -19,15 +19,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!response.ok) {
       console.warn("Token verification failed:", response.status);
-      window.location.href = './login.html';
+      window.location.href = './index.html';
       return;
     }
 
+    // User is authenticated, reveal the page
+    document.documentElement.style.visibility = 'visible';
+
   } catch (err) {
     console.error("Token verification error:", err);
-    if (loadingScreen) loadingScreen.remove();
     alert("Failed to verify access. Redirecting to login...");
-    window.location.href = './login.html';
+    window.location.href = './index.html';
     return;
   }
 });

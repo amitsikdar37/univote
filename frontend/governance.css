@@ -1,4 +1,5 @@
- 
+html { visibility: hidden; }
+
         * {
             box-sizing: border-box;
         }
