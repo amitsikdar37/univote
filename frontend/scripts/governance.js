@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!BACKEND_URL) {
     console.error("BACKEND_URL is not defined. Check config.js.");
     alert("Configuration error: Backend URL missing.");
-    window.location.href = './login.html';
+    window.location.href = './index.html';
     return;
   }
 
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!response.ok) {
       console.warn("Token verification failed:", response.status);
+      alert("Access denied. Redirecting to login...");
       window.location.href = './index.html';
       return;
     }
