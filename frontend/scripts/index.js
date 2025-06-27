@@ -229,3 +229,81 @@ async function handleCredentialResponse(response) {
 
 document.getElementById("g_id_signin").addEventListener("click", GoogleSignIn);
 document.getElementById("g_id_signup").addEventListener("click", GoogleSignIn);
+
+document.getElementById('signUpBtn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    
+    document.getElementById('signuploadingMessage').style.display = 'block';
+    document.getElementById('signupsuccessMessage').style.display = 'none';
+    
+    const formData = {
+        email: document.getElementById('emailId').value,
+        password: document.getElementById('signup-password').value,
+        confirmPassword: document.getElementById('confirmPassword').value
+    };
+
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/SendOtp`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(formData)
+        });
+
+        document.getElementById('loadingMessage').style.display = 'none';
+
+        if (!response.ok) {
+            const data = await response.json();
+            const errors = data.errors || [];
+
+            // Clear all previous errors
+            ['signupemail', 'signuppassword', 'confirmPassword'].forEach(field => {
+                const errorElement = document.getElementById(`${field}Error`);
+                if (errorElement) {
+                    errorElement.textContent = '';
+                    errorElement.style.display = 'none';
+                }
+            });
+            
+            // Display new errors
+            errors.forEach(err => {
+                const field = err.param || err.path;
+                const message = err.msg;
+                const errorElement = document.getElementById(`${field}Error`);
+                if (errorElement) {
+                    errorElement.style.display = 'block';
+                    errorElement.textContent = message;
+                } else if (field === 'form') {
+                    const formError = document.getElementById('signupformError');
+                    if (formError) {
+                        formError.textContent = message;
+                        formError.style.display = 'block';
+                    }
+                } else {
+                    console.error(`${field}: ${message}`);
+                }
+            });
+        } else {
+            const data = await response.json();
+            console.log('Success:', data.message);
+
+            // Show success message
+            document.getElementById('signupsuccessMessage').style.display = 'block';
+
+            // Redirect after short delay
+            setTimeout(() => {
+                window.location.href = './otp.html';
+            }, 1000); // 1 second delay
+        }            
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('signuploadingMessage').style.display = 'none';
+        const formError = document.getElementById('signupformError');
+        if (formError) {
+            formError.textContent = 'An error occurred. Please try again.';
+            formError.style.display = 'block';
+        }
+    }
+});

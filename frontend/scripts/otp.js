@@ -60,7 +60,7 @@ const verifyOtp = async function verifyOTP() {
     messageDiv.innerText = data.message || 'OTP verified successfully!';
     
     setTimeout(() => {
-      window.location.href = './about2.html';
+      window.location.href = './governance.html';
     }, 1000);
   } catch (error) {
     console.error('Error:', error);
