@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +32,12 @@
 
         body {
             font-family: var(--font-family);
-            background: var(--background-gradient);
+            /* background: var(--background-gradient); */
+            /* background: linear-gradient(188.64deg, #E8EDFF 39.84%, #183EC2 92.29%); */
+            background: linear-gradient(188.64deg, #E8EDFF 39.84%, #183EC2 92.29%);
+            ;
+
+
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -58,12 +64,14 @@
         }
 
         header nav a {
-            color: var(--text-color-secondary);
+            color: black;
             text-decoration: none;
             margin: 0 1rem;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
             transition: color 0.3s;
+            font-weight:bolder;
         }
+
 
         header nav a:hover {
             color: var(--white-color);
@@ -85,11 +93,11 @@
             font-weight: 500;
             transition: background-color 0.3s;
         }
-        
+
         .connect-wallet-btn:hover {
-             background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
-        
+
         .profile-icon {
             width: 32px;
             height: 32px;
@@ -100,12 +108,13 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            background-color: #020202;
         }
-        
+
         .profile-icon svg {
-             width: 18px;
-             height: 18px;
-             fill: var(--white-color);
+            width: 18px;
+            height: 18px;
+            fill: var(--white-color);
         }
 
         /* Main Content */
@@ -114,7 +123,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            /* padding: 2rem; */
+            
         }
 
         .main-grid {
@@ -123,6 +133,14 @@
             gap: 2rem;
             width: 100%;
             max-width: 1200px;
+            /* background:
+            rgba(239, 240, 246, 0.45); */
+
+            background-color: #D8DCEA;
+            border: 13px solid #E2E4EF;
+             padding: 30px 20px;
+             border-radius: 25px;
+
         }
 
         /* Glassmorphism Card Style */
@@ -140,6 +158,8 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+
+
         }
 
         .voting-topic h2 {
@@ -152,19 +172,23 @@
             align-items: center;
             margin-bottom: 1rem;
             font-size: 0.9rem;
+
+            color: #020202;
         }
-        
+
         .toggle-switch {
             position: relative;
             display: inline-block;
             width: 44px;
             height: 24px;
         }
+
         .toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -176,6 +200,7 @@
             transition: .4s;
             border-radius: 24px;
         }
+
         .slider:before {
             position: absolute;
             content: "";
@@ -187,10 +212,12 @@
             transition: .4s;
             border-radius: 50%;
         }
-        input:checked + .slider {
+
+        input:checked+.slider {
             background-color: var(--green-color);
         }
-        input:checked + .slider:before {
+
+        input:checked+.slider:before {
             transform: translateX(20px);
         }
 
@@ -198,6 +225,7 @@
             margin-bottom: 1rem;
             font-weight: 500;
         }
+
         .option-btn {
             width: 100%;
             background: rgba(0, 0, 0, 0.2);
@@ -212,35 +240,42 @@
             font-size: 1.1rem;
             font-weight: 500;
         }
+
         .option-btn:hover {
             background: rgba(0, 0, 0, 0.4);
         }
+
         /* Style for selected option from second code */
-        .option-btn.selected { 
-            background: rgba(107, 71, 255, 0.3); 
-            border-color: #6b47ff; 
+        .option-btn.selected {
+            background: rgba(107, 71, 255, 0.3);
+            border-color: #6b47ff;
         }
 
         /* Hiding the static transaction status card as its logic is not provided */
         .transaction-status-card {
             display: none;
         }
-        
+
         /* Right Panel */
         .right-panel {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-        .time-left, .results {
+
+        .time-left,
+        .results {
             text-align: center;
         }
-        .time-left h3, .results h3 {
+
+        .time-left h3,
+        .results h3 {
             font-weight: 500;
             margin-bottom: 1.5rem;
         }
-        
-        .timer-circle, .results-circle {
+
+        .timer-circle,
+        .results-circle {
             position: relative;
             width: 150px;
             height: 150px;
@@ -250,18 +285,22 @@
             justify-content: center;
             align-items: center;
         }
+
         .timer-circle {
             background: conic-gradient(#6b47ff 360deg, #333 0deg);
         }
+
         .results-circle {
-            background: conic-gradient(#3a8dfe 277.2deg, #ff4b4b 277.2deg 360deg); /* 77% * 3.6 = 277.2deg */
+            background: conic-gradient(#3a8dfe 277.2deg, #ff4b4b 277.2deg 360deg);
+            /* 77% * 3.6 = 277.2deg */
         }
-        
+
         .circle-inner {
             position: absolute;
             width: 120px;
             height: 120px;
-            background: #2a1a5e; /* slightly darker than gradient for depth */
+            background: #2a1a5e;
+            /* slightly darker than gradient for depth */
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -269,19 +308,21 @@
             font-size: 2rem;
             font-weight: 600;
         }
-        
+
         .results-legend {
             display: flex;
             justify-content: center;
             gap: 1rem;
             margin-top: 1.5rem;
         }
+
         .legend-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-size: 0.9rem;
         }
+
         .legend-color {
             width: 15px;
             height: 15px;
@@ -293,6 +334,7 @@
             flex-direction: column;
             gap: 1rem;
         }
+
         .submit-btn {
             background: var(--primary-button-gradient);
             border: none;
@@ -304,18 +346,22 @@
             cursor: pointer;
             transition: opacity 0.3s;
         }
+
         .submit-btn:hover {
             opacity: 0.9;
         }
+
         /* Disabled state style from second code */
-        .submit-btn:disabled { 
-            opacity: 0.5; 
-            cursor: not-allowed; 
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
+
         .link-buttons {
             display: flex;
             gap: 1rem;
         }
+
         .link-btn {
             flex-grow: 1;
             background: var(--card-background);
@@ -327,25 +373,27 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .link-btn:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
         /* Status message style from second code */
-        #statusMessage { 
-            margin-top: 1rem; 
-            text-align: center; 
-            min-height: 22px; 
-            word-wrap: break-word; 
+        #statusMessage {
+            margin-top: 1rem;
+            text-align: center;
+            min-height: 22px;
+            word-wrap: break-word;
             font-weight: 500;
         }
-        
+
         /* Footer */
         footer {
             background: #0d0d1a;
             padding: 3rem;
             margin-top: 2rem;
         }
+
         .footer-content {
             display: flex;
             justify-content: space-between;
@@ -355,24 +403,29 @@
             flex-wrap: wrap;
             gap: 2rem;
         }
+
         .footer-column {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
+
         .footer-column h4 {
             color: var(--white-color);
             margin-bottom: 0.5rem;
         }
+
         .footer-column a {
             color: var(--text-color-secondary);
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.3s;
         }
+
         .footer-column a:hover {
             color: var(--white-color);
         }
+
         .footer-logo {
             width: 100px;
             height: 100px;
@@ -384,6 +437,7 @@
             flex-direction: column;
             box-shadow: 0 0 20px rgba(107, 71, 255, 0.5);
         }
+
         .footer-logo-text {
             font-weight: 700;
         }
@@ -393,28 +447,35 @@
             .main-grid {
                 grid-template-columns: 1fr;
             }
+
             header {
                 flex-direction: column;
                 gap: 1.5rem;
             }
         }
-         @media (max-width: 768px) {
-            header, main, footer {
+
+        @media (max-width: 768px) {
+
+            header,
+            main,
+            footer {
                 padding: 1.5rem;
             }
-             .footer-content {
+
+            .footer-content {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
         }
-
     </style>
 </head>
+
 <body>
 
     <header>
-        <div class="logo">UNI-VOTE</div>
+        <img src="Frame 41.svg"width="150" height="32">
+        <!-- <div class="logo">UNI-VOTE</div> -->
         <nav>
             <a href="#">Home</a>
             <a href="#">Governance</a>
@@ -425,7 +486,10 @@
         <div class="header-right">
             <button class="connect-wallet-btn" id="connectWalletBtn">Connect wallet</button>
             <div class="profile-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path
+                        d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                </svg>
             </div>
         </div>
     </header>
@@ -433,12 +497,14 @@
     <main>
         <div class="main-grid">
             <div class="left-panel">
-                <div class="card voting-topic">
-                     <h2 id="electionTopic" style="text-align: center; margin-bottom: 0.5rem;">Loading Election...</h2>
-                    <p style="text-align: center; color: var(--text-color-secondary); margin-bottom: 1rem;" id="electionIdDisplay">ID: ...</p>
+                <div class="card voting-topic" style="background-color: hsl(0, 14%, 99%);border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                    <h2 id="electionTopic" style="text-align: center; margin-bottom: 0.5rem;color: #020202;">Loading
+                        Election...</h2>
+                    <p style="text-align: center; color: var(--text-color-secondary); margin-bottom: 1rem;color: #020202;background-color: hsl(0, 14%, 99%); "
+                        id="electionIdDisplay">ID: ...</p>
                 </div>
 
-                <div class="card details">
+                <div class="card details" style="background-color: hsl(0, 14%, 99%);border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <div class="detail-item">
                         <span>Election Id</span>
                         <span>....</span>
@@ -469,7 +535,7 @@
                             <span class="slider"></span>
                         </label>
                     </div>
-                     <div class="detail-item">
+                    <div class="detail-item">
                         <span>User's those who connected their google account</span>
                         <label class="toggle-switch">
                             <input type="checkbox" checked>
@@ -478,18 +544,18 @@
                     </div>
                 </div>
 
-                <div class="card options">
+                <div class="card options" style="color: #020202;background-color: hsl(0, 14%, 99%); border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <h3>Choose from options</h3>
                     <div id="optionsContainer">
-                        </div>
-                </div>
-                
-                <div class="card transaction-status-card">
                     </div>
+                </div>
+
+                <div class="card transaction-status-card">
+                </div>
             </div>
 
-            <div class="right-panel">
-                <div class="card time-left">
+            <!-- <div class="right-panel"
+                <div class="card time-left" style="background-color: hsl(0, 14%, 99%); color: #020202; ">
                     <h3>Time Left</h3>
                     <div class="timer-circle">
                         <div class="circle-inner" id="timer">
@@ -498,7 +564,46 @@
                     </div>
                 </div>
 
-                <div class="card results">
+                <div class="card results" style="background-color: hsl(0, 14%, 99%);color: #020202; ">
+                    <h3>Results</h3>
+                    <div class="results-circle">
+                        <div class="circle-inner">
+                            00
+                        </div>
+                    </div>
+                    <div class="results-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #3a8dfe;"></div>
+                            <span>Colors</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff4b4b;"></div>
+                            <span>Used colors</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="submit-btn" id="submitVoteBtn" style="display: none;" disabled>Select a
+                        Candidate</button>
+                    <div id="statusMessage"></div>
+                    <div class="link-buttons" ">
+                        <div class=" link-btn" style="background-color: hsl(0, 14%, 99%);color: #020202;">Copy result
+                        Link</div>
+                    <div class="link-btn" style="background-color: hsl(0, 14%, 99%);color: #020202;">Track Txn</div>
+                </div>
+            </div> -->
+              <div class="right-panel">
+                <div class="card time-left"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                    <h3>Time Left</h3>
+                    <div class="timer-circle">
+                        <div class="circle-inner" id="timer">
+                            00:00
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card results"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <h3>Results</h3>
                     <div class="results-circle">
                         <div class="circle-inner">
@@ -521,15 +626,15 @@
                     <button class="submit-btn" id="submitVoteBtn" style="display: none;" disabled>Select a Candidate</button>
                     <div id="statusMessage"></div>
                     <div class="link-buttons">
-                        <div class="link-btn">Copy result Link</div>
-                        <div class="link-btn">Track Txn</div>
+                        <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy result Link</div>
+                        <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Track Txn</div>
                     </div>
                 </div>
-            </div>
+        </div>
         </div>
     </main>
-    
-    <footer >
+
+    <footer>
         <div class="footer-content">
             <div class="footer-column">
                 <h4>Explore</h4>
@@ -537,225 +642,228 @@
                 <a href="#">Roadmap</a>
                 <a href="#">About</a>
             </div>
-             <div class="footer-column">
+            <div class="footer-column">
                 <h4>Elsewhere</h4>
                 <a href="#">LinkedIn</a>
                 <a href="#">Github</a>
                 <a href="#">Telegram</a>
             </div>
-             <div class="footer-column">
+            <div class="footer-column">
                 <h4>Product</h4>
                 <a href="#">Features</a>
                 <a href="#">Integrations</a>
                 <a href="#">Resources</a>
             </div>
             <div class="footer-logo">
-                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDIiIGhlaWdodD0iNDIiIHZpZXdCb3g9IjAgMCA0MiA0MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIxIDBDOS40MDIwMiAwIDAgOS40MDIwMiAwIDIxQzAgMzIuNTk4IDkuNDAyMDIgNDIgMjEgNDJDMzIuNTk4IDQyIDQyIDMyLjU5OCA0MiAyMUM0MiA5LjQwMjAyIDMyLjU5OCAwIDIxIDBaTTIwLjQxMTkgMjkuODMyNkMyMC4yNDE2IDI5LjkxMDggMTkuOTkxMSAyOS45MTA4IDE5Ljc5MDcgMjkuODMyNkwxMi4zMzQxIDIyLjg1NzRDMTIuMjU1OSAyMi43Nzg4IDEyLjIxNjggMjIuNjczOSAxMi4yMTY4IDIyLjU2NDVWMTMuNzQwM0MxMi4yMTY4IDEzLjU3ODIgMTIuMzM4OSAxMy40NTYyIDEyLjUwMSAxMy40NTYySDIxLjcwODdDMjEuODcwOSAxMy40NTYyIDIxLjk5MjkgMTMuNTc4MiAyMS45OTI5IDEzLjczNzdWMjguOTgxOEMyMS45OTI5IDI5LjM5MzQgMjEuNTg2OCAyOS42NTI4IDIxLjI0MTYgMjkuNDY4NUwyMC40MTE5IDI5LjgzMjZaTTI5Ljc4MzIgMjguMjU5N0MyOS43ODMyIDI4LjQyMTggMjkuNjYxMSAyOC41NDM4IDI5LjQ5OTEgMjguNTQzOEgyMC4yOTEzQzIwLjExMTIgMjguNTQzOCAxOS45ODkxIDI4LjQyMTggMTkuOTg5MSAyOC4yNjQyVjIyLjQzNTNDMTkuOTg5MSAyMi4wMjM3IDIzLjAzNjIgMjEuNTA0OCAyMy40NDc4IDIxLjYxNDZMMjkuNTg4MSAxMi4zMTQ5QzI5Ljc0NDggMTIuMTY4MSAyOS45NjM3IDEyLjI4NDcgMjkuOTAzMSAxMi40OTYyTDI5Ljc4MzIgMjguMjU5N1aIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMTJfMTY0KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzEyXzE2NCIgeDE9IjQxLjUiIHkxPSIxLjAwMDAxIiB4Mj0iMy4wMDAwMSIgeTI9IjQyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiNBNTRGRkYiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=" alt="logo-icon"/>
-                 <span class="footer-logo-text">UNI-VOTE</span>
+                <img src="uni-vote[1].png"
+                    alt="logo-icon"  style="width: 100px; height: 100px; border-radius: 15px;" />
+                <!-- <span class="footer-logo-text">UNI-VOTE</span> -->
             </div>
         </div>
-         <div style="text-align: center; color: var(--text-color-secondary); font-size: 0.8rem; margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+        <div
+            style="text-align: center; color: var(--text-color-secondary); font-size: 0.8rem; margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
             © 2025 UNI-VOTE . All right reserved &nbsp;&nbsp;&nbsp; Privacy Policy &nbsp;&nbsp;&nbsp; Terms of Service
         </div>
     </footer>
 
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const contractAddress = "0x7C79dab896DDcE3d13b7bA86304a0F42553de21F";
-        const contractABI = [
-            {"inputs":[{"internalType":"address","name":"_verifier","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},
-            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"string","name":"electionId","type":"string"},{"indexed":false,"internalType":"bytes32","name":"commitment","type":"bytes32"}],"name":"CommitmentRegistered","type":"event"},
-            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"string","name":"electionId","type":"string"},{"indexed":false,"internalType":"string","name":"name","type":"string"},{"indexed":false,"internalType":"uint256","name":"endTime","type":"uint256"}],"name":"ElectionCreated","type":"event"},
-            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"string","name":"electionId","type":"string"}],"name":"ElectionEnded","type":"event"},
-            {"anonymous":false,"inputs":[{"indexed":true,"internalType":"string","name":"electionId","type":"string"},{"indexed":false,"internalType":"uint256","name":"candidateIndex","type":"uint256"}],"name":"Voted","type":"event"},
-            {"inputs":[{"internalType":"string","name":"_name","type":"string"},{"internalType":"uint256","name":"_durationInMinutes","type":"uint256"},{"internalType":"string[]","name":"_candidateNames","type":"string[]"}],"name":"createElection","outputs":[{"internalType":"string","name":"newElectionId","type":"string"}],"stateMutability":"nonpayable","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"}],"name":"endElection","outputs":[],"stateMutability":"nonpayable","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"}],"name":"getCandidateCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"},{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getCandidateName","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
-            {"inputs":[{"internalType":"uint256","name":"counter","type":"uint256"}],"name":"getGeneratedElectionId","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
-            {"inputs":[],"name":"getNextElectionCounter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"}],"name":"getTotalVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"},{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getVotesForCandidate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"},{"internalType":"bytes32","name":"_commitment","type":"bytes32"}],"name":"registerCommitment","outputs":[],"stateMutability":"nonpayable","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"}],"name":"showResult","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
-            {"inputs":[],"name":"verifier","outputs":[{"internalType":"contract Verifier","name":"","type":"address"}],"stateMutability":"view","type":"function"},
-            {"inputs":[{"internalType":"string","name":"_electionId","type":"string"},{"internalType":"uint256[2]","name":"a","type":"uint256[2]"},{"internalType":"uint256[2][2]","name":"b","type":"uint256[2][2]"},{"internalType":"uint256[2]","name":"c","type":"uint256[2]"},{"internalType":"uint256[4]","name":"input","type":"uint256[4]"},{"internalType":"uint256","name":"candidateIndex","type":"uint256"}],"name":"voteWithZKProof","outputs":[],"stateMutability":"nonpayable","type":"function"}
-        ];
+        document.addEventListener('DOMContentLoaded', () => {
+            const contractAddress = "0x7C79dab896DDcE3d13b7bA86304a0F42553de21F";
+            const contractABI = [
+                { "inputs": [{ "internalType": "address", "name": "_verifier", "type": "address" }], "stateMutability": "nonpayable", "type": "constructor" },
+                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }, { "indexed": false, "internalType": "bytes32", "name": "commitment", "type": "bytes32" }], "name": "CommitmentRegistered", "type": "event" },
+                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }, { "indexed": false, "internalType": "string", "name": "name", "type": "string" }, { "indexed": false, "internalType": "uint256", "name": "endTime", "type": "uint256" }], "name": "ElectionCreated", "type": "event" },
+                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }], "name": "ElectionEnded", "type": "event" },
+                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }, { "indexed": false, "internalType": "uint256", "name": "candidateIndex", "type": "uint256" }], "name": "Voted", "type": "event" },
+                { "inputs": [{ "internalType": "string", "name": "_name", "type": "string" }, { "internalType": "uint256", "name": "_durationInMinutes", "type": "uint256" }, { "internalType": "string[]", "name": "_candidateNames", "type": "string[]" }], "name": "createElection", "outputs": [{ "internalType": "string", "name": "newElectionId", "type": "string" }], "stateMutability": "nonpayable", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "endElection", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "getCandidateCount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "uint256", "name": "index", "type": "uint256" }], "name": "getCandidateName", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [{ "internalType": "uint256", "name": "counter", "type": "uint256" }], "name": "getGeneratedElectionId", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [], "name": "getNextElectionCounter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "getTotalVotes", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "uint256", "name": "index", "type": "uint256" }], "name": "getVotesForCandidate", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "bytes32", "name": "_commitment", "type": "bytes32" }], "name": "registerCommitment", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "showResult", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [], "name": "verifier", "outputs": [{ "internalType": "contract Verifier", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" },
+                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "uint256[2]", "name": "a", "type": "uint256[2]" }, { "internalType": "uint256[2][2]", "name": "b", "type": "uint256[2][2]" }, { "internalType": "uint256[2]", "name": "c", "type": "uint256[2]" }, { "internalType": "uint256[4]", "name": "input", "type": "uint256[4]" }, { "internalType": "uint256", "name": "candidateIndex", "type": "uint256" }], "name": "voteWithZKProof", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
+            ];
 
-        let provider, signer, contract, electionId;
-        let selectedCandidateIndex = null;
-        
-        // DOM elements from the integrated layout
-        const electionTopicEl = document.getElementById('electionTopic');
-        const electionIdDisplayEl = document.getElementById('electionIdDisplay');
-        const optionsContainerEl = document.getElementById('optionsContainer');
-        const connectWalletBtn = document.getElementById('connectWalletBtn');
-        const submitVoteBtn = document.getElementById('submitVoteBtn');
-        const statusMessageEl = document.getElementById('statusMessage');
-                    const copyResultLinkBtn = document.getElementById('copyResultLinkBtn'); // copy result link *******************************************
+            let provider, signer, contract, electionId;
+            let selectedCandidateIndex = null;
+
+            // DOM elements from the integrated layout
+            const electionTopicEl = document.getElementById('electionTopic');
+            const electionIdDisplayEl = document.getElementById('electionIdDisplay');
+            const optionsContainerEl = document.getElementById('optionsContainer');
+            const connectWalletBtn = document.getElementById('connectWalletBtn');
+            const submitVoteBtn = document.getElementById('submitVoteBtn');
+            const statusMessageEl = document.getElementById('statusMessage');
+            const copyResultLinkBtn = document.getElementById('copyResultLinkBtn'); // copy result link *******************************************
 
 
-        function init() {
-            electionId = getElectionIdFromURL();
-            if (!electionId) {
-                electionTopicEl.textContent = "Error";
-                statusMessageEl.textContent = "No Election ID provided in URL.";
-                connectWalletBtn.style.display = 'none';
-                return;
-            }
-            electionIdDisplayEl.textContent = `ID: ${electionId}`;
-            statusMessageEl.textContent = "Please connect wallet to see candidates.";
-            connectWalletBtn.addEventListener('click', connectAndLoad);
-            submitVoteBtn.addEventListener('click', handleVoteProcess);
-            
-        }
-
-        async function connectAndLoad() {
-            if (typeof window.ethereum === 'undefined') { return alert("Please install MetaMask."); }
-            try {
-                statusMessageEl.textContent = "Connecting...";
-                provider = new ethers.providers.Web3Provider(window.ethereum);
-                await provider.send("eth_requestAccounts", []);
-                signer = provider.getSigner();
-                contract = new ethers.Contract(contractAddress, contractABI, signer);
-                statusMessageEl.textContent = "Wallet connected. Loading details...";
-                connectWalletBtn.style.display = 'none';
-                submitVoteBtn.style.display = 'block'; // Use 'block' to show the button
-                await loadElectionDetails(contract);
-            } catch (e) {
-                statusMessageEl.textContent = "Wallet connection failed.";
-                console.error(e);
-            }
-        }
-
-        async function loadElectionDetails(contractInstance) {
-            optionsContainerEl.innerHTML = '<p>Loading candidates...</p>';
-            try {
-                const isOver = await contractInstance.showResult(electionId);
-                const blockSearchRange = -5000;
-
-                if (isOver) {
-                    optionsContainerEl.innerHTML = "<p style='text-align:center;'>This election has ended.</p>";
-                    submitVoteBtn.disabled = true;
-                    submitVoteBtn.textContent = "Election Ended";
+            function init() {
+                electionId = getElectionIdFromURL();
+                if (!electionId) {
+                    electionTopicEl.textContent = "Error";
+                    statusMessageEl.textContent = "No Election ID provided in URL.";
+                    connectWalletBtn.style.display = 'none';
                     return;
                 }
-                
-                const filter = contractInstance.filters.ElectionCreated(electionId);
-                const events = await contractInstance.queryFilter(filter, blockSearchRange, 'latest');
-                if (events.length > 0) { 
-                    electionTopicEl.textContent = events[events.length - 1].args.name; 
-                } else {
-                    electionTopicEl.textContent = "Election Name Not Found";
+                electionIdDisplayEl.textContent = `ID: ${electionId}`;
+                statusMessageEl.textContent = "Please connect wallet to see candidates.";
+                connectWalletBtn.addEventListener('click', connectAndLoad);
+                submitVoteBtn.addEventListener('click', handleVoteProcess);
+
+            }
+
+            async function connectAndLoad() {
+                if (typeof window.ethereum === 'undefined') { return alert("Please install MetaMask."); }
+                try {
+                    statusMessageEl.textContent = "Connecting...";
+                    provider = new ethers.providers.Web3Provider(window.ethereum);
+                    await provider.send("eth_requestAccounts", []);
+                    signer = provider.getSigner();
+                    contract = new ethers.Contract(contractAddress, contractABI, signer);
+                    statusMessageEl.textContent = "Wallet connected. Loading details...";
+                    connectWalletBtn.style.display = 'none';
+                    submitVoteBtn.style.display = 'block'; // Use 'block' to show the button
+                    await loadElectionDetails(contract);
+                } catch (e) {
+                    statusMessageEl.textContent = "Wallet connection failed.";
+                    console.error(e);
                 }
+            }
 
-                const candidateCount = await contractInstance.getCandidateCount(electionId);
-                optionsContainerEl.innerHTML = '';
-                for (let i = 0; i < candidateCount.toNumber(); i++) {
-                    const candidateName = await contractInstance.getCandidateName(electionId, i);
-                    const optionButton = document.createElement('div');
-                    optionButton.className = 'option-btn';
-                    optionButton.textContent = candidateName;
-                    optionButton.dataset.index = i;
-                    optionButton.addEventListener('click', () => {
-                        document.querySelectorAll('.option-btn.selected').forEach(btn => btn.classList.remove('selected'));
-                        optionButton.classList.add('selected');
-                        selectedCandidateIndex = parseInt(optionButton.dataset.index, 10);
-                        submitVoteBtn.disabled = false;
-                        submitVoteBtn.textContent = `Submit Vote for "${candidateName}"`;
-                    });
-                    optionsContainerEl.appendChild(optionButton);
+            async function loadElectionDetails(contractInstance) {
+                optionsContainerEl.innerHTML = '<p>Loading candidates...</p>';
+                try {
+                    const isOver = await contractInstance.showResult(electionId);
+                    const blockSearchRange = -5000;
+
+                    if (isOver) {
+                        optionsContainerEl.innerHTML = "<p style='text-align:center;'>This election has ended.</p>";
+                        submitVoteBtn.disabled = true;
+                        submitVoteBtn.textContent = "Election Ended";
+                        return;
+                    }
+
+                    const filter = contractInstance.filters.ElectionCreated(electionId);
+                    const events = await contractInstance.queryFilter(filter, blockSearchRange, 'latest');
+                    if (events.length > 0) {
+                        electionTopicEl.textContent = events[events.length - 1].args.name;
+                    } else {
+                        electionTopicEl.textContent = "Election Name Not Found";
+                    }
+
+                    const candidateCount = await contractInstance.getCandidateCount(electionId);
+                    optionsContainerEl.innerHTML = '';
+                    for (let i = 0; i < candidateCount.toNumber(); i++) {
+                        const candidateName = await contractInstance.getCandidateName(electionId, i);
+                        const optionButton = document.createElement('div');
+                        optionButton.className = 'option-btn';
+                        optionButton.textContent = candidateName;
+                        optionButton.dataset.index = i;
+                        optionButton.addEventListener('click', () => {
+                            document.querySelectorAll('.option-btn.selected').forEach(btn => btn.classList.remove('selected'));
+                            optionButton.classList.add('selected');
+                            selectedCandidateIndex = parseInt(optionButton.dataset.index, 10);
+                            submitVoteBtn.disabled = false;
+                            submitVoteBtn.textContent = `Submit Vote for "${candidateName}"`;
+                        });
+                        optionsContainerEl.appendChild(optionButton);
+                    }
+                    statusMessageEl.textContent = "Please select a candidate.";
+                } catch (error) {
+                    statusMessageEl.textContent = "Could not load election details.";
+                    console.error(error);
                 }
-                statusMessageEl.textContent = "Please select a candidate.";
-            } catch (error) {
-                statusMessageEl.textContent = "Could not load election details.";
-                console.error(error);
-            }
-        }
-
-        async function handleVoteProcess() {
-            if (selectedCandidateIndex === null) {
-                return alert("Please select a candidate first.");
-            }
-            submitVoteBtn.disabled = true;
-
-            // ===== Step 1: Register Commitment =====
-            statusMessageEl.textContent = "Step 1/2: Generating secret & commitment...";
-            const secret = ethers.utils.randomBytes(32);
-            const commitment = ethers.utils.solidityKeccak256(
-                ['uint256', 'bytes32'],
-                [selectedCandidateIndex, secret]
-            );
-
-            try {
-                statusMessageEl.textContent = "Step 1/2: Registering commitment...";
-                const registerTx = await contract.registerCommitment(electionId, commitment);
-                await registerTx.wait();
-                statusMessageEl.textContent = "Commitment registered! Proceeding...";
-            } catch (error) {
-                const reason = error.reason || (error.data ? error.data.message : "Commitment failed.");
-                statusMessageEl.textContent = `Error in Step 1: ${reason}`;
-                submitVoteBtn.disabled = false;
-                console.error("Commitment registration failed:", error);
-                return;
             }
 
-            // ===== Break for network sync =====
-            statusMessageEl.textContent = "Waiting for network to sync...";
-            await new Promise(resolve => setTimeout(resolve, 7000)); // 7 second break
-
-            // ===== Step 2: Cast Final Vote =====
-            statusMessageEl.textContent = "Step 2/2: Generating ZK Proof...";
-            const nullifierHash = ethers.utils.solidityKeccak256(['bytes32'], [secret]);
-            
-            // Correcting data types for the proof
-            const proofInput = {
-                a: ['0', '0'],
-                b: [['0', '0'], ['0', '0']],
-                c: ['0', '0'],
-                 input: [
-                    ethers.BigNumber.from(commitment),   // Convert bytes32 to BigNumber
-                    ethers.BigNumber.from(nullifierHash), // Convert bytes32 to BigNumber
-                    '0',
-                    '0'
-                ]
-            };
-            
-
-
-
-            try {
-                statusMessageEl.textContent = "Step 2/2: Submitting final vote...";
-                const voteTx = await contract.voteWithZKProof(
-                    electionId,
-                    proofInput.a, 
-                    proofInput.b, 
-                    proofInput.c, 
-                    proofInput.input,
-                    selectedCandidateIndex
-                );
-                await voteTx.wait();
-
-                statusMessageEl.textContent = "Vote cast successfully! Thank you.";
-                submitVoteBtn.textContent = "Voted Successfully";
+            async function handleVoteProcess() {
+                if (selectedCandidateIndex === null) {
+                    return alert("Please select a candidate first.");
+                }
                 submitVoteBtn.disabled = true;
-            } catch (error) {
-                const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
-                statusMessageEl.textContent = `Error in Step 2: ${reason}`;
-                submitVoteBtn.disabled = false;
-                console.error("Final vote submission failed:", error);
+
+                // ===== Step 1: Register Commitment =====
+                statusMessageEl.textContent = "Step 1/2: Generating secret & commitment...";
+                const secret = ethers.utils.randomBytes(32);
+                const commitment = ethers.utils.solidityKeccak256(
+                    ['uint256', 'bytes32'],
+                    [selectedCandidateIndex, secret]
+                );
+
+                try {
+                    statusMessageEl.textContent = "Step 1/2: Registering commitment...";
+                    const registerTx = await contract.registerCommitment(electionId, commitment);
+                    await registerTx.wait();
+                    statusMessageEl.textContent = "Commitment registered! Proceeding...";
+                } catch (error) {
+                    const reason = error.reason || (error.data ? error.data.message : "Commitment failed.");
+                    statusMessageEl.textContent = `Error in Step 1: ${reason}`;
+                    submitVoteBtn.disabled = false;
+                    console.error("Commitment registration failed:", error);
+                    return;
+                }
+
+                // ===== Break for network sync =====
+                statusMessageEl.textContent = "Waiting for network to sync...";
+                await new Promise(resolve => setTimeout(resolve, 7000)); // 7 second break
+
+                // ===== Step 2: Cast Final Vote =====
+                statusMessageEl.textContent = "Step 2/2: Generating ZK Proof...";
+                const nullifierHash = ethers.utils.solidityKeccak256(['bytes32'], [secret]);
+
+                // Correcting data types for the proof
+                const proofInput = {
+                    a: ['0', '0'],
+                    b: [['0', '0'], ['0', '0']],
+                    c: ['0', '0'],
+                    input: [
+                        ethers.BigNumber.from(commitment),   // Convert bytes32 to BigNumber
+                        ethers.BigNumber.from(nullifierHash), // Convert bytes32 to BigNumber
+                        '0',
+                        '0'
+                    ]
+                };
+
+
+
+
+                try {
+                    statusMessageEl.textContent = "Step 2/2: Submitting final vote...";
+                    const voteTx = await contract.voteWithZKProof(
+                        electionId,
+                        proofInput.a,
+                        proofInput.b,
+                        proofInput.c,
+                        proofInput.input,
+                        selectedCandidateIndex
+                    );
+                    await voteTx.wait();
+
+                    statusMessageEl.textContent = "Vote cast successfully! Thank you.";
+                    submitVoteBtn.textContent = "Voted Successfully";
+                    submitVoteBtn.disabled = true;
+                } catch (error) {
+                    const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
+                    statusMessageEl.textContent = `Error in Step 2: ${reason}`;
+                    submitVoteBtn.disabled = false;
+                    console.error("Final vote submission failed:", error);
+                }
             }
-        }
 
-        function getElectionIdFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('electionId');
-        }
+            function getElectionIdFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('electionId');
+            }
 
-        init();
-    });
+            init();
+        });
     </script>
-    
+
 </body>
+
 </html>
