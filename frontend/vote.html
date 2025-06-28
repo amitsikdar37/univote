@@ -521,7 +521,7 @@
                     <button class="submit-btn" id="submitVoteBtn" style="display: none;" disabled>Select a Candidate</button>
                     <div id="statusMessage"></div>
                     <div class="link-buttons">
-                        <div class="link-btn" id="copyResultLinkBtn">Copy result Link</div>
+                        <div class="link-btn">Copy result Link</div>
                         <div class="link-btn">Track Txn</div>
                     </div>
                 </div>
@@ -608,7 +608,7 @@
             statusMessageEl.textContent = "Please connect wallet to see candidates.";
             connectWalletBtn.addEventListener('click', connectAndLoad);
             submitVoteBtn.addEventListener('click', handleVoteProcess);
-             copyResultLinkBtn.addEventListener('click', copyResultLink); // copy result link *******************************************
+            
         }
 
         async function connectAndLoad() {
@@ -723,19 +723,6 @@
             };
             
 
-  // --- YEH FUNCTION BHI KHAALI THA ---
-            function copyResultLink() {
-                if (!electionId) { return; }
-                const resultLink = `${window.location.origin}/track.html?electionId=${electionId}`;
-                navigator.clipboard.writeText(resultLink).then(() => {
-                    copyResultLinkBtn.textContent = "Copied!";
-                    setTimeout(() => { copyResultLinkBtn.textContent = "Copy Result Link"; }, 2000);
-                }).catch(err => {
-                    statusMessageEl.textContent = "Link copy nahi ho paya.";
-                    console.error('Copy karne mein error: ', err);
-                });
-            }
-// copy result link *******************************************
 
 
             try {
