@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -626,7 +626,15 @@
                     <button class="submit-btn" id="submitVoteBtn" style="display: none;" disabled>Select a Candidate</button>
                     <div id="statusMessage"></div>
                     <div class="link-buttons">
-                        <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy result Link</div>
+                        <!-- <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy result Link</div> -->
+
+<!-- <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy result Link</div> -->
+
+<div id="copyResultLinkBtn" class="link-btn" style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy Result Link</div>
+
+
+
+
                         <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Track Txn</div>
                     </div>
                 </div>
@@ -860,9 +868,56 @@
                 return urlParams.get('electionId');
             }
 
-            init();
-        });
-    </script>
+            // init();
+
+            function getElectionIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('electionId');
+        }
+
+        // इस फंक्शन को कॉपी करने का लॉजिक हैंडल करने के लिए जोड़ें
+        function handleCopyResultLink() {
+            if (!electionId) {
+                alert(" Election ID not found.");
+                return;
+            }
+            // result.html का लिंक बनाएं (मान लें कि यह उसी फ़ोल्डर में है)
+            const resultLink = `${window.location.origin}/result.html?electionId=${electionId}`;
+            
+            navigator.clipboard.writeText(resultLink).then(() => {
+                const copyBtn = document.getElementById('copyResultLinkBtn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = ' Link copied successfully!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000); // 2 सेकंड के बाद टेक्स्ट वापस बदल दें
+            }).catch(err => {
+                console.error(' Failed to copy the link: ', err);
+                alert(" Could not copy the link.");
+            });
+        }
+
+        function init() {
+            electionId = getElectionIdFromURL();
+            if (!electionId) {
+                electionTopicEl.textContent = "Error";
+                statusMessageEl.textContent = "There is no election ID in the URL.";
+                connectWalletBtn.style.display = 'none';
+                return;
+            }
+            electionIdDisplayEl.textContent = `ID: ${electionId}`;
+            statusMessageEl.textContent = " Please connect your wallet to view the candidates.";
+            connectWalletBtn.addEventListener('click', connectAndLoad);
+            submitVoteBtn.addEventListener('click', handleVoteProcess);
+            
+            // कॉपी बटन के लिए इवेंट लिस्नर जोड़ें
+            document.getElementById('copyResultLinkBtn').addEventListener('click', handleCopyResultLink);
+        }
+
+        init();
+    });
+</script>
+     
 
 </body>
 
