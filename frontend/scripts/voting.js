@@ -35,43 +35,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-/*const searchInput = document.getElementById('voteSearchInput');
-const searchButton = document.getElementById('electionIdSearchButton');
-
-searchButton.addEventListener('click', async (e) => {
-  e.preventDefault();
-  const election_id = searchInput.value;
-
-  if (!election_id) {
-    alert("Please enter a Voting ID.");
-    return;
-  }
-
-  try {
-    const response = await fetch(`${BACKEND_URL}/api/CheckPublicClaim`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ election_id }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Vote not found");
-    }
-
-    const voteData = await response.json();
-    console.log("Vote data:", voteData);
-    // Display vote data to the user
-  } catch (error) {
-    console.error("Error fetching vote data:", error);
-    alert("You Are Not Eligible To Registered For This Election.");
-  }
-});
-*/
-
 document.addEventListener('DOMContentLoaded', () => {
     const contractAddress = "0x7C79dab896DDcE3d13b7bA86304a0F42553de21F";
     const contractABI = [
@@ -110,6 +73,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingMessage = document.getElementById('loadingMessage');
     //  *******************************************
 
+    async function checkEligibilityAndUpdateUI(electionId) {
+      const res = await fetch(`${BACKEND_URL}/api/CheckPublicClaim`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ election_id: electionId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.eligible) {
+        // Disable voting button
+        submitVoteBtn.disabled = true;
+        submitVoteBtn.textContent = "Not Eligible to Vote";
+        // Mark failed criteria
+        if (data.failedCriteria) markFailedCriteria(data.failedCriteria);
+        statusMessageEl.textContent = "You are not eligible to vote in this election.";
+        return null;
+      } else {
+        // Enable voting button
+        submitVoteBtn.disabled = false;
+        submitVoteBtn.textContent = "Select a Candidate";
+        statusMessageEl.textContent = "You are eligible to vote!";
+        markFailedCriteria([]); // Clear any previous failed criteria
+        window.publicRegisteredCommitment = data.publicRegisteredCommitment;
+        return data.publicRegisteredCommitment;
+      }
+    }
+
+    function markFailedCriteria(failedKeys) {
+      // Assumes each .criteria-item has a data-key attribute set to the criteria key
+      document.querySelectorAll('.criteria-item').forEach(item => {
+        const key = item.getAttribute('data-key');
+        if (failedKeys.includes(key)) {
+          item.classList.add('criteria-failed');
+        } else {
+          item.classList.remove('criteria-failed');
+        }
+      });
+    }
+
+
+
     function getElectionIdFromURL() {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get('electionId');
@@ -144,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             connectWalletBtn.style.display = 'none';
             submitVoteBtn.style.display = 'block'; // Use 'block' to show the button
             await loadElectionDetails(contract);
+            await checkEligibilityAndUpdateUI(electionId);
         } catch (e) {
             statusMessageEl.textContent = "Wallet connection failed.";
             console.error(e);
@@ -179,12 +189,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 optionButton.className = 'option-btn';
                 optionButton.textContent = candidateName;
                 optionButton.dataset.index = i;
-                optionButton.addEventListener('click', () => {
+                optionButton.addEventListener('click', async () => {
                     document.querySelectorAll('.option-btn.selected').forEach(btn => btn.classList.remove('selected'));
                     optionButton.classList.add('selected');
                     selectedCandidateIndex = parseInt(optionButton.dataset.index, 10);
-                    submitVoteBtn.disabled = false;
-                    submitVoteBtn.textContent = `Submit Vote for "${candidateName}"`;
+                    
+                    const eligible = await checkEligibilityAndUpdateUI(electionId);
+                    if (eligible) {
+                      submitVoteBtn.disabled = false;
+                      submitVoteBtn.textContent = `Submit Vote for "${candidateName}"`;
+                    } else {
+                      submitVoteBtn.disabled = true;
+                      submitVoteBtn.textContent = "Not Eligible to Vote";
+                    }
                 });
                 optionsContainerEl.appendChild(optionButton);
             }
@@ -289,6 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
           await loadElectionDetails(contract);
         }
         loadingMessage.style.display = 'none';
+        await checkEligibilityAndUpdateUI(electionId);        
     });
 
     connectWalletBtn.addEventListener('click', connectAndLoad);
@@ -301,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMessageEl.textContent = "Please connect wallet to see candidates.";
         updateElectionTopic(urlId);
         updateElectionCriteria(urlId);
+        checkEligibilityAndUpdateUI(urlId);
       } else {
         electionIdDisplayEl.textContent = "ID: ...";
         statusMessageEl.textContent = "Enter or search for an Election ID.";
@@ -373,7 +392,7 @@ async function updateElectionCriteria(electionId) {
 
     let html = '<ul class="criteria-list">';
     criteriaKeys.forEach(key => {
-      html += `<li class="criteria-item">${getCriteriaSentence(key)}</li>`;
+      html += `<li class="criteria-item" data-key="${key}">${getCriteriaSentence(key)}</li>`;
     });
     html += '</ul>';
     container.innerHTML = `
@@ -383,4 +402,17 @@ async function updateElectionCriteria(electionId) {
   } catch (err) {
     container.innerHTML = '<div class="criteria-error">Failed to load criteria.</div>';
   }
+}
+
+function markFailedCriteria(failedKeys) {
+  document.querySelectorAll('.criteria-item').forEach(item => {
+    const key = item.getAttribute('data-key');
+    if (failedKeys.includes(key)) {
+      item.classList.add('criteria-failed');
+      item.classList.remove('criteria-success');
+    } else {
+      item.classList.remove('criteria-failed');
+      item.classList.add('criteria-success');
+    }
+  });
 }

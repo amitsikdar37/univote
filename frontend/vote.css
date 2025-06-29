@@ -554,3 +554,15 @@ html { visibility: hidden; }
             text-align: left;
             margin-top: 0.5rem;
         }
+        
+        .criteria-failed {
+            color: #ff4b4b;
+            font-weight: bold;
+        }
+        .criteria-success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .criteria-failed::before {
+            content: "❌ ";
+        }
