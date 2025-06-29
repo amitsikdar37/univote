@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!BACKEND_URL) {
     console.error("BACKEND_URL is not defined. Check config.js.");
     alert("Configuration error: Backend URL missing.");
-    window.location.href = './login.html';
+    window.location.href = './index.html';
     return;
   }
 
   // Token verification
-  const loadingScreen = document.getElementById('loading-screen');
+
   try {
     const response = await fetch(`${BACKEND_URL}/api/Verify-Token`, {
       method: 'GET',
@@ -19,15 +19,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!response.ok) {
       console.warn("Token verification failed:", response.status);
-      window.location.href = './login.html';
+      alert("Access denied. Redirecting to login...");
+      window.location.href = './index.html';
       return;
     }
 
+    // User is authenticated, reveal the page
+    document.documentElement.style.visibility = 'visible';
+
   } catch (err) {
     console.error("Token verification error:", err);
-    if (loadingScreen) loadingScreen.remove();
     alert("Failed to verify access. Redirecting to login...");
-    window.location.href = './login.html';
+    window.location.href = './index.html';
     return;
   }
 });
@@ -392,11 +395,24 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
             }
 
-            function copyVotingLink() {
+            function getVotingPagePath() {
+                // On localhost (any port), use /frontend/vote.html
+                if (
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1'
+                ) {
+                    return '/frontend/vote.html';
+                } else {
+                    return '/vote.html';
+                }
+                }
+
+                function copyVotingLink() {
                 if (!currentElectionId) return alert("No election ID available to generate a link.");
-                const voteUrl = `${window.location.origin}/vote.html?electionId=${currentElectionId}`;
+                const voteUrl = `${window.location.origin}${getVotingPagePath()}?electionId=${currentElectionId}`;
                 copyText(voteUrl);
-            }
+                }
+
 
             function setStepperStatus(currentStep) {
                 for (let i = 1; i <= 4; i++) {

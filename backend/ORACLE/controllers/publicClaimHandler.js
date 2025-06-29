@@ -1,42 +1,26 @@
+const circomlib = require('circomlibjs'); // Make sure you use circomlibjs for Poseidon
 const crypto = require('crypto');
-const circomlib = require('circomlibjs');
-
 let poseidonInstance;
 (async () => {
   poseidonInstance = await circomlib.buildPoseidon();
 })();
 
 const Voters = require('../../models/voter');
-
 const ElectionCriteria = require('../../models/election_criteria');
 
-
+// === Generate the secret ===
+const secret = '0x' + crypto.randomBytes(32).toString('hex');
 
 function sha256ToBigInt(data) {
   const hash = crypto.createHash('sha256').update(data).digest('hex');
   return BigInt('0x' + hash);
 }
 
-function generatePublicAttestationNonce(userId, electionId) {
-  const userHash = sha256ToBigInt(userId);
-  const electionHash = sha256ToBigInt(electionId);
-  const randomField = BigInt('0x' + crypto.randomBytes(31).toString('hex')); // 248-bit
-
-  if (!poseidonInstance) {
-    throw new Error("Poseidon not initialized yet");
-  }
-
-  const hashOutput = poseidonInstance([userHash, electionHash, randomField]);
-  const nonce = poseidonInstance.F.toString(hashOutput);
-
-  return {
-    nonce,
-    components: {
-      userHash: userHash.toString(),
-      electionHash: electionHash.toString(),
-      randomField: randomField.toString()
-    }
-  };
+function generatePublicRegisteredCommitment(userId, electionId) {
+  if (!poseidonInstance) throw new Error("Poseidon not initialized yet");
+  const hashOutput = poseidonInstance([BigInt(secret)]);
+  const commitment = poseidonInstance.F.toString(hashOutput);
+  return { commitment };
 }
 
 exports.checkPublicClaim = async (req, res) => {
@@ -53,28 +37,43 @@ exports.checkPublicClaim = async (req, res) => {
       return res.status(404).json({ message: 'Election criteria not found' });
     }
 
-    const criteria = electionCriteria.criteria;
+    const criteria = electionCriteria.criteria instanceof Map
+      ? Object.fromEntries(electionCriteria.criteria)
+      : electionCriteria.criteria;
 
-    const requiredDomain = criteria.get("email_domain");
-    if (requiredDomain && !voter.email.endsWith(requiredDomain)) {
-      return res.status(403).json({ message: 'Email domain not eligible' });
+    let failedCriteria = [];
+
+    // Example checks (expand as needed)
+    if (criteria.onlyIITP && !(voter.email && voter.email.endsWith("@iitp.ac.in"))) {
+      failedCriteria.push('onlyIITP');
     }
-
-    const minAccountAgeDays = criteria.get("min_account_age_days");
-    if (minAccountAgeDays) {
+    if (criteria.account10Days) {
       const accountCreatedAt = new Date(voter.createdAt);
       const accountAgeInDays = (Date.now() - accountCreatedAt.getTime()) / (1000 * 60 * 60 * 24);
-      if (accountAgeInDays < minAccountAgeDays) {
-        return res.status(403).json({ message: 'Account too new for this election' });
-      }
+      if (accountAgeInDays < 10) failedCriteria.push('account10Days');
+    }
+    if (criteria.completedPartX && !voter.completedPartX) {
+      failedCriteria.push('completedPartX');
+    }
+    if (criteria.connectedGoogleAccount && !voter.googleConnected) {
+      failedCriteria.push('connectedGoogleAccount');
+    }
+
+    if (failedCriteria.length > 0) {
+      return res.status(403).json({
+        eligible: false,
+        failedCriteria
+      });
     }
 
     // All criteria passed
-    const { nonce, components } = generatePublicAttestationNonce(email, election_id);
+
+    const { commitment, components } = generatePublicRegisteredCommitment(email, election_id, secret);
 
     return res.status(200).json({
       eligible: true,
-      publicAttestationNonce: nonce,
+      publicRegisteredCommitment: commitment,
+      secret, // ⚠️ Remove in production
       debug_components: components // ⚠️ Remove in production
     });
   }
