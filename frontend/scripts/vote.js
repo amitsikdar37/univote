@@ -106,8 +106,7 @@ searchButton.addEventListener('click', async (e) => {
             const connectWalletBtn = document.getElementById('connectWalletBtn');
             const submitVoteBtn = document.getElementById('submitVoteBtn');
             const statusMessageEl = document.getElementById('statusMessage');
-            const copyResultLinkBtn = document.getElementById('copyResultLinkBtn'); // copy result link *******************************************
-
+            const copyResultLinkBtn = document.getElementById('copyResultLinkBtn');
 
             function init() {
                 electionId = getElectionIdFromURL();
@@ -273,13 +272,13 @@ searchButton.addEventListener('click', async (e) => {
             return urlParams.get('electionId');
         }
 
-        // इस फंक्शन को कॉपी करने का लॉजिक हैंडल करने के लिए जोड़ें
+       
         function handleCopyResultLink() {
             if (!electionId) {
                 alert(" Election ID not found.");
                 return;
             }
-            // result.html का लिंक बनाएं (मान लें कि यह उसी फ़ोल्डर में है)
+           
             const resultLink = `${window.location.origin}/result.html?electionId=${electionId}`;
             
             navigator.clipboard.writeText(resultLink).then(() => {
@@ -288,7 +287,7 @@ searchButton.addEventListener('click', async (e) => {
                 copyBtn.textContent = ' Link copied successfully!';
                 setTimeout(() => {
                     copyBtn.textContent = originalText;
-                }, 2000); // 2 सेकंड के बाद टेक्स्ट वापस बदल दें
+                }, 2000); 
             }).catch(err => {
                 console.error(' Failed to copy the link: ', err);
                 alert(" Could not copy the link.");
@@ -308,7 +307,7 @@ searchButton.addEventListener('click', async (e) => {
             connectWalletBtn.addEventListener('click', connectAndLoad);
             submitVoteBtn.addEventListener('click', handleVoteProcess);
             
-            // कॉपी बटन के लिए इवेंट लिस्नर जोड़ें
+            
             document.getElementById('copyResultLinkBtn').addEventListener('click', handleCopyResultLink);
         }
 

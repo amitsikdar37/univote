@@ -1,0 +1,496 @@
+  /* CSS Variables */
+        :root {
+            --primary-blue: #3a8dfe;
+            --light-blue: #e8edff;
+            --dark-blue: #183ec2;
+            --text-dark: #333;
+            --text-light: #f0f0f0;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --stepper-green: #28a745;
+            --stepper-grey: #ccc;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(188.64deg, #E1E7FF 39.84%, #183EC2 92.29%);
+
+            /* background: linear-gradient(170deg, #b3c8ff, #1e3a8a); */
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 1rem;
+            overflow-x: hidden;
+        }
+
+        /* Top Banner */
+        .dev-banner {
+            background-color: #ffc107;
+            color: #000;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            /* margin-top: 2.5rem; */
+            /* Space for the banner */
+            color: var(--text-light);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, #a48eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            /* color: var(--text-light); */
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: color 0.3s;
+            color: #000;
+
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-color: #000;
+        }
+
+        .profile-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-light);
+        }
+
+        /* Main Container */
+        .main-container {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 2rem auto;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 25px;
+            border: 14px solid rgba(239, 240, 246, 0.45);
+        }
+
+        /* Input Section */
+        .track-inputs {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: contents;
+            /* Allows direct grid placement */
+        }
+
+        .track-inputs input {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            font-family: var(--font-family);
+            font-size: 1rem;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .track-inputs input::placeholder {
+            color: #888;
+        }
+
+        .track-inputs button {
+            background-color: #fff;
+            color: var(--text-dark);
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .track-inputs button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+
+        .stats-card {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stats-card .card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .results-card {
+            text-align: center;
+        }
+
+        .results-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .donut-chart {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#00bcd4 0% 77%, #e0e0e0 77% 100%);
+            margin: 1rem auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .donut-chart::before {
+            content: '77%';
+            position: absolute;
+            width: 75%;
+            height: 75%;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .legend {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .legend span {
+            font-size: 0.9rem;
+        }
+
+        .legend .colors {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .legend .color-box {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        /* Stepper */
+        .stepper-container {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+        }
+
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        /* The connecting line */
+        .stepper::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background-color: var(--stepper-grey);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 25%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid var(--stepper-grey);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--stepper-grey);
+        }
+
+        .step-description {
+            font-size: 0.9rem;
+            max-width: 120px;
+        }
+
+        .step-time {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.25rem;
+        }
+
+        /* Stepper Active/Completed States */
+        .step.completed .step-circle {
+            background-color: var(--stepper-green);
+            border-color: var(--stepper-green);
+            color: white;
+        }
+
+        .step.active .step-circle {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .step.active .step-description {
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-card {
+                grid-column: span 1;
+            }
+
+            header nav {
+                display: none;
+                /* Hide nav on smaller screens for simplicity */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .track-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .stepper {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2rem;
+            }
+
+            .stepper::before {
+                top: 15px;
+                left: 15px;
+                bottom: 15px;
+                width: 2px;
+                height: auto;
+            }
+
+            .step {
+                flex-direction: row;
+                text-align: left;
+                width: 100%;
+                gap: 1rem;
+            }
+
+            .step-description,
+            .step-time {
+                max-width: none;
+                margin-top: 0;
+            }
+        }
+
+
+
+        txn-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 24px 12px 12px 12px;
+            margin-top: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .txn-stepper .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .txn-stepper .circle {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #4caf50;
+            border-radius: 50%;
+            background: #fff;
+            color: #4caf50;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            font-size: 18px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .txn-stepper .step.active .circle,
+        .txn-stepper .step.completed .circle {
+            background: #4caf50;
+            color: #fff;
+        }
+
+        .txn-stepper .label {
+            text-align: center;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .txn-stepper .timestamp {
+            color: #888;
+            font-size: 11px;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .txn-stepper .line {
+            height: 2px;
+            background: #4caf50;
+            flex: 1;
+            margin: 0 4px;
+            border-radius: 1px;
+            opacity: 0.3;
+        }
+
+        .circle {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-number {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #4caf50;
+            font-weight: bold;
+            z-index: 1;
+            transition: opacity 0.2s;
+        }
+
+        .checkmark {
+            width: 32px;
+            height: 32px;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .checkmark__circle {
+            stroke-dasharray: 62.8;
+            stroke-dashoffset: 0;
+            stroke-width: 2;
+            stroke: #4caf50;
+            fill: #fff;
+            transition: stroke-dashoffset 0.4s;
+        }
+
+        .checkmark__check {
+            stroke-dasharray: 20;
+            stroke-dashoffset: 20;
+            stroke-width: 2.5;
+            stroke: #4caf50;
+            fill: none;
+            transition: stroke-dashoffset 0.3s;
+        }
+
+        .step.completed .checkmark__check {
+            animation: draw-check 0.3s forwards;
+        }
+
+        .step.completed .circle-number {
+            opacity: 0;
+        }
+
+        @keyframes draw-check {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }

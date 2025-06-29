@@ -8,374 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5/dist/ethers.umd.min.js"></script>
+  <link rel="stylesheet" href="result.css">
+
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
-        /* CSS Variables */
-        :root {
-            --primary-blue: #3a8dfe;
-            --light-blue: #e8edff;
-            --dark-blue: #183ec2;
-            --text-dark: #333;
-            --text-light: #f0f0f0;
-            --glass-bg: rgba(255, 255, 255, 0.25);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --stepper-green: #28a745;
-            --stepper-grey: #ccc;
-            --font-family: 'Poppins', sans-serif;
-        }
-
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background: linear-gradient(170deg, #b3c8ff, #1e3a8a);
-            color: var(--text-dark);
-            min-height: 100vh;
-            padding: 1rem;
-            overflow-x: hidden;
-        }
-
-        /* Top Banner */
-        .dev-banner {
-            background-color: #ffc107;
-            color: #000;
-            text-align: center;
-            padding: 0.5rem;
-            font-size: 0.9rem;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            margin-top: 2.5rem;
-            /* Space for the banner */
-            color: var(--text-light);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ffffff, #a48eff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary-blue);
-        }
-
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .profile-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-light);
-        }
-
-        /* Main Container */
-        .main-container {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 2rem;
-            max-width: 1100px;
-            margin: 2rem auto;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        /* Input Section */
-        .track-inputs {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .input-group {
-            display: contents;
-            /* Allows direct grid placement */
-        }
-
-        .track-inputs input {
-            background-color: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 0.8rem 1rem;
-            font-family: var(--font-family);
-            font-size: 1rem;
-            color: var(--text-dark);
-            outline: none;
-        }
-
-        .track-inputs input::placeholder {
-            color: #888;
-        }
-
-        .track-inputs button {
-            background-color: #fff;
-            color: var(--text-dark);
-            border: none;
-            border-radius: 10px;
-            padding: 0.8rem 1.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .track-inputs button:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .card {
-            background-color: rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 1.5rem;
-        }
-
-        .stats-card {
-            grid-column: span 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .stats-card .card h3 {
-            margin-bottom: 1rem;
-        }
-
-        .results-card {
-            text-align: center;
-        }
-
-        .results-card h3 {
-            margin-bottom: 1rem;
-        }
-
-        .donut-chart {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: conic-gradient(#00bcd4 0% 77%, #e0e0e0 77% 100%);
-            margin: 1rem auto;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .donut-chart::before {
-            content: '77%';
-            position: absolute;
-            width: 75%;
-            height: 75%;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .legend {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .legend span {
-            font-size: 0.9rem;
-        }
-
-        .legend .colors {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .legend .color-box {
-            width: 15px;
-            height: 15px;
-            border-radius: 3px;
-        }
-
-        /* Stepper */
-        .stepper-container {
-            background-color: rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 2rem 1.5rem;
-        }
-
-        .stepper {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-        }
-
-        /* The connecting line */
-        .stepper::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background-color: var(--stepper-grey);
-            z-index: 1;
-        }
-
-        .step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 25%;
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-circle {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: white;
-            border: 2px solid var(--stepper-grey);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--stepper-grey);
-        }
-
-        .step-description {
-            font-size: 0.9rem;
-            max-width: 120px;
-        }
-
-        .step-time {
-            font-size: 0.8rem;
-            color: #777;
-            margin-top: 0.25rem;
-        }
-
-        /* Stepper Active/Completed States */
-        .step.completed .step-circle {
-            background-color: var(--stepper-green);
-            border-color: var(--stepper-green);
-            color: white;
-        }
-
-        .step.active .step-circle {
-            border-color: var(--primary-blue);
-            color: var(--primary-blue);
-        }
-
-        .step.active .step-description {
-            font-weight: 600;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-card {
-                grid-column: span 1;
-            }
-
-            header nav {
-                display: none;
-                /* Hide nav on smaller screens for simplicity */
-            }
-        }
-
-        @media (max-width: 768px) {
-            .track-inputs {
-                grid-template-columns: 1fr;
-            }
-
-            .stepper {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 2rem;
-            }
-
-            .stepper::before {
-                top: 15px;
-                left: 15px;
-                bottom: 15px;
-                width: 2px;
-                height: auto;
-            }
-
-            .step {
-                flex-direction: row;
-                text-align: left;
-                width: 100%;
-                gap: 1rem;
-            }
-
-            .step-description,
-            .step-time {
-                max-width: none;
-                margin-top: 0;
-            }
-        }
-    </style>
+    
 </head>
 
 <body>
     <!-- <div class="dev-banner">This page is currently under development. Please be aware of bugs :P</div> -->
     <header>
-        <div class="logo">UNI-VOTE</div>
+        <div class="logo"><img src="Frame 41.svg"></div>
         <nav>
             <a href="#">Home</a>
             <a href="#">Governance</a>
@@ -415,20 +59,20 @@
                 </div>
                 <div class="card results-card">
                     <div class="container">
-        <h2>Election Result</h2>
-        <h4 id="electionTopic">Loading Election...</h4>
-        <p id="electionIdDisplay">ID: ...</p>
-        <hr>
-        <div id="resultsContainer">
-        </div>
-        <div id="statusMessage">Please connect your wallet to view results.</div>
-    </div>
-                    
-                   
+                        <h3>Election Result</h3>
+                        <h5 id="electionTopic">Loading Election...</h5>
+                        <p id="electionIdDisplay">ID: ...</p>
+                        <hr>
+                        <div id="resultsContainer">
+                        </div>
+                        <div id="statusMessage">Please connect your wallet to view results.</div>
+                    </div>
+
+
                 </div>
             </div>
 
-            <div class="stepper-container">
+            <!-- <div class="stepper-container">
                 <div class="stepper">
                     <div class="step completed">
                         <div class="step-circle">&#10003;</div>
@@ -456,125 +100,71 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <div class="stepper-container">
+                <div id="txn-stepper" class="stepper">
+                    <div class="step" id="step-1">
+                        <div class="circle">
+                            <svg class="checkmark" viewBox="0 0 24 24">
+                                <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                                <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                            </svg>
+                            <span class="circle-number">1</span>
+                        </div>
+                        <div class="label">
+                            Transaction<br>passed ZKP circuit<br>
+                            <span class="timestamp" id="ts-1"></span>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" id="step-2">
+                        <div class="circle">
+                            <svg class="checkmark" viewBox="0 0 24 24">
+                                <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                                <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                            </svg>
+                            <span class="circle-number">2</span>
+                        </div>
+                        <div class="label">
+                            Transaction signed<br>
+                            <span class="timestamp" id="ts-2"></span>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" id="step-3">
+                        <div class="circle">
+                            <svg class="checkmark" viewBox="0 0 24 24">
+                                <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                                <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                            </svg>
+                            <span class="circle-number">3</span>
+                        </div>
+                        <div class="label">
+                            Waiting for block<br>confirmation<br>
+                            <span class="timestamp" id="ts-3"></span>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" id="step-4">
+                        <div class="circle">
+                            <svg class="checkmark" viewBox="0 0 24 24">
+                                <circle class="checkmark__circle" cx="12" cy="12" r="10" />
+                                <path class="checkmark__check" d="M7 13l3 3 5-6" />
+                            </svg>
+                            <span class="circle-number">4</span>
+                        </div>
+                        <div class="label">
+                            Transaction<br>confirmed successfully<br>
+                            <span class="timestamp" id="ts-4"></span>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+        </div>
         </div>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const contractAddress = "0x7C79dab896DDcE3d13b7bA86304a0F42553de21F";
-            const contractABI = [
-                { "inputs": [{ "internalType": "address", "name": "_verifier", "type": "address" }], "stateMutability": "nonpayable", "type": "constructor" },
-                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }, { "indexed": false, "internalType": "bytes32", "name": "commitment", "type": "bytes32" }], "name": "CommitmentRegistered", "type": "event" },
-                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }, { "indexed": false, "internalType": "string", "name": "name", "type": "string" }, { "indexed": false, "internalType": "uint256", "name": "endTime", "type": "uint256" }], "name": "ElectionCreated", "type": "event" },
-                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }], "name": "ElectionEnded", "type": "event" },
-                { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }, { "indexed": false, "internalType": "uint256", "name": "candidateIndex", "type": "uint256" }], "name": "Voted", "type": "event" },
-                { "inputs": [{ "internalType": "string", "name": "_name", "type": "string" }, { "internalType": "uint256", "name": "_durationInMinutes", "type": "uint256" }, { "internalType": "string[]", "name": "_candidateNames", "type": "string[]" }], "name": "createElection", "outputs": [{ "internalType": "string", "name": "newElectionId", "type": "string" }], "stateMutability": "nonpayable", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "endElection", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "getCandidateCount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "uint256", "name": "index", "type": "uint256" }], "name": "getCandidateName", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [{ "internalType": "uint256", "name": "counter", "type": "uint256" }], "name": "getGeneratedElectionId", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [], "name": "getNextElectionCounter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "getTotalVotes", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "uint256", "name": "index", "type": "uint256" }], "name": "getVotesForCandidate", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "bytes32", "name": "_commitment", "type": "bytes32" }], "name": "registerCommitment", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }], "name": "showResult", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [], "name": "verifier", "outputs": [{ "internalType": "contract Verifier", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" },
-                { "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }, { "internalType": "uint256[2]", "name": "a", "type": "uint256[2]" }, { "internalType": "uint256[2][2]", "name": "b", "type": "uint256[2][2]" }, { "internalType": "uint256[2]", "name": "c", "type": "uint256[2]" }, { "internalType": "uint256[4]", "name": "input", "type": "uint256[4]" }, { "internalType": "uint256", "name": "candidateIndex", "type": "uint256" }], "name": "voteWithZKProof", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
-            ];
-
-
-            const electionTopicEl = document.getElementById('electionTopic');
-            const electionIdDisplayEl = document.getElementById('electionIdDisplay');
-            const resultsContainerEl = document.getElementById('resultsContainer');
-            const statusMessageEl = document.getElementById('statusMessage');
-
-            async function init() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const electionId = urlParams.get('electionId');
-
-                if (!electionId) {
-                    statusMessageEl.textContent = "Error: No Election ID found in URL.";
-                    return;
-                }
-
-                electionIdDisplayEl.textContent = `ID: ${electionId}`;
-
-                if (typeof window.ethereum === 'undefined') {
-                    statusMessageEl.textContent = "Please install MetaMask to view results.";
-                    return;
-                }
-
-                try {
-                    statusMessageEl.textContent = "Connecting to wallet...";
-                    const provider = new ethers.providers.Web3Provider(window.ethereum);
-                    await provider.send("eth_requestAccounts", []);
-                    const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
-                    statusMessageEl.textContent = "Fetching results...";
-                    await loadResults(contract, electionId);
-
-                } catch (e) {
-                    statusMessageEl.textContent = "Wallet connection failed or was rejected.";
-                    console.error(e);
-                }
-            }
-
-            async function loadResults(contract, electionId) {
-                try {
-                    // जांचें कि चुनाव खत्म हो गया है या नहीं
-                    const isElectionOver = await contract.showResult(electionId);
-                    if (!isElectionOver) {
-                        statusMessageEl.textContent = "This election has not ended yet. Results are not public.";
-                        resultsContainerEl.innerHTML = '';
-                        return;
-                    }
-
-                    // चुनाव का नाम प्राप्त करें
-                    const filter = contract.filters.ElectionCreated(electionId);
-                    const events = await contract.queryFilter(filter, -5000, 'latest');
-                    if (events.length > 0) {
-                        electionTopicEl.textContent = events[events.length - 1].args.name;
-                    } else {
-                        electionTopicEl.textContent = "Election Name Not Found";
-                    }
-
-                    const candidateCount = await contract.getCandidateCount(electionId);
-                    let totalVotes = 0;
-                    resultsContainerEl.innerHTML = ''; // पुराने परिणामों को साफ़ करें
-
-                    for (let i = 0; i < candidateCount.toNumber(); i++) {
-                        const candidateName = await contract.getCandidateName(electionId, i);
-                        const voteCount = await contract.getVotesForCandidate(electionId, i);
-
-                        const resultItem = document.createElement('div');
-                        resultItem.className = 'result-item';
-
-                        const nameSpan = document.createElement('span');
-                        nameSpan.className = 'candidate-name';
-                        nameSpan.textContent = candidateName;
-
-                        const voteSpan = document.createElement('span');
-                        voteSpan.className = 'vote-count';
-                        voteSpan.textContent = `Votes: ${voteCount.toString()}`;
-
-                        resultItem.appendChild(nameSpan);
-                        resultItem.appendChild(voteSpan);
-                        resultsContainerEl.appendChild(resultItem);
-
-                        totalVotes += voteCount.toNumber();
-                    }
-                    statusMessageEl.textContent = `Results loaded successfully. Total votes cast: ${totalVotes}`;
-
-                } catch (error) {
-                    statusMessageEl.textContent = "Could not load election results.";
-                    console.error(error);
-                }
-            }
-
-            init();
-        });
-    </script>
+    <script src="./scripts/result.js"></script>
 
 </body>
 
