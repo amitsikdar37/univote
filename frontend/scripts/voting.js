@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMessageEl.textContent = "You are eligible to vote!";
         markFailedCriteria([]); // Clear any previous failed criteria
         window.publicRegisteredCommitment = data.publicRegisteredCommitment;
+        window.publicSecret = data.secret; // <-- store the secret for later use
         return data.publicRegisteredCommitment;
       }
     }
@@ -220,15 +221,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // ===== Step 1: Register Commitment =====
         statusMessageEl.textContent = "Step 1/2: Generating secret & commitment...";
-        const secret = ethers.utils.randomBytes(32);
-        const commitment = ethers.utils.solidityKeccak256(
-            ['uint256', 'bytes32'],
-            [selectedCandidateIndex, secret]
-        );
 
+        // Use the commitment received from backend eligibility check
+        const commitment = window.publicRegisteredCommitment;
+        const secret = window.publicSecret; // Use the secret stored earlier
+        if (!commitment || !secret) {
+            statusMessageEl.textContent = "Commitment or secret not found. Please check eligibility first.";
+            submitVoteBtn.disabled = false;
+            return;
+        }
+
+        // Ensure commitment is a bytes32 hex string
+        let hexCommitment;
         try {
-            statusMessageEl.textContent = "Step 1/2: Registering commitment...";
-            const registerTx = await contract.registerCommitment(electionId, commitment);
+            // If already hex (starts with 0x), use as is, else convert
+            hexCommitment = commitment.startsWith('0x')
+                ? commitment
+                : ethers.BigNumber.from(commitment).toHexString();
+        } catch (e) {
+            statusMessageEl.textContent = "Invalid commitment format.";
+            submitVoteBtn.disabled = false;
+            return;
+        }
+        console.log("Registering commitment (hex):", hexCommitment);
+        try {
+            
+            const registerTx = await contract.registerCommitment(electionId, hexCommitment);
             await registerTx.wait();
             statusMessageEl.textContent = "Commitment registered! Proceeding...";
         } catch (error) {
@@ -261,10 +279,13 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
 
+        console.log("Voting with commitment (hex):", hexCommitment);
+        console.log("Proof input commitment (BigNumber):", proofInput.input[0].toHexString());
 
 
         try {
             statusMessageEl.textContent = "Step 2/2: Submitting final vote...";
+
             const voteTx = await contract.voteWithZKProof(
                 electionId,
                 proofInput.a,

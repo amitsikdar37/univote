@@ -8,6 +8,9 @@ let poseidonInstance;
 const Voters = require('../../models/voter');
 const ElectionCriteria = require('../../models/election_criteria');
 
+// === Generate the secret ===
+const secret = '0x' + crypto.randomBytes(32).toString('hex');
+
 function sha256ToBigInt(data) {
   const hash = crypto.createHash('sha256').update(data).digest('hex');
   return BigInt('0x' + hash);
@@ -15,19 +18,9 @@ function sha256ToBigInt(data) {
 
 function generatePublicRegisteredCommitment(userId, electionId) {
   if (!poseidonInstance) throw new Error("Poseidon not initialized yet");
-  const userHash = sha256ToBigInt(userId);
-  const electionHash = sha256ToBigInt(electionId);
-  const randomField = BigInt('0x' + crypto.randomBytes(31).toString('hex')); // 248-bit
-  const hashOutput = poseidonInstance([userHash, electionHash, randomField]);
+  const hashOutput = poseidonInstance([BigInt(secret)]);
   const commitment = poseidonInstance.F.toString(hashOutput);
-  return {
-    commitment,
-    components: {
-      userHash: userHash.toString(),
-      electionHash: electionHash.toString(),
-      randomField: randomField.toString()
-    }
-  };
+  return { commitment };
 }
 
 exports.checkPublicClaim = async (req, res) => {
@@ -74,11 +67,13 @@ exports.checkPublicClaim = async (req, res) => {
     }
 
     // All criteria passed
-    const { commitment, components } = generatePublicRegisteredCommitment(email, election_id);
+
+    const { commitment, components } = generatePublicRegisteredCommitment(email, election_id, secret);
 
     return res.status(200).json({
       eligible: true,
       publicRegisteredCommitment: commitment,
+      secret, // ⚠️ Remove in production
       debug_components: components // ⚠️ Remove in production
     });
   }
