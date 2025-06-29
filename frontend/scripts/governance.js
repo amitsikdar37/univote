@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             function copyVotingLink() {
                 if (!currentElectionId) return alert("No election ID available to generate a link.");
                 // const voteUrl = `${window.location.origin}/Vote.html?electionId=${currentElectionId}`;
-                 const voteUrl = `${window.location.origin}/vote.html?electionId=${currentElectionId}`;
+                 const voteUrl = `${window.location.origin}/frontend/vote.html?electionId=${currentElectionId}`;
                 copyText(voteUrl);
             }
 
