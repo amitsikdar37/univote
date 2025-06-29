@@ -395,12 +395,24 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
             }
 
-            function copyVotingLink() {
+            function getVotingPagePath() {
+                // On localhost (any port), use /frontend/vote.html
+                if (
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1'
+                ) {
+                    return '/frontend/vote.html';
+                } else {
+                    return '/vote.html';
+                }
+                }
+
+                function copyVotingLink() {
                 if (!currentElectionId) return alert("No election ID available to generate a link.");
-                // const voteUrl = `${window.location.origin}/Vote.html?electionId=${currentElectionId}`;
-                 const voteUrl = `${window.location.origin}/frontend/vote.html?electionId=${currentElectionId}`;
+                const voteUrl = `${window.location.origin}${getVotingPagePath()}?electionId=${currentElectionId}`;
                 copyText(voteUrl);
-            }
+                }
+
 
             function setStepperStatus(currentStep) {
                 for (let i = 1; i <= 4; i++) {
