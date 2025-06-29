@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (provider && signer && contract) {
           await loadElectionDetails(contract);
         }
-        loadingMessage.style.display = 'block';
+        loadingMessage.style.display = 'none';
     });
 
     connectWalletBtn.addEventListener('click', connectAndLoad);
