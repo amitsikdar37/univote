@@ -246,6 +246,11 @@ html, body {
   color: #00bfff;
   text-decoration: none;
 }
+.base_logo{
+  width: 64.151px;
+height: 17px;
+aspect-ratio: 64.15/17.00;
+}
 
 .login-right {
   width: 675px;

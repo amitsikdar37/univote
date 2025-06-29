@@ -133,8 +133,10 @@
           On The Fastest E<span class="highlight-evm">vm</span>
       </h1>
       <p class="hero-desc">
-        Secure, transparent, and easy online voting for your university community.<br>
-        Register now and make your vote count!
+        Experience Truly Secret & Verifiable Voting: Powered by Zero-Knowledge Proofs with the speed of .<br>
+        Powered by Zero-Knowledge Proofs <br>
+        with the speed of
+        <img class="base_logo" src="Base_Wordmark_Blue.svg" alt="BASE">
       </p>
       <button class="btn-open" id="launch-app-btn" onclick="openModal()">Launch</button>
     </div>
@@ -151,61 +153,39 @@
         provides cryptographic proof of an election’s integrity, ensuring every voice is counted, but never revealed.
       </p>
       <div class="page-2-features">
-        <div class="feature-item">
-          <span class="feature-icon">🔒</span>
-          <h3 class="feature-title">Zero-Knowledge Privacy</h3>
-          <p class="feature-text">Cast your vote with absolute confidence. Our ZK-proof system ensures your choice
-            remains secret, forever decoupled from your identity.</p>
+          </div>
         </div>
-        <div class="feature-item">
-          <span class="feature-icon">📊</span>
-          <h3 class="feature-title">Unbreakable Transparency</h3>
-          <p class="feature-text">Every valid vote is recorded immutably on the blockchain. Verify election results with
-            cryptographic certainty, ensuring no vote is ever tampered with or silenced.</p>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">💪</span>
-          <h3 class="feature-title">Powerful Election Hosting</h3>
-          <p class="feature-text">From small groups to large-scale elections, empower your own voting events with custom
-            eligibility rules to ensure only the right people participate.</p>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🌐</span>
-          <h3 class="feature-title">Effortless Participation</h3>
-          <p class="feature-text">Forget Web3 complexities. With a simple profile setup and an intuitive interface,
-            participating in a secure, decentralized election is just a few clicks away.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <div class="page-2-features">
+          <div class="feature-item">
+            <h3 class="feature-title">Zero-Knowledge Privacy</h3>
+            <i class="fa-solid fa-user-secret"></i>
+            <p class="feature-text">Cast your vote with absolute confidence. Our ZK-proof system ensures your choice
+              remains secret, forever decoupled from your identity.</p>
+          </div>
+          <div class="feature-item">
+            <h3 class="feature-title">Unbreakable Transparency </h3>
+            <i class="fa-solid fa-handshake"></i>
 
-  <!-- Page 3 Section -->
-  <section class="page-3">
-    <div class="page-3-image-container">
-      <img src="page3.png" alt="Voting Interface" class="page-3-image">
-    </div>
-  </section>
-  <!-- Page 4 Section -->
-  <section class="page-4">
-    <div class="page-4-container">
-      <h3 class="page-4-heading">Everything you need</h3>
-      <h2 class="page-4-title">Powerful Tools for Trusted Elections</h2>
-      <p class="page-4-subtitle">From defining voter eligibility to tracking results in real-time, UNI-VOTE gives you a
-        complete and intuitive toolkit to host secure, transparent, and fair elections with confidence.</p>
-      <div class="page-4-tools">
-        <div class="tool-card">
-          <div class="tool-visual cross"></div>
-          <h3 class="tool-title">Customizable Eligibility</h3>
-          <p class="tool-desc">Define exactly who can participate. Create rules based on profiles, email domains, or
-            specific criteria of your choice to ensure the integrity of your vote.</p>
-        </div>
-        <div class="tool-card">
-          <div class="tool-visual cube"></div>
-          <h3 class="tool-title">Robust Result Tracking</h3>
-          <p class="tool-desc">Monitor your election’s progress through a live dashboard. Access transparent, aggregated
-            results the moment the voting period concludes.</p>
+            <p class="feature-text">Every valid vote is recorded immutably on the blockchain. Verify election results
+              with cryptographic certainty, ensuring no vote is ever tampered with or silenced.</p>
+          </div>
+          <div class="feature-item">
+            <h3 class="feature-title">Powerful Election Hosting</h3>
+            <i class="fa-solid fa-battery-full"></i>
+            <p class="feature-text">From small groups to large-scale elections, empower your own voting events with
+              custom eligibility rules to ensure only the right people participate.</p>
+          </div>
+          <div class="feature-item">
+            <h3 class="feature-title">Effortless Participation</h3>
+            <i class="fa-solid fa-users"></i>
+            <p class="feature-text">Forget Web3 complexities. With a simple profile setup and an intuitive interface,
+              participating in a secure, decentralized election is just a few clicks away.</p>
+          </div>
         </div>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
   </section>
   <!-- Page 5 Section (FAQs) -->
@@ -435,39 +415,39 @@
           </form>
           <!-- <p class="signup-text">Don't have an account? <button onclick="openRegisterModal()" class="signup-btn">Sign
               up</button></p> -->
-        
-      </div>
-      <!-- <p class="signup-text">Don't have an account? <button onclick="openRegisterModal()" class="signup-btn">Sign
+
+        </div>
+        <!-- <p class="signup-text">Don't have an account? <button onclick="openRegisterModal()" class="signup-btn">Sign
               up</button></p> -->
-      <p class="signup-text">Don't have an account? <a onclick="openRegisterModal()" href="#">Sign up</a></p>
-    </div>
+        <p class="signup-text">Don't have an account? <a onclick="openRegisterModal()" href="#">Sign up</a></p>
+      </div>
 
-    <script>
-      const burgerMenu = document.querySelector('.burger-menu');
-      const navLinks = document.querySelector('.nav-links');
+      <script>
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
 
-      burgerMenu.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burgerMenu.classList.toggle('active');
-      });
+        burgerMenu.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+          burgerMenu.classList.toggle('active');
+        });
 
-      function openModal() {
-        document.getElementById("registerpopupModal").classList.remove("active");
-        document.getElementById("popupModal").classList.add("active");
-      }
+        function openModal() {
+          document.getElementById("registerpopupModal").classList.remove("active");
+          document.getElementById("popupModal").classList.add("active");
+        }
 
-      function openRegisterModal() {
-        document.getElementById("popupModal").classList.remove("active");
-        document.getElementById("registerpopupModal").classList.add("active");
-      }
+        function openRegisterModal() {
+          document.getElementById("popupModal").classList.remove("active");
+          document.getElementById("registerpopupModal").classList.add("active");
+        }
 
-      function closeModal() {
-        document.getElementById("popupModal").classList.remove("active");
-        document.getElementById("registerpopupModal").classList.remove("active");
-      }
-    </script>
+        function closeModal() {
+          document.getElementById("popupModal").classList.remove("active");
+          document.getElementById("registerpopupModal").classList.remove("active");
+        }
+      </script>
 
-    <script type="module" src="./scripts/index.js"></script>
+      <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
