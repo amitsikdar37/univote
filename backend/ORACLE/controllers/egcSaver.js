@@ -14,3 +14,20 @@ exports.saveEgc = async (req, res) => {
     res.status(500).json({ status: "0", error: 'Failed to save criteria' });
   }
 };
+
+exports.getElectionTopicById = async (req, res) => {
+  try {
+    const { electionId } = req.params;
+    // Find by election_id field, only return topic
+    const doc = await ElectionCriteria.findOne(
+      { election_id: electionId },
+      { topic: 1, _id: 0 }
+    );
+    if (!doc) {
+      return res.status(404).json({ error: 'Election topic not found' });
+    }
+    res.json({ topic: doc.topic });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};

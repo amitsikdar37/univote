@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-const searchInput = document.getElementById('voteSearchInput');
+/*const searchInput = document.getElementById('voteSearchInput');
 const searchButton = document.getElementById('electionIdSearchButton');
 
 searchButton.addEventListener('click', async (e) => {
@@ -70,6 +70,7 @@ searchButton.addEventListener('click', async (e) => {
     alert("You Are Not Eligible To Registered For This Election.");
   }
 });
+*/
 
 document.addEventListener('DOMContentLoaded', () => {
     const contractAddress = "0x7C79dab896DDcE3d13b7bA86304a0F42553de21F";
@@ -103,25 +104,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const connectWalletBtn = document.getElementById('connectWalletBtn');
     const submitVoteBtn = document.getElementById('submitVoteBtn');
     const statusMessageEl = document.getElementById('statusMessage');
-    const copyResultLinkBtn = document.getElementById('copyResultLinkBtn'); // copy result link *******************************************
+    const copyResultLinkBtn = document.getElementById('copyResultLinkBtn'); // copy result link
+    const searchForm = document.getElementById('electionSearchForm');
+    const searchInput = document.getElementById('electionSearchInput');
+    const loadingMessage = document.getElementById('loadingMessage');
+    //  *******************************************
 
+    function getElectionIdFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('electionId');
+    }
 
-    function init() {
-        electionId = getElectionIdFromURL();
-        if (!electionId) {
-            electionTopicEl.textContent = "Error";
-            statusMessageEl.textContent = "No Election ID provided in URL.";
-            connectWalletBtn.style.display = 'none';
-            return;
-        }
-        electionIdDisplayEl.textContent = `ID: ${electionId}`;
-        statusMessageEl.textContent = "Please connect wallet to see candidates.";
-        connectWalletBtn.addEventListener('click', connectAndLoad);
-        submitVoteBtn.addEventListener('click', handleVoteProcess);
+    function setElectionId(newId) {
+      electionId = newId;
+      electionIdDisplayEl.textContent = `ID: ${electionId}`;
+    }
 
+    function resetElectionDetails() {
+      optionsContainerEl.innerHTML = "";
+      submitVoteBtn.style.display = 'none';
+      submitVoteBtn.disabled = true;
+      selectedCandidateIndex = null;
     }
 
     async function connectAndLoad() {
+        if (!electionId) {
+          statusMessageEl.textContent = "No Election ID provided. Enter or search for one.";
+          return;
+        }
         if (typeof window.ethereum === 'undefined') { return alert("Please install MetaMask."); }
         try {
             statusMessageEl.textContent = "Connecting...";
@@ -140,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadElectionDetails(contractInstance) {
+        if (!electionId) {
+          statusMessageEl.textContent = "No Election ID provided.";
+          resetElectionDetails();
+          return;
+        }
         optionsContainerEl.innerHTML = '<p>Loading candidates...</p>';
         try {
             const isOver = await contractInstance.showResult(electionId);
@@ -154,11 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const filter = contractInstance.filters.ElectionCreated(electionId);
             const events = await contractInstance.queryFilter(filter, blockSearchRange, 'latest');
-            if (events.length > 0) {
-                electionTopicEl.textContent = events[events.length - 1].args.name;
-            } else {
-                electionTopicEl.textContent = "Election Name Not Found";
-            }
 
             const candidateCount = await contractInstance.getCandidateCount(electionId);
             optionsContainerEl.innerHTML = '';
@@ -258,10 +268,81 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function getElectionIdFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('electionId');
+    // --- NEW: Handle search bar election ID entry ---
+    searchForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const enteredId = searchInput.value.trim();
+        if (!enteredId) {
+            statusMessageEl.textContent = "Please enter a valid Election ID.";
+            return;
+        }
+        loadingMessage.style.display = 'block';
+        setElectionId(enteredId);
+        resetElectionDetails();
+        statusMessageEl.textContent = "Please connect wallet to see candidates.";
+        // Fetch and update the topic from backend
+        await updateElectionTopic(enteredId);
+        // Optionally, if wallet is already connected, reload details
+        if (provider && signer && contract) {
+          await loadElectionDetails(contract);
+        }
+        loadingMessage.style.display = 'block';
+    });
+
+    connectWalletBtn.addEventListener('click', connectAndLoad);
+    submitVoteBtn.addEventListener('click', handleVoteProcess);
+
+    function init() {
+      const urlId = getElectionIdFromURL();
+      if (urlId) {
+        setElectionId(urlId);
+        statusMessageEl.textContent = "Please connect wallet to see candidates.";
+        updateElectionTopic(urlId);
+      } else {
+        electionIdDisplayEl.textContent = "ID: ...";
+        statusMessageEl.textContent = "Enter or search for an Election ID.";
+      }
     }
+
+
+    
 
     init();
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const searchForm = document.getElementById('electionSearchForm');
+  const loadingMessage = document.getElementById('loadingMessage');
+
+  searchForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    loadingMessage.style.display = 'block';
+
+    // Simulate async search (replace with your actual logic)
+    setTimeout(function () {
+      loadingMessage.style.display = 'none';
+      // Handle search result here
+    }, 2000);
+  });
+});
+
+// Example function to update the topic text
+async function updateElectionTopic(electionId) {
+  const topicEl = document.getElementById('electionTopicText');
+  topicEl.textContent = "Loading topic...";
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/election-criteria/${encodeURIComponent(electionId)}`);
+    if (!res.ok) {
+      topicEl.textContent = "Topic not found.";
+      return;
+    }
+    const data = await res.json();
+    topicEl.textContent = data.topic || "Topic not found.";
+  } catch (err) {
+    topicEl.textContent = "Failed to load topic.";
+  }
+}
+
+
+// Example: After fetching election info
+// updateElectionTopic('Best Programming Language 2025');

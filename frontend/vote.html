@@ -470,6 +470,62 @@
                 text-align: center;
             }
         }
+        #election-search-container {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        #electionSearchForm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #electionSearchInput {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        #electionSearchForm button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            background: #3a8dfe;
+            color: #fff;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #loadingMessage {
+            margin-top: 8px;
+            color: #3a8dfe;
+            display: none;
+        }
+
+        .election-topic-description-section {
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            background: #f3f6fa;
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+
+        #electionTopicDescription {
+            color: #222;
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        #electionTopicText {
+            font-weight: 500;
+            color: #3a8dfe;
+        }
+
+
     </style>
 </head>
 
@@ -500,8 +556,30 @@
         <div class="main-grid">
             <div class="left-panel">
                 <div class="card voting-topic" style="background-color: hsl(0, 14%, 99%);border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
-                    <h2 id="electionTopic" style="text-align: center; margin-bottom: 0.5rem;color: #020202;">Loading
-                        Election...</h2>
+                    <h2 id="electionTopic" style="text-align: center; margin-bottom: 0.5rem;color: #020202;">Voting 
+                        Page</h2>
+                    <div id="election-search-container">
+                        <form id="electionSearchForm">
+                            <input
+                            type="search"
+                            id="electionSearchInput"
+                            name="electionId"
+                            placeholder="Search Election ID"
+                            aria-label="Search Election ID"
+                            required
+                            >
+                            <button type="submit">
+                            Search
+                            </button>
+                        </form>
+                        <div id="loadingMessage">Loading...</div>
+                    </div>
+
+                    <!-- Election Topic Description Section -->
+                    <div id="electionTopicDescriptionSection" class="election-topic-description-section">
+                        <p id="electionTopicDescription">Topic: <span id="electionTopicText">No topic loaded.</span></p>
+                    </div>
+
                     <p style="text-align: center; color: var(--text-color-secondary); margin-bottom: 1rem;color: #020202;background-color: hsl(0, 14%, 99%); "
                         id="electionIdDisplay">ID: ...</p>
                 </div>
