@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: MIT
+ // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
 import "./Verifier.sol";
-// import "@openzeppelin/contracts/utils/Strings.sol";
+import "./VoterRegistry.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 
@@ -10,10 +10,12 @@ contract ZkpVoting {
     using Strings for uint256;
 
     Verifier public verifier;
+    VoterRegistry public voterRegistry;
     uint256 private nextElectionCounter;
 
-    constructor(address _verifier) {
+    constructor(address _verifier, address _registry) {
         verifier = Verifier(_verifier);
+        voterRegistry = VoterRegistry(_registry);
     }
 
     struct Election {
@@ -79,32 +81,48 @@ contract ZkpVoting {
         return newElectionId;
     }
 
-    // === 2. Vote with ZK Proof ===
+    // === 2. Vote with ZK Proof (Corrected Version) ===
     function voteWithZKProof(
         string memory _electionId,
         uint[2] calldata a,
         uint[2][2] calldata b,
         uint[2] calldata c,
-        uint[4] calldata input,
+        uint[4] calldata input, // This array comes from snarkjs
         uint candidateIndex
     ) external electionExists(_electionId) {
         Election storage e = elections[_electionId];
         require(e.isActive, "Election not active");
         require(block.timestamp <= e.endTime, "Voting closed");
-        require(!e.nullifierHashes[bytes32(input[1])], "Double vote");
+        
+        // === YAHAN CHANGES HAIN: Sahi Index ka Istemal ===
+        // Based on your circom file: [nullifierHash, publicClaim, publicAttestationNonce, publicRegisteredCommitment]
+
+        // 1. Nullifier ko check karna
+        // nullifierHash circuit ka output hai, jo hamesha index 0 par hota hai
+        bytes32 nullifier = bytes32(input[0]);
+        require(!e.nullifierHashes[nullifier], "Double vote: This proof has already been used");
+
+        // 2. Voter registration ko check karna
+        // publicRegisteredCommitment teesra public input tha, jo array mein index 3 par aayega
+        bytes32 commitment = bytes32(input[3]);
+        require(voterRegistry.isRegistered(commitment), "Voter commitment not registered");
+        
+        // Baaki ke checks
         require(candidateIndex < e.candidateCount, "Invalid candidate");
 
+        // ZK Proof ko verify karna
         bool valid = verifier.verifyProof(a, b, c, input);
         require(valid, "Invalid ZK proof");
 
-        e.nullifierHashes[bytes32(input[1])] = true;
+        // Vote cast karna
+        e.nullifierHashes[nullifier] = true;
         e.totalVotes++;
         e.candidateVotes[candidateIndex]++;
 
         emit Voted(_electionId, candidateIndex);
     }
 
-    // === 3. Admin Ends Election Manually ===
+    // === Baaki ke functions waise hi rahenge ===
     function endElection(string memory _electionId) external onlyAdmin(_electionId) electionExists(_electionId) {
         Election storage e = elections[_electionId];
         require(!e.isEnded, "Already ended");
@@ -113,13 +131,11 @@ contract ZkpVoting {
         emit ElectionEnded(_electionId);
     }
 
-    // === 4. Result Visibility ===
     function showResult(string memory _electionId) public view returns (bool) {
         Election storage e = elections[_electionId];
         return e.isEnded || block.timestamp > e.endTime;
     }
 
-    // === 5. Getters ===
     function getCandidateName(string memory _electionId, uint index) public view returns (string memory) {
         return elections[_electionId].candidates[index];
     }
