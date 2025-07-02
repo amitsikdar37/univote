@@ -32,7 +32,7 @@ html, body {
   font-family: 'DM Sans', sans-serif;
   color: black;
   justify-items: left;
-  margin-left: 20px;
+  margin-right: 1100px;
 }
 
 .burger-menu {
@@ -1041,9 +1041,9 @@ aspect-ratio: 64.15/17.00;
   }
 
   .hero-visual {
-    width: 70vw;
-    height: 50vw;
-    margin-top: 40px;
+    width: 40vw;
+    height: 40vw;
+    /* margin-top: 70px; */
     transform: rotate(-45deg);
     transform-origin: center;
     right: 0;
