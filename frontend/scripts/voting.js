@@ -37,12 +37,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const contractAddress = "0x4658F8678C7b06cB1667773303CE55b45F803682"; // 🟨 Replace with your deployed ZkpVoting contract
+  const contractAddress = " 0x3922877F1697B0449A51B682620F26bFB325Fa14"; // 🟨 Replace with your deployed ZkpVoting contract
   const contractABI = [
     {
       "inputs": [
-        { "internalType": "address", "name": "_verifier", "type": "address" },
-        { "internalType": "address", "name": "_registry", "type": "address" }
+        {
+          "internalType": "address",
+          "name": "_verifier",
+          "type": "address"
+        }
       ],
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -50,9 +53,24 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": true, "internalType": "string", "name": "electionId", "type": "string" },
-        { "indexed": false, "internalType": "string", "name": "name", "type": "string" },
-        { "indexed": false, "internalType": "uint256", "name": "endTime", "type": "uint256" }
+        {
+          "indexed": true,
+          "internalType": "string",
+          "name": "electionId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "endTime",
+          "type": "uint256"
+        }
       ],
       "name": "ElectionCreated",
       "type": "event"
@@ -60,7 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": true, "internalType": "string", "name": "electionId", "type": "string" }
+        {
+          "indexed": true,
+          "internalType": "string",
+          "name": "electionId",
+          "type": "string"
+        }
       ],
       "name": "ElectionEnded",
       "type": "event"
@@ -68,28 +91,129 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": true, "internalType": "string", "name": "electionId", "type": "string" },
-        { "indexed": false, "internalType": "uint256", "name": "candidateIndex", "type": "uint256" }
+        {
+          "indexed": true,
+          "internalType": "string",
+          "name": "electionId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "candidateIndex",
+          "type": "uint256"
+        }
       ],
       "name": "Voted",
       "type": "event"
     },
     {
+      "anonymous": false,
       "inputs": [
-        { "internalType": "string", "name": "_name", "type": "string" },
-        { "internalType": "uint256", "name": "_durationInMinutes", "type": "uint256" },
-        { "internalType": "string[]", "name": "_candidateNames", "type": "string[]" }
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "VoterRegistered",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "addCommitment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "_commitments",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "addCommitmentsInBatch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "admin",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "commitments",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_durationInMinutes",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string[]",
+          "name": "_candidateNames",
+          "type": "string[]"
+        }
       ],
       "name": "createElection",
       "outputs": [
-        { "internalType": "string", "name": "newElectionId", "type": "string" }
+        {
+          "internalType": "string",
+          "name": "newElectionId",
+          "type": "string"
+        }
       ],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "string", "name": "_electionId", "type": "string" }
+        {
+          "internalType": "string",
+          "name": "_electionId",
+          "type": "string"
+        }
       ],
       "name": "endElection",
       "outputs": [],
@@ -98,69 +222,212 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       "inputs": [
-        { "internalType": "string", "name": "_electionId", "type": "string" }
+        {
+          "internalType": "string",
+          "name": "_electionId",
+          "type": "string"
+        }
       ],
       "name": "getCandidateCount",
       "outputs": [
-        { "internalType": "uint256", "name": "", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
       ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "string", "name": "_electionId", "type": "string" },
-        { "internalType": "uint256", "name": "index", "type": "uint256" }
+        {
+          "internalType": "string",
+          "name": "_electionId",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
       ],
       "name": "getCandidateName",
       "outputs": [
-        { "internalType": "string", "name": "", "type": "string" }
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
       ],
       "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "uint256", "name": "counter", "type": "uint256" }],
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "counter",
+          "type": "uint256"
+        }
+      ],
       "name": "getGeneratedElectionId",
-      "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }],
-      "name": "getTotalVotes",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [{ "internalType": "string", "name": "_electionId", "type": "string" }],
-      "name": "showResult",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [],
       "name": "getNextElectionCounter",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "string", "name": "_electionId", "type": "string" },
-        { "internalType": "uint256[2]", "name": "a", "type": "uint256[2]" },
-        { "internalType": "uint256[2][2]", "name": "b", "type": "uint256[2][2]" },
-        { "internalType": "uint256[2]", "name": "c", "type": "uint256[2]" },
-        { "internalType": "uint256[4]", "name": "input", "type": "uint256[4]" },
-        { "internalType": "uint256", "name": "candidateIndex", "type": "uint256" }
+        {
+          "internalType": "string",
+          "name": "_electionId",
+          "type": "string"
+        }
+      ],
+      "name": "getTotalVotes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_electionId",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "getVotesForCandidate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isRegistered",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_electionId",
+          "type": "string"
+        }
+      ],
+      "name": "showResult",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "verifier",
+      "outputs": [
+        {
+          "internalType": "contract Verifier",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_electionId",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256[2]",
+          "name": "a",
+          "type": "uint256[2]"
+        },
+        {
+          "internalType": "uint256[2][2]",
+          "name": "b",
+          "type": "uint256[2][2]"
+        },
+        {
+          "internalType": "uint256[2]",
+          "name": "c",
+          "type": "uint256[2]"
+        },
+        {
+          "internalType": "uint256[4]",
+          "name": "input",
+          "type": "uint256[4]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "candidateIndex",
+          "type": "uint256"
+        }
       ],
       "name": "voteWithZKProof",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
-    }];
+    }
+  ];
 
   let provider, signer, contract, electionId;
   let selectedCandidateIndex = null;
@@ -266,69 +533,69 @@ document.addEventListener('DOMContentLoaded', () => {
   //   }
   // }
 
-  
+
   // 
   async function connectAndLoad() {
     if (typeof window.ethereum === 'undefined') {
-        return alert("Please install MetaMask.");
+      return alert("Please install MetaMask.");
     }
     try {
-        statusMessageEl.textContent = "Connecting wallet...";
-        
-        // Step 1: Accounts request karein
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
+      statusMessageEl.textContent = "Connecting wallet...";
 
-        // Step 2: Naya provider banayein
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        
-        // Step 3: Network check karein (yeh aadat achhi hai)
-        const network = await provider.getNetwork();
-        const baseSepoliaChainId = 84532; // Base Sepolia ka Chain ID
+      // Step 1: Accounts request karein
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-        if (network.chainId !== baseSepoliaChainId) {
-            statusMessageEl.textContent = `Please switch to Base Sepolia network in MetaMask.`;
-            try {
-                await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: '0x' + baseSepoliaChainId.toString(16) }], // Chain ID ko hex mein bhejna hota hai
-                });
-                // Switch karne ke baad provider reload karein
-                provider = new ethers.providers.Web3Provider(window.ethereum);
-            } catch (switchError) {
-                // Agar user switch cancel kar de
-                console.error(switchError);
-                statusMessageEl.textContent = "Wallet connection failed: Please select the correct network.";
-                return;
-            }
+      // Step 2: Naya provider banayein
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+
+      // Step 3: Network check karein (yeh aadat achhi hai)
+      const network = await provider.getNetwork();
+      const baseSepoliaChainId = 84532; // Base Sepolia ka Chain ID
+
+      if (network.chainId !== baseSepoliaChainId) {
+        statusMessageEl.textContent = `Please switch to Base Sepolia network in MetaMask.`;
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x' + baseSepoliaChainId.toString(16) }], // Chain ID ko hex mein bhejna hota hai
+          });
+          // Switch karne ke baad provider reload karein
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+        } catch (switchError) {
+          // Agar user switch cancel kar de
+          console.error(switchError);
+          statusMessageEl.textContent = "Wallet connection failed: Please select the correct network.";
+          return;
         }
+      }
 
-        // Step 4: Signer prapt karein
-        signer = provider.getSigner();
-        
-        // Step 5: Sahi variables ka upyog karke contract ka instance banayein
-        // Yahan 'contract' variable ka istemal kiya gaya hai jo script mein global hai
-        contract = new ethers.Contract(contractAddress, contractABI, signer);
+      // Step 4: Signer prapt karein
+      signer = provider.getSigner();
 
-        statusMessageEl.textContent = "Wallet connected. Loading election...";
-        const userAddress = await signer.getAddress();
-        connectWalletBtn.textContent = `Connected: ${userAddress.substring(0, 6)}...`;
-        connectWalletBtn.disabled = true;
-        submitVoteBtn.style.display = 'block';
+      // Step 5: Sahi variables ka upyog karke contract ka instance banayein
+      // Yahan 'contract' variable ka istemal kiya gaya hai jo script mein global hai
+      contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        // Step 6: Yadi electionId maujood hai to details load karein
-        if (electionId) {
-            // 'loadElectionDetails' ko contract ka instance pass karein
-            await loadElectionDetails(contract);
-            await checkEligibilityAndUpdateUI(electionId);
-        } else {
-            statusMessageEl.textContent = "Wallet connected. Please search for an election.";
-        }
+      statusMessageEl.textContent = "Wallet connected. Loading election...";
+      const userAddress = await signer.getAddress();
+      connectWalletBtn.textContent = `Connected: ${userAddress.substring(0, 6)}...`;
+      connectWalletBtn.disabled = true;
+      submitVoteBtn.style.display = 'block';
+
+      // Step 6: Yadi electionId maujood hai to details load karein
+      if (electionId) {
+        // 'loadElectionDetails' ko contract ka instance pass karein
+        await loadElectionDetails(contract);
+        await checkEligibilityAndUpdateUI(electionId);
+      } else {
+        statusMessageEl.textContent = "Wallet connected. Please search for an election.";
+      }
 
     } catch (e) {
-        statusMessageEl.textContent = "Wallet connection failed.";
-        console.error(e);
+      statusMessageEl.textContent = "Wallet connection failed.";
+      console.error(e);
     }
-}
+  }
 
 
   async function loadElectionDetails(contractInstance) {

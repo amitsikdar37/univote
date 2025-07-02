@@ -1,47 +1,40 @@
  const hre = require("hardhat");
 
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
-  console.log("📡 Deploying contracts with account:", deployer.address);
+  console.log("Deployment script shuru ho rahi hai...");
 
-  // === 1. Deploy Verifier ===
-  const Verifier = await hre.ethers.deployContract("Verifier");
-  await Verifier.waitForDeployment();
-  console.log("✅ Verifier deployed at:", Verifier.target);
+  // =================================================================
+  // Step 1: Verifier.sol contract ko deploy karna
+  // =================================================================
+  console.log("Verifier contract ko deploy kiya ja raha hai...");
+  
+  // hre.ethers.deployContract ek helper function hai jo deployment ko aasan banata hai.
+  const verifier = await hre.ethers.deployContract("Verifier");
 
-  // === 2. Deploy VoterRegistry ===
-  const VoterRegistry = await hre.ethers.deployContract("VoterRegistry", [
-    deployer.address,
-  ]);
-  await VoterRegistry.waitForDeployment();
-  console.log("✅ VoterRegistry deployed at:", VoterRegistry.target);
+  // Naya tareeka: .waitForDeployment() ka istemaal karna
+  // Yeh transaction ke mine hone ka intezaar karta hai.
+  await verifier.waitForDeployment();
 
-  // === 3. Deploy ZkpVoting with Verifier & Registry addresses ===
-  const ZkpVoting = await hre.ethers.deployContract("ZkpVoting", [
-    Verifier.target,
-    VoterRegistry.target,
-  ]);
-  await ZkpVoting.waitForDeployment();
-  console.log("✅ ZkpVoting deployed at:", ZkpVoting.target);
+  // Contract ka address prapt karne ke liye .target ka istemaal karte hain
+  console.log(`✅ Verifier contract is deployed to: ${verifier.target}`);
 
-  // === OPTIONAL: Save contract addresses to a JSON file ===
-  const fs = require("fs");
-  fs.writeFileSync(
-    "deployment.json",
-    JSON.stringify(
-      {
-        verifier: Verifier.target,
-        voterRegistry: VoterRegistry.target,
-        zkpVoting: ZkpVoting.target,
-      },
-      null,
-      2
-    )
-  );
-  console.log("📝 deployment.json file created.");
+  // =================================================================
+  // Step 2: ZkpVoting.sol contract ko deploy karna
+  // =================================================================
+  console.log("\nZkpVoting contract ko deploy kiya ja raha hai...");
+
+  // Constructor arguments ko ek array mein pass karte hain.
+  const zkpVoting = await hre.ethers.deployContract("ZkpVoting", [verifier.target]);
+
+  // Deployment poora hone ka intezaar karna
+  await zkpVoting.waitForDeployment();
+
+  console.log(`✅ ZkpVoting contract is deployed to: ${zkpVoting.target}`);
+  console.log("\nDeployment poora hua!");
 }
 
+// Main function ko call karna aur errors ko handle karna
 main().catch((error) => {
-  console.error("❌ Deployment failed:", error);
-  process.exit(1);
+  console.error(error);
+  process.exitCode = 1;
 });
