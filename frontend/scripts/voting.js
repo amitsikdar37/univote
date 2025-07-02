@@ -243,28 +243,91 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedCandidateIndex = null;
   }
 
-  async function connectAndLoad() {
-    if (!electionId) {
-      statusMessageEl.textContent = "No Election ID provided. Enter or search for one.";
-      return;
+  // async function connectAndLoad() {
+  //   if (!electionId) {
+  //     statusMessageEl.textContent = "No Election ID provided. Enter or search for one.";
+  //     return;
+  //   }
+  //   if (typeof window.ethereum === 'undefined') { return alert("Please install MetaMask."); }
+  //   try {
+  //     statusMessageEl.textContent = "Connecting...";
+  //     provider = new ethers.providers.Web3Provider(window.ethereum);
+  //     await provider.send("eth_requestAccounts", []);
+  //     signer = provider.getSigner();
+  //     contract = new ethers.Contract(contractAddress, contractABI, signer);
+  //     statusMessageEl.textContent = "Wallet connected. Loading details...";
+  //     connectWalletBtn.style.display = 'none';
+  //     submitVoteBtn.style.display = 'block'; // Use 'block' to show the button
+  //     await loadElectionDetails(contract);
+  //     await checkEligibilityAndUpdateUI(electionId);
+  //   } catch (e) {
+  //     statusMessageEl.textContent = "Wallet connection failed.";
+  //     console.error(e);
+  //   }
+  // }
+
+  // frontend/scripts/voting.js ke andar
+
+async function connectAndLoad() {
+    if (typeof window.ethereum === 'undefined') {
+        return alert("Please install MetaMask.");
     }
-    if (typeof window.ethereum === 'undefined') { return alert("Please install MetaMask."); }
     try {
-      statusMessageEl.textContent = "Connecting...";
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      signer = provider.getSigner();
-      contract = new ethers.Contract(contractAddress, contractABI, signer);
-      statusMessageEl.textContent = "Wallet connected. Loading details...";
-      connectWalletBtn.style.display = 'none';
-      submitVoteBtn.style.display = 'block'; // Use 'block' to show the button
-      await loadElectionDetails(contract);
-      await checkEligibilityAndUpdateUI(electionId);
+        statusMessageEl.textContent = "Connecting wallet...";
+        
+        // Step 1: Accounts request karein
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        // Step 2: Naya provider banayein
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        
+        // === CHANGE: Network ko check karein ===
+        const network = await provider.getNetwork();
+        // Base Sepolia ka Chain ID 84532 hai
+        const baseSepoliaChainId = 84532; 
+
+        if (network.chainId !== baseSepoliaChainId) {
+            statusMessageEl.textContent = `Please switch to Base Sepolia network in MetaMask.`;
+            // Optionally, try to switch network automatically
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x' + baseSepoliaChainId.toString(16) }], // Chain ID ko hex mein bhejna hota hai
+                });
+                // Reload the provider after switching
+                 provider = new ethers.providers.Web3Provider(window.ethereum);
+            } catch (switchError) {
+                // Agar user switch cancel kar de
+                console.error(switchError);
+                return;
+            }
+        }
+
+        signer = provider.getSigner();
+        
+        // Ab contracts ke instance banayein
+        zkpVotingContract = new ethers.Contract(ZKP_VOTING_CONTRACT_ADDRESS, ZKP_VOTING_ABI, signer);
+        
+        const registryAddress = await zkpVotingContract.voterRegistry();
+        voterRegistryContract = new ethers.Contract(registryAddress, VOTER_REGISTRY_ABI, signer);
+
+        statusMessageEl.textContent = "Wallet connected. Loading election...";
+        connectWalletBtn.textContent = `Connected: ${(await signer.getAddress()).substring(0, 6)}...`;
+        connectWalletBtn.disabled = true;
+        submitVoteBtn.style.display = 'block';
+
+        if (electionId) {
+            await loadElectionDetails();
+            await checkEligibilityAndUpdateUI();
+        } else {
+            statusMessageEl.textContent = "Please search for an election.";
+        }
     } catch (e) {
-      statusMessageEl.textContent = "Wallet connection failed.";
-      console.error(e);
+        statusMessageEl.textContent = "Wallet connection failed.";
+        console.error(e);
     }
-  }
+}
+
 
   async function loadElectionDetails(contractInstance) {
     if (!electionId) {
