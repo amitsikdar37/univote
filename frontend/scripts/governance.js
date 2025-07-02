@@ -27,12 +27,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         // User is authenticated, reveal the page
         document.documentElement.style.visibility = 'visible';
 
-    } catch (err) {
-        console.error("Token verification error:", err);
-        alert("Failed to verify access. Redirecting to login...");
-        window.location.href = './index.html';
-        return;
-    }
+    } 
+    catch (err) {
+    console.error("Token verification error:", err);
+    alert("Failed to verify access. Redirecting to login...");
+    window.location.href = './index.html';
+    return;
+  }
+
+
 });
 
 
