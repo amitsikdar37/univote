@@ -266,9 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
   //   }
   // }
 
-  // frontend/scripts/voting.js ke andar
-
-async function connectAndLoad() {
+  
+  // 
+  async function connectAndLoad() {
     if (typeof window.ethereum === 'undefined') {
         return alert("Please install MetaMask.");
     }
@@ -281,47 +281,49 @@ async function connectAndLoad() {
         // Step 2: Naya provider banayein
         provider = new ethers.providers.Web3Provider(window.ethereum);
         
-        // === CHANGE: Network ko check karein ===
+        // Step 3: Network check karein (yeh aadat achhi hai)
         const network = await provider.getNetwork();
-        // Base Sepolia ka Chain ID 84532 hai
-        const baseSepoliaChainId = 84532; 
+        const baseSepoliaChainId = 84532; // Base Sepolia ka Chain ID
 
         if (network.chainId !== baseSepoliaChainId) {
             statusMessageEl.textContent = `Please switch to Base Sepolia network in MetaMask.`;
-            // Optionally, try to switch network automatically
             try {
                 await window.ethereum.request({
                     method: 'wallet_switchEthereumChain',
                     params: [{ chainId: '0x' + baseSepoliaChainId.toString(16) }], // Chain ID ko hex mein bhejna hota hai
                 });
-                // Reload the provider after switching
-                 provider = new ethers.providers.Web3Provider(window.ethereum);
+                // Switch karne ke baad provider reload karein
+                provider = new ethers.providers.Web3Provider(window.ethereum);
             } catch (switchError) {
                 // Agar user switch cancel kar de
                 console.error(switchError);
+                statusMessageEl.textContent = "Wallet connection failed: Please select the correct network.";
                 return;
             }
         }
 
+        // Step 4: Signer prapt karein
         signer = provider.getSigner();
         
-        // Ab contracts ke instance banayein
-        zkpVotingContract = new ethers.Contract(ZKP_VOTING_CONTRACT_ADDRESS, ZKP_VOTING_ABI, signer);
-        
-        const registryAddress = await zkpVotingContract.voterRegistry();
-        voterRegistryContract = new ethers.Contract(registryAddress, VOTER_REGISTRY_ABI, signer);
+        // Step 5: Sahi variables ka upyog karke contract ka instance banayein
+        // Yahan 'contract' variable ka istemal kiya gaya hai jo script mein global hai
+        contract = new ethers.Contract(contractAddress, contractABI, signer);
 
         statusMessageEl.textContent = "Wallet connected. Loading election...";
-        connectWalletBtn.textContent = `Connected: ${(await signer.getAddress()).substring(0, 6)}...`;
+        const userAddress = await signer.getAddress();
+        connectWalletBtn.textContent = `Connected: ${userAddress.substring(0, 6)}...`;
         connectWalletBtn.disabled = true;
         submitVoteBtn.style.display = 'block';
 
+        // Step 6: Yadi electionId maujood hai to details load karein
         if (electionId) {
-            await loadElectionDetails();
-            await checkEligibilityAndUpdateUI();
+            // 'loadElectionDetails' ko contract ka instance pass karein
+            await loadElectionDetails(contract);
+            await checkEligibilityAndUpdateUI(electionId);
         } else {
-            statusMessageEl.textContent = "Please search for an election.";
+            statusMessageEl.textContent = "Wallet connected. Please search for an election.";
         }
+
     } catch (e) {
         statusMessageEl.textContent = "Wallet connection failed.";
         console.error(e);
