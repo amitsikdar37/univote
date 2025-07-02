@@ -1,24 +1,32 @@
-// SPDX-License-Identifier: MIT
+ // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "./Verifier.sol";
-// import "@openzeppelin/contracts/utils/Strings.sol";
+import "./Verifier.sol"; // Verifier.sol abhi bhi zaroori hai
 import "@openzeppelin/contracts/utils/Strings.sol";
-
 
 contract ZkpVoting {
     using Strings for uint256;
 
+    //--- ZKP Votings se jude State Variables ---
+    address public admin; // Global admin (contract deployer)
     Verifier public verifier;
     uint256 private nextElectionCounter;
 
-    constructor(address _verifier) {
-        verifier = Verifier(_verifier);
-    }
+    //--- VoterRegistry se merge kiye gaye State Variables ---
+    // Yeh mapping sabhi registered commitments ko globally store karti hai.
+    // bytes32 commitment => boolean (true agar registered hai)
+    mapping(bytes32 => bool) public commitments;
 
+    //--- Events ---
+    event VoterRegistered(bytes32 indexed commitment); // VoterRegistry se
+    event ElectionCreated(string indexed electionId, string name, uint endTime);
+    event Voted(string indexed electionId, uint candidateIndex);
+    event ElectionEnded(string indexed electionId);
+
+    //--- Structs ---
     struct Election {
         string name;
-        address admin;
+        address electionAdmin; // Har election ka apna admin ho sakta hai
         uint endTime;
         bool isActive;
         bool isEnded;
@@ -33,13 +41,21 @@ contract ZkpVoting {
     mapping(string => bool) private existingIds;
     mapping(uint => string) private idByCounter;
 
-    // EVENTS
-    event ElectionCreated(string indexed electionId, string name, uint endTime);
-    event Voted(string indexed electionId, uint candidateIndex);
-    event ElectionEnded(string indexed electionId);
+    //--- Constructor ---
+    // Ab constructor sirf verifier ka address lega.
+    constructor(address _verifier) {
+        admin = msg.sender; // Contract deploy karne wala global admin ban jaayega
+        verifier = Verifier(_verifier);
+    }
 
-    modifier onlyAdmin(string memory _electionId) {
-        require(msg.sender == elections[_electionId].admin, "Only admin");
+    //--- Modifiers ---
+    modifier onlyGlobalAdmin() {
+        require(msg.sender == admin, "Only the global contract admin can call this");
+        _;
+    }
+
+    modifier onlyElectionAdmin(string memory _electionId) {
+        require(msg.sender == elections[_electionId].electionAdmin, "Only the election admin can call this");
         _;
     }
 
@@ -48,7 +64,47 @@ contract ZkpVoting {
         _;
     }
 
-    // === 1. Create Election ===
+    //==============================================================
+    //== VOTER REGISTRY FUNCTIONS (MERGED) ==
+    //==============================================================
+
+    /**
+     * @notice Ek naye voter ka commitment register karta hai.
+     * @dev Sirf global admin hi is function ko call kar sakta hai.
+     */
+    function addCommitment(bytes32 _commitment) external onlyGlobalAdmin {
+        require(_commitment != bytes32(0), "Commitment cannot be zero.");
+        require(!commitments[_commitment], "Commitment already registered.");
+
+        commitments[_commitment] = true;
+        emit VoterRegistered(_commitment);
+    }
+
+    /**
+     * @notice Ek saath kai voters ke commitments ko register karta hai.
+     */
+    function addCommitmentsInBatch(bytes32[] calldata _commitments) external onlyGlobalAdmin {
+        for (uint i = 0; i < _commitments.length; i++) {
+            bytes32 _commitment = _commitments[i];
+            if (_commitment != bytes32(0) && !commitments[_commitment]) {
+                commitments[_commitment] = true;
+                emit VoterRegistered(_commitment);
+            }
+        }
+    }
+
+    /**
+     * @notice Check karta hai ki koi commitment registered hai ya nahi.
+     */
+    function isRegistered(bytes32 _commitment) public view returns (bool) {
+        return commitments[_commitment];
+    }
+
+
+    //==============================================================
+    //== ZKP VOTING FUNCTIONS ==
+    //==============================================================
+
     function createElection(
         string memory _name,
         uint _durationInMinutes,
@@ -63,7 +119,7 @@ contract ZkpVoting {
 
         Election storage e = elections[newElectionId];
         e.name = _name;
-        e.admin = msg.sender;
+        e.electionAdmin = msg.sender; // Election banane wala uska admin hoga
         e.endTime = block.timestamp + (_durationInMinutes * 1 minutes);
         e.isActive = true;
         e.candidateCount = _candidateNames.length;
@@ -79,7 +135,6 @@ contract ZkpVoting {
         return newElectionId;
     }
 
-    // === 2. Vote with ZK Proof ===
     function voteWithZKProof(
         string memory _electionId,
         uint[2] calldata a,
@@ -91,21 +146,28 @@ contract ZkpVoting {
         Election storage e = elections[_electionId];
         require(e.isActive, "Election not active");
         require(block.timestamp <= e.endTime, "Voting closed");
-        require(!e.nullifierHashes[bytes32(input[1])], "Double vote");
+        
+        bytes32 nullifier = bytes32(input[0]);
+        bytes32 commitment = bytes32(input[3]);
+
+        // <<<<<<<<<<< YAHAN BADLAV HUA HAI >>>>>>>>>>>>
+        // Ab hum seedhe isi contract ke 'isRegistered' function ko call kar rahe hain.
+        require(isRegistered(commitment), "Voter commitment not registered");
+        
+        require(!e.nullifierHashes[nullifier], "Double vote: This proof has already been used");
         require(candidateIndex < e.candidateCount, "Invalid candidate");
 
         bool valid = verifier.verifyProof(a, b, c, input);
         require(valid, "Invalid ZK proof");
 
-        e.nullifierHashes[bytes32(input[1])] = true;
+        e.nullifierHashes[nullifier] = true;
         e.totalVotes++;
         e.candidateVotes[candidateIndex]++;
 
         emit Voted(_electionId, candidateIndex);
     }
 
-    // === 3. Admin Ends Election Manually ===
-    function endElection(string memory _electionId) external onlyAdmin(_electionId) electionExists(_electionId) {
+    function endElection(string memory _electionId) external onlyElectionAdmin(_electionId) electionExists(_electionId) {
         Election storage e = elections[_electionId];
         require(!e.isEnded, "Already ended");
         e.isActive = false;
@@ -113,13 +175,12 @@ contract ZkpVoting {
         emit ElectionEnded(_electionId);
     }
 
-    // === 4. Result Visibility ===
+    //--- Baaki ke saare 'view' functions waise hi rahenge ---
     function showResult(string memory _electionId) public view returns (bool) {
         Election storage e = elections[_electionId];
         return e.isEnded || block.timestamp > e.endTime;
     }
 
-    // === 5. Getters ===
     function getCandidateName(string memory _electionId, uint index) public view returns (string memory) {
         return elections[_electionId].candidates[index];
     }

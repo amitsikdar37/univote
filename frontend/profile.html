@@ -71,11 +71,13 @@
             <h3>Link Your Accounts Here</h3>
             <div class="link-item">
                 <span>Link your Gmail account here</span>
-                <button>Send code</button>
+                <button onclick="sendCode('gmail')">Send code</button>
+                <span id="gmail-status"></span>
             </div>
             <div class="link-item">
                 <span>Link your IIT-P email identity here</span>
-                <button>Send code</button>
+                <button onclick="sendCode('iitp')">Send code</button>
+                <span id="iitp-status"></span>
             </div>
             <div class="link-item">
                 <span>Link your Telegram account here</span>

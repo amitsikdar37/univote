@@ -22,7 +22,12 @@ const voterSchema = new mongoose.Schema({
     type: String,
     unique: true,
     sparse: true
-  }
+  },
+  linkedAccounts: {
+    google: { type: Boolean, default: false },
+    iitp: { type: Boolean, default: false },
+    x: { type: Boolean, default: false },
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Voter', voterSchema);
