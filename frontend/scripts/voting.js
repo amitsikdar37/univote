@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const contractAddress = " 0x3922877F1697B0449A51B682620F26bFB325Fa14"; // 🟨 Replace with your deployed ZkpVoting contract
+  const contractAddress = "0x3922877F1697B0449A51B682620F26bFB325Fa14"; // 🟨 Replace with your deployed ZkpVoting contract
   const contractABI = [
     {
       "inputs": [

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const contractAddress = " 0x3922877F1697B0449A51B682620F26bFB325Fa14";
+    const contractAddress = "0x3922877F1697B0449A51B682620F26bFB325Fa14";
     const contractABI = [
         {
             "inputs": [
