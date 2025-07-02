@@ -91,24 +91,150 @@
 
 
 
- const { ethers } = require("ethers"); // Ethers library ko import karein
+//  const { ethers } = require("ethers"); // Ethers library ko import karein
+// const circomlib = require('circomlibjs');
+// const crypto = require('crypto');
+
+// // Mongoose Models ko import karein
+// const Voters = require('../../models/voter');
+// const ElectionCriteria = require('../../models/election_criteria');
+
+// // Poseidon instance ko yahan sirf declare karein.
+// let poseidonInstance;
+
+// // =================================================================
+// // ===== HELPER FUNCTIONS (Bilkul addVoter.js jaise) =====
+// // =================================================================
+
+// /**
+//  * Har user ke liye ek unique aur constant secret generate karta hai.
+//  */
+// function generateUserSecret(userId) {
+//     const masterSecret = process.env.VOTER_MASTER_SECRET;
+//     if (!masterSecret) {
+//         throw new Error("VOTER_MASTER_SECRET environment variable not set!");
+//     }
+//     const hash = crypto.createHmac('sha256', masterSecret)
+//                        .update(userId)
+//                        .digest('hex');
+//     return '0x' + hash;
+// }
+
+// /**
+//  * User ke secret se uska commitment sahi bytes32 format mein banata hai.
+//  */
+// function generateCommitmentFromSecret(userSecret) {
+//     if (!poseidonInstance) throw new Error("Poseidon has not been initialized");
+    
+//     // poseidon ka output ek Uint8Array hota hai.
+//     const hashOutput = poseidonInstance([BigInt(userSecret)]);
+    
+//     // Ethers ka istemaal karke Uint8Array ko sahi hex string mein badlein
+//     const hexHash = ethers.hexlify(hashOutput);
+
+//     // Ab is hex string ko 32 bytes me pad karein
+//     const paddedCommitment = ethers.zeroPadValue(hexHash, 32);
+
+//     return paddedCommitment;
+// }
+
+// // =================================================================
+// // ===== POORA AUR SAHI `checkPublicClaim` FUNCTION =====
+// // =================================================================
+
+// exports.checkPublicClaim = async (req, res) => {
+//     try {
+//         // Race condition se bachne ke liye Poseidon ko yahan initialize karein
+//         if (!poseidonInstance) {
+//             poseidonInstance = await circomlib.buildPoseidon();
+//             console.log("Poseidon instance initialized on first API request.");
+//         }
+
+//         const { email } = req.user;
+//         const { election_id } = req.body;
+
+//         if (!election_id) {
+//             return res.status(400).json({ message: 'Election ID is required' });
+//         }
+        
+//         const voter = await Voters.findOne({ email });
+//         if (!voter) {
+//             return res.status(200).json({ eligible: false, failedCriteria: ['VoterNotFound'] });
+//         }
+
+//         const electionCriteria = await ElectionCriteria.findOne({ election_id });
+//         // Agar election ke liye koi criteria set nahi hai, to sab eligible hain.
+//         if (!electionCriteria || !electionCriteria.criteria || electionCriteria.criteria.size === 0) {
+//             // User ko eligible maankar commitment generate karein
+//             const userSecret = generateUserSecret(email);
+//             const commitment = generateCommitmentFromSecret(userSecret);
+//             return res.status(200).json({
+//                 eligible: true,
+//                 publicRegisteredCommitment: commitment,
+//                 secret: userSecret,
+//             });
+//         }
+        
+//         const criteria = electionCriteria.criteria;
+//         const failedCriteria = [];
+
+//         // Eligibility checks
+//         if (criteria.get('onlyIITP') && !(voter.email && voter.email.endsWith("@iitp.ac.in"))) {
+//             failedCriteria.push('onlyIITP');
+//         }
+//         if (criteria.get('account10Days')) {
+//             const accountCreatedAt = new Date(voter.createdAt);
+//             const accountAgeInDays = (Date.now() - accountCreatedAt.getTime()) / (1000 * 60 * 60 * 24);
+//             if (accountAgeInDays < 10) {
+//                 failedCriteria.push('account10Days');
+//             }
+//         }
+//         // ...baaki saare criteria checks...
+
+
+//         if (failedCriteria.length > 0) {
+//             return res.status(200).json({
+//                 eligible: false,
+//                 failedCriteria
+//             });
+//         }
+
+//         // Agar user sabhi criteria pass kar leta hai
+//         const userSecret = generateUserSecret(email);
+//         const commitment = generateCommitmentFromSecret(userSecret);
+
+//         return res.status(200).json({
+//             eligible: true,
+//             publicRegisteredCommitment: commitment,
+//             secret: userSecret,
+//         });
+
+//     } catch (error) {
+//         console.error('Error checking public claim:', error);
+//         return res.status(500).json({ message: 'Internal server error' });
+//     }
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+const { ethers } = require("ethers");
 const circomlib = require('circomlibjs');
 const crypto = require('crypto');
-
-// Mongoose Models ko import karein
-const Voters = require('../../models/voter');
-const ElectionCriteria = require('../../models/election_criteria');
+// Is file mein ab Voters ya ElectionCriteria model ki zaroorat nahi hai.
 
 // Poseidon instance ko yahan sirf declare karein.
 let poseidonInstance;
 
-// =================================================================
-// ===== HELPER FUNCTIONS (Bilkul addVoter.js jaise) =====
-// =================================================================
-
-/**
- * Har user ke liye ek unique aur constant secret generate karta hai.
- */
+// Helper functions (yeh waise hi rahenge)
 function generateUserSecret(userId) {
     const masterSecret = process.env.VOTER_MASTER_SECRET;
     if (!masterSecret) {
@@ -120,89 +246,47 @@ function generateUserSecret(userId) {
     return '0x' + hash;
 }
 
-/**
- * User ke secret se uska commitment sahi bytes32 format mein banata hai.
- */
 function generateCommitmentFromSecret(userSecret) {
     if (!poseidonInstance) throw new Error("Poseidon has not been initialized");
-    
-    // poseidon ka output ek Uint8Array hota hai.
     const hashOutput = poseidonInstance([BigInt(userSecret)]);
-    
-    // Ethers ka istemaal karke Uint8Array ko sahi hex string mein badlein
     const hexHash = ethers.hexlify(hashOutput);
-
-    // Ab is hex string ko 32 bytes me pad karein
-    const paddedCommitment = ethers.zeroPadValue(hexHash, 32);
-
-    return paddedCommitment;
+    return ethers.zeroPadValue(hexHash, 32);
 }
 
+
 // =================================================================
-// ===== POORA AUR SAHI `checkPublicClaim` FUNCTION =====
+// ===== SIMPLIFIED `checkPublicClaim` FUNCTION (FOR TESTING) =====
 // =================================================================
 
 exports.checkPublicClaim = async (req, res) => {
     try {
-        // Race condition se bachne ke liye Poseidon ko yahan initialize karein
+        // Initialize Poseidon if not already done
         if (!poseidonInstance) {
             poseidonInstance = await circomlib.buildPoseidon();
             console.log("Poseidon instance initialized on first API request.");
         }
 
+        console.log("Entering simplified CheckPublicClaim for testing...");
+
+        // Step 1: Get the logged-in user's email
         const { email } = req.user;
-        const { election_id } = req.body;
-
-        if (!election_id) {
-            return res.status(400).json({ message: 'Election ID is required' });
-        }
-        
-        const voter = await Voters.findOne({ email });
-        if (!voter) {
-            return res.status(200).json({ eligible: false, failedCriteria: ['VoterNotFound'] });
+        if (!email) {
+            // Agar user logged-in nahi hai, to error bhejein
+            return res.status(401).json({ message: "User not logged in or email not found in token." });
         }
 
-        const electionCriteria = await ElectionCriteria.findOne({ election_id });
-        // Agar election ke liye koi criteria set nahi hai, to sab eligible hain.
-        if (!electionCriteria || !electionCriteria.criteria || electionCriteria.criteria.size === 0) {
-            // User ko eligible maankar commitment generate karein
-            const userSecret = generateUserSecret(email);
-            const commitment = generateCommitmentFromSecret(userSecret);
-            return res.status(200).json({
-                eligible: true,
-                publicRegisteredCommitment: commitment,
-                secret: userSecret,
-            });
-        }
-        
-        const criteria = electionCriteria.criteria;
-        const failedCriteria = [];
+        // =============================================================
+        // ===== ELIGIBILITY CHECK HATA DIYA GAYA HAI (REMOVED) =====
+        // Har logged-in user ko ab eligible maana jaayega.
+        // =============================================================
 
-        // Eligibility checks
-        if (criteria.get('onlyIITP') && !(voter.email && voter.email.endsWith("@iitp.ac.in"))) {
-            failedCriteria.push('onlyIITP');
-        }
-        if (criteria.get('account10Days')) {
-            const accountCreatedAt = new Date(voter.createdAt);
-            const accountAgeInDays = (Date.now() - accountCreatedAt.getTime()) / (1000 * 60 * 60 * 24);
-            if (accountAgeInDays < 10) {
-                failedCriteria.push('account10Days');
-            }
-        }
-        // ...baaki saare criteria checks...
-
-
-        if (failedCriteria.length > 0) {
-            return res.status(200).json({
-                eligible: false,
-                failedCriteria
-            });
-        }
-
-        // Agar user sabhi criteria pass kar leta hai
+        // Step 2: Generate credentials for the user
         const userSecret = generateUserSecret(email);
         const commitment = generateCommitmentFromSecret(userSecret);
 
+        console.log(`Bypassing eligibility for ${email}. Sending commitment for voting.`);
+
+        // Step 3: Always return success with eligibility as true
         return res.status(200).json({
             eligible: true,
             publicRegisteredCommitment: commitment,
@@ -210,7 +294,7 @@ exports.checkPublicClaim = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error checking public claim:', error);
+        console.error('Error in simplified checkPublicClaim:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
