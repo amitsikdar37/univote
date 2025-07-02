@@ -650,99 +650,168 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  async function handleVoteProcess() {
+  // async function handleVoteProcess() {
+  //   if (selectedCandidateIndex === null) {
+  //     return alert("Please select a candidate first.");
+  //   }
+  //   submitVoteBtn.disabled = true;
+
+  //   // ===== Step 1: Register Commitment =====
+  //   statusMessageEl.textContent = "Step 1/2: Generating secret & commitment...";
+
+  //   // Use the commitment received from backend eligibility check
+  //   const commitment = window.publicRegisteredCommitment;
+  //   const secret = window.publicSecret; // Use the secret stored earlier
+  //   if (!commitment || !secret) {
+  //     statusMessageEl.textContent = "Commitment or secret not found. Please check eligibility first.";
+  //     submitVoteBtn.disabled = false;
+  //     return;
+  //   }
+
+  //   // Ensure commitment is a bytes32 hex string
+  //   let hexCommitment;
+  //   try {
+  //     // If already hex (starts with 0x), use as is, else convert
+  //     hexCommitment = commitment.startsWith('0x')
+  //       ? commitment
+  //       : ethers.BigNumber.from(commitment).toHexString();
+  //   } catch (e) {
+  //     statusMessageEl.textContent = "Invalid commitment format.";
+  //     submitVoteBtn.disabled = false;
+  //     return;
+  //   }
+  //   console.log("Registering commitment (hex):", hexCommitment);
+  //   try {
+
+  //     const registerTx = await contract.registerCommitment(electionId, hexCommitment);
+  //     await registerTx.wait();
+  //     statusMessageEl.textContent = "Commitment registered! Proceeding...";
+  //   } catch (error) {
+  //     const reason = error.reason || (error.data ? error.data.message : "Commitment failed.");
+  //     statusMessageEl.textContent = `Error in Step 1: ${reason}`;
+  //     submitVoteBtn.disabled = false;
+  //     console.error("Commitment registration failed:", error);
+  //     return;
+  //   }
+
+  //   // ===== Break for network sync =====
+  //   statusMessageEl.textContent = "Waiting for network to sync...";
+  //   await new Promise(resolve => setTimeout(resolve, 7000)); // 7 second break
+
+  //   // ===== Step 2: Cast Final Vote =====
+  //   statusMessageEl.textContent = "Step 2/2: Generating ZK Proof...";
+  //   const nullifierHash = ethers.utils.solidityKeccak256(['bytes32'], [secret]);
+
+  //   // Correcting data types for the proof
+  //   const proofInput = {
+  //     a: ['0', '0'],
+  //     b: [['0', '0'], ['0', '0']],
+  //     c: ['0', '0'],
+  //     input: [
+  //       ethers.BigNumber.from(commitment),   // Convert bytes32 to BigNumber
+  //       ethers.BigNumber.from(nullifierHash), // Convert bytes32 to BigNumber
+  //       '0',
+  //       '0'
+  //     ]
+  //   };
+
+
+  //   console.log("Voting with commitment (hex):", hexCommitment);
+  //   console.log("Proof input commitment (BigNumber):", proofInput.input[0].toHexString());
+
+
+  //   try {
+  //     statusMessageEl.textContent = "Step 2/2: Submitting final vote...";
+
+  //     const voteTx = await contract.voteWithZKProof(
+  //       electionId,
+  //       proofInput.a,
+  //       proofInput.b,
+  //       proofInput.c,
+  //       proofInput.input,
+  //       selectedCandidateIndex
+  //     );
+  //     await voteTx.wait();
+
+  //     statusMessageEl.textContent = "Vote cast successfully! Thank you.";
+  //     submitVoteBtn.textContent = "Voted Successfully";
+  //     submitVoteBtn.disabled = true;
+  //   } catch (error) {
+  //     const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
+  //     statusMessageEl.textContent = `Error in Step 2: ${reason}`;
+  //     submitVoteBtn.disabled = false;
+  //     console.error("Final vote submission failed:", error);
+  //   }
+  // }
+
+async function handleVoteProcess() {
     if (selectedCandidateIndex === null) {
-      return alert("Please select a candidate first.");
+        return alert("Please select a candidate first.");
     }
     submitVoteBtn.disabled = true;
 
-    // ===== Step 1: Register Commitment =====
-    statusMessageEl.textContent = "Step 1/2: Generating secret & commitment...";
+    // =========================================================================
+    // ===== Commitment registration wala hissa yahan se HATA DIYA GAYA HAI =====
+    // Kyunki yeh kaam ab admin pehle hi kar chuka hai.
+    // Frontend vote karte waqt commitment register nahi karega.
+    // =========================================================================
 
-    // Use the commitment received from backend eligibility check
+    statusMessageEl.textContent = "Preparing your vote...";
+
+    // Backend se mili eligibility aur commitment ki jaankari prapt karna
     const commitment = window.publicRegisteredCommitment;
-    const secret = window.publicSecret; // Use the secret stored earlier
+    const secret = window.publicSecret;
     if (!commitment || !secret) {
-      statusMessageEl.textContent = "Commitment or secret not found. Please check eligibility first.";
-      submitVoteBtn.disabled = false;
-      return;
+        statusMessageEl.textContent = "Could not retrieve commitment. Please check eligibility again.";
+        submitVoteBtn.disabled = false;
+        return;
     }
 
-    // Ensure commitment is a bytes32 hex string
-    let hexCommitment;
-    try {
-      // If already hex (starts with 0x), use as is, else convert
-      hexCommitment = commitment.startsWith('0x')
-        ? commitment
-        : ethers.BigNumber.from(commitment).toHexString();
-    } catch (e) {
-      statusMessageEl.textContent = "Invalid commitment format.";
-      submitVoteBtn.disabled = false;
-      return;
-    }
-    console.log("Registering commitment (hex):", hexCommitment);
-    try {
-
-      const registerTx = await contract.registerCommitment(electionId, hexCommitment);
-      await registerTx.wait();
-      statusMessageEl.textContent = "Commitment registered! Proceeding...";
-    } catch (error) {
-      const reason = error.reason || (error.data ? error.data.message : "Commitment failed.");
-      statusMessageEl.textContent = `Error in Step 1: ${reason}`;
-      submitVoteBtn.disabled = false;
-      console.error("Commitment registration failed:", error);
-      return;
-    }
-
-    // ===== Break for network sync =====
-    statusMessageEl.textContent = "Waiting for network to sync...";
-    await new Promise(resolve => setTimeout(resolve, 7000)); // 7 second break
-
-    // ===== Step 2: Cast Final Vote =====
-    statusMessageEl.textContent = "Step 2/2: Generating ZK Proof...";
+    // ===== Ab Seedhe Final Vote Cast Hoga =====
+    statusMessageEl.textContent = "Step 1/1: Generating ZK Proof and submitting vote...";
+    
     const nullifierHash = ethers.utils.solidityKeccak256(['bytes32'], [secret]);
-
-    // Correcting data types for the proof
+    
+    // Yahan proofInput taiyaar hoga...
     const proofInput = {
-      a: ['0', '0'],
-      b: [['0', '0'], ['0', '0']],
-      c: ['0', '0'],
-      input: [
-        ethers.BigNumber.from(commitment),   // Convert bytes32 to BigNumber
-        ethers.BigNumber.from(nullifierHash), // Convert bytes32 to BigNumber
-        '0',
-        '0'
-      ]
+        a: ['0', '0'],
+        b: [['0', '0'], ['0', '0']],
+        c: ['0', '0'],
+        input: [
+            ethers.BigNumber.from(commitment),
+            ethers.BigNumber.from(nullifierHash),
+            '0',
+            '0'
+        ]
     };
 
-
-    console.log("Voting with commitment (hex):", hexCommitment);
-    console.log("Proof input commitment (BigNumber):", proofInput.input[0].toHexString());
-
+    console.log("Submitting vote with ZK proof...");
 
     try {
-      statusMessageEl.textContent = "Step 2/2: Submitting final vote...";
+        const voteTx = await contract.voteWithZKProof(
+            electionId,
+            proofInput.a,
+            proofInput.b,
+            proofInput.c,
+            proofInput.input,
+            selectedCandidateIndex
+        );
+        await voteTx.wait();
 
-      const voteTx = await contract.voteWithZKProof(
-        electionId,
-        proofInput.a,
-        proofInput.b,
-        proofInput.c,
-        proofInput.input,
-        selectedCandidateIndex
-      );
-      await voteTx.wait();
-
-      statusMessageEl.textContent = "Vote cast successfully! Thank you.";
-      submitVoteBtn.textContent = "Voted Successfully";
-      submitVoteBtn.disabled = true;
+        statusMessageEl.textContent = "Vote cast successfully! Thank you.";
+        submitVoteBtn.textContent = "Voted Successfully";
+        submitVoteBtn.disabled = true;
+        
     } catch (error) {
-      const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
-      statusMessageEl.textContent = `Error in Step 2: ${reason}`;
-      submitVoteBtn.disabled = false;
-      console.error("Final vote submission failed:", error);
+        const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
+        statusMessageEl.textContent = `Error: ${reason}`;
+        submitVoteBtn.disabled = false;
+        console.error("Final vote submission failed:", error);
     }
-  }
+}
+
+
+
 
   // --- NEW: Handle search bar election ID entry ---
   searchForm.addEventListener('submit', async function (e) {
