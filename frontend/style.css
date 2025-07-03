@@ -798,7 +798,7 @@ background: rgba(123, 136, 141, 0.47);
 }
 
 .faq-answers h2 {
-  font-size: 28px;
+  font-size: 36px;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -812,7 +812,7 @@ background: rgba(123, 136, 141, 0.47);
 }
 
 .answer p {
-  font-size: 16px;
+  font-size: 26px;
   line-height: 1.5;
   color: #000000;
 }
