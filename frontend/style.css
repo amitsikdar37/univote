@@ -471,7 +471,9 @@ aspect-ratio: 64.15/17.00;
 }
 
 .hero-btn:hover {
-  background: #d100c2;
+        
+            color:  #FF00E5;
+
 }
 
 /* Visual Content Styles */
