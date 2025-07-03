@@ -16,12 +16,13 @@ html, body {
   padding: 20px 40px;
   justify-content: space-around;
   align-items: center;
-  background: #f0f4ff;
+  background: linear-gradient(135deg, #f0f4ff, #e0eaff);
+  background: transparent;
   backdrop-filter: blur(8px);
   margin: 0;
   border-radius: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  position: relative;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
+  position: fixed;
   z-index: 1000;
 }
 
@@ -31,7 +32,7 @@ html, body {
   font-family: 'DM Sans', sans-serif;
   color: black;
   justify-items: left;
-  margin-left: 20px;
+  margin-right: 1100px;
 }
 
 .burger-menu {
@@ -51,6 +52,7 @@ html, body {
   margin: 0;
   padding: 0;
   align-items: center;
+  margin-right: 70px;
 }
 
 .nav-item a {
@@ -90,6 +92,7 @@ html, body {
   height: 90vh;
   min-height: 700px;
   margin: 0 0 50px;
+  /* margin-top: 50px; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -417,6 +420,7 @@ aspect-ratio: 64.15/17.00;
   text-align: left;
   padding: 60px 0;
   z-index: 1;
+  margin-top: 50px;
 }
 
 .hero-title {
@@ -503,10 +507,11 @@ aspect-ratio: 64.15/17.00;
 /* Page 2 Styles */
 .page-2 {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1450px;
   margin: 100px auto 0;
   padding: 60px 50px;
-  background: linear-gradient(90deg, #e0eaff, #f5f7ff);
+  /* background: linear-gradient(90deg, #e0eaff, #f5f7ff); */
+  background: white;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -521,7 +526,7 @@ aspect-ratio: 64.15/17.00;
 
 .page-2-title {
   color: #000;
-  font-family: "DM Sans", sans-serif;
+  font-family: sans-serif;
   font-size: 48px;
   font-weight: 700;
   line-height: 60px;
@@ -551,7 +556,8 @@ aspect-ratio: 64.15/17.00;
   padding: 20px;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
 .feature-icon {
@@ -579,7 +585,8 @@ aspect-ratio: 64.15/17.00;
   max-width: 1200px;
   margin: 100px auto 0;
   padding: 40px 20px;
-  background: #f0f4ff;
+  /* background: #f0f4ff; */
+  background: white;
   position: relative;
   overflow: hidden;
 }
@@ -606,7 +613,8 @@ aspect-ratio: 64.15/17.00;
   max-width: 1200px;
   margin: 100px auto 0;
   padding: 40px 20px;
-  background: linear-gradient(90deg, #f0f4ff, #e0eaff);
+  /* background: linear-gradient(90deg, #f0f4ff, #e0eaff); */
+  background: white;
   position: relative;
   overflow: hidden;
 }
@@ -703,7 +711,7 @@ aspect-ratio: 64.15/17.00;
 /* Page 5 Styles (FAQs) */
 .page-5 {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 100px auto 0;
   padding: 40px 20px;
   background: #f0f4ff;
@@ -759,7 +767,7 @@ aspect-ratio: 64.15/17.00;
 /* Page 6 Styles (Join Us) */
 .page-6 {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 100px auto 0;
   padding: 100px 20px;
   background: linear-gradient(180deg, #FFF 27.96%, #D2DCFF 102.93%);
@@ -771,7 +779,7 @@ aspect-ratio: 64.15/17.00;
 }
 
 .page-6-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   position: relative;
   text-align: center;
@@ -1034,8 +1042,9 @@ aspect-ratio: 64.15/17.00;
   }
 
   .hero-visual {
-    width: 70vw;
-    height: 70vw;
+    width: 40vw;
+    height: 40vw;
+    /* margin-top: 70px; */
     transform: rotate(-45deg);
     transform-origin: center;
     right: 0;
@@ -1269,7 +1278,15 @@ aspect-ratio: 64.15/17.00;
       cursor: pointer;
       border-radius: 6px;
     }
-
+ .btn-open:hover {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background-color:#FF00E5;
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+      border-radius: 6px;
+    }
     /* Modal Background */
     .modal {
       position: fixed;

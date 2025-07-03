@@ -61,3 +61,33 @@ window.addEventListener('pageshow', function(event) {
         loadWalletFromSession();
     }
 });
+
+function sendCode(type) {
+    let email = prompt("Enter your email:");
+    if (!email) return;
+
+    // For IITP, validate email ends with @iitp.ac.in
+    if (type === 'iitp' && !email.endsWith('@iitp.ac.in')) {
+        document.getElementById('iitp-status').textContent = 'Invalid IITP email!';
+        return;
+    }
+
+    fetch(`${BACKEND_URL}/api/accounts/send-otp`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ type, email })
+    },
+    { credentials: 'include' })
+    .then(res => res.json())
+    .then(data => {
+        let statusId = type === 'gmail' ? 'gmail-status' : type === 'iitp' ? 'iitp-status' : 'x-status';
+        if (data.success) {
+            document.getElementById(statusId).textContent = `OTP sent to ${email}. Please check your inbox.`;
+            setTimeout(() => {
+                window.location.href = './otp.html';
+            }, 3000); // Redirect after 3 seconds
+        } else {
+            document.getElementById(statusId).textContent = data.message;
+        }
+    });
+}
