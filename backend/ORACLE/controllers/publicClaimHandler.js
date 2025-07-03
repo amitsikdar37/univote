@@ -4,6 +4,7 @@
 const { ethers } = require("ethers");
 const circomlib = require('circomlibjs');
 const crypto = require('crypto');
+require('dotenv').config();
 // Is file mein ab Voters ya ElectionCriteria model ki zaroorat nahi hai.
 
 // Poseidon instance ko yahan sirf declare karein.
