@@ -14,7 +14,7 @@ html, body {
   display: flex;
   width: 100%;
   padding: 20px 40px;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   background: linear-gradient(135deg, #f0f4ff, #e0eaff);
   background: transparent;
@@ -1006,6 +1006,7 @@ aspect-ratio: 64.15/17.00;
     background: #f0f4ff;
     padding: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
   }
 
   .nav-links.active {
