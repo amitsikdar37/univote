@@ -4,6 +4,7 @@
 const { ethers } = require("ethers");
 const circomlib = require('circomlibjs');
 const crypto = require('crypto');
+require('dotenv').config();
 // Is file mein ab Voters ya ElectionCriteria model ki zaroorat nahi hai.
 
 // Poseidon instance ko yahan sirf declare karein.
@@ -16,8 +17,8 @@ function generateUserSecret(userId) {
         throw new Error("VOTER_MASTER_SECRET environment variable not set!");
     }
     const hash = crypto.createHmac('sha256', masterSecret)
-                       .update(userId)
-                       .digest('hex');
+        .update(userId)
+        .digest('hex');
     return '0x' + hash;
 }
 
@@ -44,11 +45,16 @@ exports.checkPublicClaim = async (req, res) => {
         console.log("Entering simplified CheckPublicClaim for testing...");
 
         // Step 1: Get the logged-in user's email
+        // const { email } = req.user;
+        // if (!email) {
+        //     // Agar user logged-in nahi hai, to error bhejein
+        //     return res.status(401).json({ message: "User not logged in or email not found in token." });
+        // }
+
         const { email } = req.user;
-        if (!email) {
-            // Agar user logged-in nahi hai, to error bhejein
-            return res.status(401).json({ message: "User not logged in or email not found in token." });
-        }
+if (!email) {
+  return res.status(401).json({ message: "User not logged in or email not found in token." });
+}
 
         // =============================================================
         // ===== ELIGIBILITY CHECK HATA DIYA GAYA HAI (REMOVED) =====
