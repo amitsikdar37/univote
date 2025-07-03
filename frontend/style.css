@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  /* background: linear-gradient(135deg, #f0f4ff, #e0eaff); */
+  background: linear-gradient(135deg, #f0f4ff, #e0eaff);
   font-family: 'Inter', sans-serif;
 }
 html, body {
@@ -97,6 +97,7 @@ html, body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-top:40px;
   padding: 0 80px;
   text-align: left;
   position: relative;
