@@ -91,13 +91,13 @@ html, body {
   width: 100vw;
   height: 90vh;
   min-height: 700px;
-  margin: 0 0 50px;
+
   /* margin-top: 50px; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top:40px;
+  margin-top:80px;
   padding: 0 80px;
   text-align: left;
   position: relative;
