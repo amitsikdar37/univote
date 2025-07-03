@@ -220,29 +220,67 @@
   </section>
   <!-- Page 5 Section (FAQs) -->
   <section class="page-5">
-    <div class="page-5-container">
-      <h2 class="page-5-title">FAQs.</h2>
-      <div class="faq-item highlighted">
-        <h3 class="faq-question">What is UNI-VOTE? <span class="faq-icon">⭐</span></h3>
-      </div>
-      <div class="faq-item">
-        <h3 class="faq-question">Is my vote really anonymous? How?</h3>
-      </div>
-      <div class="faq-item green-bg">
-        <h3 class="faq-question">If it’s anonymous, how can I be sure the results are fair?</h3>
-      </div>
-      <div class="faq-item">
-        <h3 class="faq-question">Why do I need to connect my accounts, like Google or X?</h3>
-      </div>
-      <div class="faq-item green-bg">
-        <h3 class="faq-question">What is a “gas fee” and do I need to pay to vote?</h3>
-      </div>
-      <div class="faq-item">
-        <h3 class="faq-question">How does UNI-VOTE’s technology actually work?</h3>
-      </div>
-      <div class="faq-item green-bg">
-        <h3 class="faq-question">What is the voting process in simple steps?</h3>
-      </div>
+    <div class="faq-container">
+        <div class="faq-questions">
+            <h2>FAQs.</h2>
+            <ul>
+                <li class="faq-item" data-target="answer1">
+                    <span>What is UNI-VOTE?</span>
+                    <span class="star-icon">★</span>
+                </li>
+                <li class="faq-item" data-target="answer2">
+                    <span>Is my vote really anonymous? How?</span>
+                    <span class="star-icon">★</span>
+                </li>
+                <li class="faq-item" data-target="answer3">
+                    <span>If it's anonymous, how can I be sure the results are fair?</span>
+                    <span class="star-icon">★</span>
+                </li>
+                <li class="faq-item" data-target="answer4">
+                    <span>Why do I need to connect my accounts, like Google or X?</span>
+                    <span class="star-icon">★</span>
+                </li>
+                <li class="faq-item" data-target="answer5">
+                    <span>What is a "gas fee" and do I need to pay to vote?</span>
+                    <span class="star-icon">★</span>
+                </li>
+                <li class="faq-item" data-target="answer6">
+                    <span>How does UNI-VOTE's technology actually work?</span>
+                    <span class="star-icon">★</span>
+                </li>
+                <li class="faq-item" data-target="answer7">
+                    <span>What is the voting process in simple steps?</span>
+                    <span class="star-icon">★</span>
+                </li>
+            </ul>
+        </div>
+        <div class="faq-answers">
+            <h2>Ans.</h2>
+            <div id="answer1" class="answer">
+                <p>UNI-VOTE is a secure, next-generation voting platform that uses blockchain technology and Zero-Knowledge Proofs. It allows anyone to host and participate in elections where every vote is completely private and the final results are fully verifiable and tamper-proof.</p>
+            </div>
+            <div id="answer2" class="answer" style="display: none;">
+                <p>Yes, your vote is 100% anonymous. When you cast your ballot, our Zero-Knowledge Proof (ZKP) system generates a cryptographic proof that confirms you are an eligible voter without revealing who you are. Your vote is mathematically separated from your identity before it's ever recorded on the blockchain. No one, not even us, can link you to your specific vote.</p>
+            </div>
+            <div id="answer3" class="answer" style="display: none;">
+                <p>This is the power of blockchain. While your identity is private, the vote itself is recorded on a public, unchangeable ledger. This creates a transparent audit trail where anyone can verify that all valid votes were counted correctly and that no votes were added or removed. It’s the perfect balance of individual privacy and public verifiability.</p>
+            </div>
+            <div id="answer4" class="answer" style="display: none;">
+                <p>Connecting accounts is used to verify your eligibility for specific elections that have custom rules set by the host (e.g., "Only for members with an @iitp.ac.in email"). Our system only checks that you meet the criteria; your personal data is never linked to your final vote. This allows for powerful, flexible, and secure community voting.</p>
+            </div>
+            <div id="answer5" class="answer" style="display: none;">
+                <p>A gas fee is a very small transaction cost required by the blockchain network to record a transaction. We've built UNI-VOTE on the Base blockchain, where these fees are typically extremely low (often less than a cent). While this small network fee is part of the process, we are actively exploring ways to sponsor these fees for users in the future to make voting completely free.</p>
+            </div>
+            <div id="answer6" class="answer" style="display: none;">
+                <p>A gas fee is a very small transaction cost required by the blockchain network to record a transaction. We've built UNI-VOTE on the Base blockchain, where these fees are typically extremely low (often less than a cent). While this small network fee is part of the process, we are actively exploring ways to sponsor these fees for users in the future to make voting completely free.</p>
+            </div>
+            <div id="answer7" class="answer" style="display: none;">
+                <p>Voting on UNI-VOTE is designed to be simple:
+Register: For each election, you first register to have your eligibility checked. If successful, you receive your unique "digital ticket" for that vote.
+Vote: Choose your preferred option and click the "Vote" button. Our system generates a secure ZK proof for you in the background.
+Confirm: A transaction will pop up in your wallet. Simply approve it to cast your vote securely and privately onto the blockchain.</p>
+            </div>
+        </div>
     </div>
   </section>
   <!-- Page 6 Section (Join Us) -->

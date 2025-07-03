@@ -302,3 +302,33 @@ document.getElementById('signUpBtn').addEventListener('click', async (e) => {
         }
     }
 });
+
+// faq script
+document.addEventListener('DOMContentLoaded', () => {
+  const faqItems = document.querySelectorAll('.faq-item');
+  const answers = document.querySelectorAll('.answer');
+
+  faqItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Remove active class from all items
+      faqItems.forEach(i => i.classList.remove('active'));
+      // Add active class to clicked item
+      item.classList.add('active');
+
+      // Hide all answers
+      answers.forEach(answer => answer.style.display = 'none');
+
+      // Show the corresponding answer
+      const targetId = item.getAttribute('data-target');
+      const targetAnswer = document.getElementById(targetId);
+      if (targetAnswer) {
+        targetAnswer.style.display = 'block';
+      }
+    });
+  });
+
+  // Show the first answer by default
+  if (faqItems.length > 0) {
+    faqItems[0].click();
+  }
+});
