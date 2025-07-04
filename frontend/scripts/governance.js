@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const contractAddress = "0x3922877F1697B0449A51B682620F26bFB325Fa14";
+    const contractAddress = "0xCCCA4ba14594E41F43ec8Ad33155728E7B0e55BC";
     const contractABI = [
         {
             "inputs": [
@@ -131,32 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             "name": "VoterRegistered",
             "type": "event"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "bytes32",
-                    "name": "_commitment",
-                    "type": "bytes32"
-                }
-            ],
-            "name": "addCommitment",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "bytes32[]",
-                    "name": "_commitments",
-                    "type": "bytes32[]"
-                }
-            ],
-            "name": "addCommitmentsInBatch",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
         },
         {
             "inputs": [],
@@ -372,6 +346,19 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             "inputs": [
                 {
+                    "internalType": "bytes32",
+                    "name": "_commitment",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "registerCommitment",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
                     "internalType": "string",
                     "name": "_electionId",
                     "type": "string"
@@ -439,7 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "stateMutability": "nonpayable",
             "type": "function"
         }
-
     ];
 
 

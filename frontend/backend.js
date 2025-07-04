@@ -217,3 +217,22 @@
 
 
 
+
+
+
+ 
+// # VOTER_MASTER_SECRET=some-very-secret-key
+
+
+
+//  SEPOLIA_RPC_URL= https://sepolia.base.org
+//  PRIVATE_KEY="b4eb632a6704896fe7badd7ea357eec389ddae352a7572e9290efab39f59278c"
+//  CONTRACT_ADDRESS=0x3922877F1697B0449A51B682620F26bFB325Fa14  
+// MONGODB_URI_PRODUCTION=mongodb+srv://sikdara477:omikun@cluster0.qyjcazl.mongodb.net/voters
+// MONGODB_URI_TESTING=mongodb+srv://sikdara477:omikun@cluster0.qyjcazl.mongodb.net/voters_testing
+// NODE_ENV=development  # or "production" when on Render
+// SECRET_KEY=univote  # Replace with your actual secret key
+// EMAIL=univote.tech@gmail.com
+// EMAIL_PASS=hjzwyhefqjubxueu
+// GOOGLE_CLIENT_ID=537966024039-fm932ftvjcdc8v7dqmd7g0lnr1pi5och.apps.googleusercontent.com
+//  VOTER_MASTER_SECRET="MySuperSecretKeyForGeneratingVoterSecrets123!@#$%"

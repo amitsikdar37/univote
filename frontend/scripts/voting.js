@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const contractAddress = "0x3922877F1697B0449A51B682620F26bFB325Fa14"; // 🟨 Replace with your deployed ZkpVoting contract
+  const contractAddress = "0xCCCA4ba14594E41F43ec8Ad33155728E7B0e55BC";
   const contractABI = [
     {
       "inputs": [
@@ -119,32 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
       "name": "VoterRegistered",
       "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "_commitment",
-          "type": "bytes32"
-        }
-      ],
-      "name": "addCommitment",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32[]",
-          "name": "_commitments",
-          "type": "bytes32[]"
-        }
-      ],
-      "name": "addCommitmentsInBatch",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
     },
     {
       "inputs": [],
@@ -355,6 +329,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "registerCommitment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -744,9 +731,9 @@ document.addEventListener('DOMContentLoaded', () => {
   //   }
   // }
 
-async function handleVoteProcess() {
+  async function handleVoteProcess() {
     if (selectedCandidateIndex === null) {
-        return alert("Please select a candidate first.");
+      return alert("Please select a candidate first.");
     }
     submitVoteBtn.disabled = true;
 
@@ -762,53 +749,53 @@ async function handleVoteProcess() {
     const commitment = window.publicRegisteredCommitment;
     const secret = window.publicSecret;
     if (!commitment || !secret) {
-        statusMessageEl.textContent = "Could not retrieve commitment. Please check eligibility again.";
-        submitVoteBtn.disabled = false;
-        return;
+      statusMessageEl.textContent = "Could not retrieve commitment. Please check eligibility again.";
+      submitVoteBtn.disabled = false;
+      return;
     }
 
     // ===== Ab Seedhe Final Vote Cast Hoga =====
     statusMessageEl.textContent = "Step 1/1: Generating ZK Proof and submitting vote...";
-    
+
     const nullifierHash = ethers.utils.solidityKeccak256(['bytes32'], [secret]);
-    
+
     // Yahan proofInput taiyaar hoga...
     const proofInput = {
-        a: ['0', '0'],
-        b: [['0', '0'], ['0', '0']],
-        c: ['0', '0'],
-        input: [
-            ethers.BigNumber.from(commitment),
-            ethers.BigNumber.from(nullifierHash),
-            '0',
-            '0'
-        ]
+      a: ['0', '0'],
+      b: [['0', '0'], ['0', '0']],
+      c: ['0', '0'],
+      input: [
+        ethers.BigNumber.from(commitment),
+        ethers.BigNumber.from(nullifierHash),
+        '0',
+        '0'
+      ]
     };
 
     console.log("Submitting vote with ZK proof...");
 
     try {
-        const voteTx = await contract.voteWithZKProof(
-            electionId,
-            proofInput.a,
-            proofInput.b,
-            proofInput.c,
-            proofInput.input,
-            selectedCandidateIndex
-        );
-        await voteTx.wait();
+      const voteTx = await contract.voteWithZKProof(
+        electionId,
+        proofInput.a,
+        proofInput.b,
+        proofInput.c,
+        proofInput.input,
+        selectedCandidateIndex
+      );
+      await voteTx.wait();
 
-        statusMessageEl.textContent = "Vote cast successfully! Thank you.";
-        submitVoteBtn.textContent = "Voted Successfully";
-        submitVoteBtn.disabled = true;
-        
+      statusMessageEl.textContent = "Vote cast successfully! Thank you.";
+      submitVoteBtn.textContent = "Voted Successfully";
+      submitVoteBtn.disabled = true;
+
     } catch (error) {
-        const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
-        statusMessageEl.textContent = `Error: ${reason}`;
-        submitVoteBtn.disabled = false;
-        console.error("Final vote submission failed:", error);
+      const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
+      statusMessageEl.textContent = `Error: ${reason}`;
+      submitVoteBtn.disabled = false;
+      console.error("Final vote submission failed:", error);
     }
-}
+  }
 
 
 
