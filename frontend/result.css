@@ -74,7 +74,10 @@
         }
 
         nav a:hover {
-            color: var(--primary-blue);
+                  
+            color:  #FF00E5;
+        
+
         }
 
         .profile-icon {

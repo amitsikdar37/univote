@@ -65,9 +65,9 @@
         }
 
 
-        header nav a:hover {
+        /* header nav a:hover {
             color: var(--white-color);
-        }
+        } */
 
         header .header-right {
             display: flex;
@@ -107,6 +107,9 @@
             width: 18px;
             height: 18px;
             fill: var(--white-color);
+        }
+        nav a:hover{
+            color:  #FF00E5;
         }
 
         /* Main Content */

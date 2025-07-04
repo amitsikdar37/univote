@@ -6,7 +6,6 @@
     "test": "echo \"No tests yet\" && exit 0",
     "start": "node app.js",
     "dev": "nodemon app.js"
-    
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +19,7 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.5.0",
+    "ethers": "^6.15.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "express-validator": "^7.2.1",

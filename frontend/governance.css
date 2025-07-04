@@ -50,6 +50,10 @@
             text-decoration: none;
             color: inherit;
         }
+        .navbar a:hover,
+.nav-item a:focus {
+  color: #FF00E5;
+}
 
         .navbar .wallet {
             background: black;
