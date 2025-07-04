@@ -468,12 +468,28 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     } else {
       // Enable voting button
+      window.publicRegisteredCommitment = data.publicRegisteredCommitment;
+      window.publicSecret = data.secret;
+
+      try {
+        // Ensure contract and signer are initialized
+        if (!contract || !signer) {
+          statusMessageEl.textContent = "Please connect your wallet first.";
+          return null;
+        }
+        // Register commitment (admin only)
+        const tx = await contract.addCommitment(data.publicRegisteredCommitment);
+        await tx.wait();
+        statusMessageEl.textContent = "Commitment registered on-chain. You can now vote!";
+      } catch (err) {
+        statusMessageEl.textContent = "Failed to register commitment: " + (err.reason || err.message);
+        return null;
+      }
+
       submitVoteBtn.disabled = false;
       submitVoteBtn.textContent = "Select a Candidate";
       statusMessageEl.textContent = "You are eligible to vote!";
       markFailedCriteria([]); // Clear any previous failed criteria
-      window.publicRegisteredCommitment = data.publicRegisteredCommitment;
-      window.publicSecret = data.secret; // <-- store the secret for later use
       return data.publicRegisteredCommitment;
     }
   }
@@ -828,12 +844,15 @@ async function handleVoteProcess() {
     // Fetch and update the topic from backend
     await updateElectionTopic(enteredId);
     await updateElectionCriteria(enteredId);
+
+    // Automatically check eligibility and register commitment
+    await checkEligibilityAndUpdateUI(enteredId);
+
     // Optionally, if wallet is already connected, reload details
     if (provider && signer && contract) {
       await loadElectionDetails(contract);
     }
     loadingMessage.style.display = 'none';
-    await checkEligibilityAndUpdateUI(electionId);
   });
 
   connectWalletBtn.addEventListener('click', connectAndLoad);
