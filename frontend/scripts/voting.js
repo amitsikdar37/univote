@@ -457,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Enable voting button
       window.publicRegisteredCommitment = data.publicRegisteredCommitment;
       window.publicSecret = data.secret;
+      window.publicAttestationNonce = data.attestationNonce; // Store attestation nonce globally
 
       try {
         // Ensure contract and signer are initialized
@@ -464,10 +465,19 @@ document.addEventListener('DOMContentLoaded', () => {
           statusMessageEl.textContent = "Please connect your wallet first.";
           return null;
         }
-        // Register commitment (admin only)
-        const tx = await contract.addCommitment(data.publicRegisteredCommitment);
-        await tx.wait();
-        statusMessageEl.textContent = "Commitment registered on-chain. You can now vote!";
+        console.log("Checking if commitment is registered:", data.publicRegisteredCommitment, contract ? "Contract ready" : "Contract not ready");
+
+        const alreadyRegistered = await contract.isRegistered(data.publicRegisteredCommitment);
+        if (!alreadyRegistered) {
+          console.log("Registering commitment on-chain:", data.publicRegisteredCommitment);
+          const tx = await contract.registerCommitment(data.publicRegisteredCommitment);
+          await tx.wait();
+          statusMessageEl.textContent = "Commitment registered on-chain. You can now vote!";
+        } else {
+          statusMessageEl.textContent = "Commitment already registered. You can now vote!";
+        }
+        console.log("alreadyRegistered value:", alreadyRegistered);
+
       } catch (err) {
         statusMessageEl.textContent = "Failed to register commitment: " + (err.reason || err.message);
         return null;
@@ -746,6 +756,14 @@ document.addEventListener('DOMContentLoaded', () => {
   //     console.error("Final vote submission failed:", error);
   //   }
   // }
+    async function loadProofAndPublicSignals() {
+      const proofRes = await fetch("/proof.json");
+      const publicRes = await fetch("/public.json");
+      const proof = await proofRes.json();
+      const publicSignals = await publicRes.json();
+      return { proof, publicSignals };
+    }
+
 
   async function handleVoteProcess() {
     if (selectedCandidateIndex === null) {
@@ -764,43 +782,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // Backend se mili eligibility aur commitment ki jaankari prapt karna
     const commitment = window.publicRegisteredCommitment;
     const secret = window.publicSecret;
-    if (!commitment || !secret) {
-      statusMessageEl.textContent = "Could not retrieve commitment. Please check eligibility again.";
+    const attestationNonce = window.publicAttestationNonce;
+    if (!commitment || !secret || !attestationNonce) {
+      statusMessageEl.textContent = "Missing eligibility data. Please check eligibility again.";
       submitVoteBtn.disabled = false;
       return;
     }
 
-    // ===== Ab Seedhe Final Vote Cast Hoga =====
-    statusMessageEl.textContent = "Step 1/1: Generating ZK Proof and submitting vote...";
+    const publicClaim = ethers.BigNumber.from(ethers.utils.keccak256(ethers.utils.toUtf8Bytes(electionId)));
+    const publicAttestationNonce = ethers.BigNumber.from(attestationNonce);
+    const publicRegisteredCommitment = ethers.BigNumber.from(commitment);
 
-    const nullifierHash = ethers.utils.solidityKeccak256(['bytes32'], [secret]);
+    let proof, publicSignals;
+    try {
+      ({ proof, publicSignals } = await loadProofAndPublicSignals());
+    } catch (err) {
+      statusMessageEl.textContent = "Failed to load ZK proof or public signals.";
+      submitVoteBtn.disabled = false;
+      return;
+    }
+    // Format input array for contract
+    const formattedPublicSignals = [
+      publicClaim,
+      publicAttestationNonce,
+      publicRegisteredCommitment,
+      0 // Padding for 4th input
+    ];
 
     // Yahan proofInput taiyaar hoga...
-    const proofInput = {
-      a: ['0', '0'],
-      b: [['0', '0'], ['0', '0']],
-      c: ['0', '0'],
-      input: [
-        ethers.BigNumber.from(commitment),
-        ethers.BigNumber.from(nullifierHash),
-        '0',
-        '0'
-      ]
-    };
-
-    console.log("Submitting vote with ZK proof...");
-
     try {
+      statusMessageEl.textContent = "Submitting vote with ZK proof...";
+
       const voteTx = await contract.voteWithZKProof(
         electionId,
-        proofInput.a,
-        proofInput.b,
-        proofInput.c,
-        proofInput.input,
+        [proof.pi_a[0], proof.pi_a[1]],
+        [
+          [proof.pi_b[0][0], proof.pi_b[0][1]],
+          [proof.pi_b[1][0], proof.pi_b[1][1]]
+        ],
+        [proof.pi_c[0], proof.pi_c[1]],
+        formattedPublicSignals,
         selectedCandidateIndex
       );
       await voteTx.wait();
-
       statusMessageEl.textContent = "Vote cast successfully! Thank you.";
       submitVoteBtn.textContent = "Voted Successfully";
       submitVoteBtn.disabled = true;

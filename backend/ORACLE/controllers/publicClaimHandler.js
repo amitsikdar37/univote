@@ -30,6 +30,12 @@ function generateCommitmentFromSecret(userSecret) {
     return zeroPadValue(hexHash, 32);
 }
 
+function generateAttestationNonce() {
+  // 32 bytes = 256 bits of entropy, hex encoded
+  return '0x' + crypto.randomBytes(32).toString('hex');
+}
+
+
 
 // =================================================================
 // ===== SIMPLIFIED `checkPublicClaim` FUNCTION (FOR TESTING) =====
@@ -73,6 +79,7 @@ if (!email) {
             eligible: true,
             publicRegisteredCommitment: commitment,
             secret: userSecret,
+            attestationNonce: generateAttestationNonce(),
         });
 
     } catch (error) {
