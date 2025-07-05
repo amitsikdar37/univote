@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: rgba(0, 0, 80, 0.7);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #fff;
+}
+
+.about-container {
+    background: rgba(0, 0, 50, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #9370DB; /* Matching the purple hue from the image */
+    margin-bottom: 20px;
+    border-bottom: 2px solid #9370DB;
+    padding-bottom: 10px;
+}
+
+.main-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #ddd;
+}
+
+.feature-section {
+    margin-bottom: 30px;
+}
+
+.feature-section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.feature-section p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-container {
+        padding: 20px;
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .main-description {
+        font-size: 16px;
+    }
+
+    .feature-section h2 {
+        font-size: 20px;
+    }
+
+    .feature-section p {
+        font-size: 14px;
+    }
+}

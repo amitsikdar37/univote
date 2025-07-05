@@ -14,7 +14,7 @@ html, body {
   display: flex;
   width: 100%;
   padding: 20px 40px;
-  justify-content: space-evenly;
+  justify-content: space-between; /* Changed to space-between for proper logo and links positioning */
   align-items: center;
   background: linear-gradient(135deg, #f0f4ff, #e0eaff);
   background: transparent;
@@ -24,6 +24,7 @@ html, body {
   /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
   position: fixed;
   z-index: 1000;
+  box-sizing: border-box; /* Added to prevent padding issues */
 }
 
 .navbar-logo {
@@ -31,8 +32,7 @@ html, body {
   align-items: center;
   font-family: 'DM Sans', sans-serif;
   color: black;
-  justify-items: left;
-  margin-right: 1100px;
+  margin-right: auto; /* Pushes logo to the left corner */
 }
 
 .burger-menu {
@@ -47,12 +47,12 @@ html, body {
 
 .nav-links {
   display: flex;
-  gap: 32px;
+  gap: 40px; /* Adjusted gap for better spacing */
   list-style: none;
   margin: 0;
   padding: 0;
   align-items: center;
-  margin-right: 70px;
+  margin-left: auto; /* Pushes links to the right */
 }
 
 .nav-item a {
@@ -718,7 +718,7 @@ aspect-ratio: 64.15/17.00;
   display: flex;
   width: 100%;
   max-width: 1200px;
-  height: 60vh;
+  height: 95vh;
   margin: 20px auto;
 }
 
@@ -735,6 +735,7 @@ aspect-ratio: 64.15/17.00;
   width: 40%;
   margin-right: 20px;
   display: flex;
+  margin-top: 100px;
   flex-direction: column;
     background: linear-gradient(135deg, #f0f4ff, #e0eaff);
 
@@ -818,7 +819,7 @@ background: rgba(123, 136, 141, 0.47);
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1268px) {
   .faq-container {
     flex-direction: column;
     height: auto;
@@ -1053,7 +1054,7 @@ background: rgba(123, 136, 141, 0.47);
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .burger-menu {
     display: block;
   }
