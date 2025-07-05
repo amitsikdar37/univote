@@ -1,7 +1,7 @@
 
 
 
-const { ethers } = require("ethers");
+const { hexlify, zeroPadValue } = require("ethers");
 const circomlib = require('circomlibjs');
 const crypto = require('crypto');
 require('dotenv').config();
@@ -14,6 +14,7 @@ let poseidonInstance;
 function generateUserSecret(userId) {
     const masterSecret = process.env.VOTER_MASTER_SECRET;
     if (!masterSecret) {
+        
         throw new Error("VOTER_MASTER_SECRET environment variable not set!");
     }
     const hash = crypto.createHmac('sha256', masterSecret)
@@ -25,9 +26,15 @@ function generateUserSecret(userId) {
 function generateCommitmentFromSecret(userSecret) {
     if (!poseidonInstance) throw new Error("Poseidon has not been initialized");
     const hashOutput = poseidonInstance([BigInt(userSecret)]);
-    const hexHash = ethers.hexlify(hashOutput);
-    return ethers.zeroPadValue(hexHash, 32);
+    const hexHash = hexlify(hashOutput);
+    return zeroPadValue(hexHash, 32);
 }
+
+function generateAttestationNonce() {
+  // 32 bytes = 256 bits of entropy, hex encoded
+  return '0x' + crypto.randomBytes(32).toString('hex');
+}
+
 
 
 // =================================================================
@@ -72,6 +79,7 @@ if (!email) {
             eligible: true,
             publicRegisteredCommitment: commitment,
             secret: userSecret,
+            attestationNonce: generateAttestationNonce(),
         });
 
     } catch (error) {

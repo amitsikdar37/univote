@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const contractAddress = "0x3922877F1697B0449A51B682620F26bFB325Fa14"; // 🟨 Replace with your deployed ZkpVoting contract
+  const contractAddress = "0xCCCA4ba14594E41F43ec8Ad33155728E7B0e55BC";
   const contractABI = [
     {
       "inputs": [
@@ -119,32 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
       "name": "VoterRegistered",
       "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "_commitment",
-          "type": "bytes32"
-        }
-      ],
-      "name": "addCommitment",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32[]",
-          "name": "_commitments",
-          "type": "bytes32[]"
-        }
-      ],
-      "name": "addCommitmentsInBatch",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
     },
     {
       "inputs": [],
@@ -360,6 +334,19 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       "inputs": [
         {
+          "internalType": "bytes32",
+          "name": "_commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "registerCommitment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "string",
           "name": "_electionId",
           "type": "string"
@@ -468,12 +455,38 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     } else {
       // Enable voting button
+      window.publicRegisteredCommitment = data.publicRegisteredCommitment;
+      window.publicSecret = data.secret;
+      window.publicAttestationNonce = data.attestationNonce; // Store attestation nonce globally
+
+      try {
+        // Ensure contract and signer are initialized
+        if (!contract || !signer) {
+          statusMessageEl.textContent = "Please connect your wallet first.";
+          return null;
+        }
+        console.log("Checking if commitment is registered:", data.publicRegisteredCommitment, contract ? "Contract ready" : "Contract not ready");
+
+        const alreadyRegistered = await contract.isRegistered(data.publicRegisteredCommitment);
+        if (!alreadyRegistered) {
+          console.log("Registering commitment on-chain:", data.publicRegisteredCommitment);
+          const tx = await contract.registerCommitment(data.publicRegisteredCommitment);
+          await tx.wait();
+          statusMessageEl.textContent = "Commitment registered on-chain. You can now vote!";
+        } else {
+          statusMessageEl.textContent = "Commitment already registered. You can now vote!";
+        }
+        console.log("alreadyRegistered value:", alreadyRegistered);
+
+      } catch (err) {
+        statusMessageEl.textContent = "Failed to register commitment: " + (err.reason || err.message);
+        return null;
+      }
+
       submitVoteBtn.disabled = false;
       submitVoteBtn.textContent = "Select a Candidate";
       statusMessageEl.textContent = "You are eligible to vote!";
       markFailedCriteria([]); // Clear any previous failed criteria
-      window.publicRegisteredCommitment = data.publicRegisteredCommitment;
-      window.publicSecret = data.secret; // <-- store the secret for later use
       return data.publicRegisteredCommitment;
     }
   }
@@ -743,10 +756,18 @@ document.addEventListener('DOMContentLoaded', () => {
   //     console.error("Final vote submission failed:", error);
   //   }
   // }
+    async function loadProofAndPublicSignals() {
+      const proofRes = await fetch("/proof.json");
+      const publicRes = await fetch("/public.json");
+      const proof = await proofRes.json();
+      const publicSignals = await publicRes.json();
+      return { proof, publicSignals };
+    }
 
-async function handleVoteProcess() {
+
+  async function handleVoteProcess() {
     if (selectedCandidateIndex === null) {
-        return alert("Please select a candidate first.");
+      return alert("Please select a candidate first.");
     }
     submitVoteBtn.disabled = true;
 
@@ -761,54 +782,60 @@ async function handleVoteProcess() {
     // Backend se mili eligibility aur commitment ki jaankari prapt karna
     const commitment = window.publicRegisteredCommitment;
     const secret = window.publicSecret;
-    if (!commitment || !secret) {
-        statusMessageEl.textContent = "Could not retrieve commitment. Please check eligibility again.";
-        submitVoteBtn.disabled = false;
-        return;
+    const attestationNonce = window.publicAttestationNonce;
+    if (!commitment || !secret || !attestationNonce) {
+      statusMessageEl.textContent = "Missing eligibility data. Please check eligibility again.";
+      submitVoteBtn.disabled = false;
+      return;
     }
 
-    // ===== Ab Seedhe Final Vote Cast Hoga =====
-    statusMessageEl.textContent = "Step 1/1: Generating ZK Proof and submitting vote...";
-    
-    const nullifierHash = ethers.utils.solidityKeccak256(['bytes32'], [secret]);
-    
-    // Yahan proofInput taiyaar hoga...
-    const proofInput = {
-        a: ['0', '0'],
-        b: [['0', '0'], ['0', '0']],
-        c: ['0', '0'],
-        input: [
-            ethers.BigNumber.from(commitment),
-            ethers.BigNumber.from(nullifierHash),
-            '0',
-            '0'
-        ]
-    };
+    const publicClaim = ethers.BigNumber.from(ethers.utils.keccak256(ethers.utils.toUtf8Bytes(electionId)));
+    const publicAttestationNonce = ethers.BigNumber.from(attestationNonce);
+    const publicRegisteredCommitment = ethers.BigNumber.from(commitment);
 
-    console.log("Submitting vote with ZK proof...");
-
+    let proof, publicSignals;
     try {
-        const voteTx = await contract.voteWithZKProof(
-            electionId,
-            proofInput.a,
-            proofInput.b,
-            proofInput.c,
-            proofInput.input,
-            selectedCandidateIndex
-        );
-        await voteTx.wait();
-
-        statusMessageEl.textContent = "Vote cast successfully! Thank you.";
-        submitVoteBtn.textContent = "Voted Successfully";
-        submitVoteBtn.disabled = true;
-        
-    } catch (error) {
-        const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
-        statusMessageEl.textContent = `Error: ${reason}`;
-        submitVoteBtn.disabled = false;
-        console.error("Final vote submission failed:", error);
+      ({ proof, publicSignals } = await loadProofAndPublicSignals());
+    } catch (err) {
+      statusMessageEl.textContent = "Failed to load ZK proof or public signals.";
+      submitVoteBtn.disabled = false;
+      return;
     }
-}
+    // Format input array for contract
+    const formattedPublicSignals = [
+      publicClaim,
+      publicAttestationNonce,
+      publicRegisteredCommitment,
+      0 // Padding for 4th input
+    ];
+
+    // Yahan proofInput taiyaar hoga...
+    try {
+      statusMessageEl.textContent = "Submitting vote with ZK proof...";
+
+      const voteTx = await contract.voteWithZKProof(
+        electionId,
+        [proof.pi_a[0], proof.pi_a[1]],
+        [
+          [proof.pi_b[0][0], proof.pi_b[0][1]],
+          [proof.pi_b[1][0], proof.pi_b[1][1]]
+        ],
+        [proof.pi_c[0], proof.pi_c[1]],
+        formattedPublicSignals,
+        selectedCandidateIndex
+      );
+      await voteTx.wait();
+      statusMessageEl.textContent = "Vote cast successfully! Thank you.";
+      submitVoteBtn.textContent = "Voted Successfully";
+      submitVoteBtn.disabled = true;
+
+    } catch (error) {
+      const reason = error.reason || (error.data ? error.data.message : "Final vote failed.");
+      statusMessageEl.textContent = `Error: ${reason}`;
+      submitVoteBtn.disabled = false;
+      console.error("Final vote submission failed:", error);
+    }
+  }
 
 
 
@@ -828,12 +855,15 @@ async function handleVoteProcess() {
     // Fetch and update the topic from backend
     await updateElectionTopic(enteredId);
     await updateElectionCriteria(enteredId);
+
+    // Automatically check eligibility and register commitment
+    await checkEligibilityAndUpdateUI(enteredId);
+
     // Optionally, if wallet is already connected, reload details
     if (provider && signer && contract) {
       await loadElectionDetails(contract);
     }
     loadingMessage.style.display = 'none';
-    await checkEligibilityAndUpdateUI(electionId);
   });
 
   connectWalletBtn.addEventListener('click', connectAndLoad);

@@ -35,15 +35,30 @@
 
 
 
- require("@nomicfoundation/hardhat-toolbox");
-require("dotenv").config(); // make sure dotenv is loaded
+//  require("@nomicfoundation/hardhat-toolbox");
+// require("dotenv").config(); // make sure dotenv is loaded
+
+// module.exports = {
+//   solidity: "0.8.24",
+//   networks: {
+//     basesepolia: {
+//       url: `https://sepolia.base.org`, // official Base Sepolia RPC
+//       accounts: [process.env.PRIVATE_KEY], // ⚠️ define in .env file
+//     },
+//   },
+// };
+
+
+
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
 module.exports = {
   solidity: "0.8.24",
   networks: {
-    basesepolia: {
-      url: `https://sepolia.base.org`, // official Base Sepolia RPC
-      accounts: [process.env.PRIVATE_KEY], // ⚠️ define in .env file
+    baseSepolia: {
+       url: `https://sepolia.base.org`, // Base Sepolia RPC
+      accounts: [process.env.PRIVATE_KEY],
     },
   },
 };
