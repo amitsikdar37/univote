@@ -890,10 +890,6 @@
 
 
 
-
-
-
-
 // governance.js (Cleaned Version - No ZKP, No Commitment)
 
 import { BACKEND_URL } from "../config.js";
@@ -930,9 +926,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('CRITICAL ERROR: Ethers.js not found.');
         return;
     }
-
-    // const contractAddress = "0x0e01b6887CEF7770144297bdfc79C2335BF09F62";
-    // const contractABI = [ /* your original ABI here, but you can remove voteWithZKProof, isRegistered, commitments, registerCommitment */ ];
     const contractAddress = "0x0e01b6887CEF7770144297bdfc79C2335BF09F62"; // ← update this
     const contractABI = [{
         "inputs": [
@@ -1271,10 +1264,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const connectWalletBtn = document.getElementById('connectWalletBtn');
     const startVotingBtn = document.getElementById('startVotingBtn');
     const endVotingBtn = document.getElementById('endVotingBtn');
+    const addCandidateBtn = document.getElementById('addCandidateBtn');
 
     connectWalletBtn.addEventListener('click', connectWallet);
     startVotingBtn.addEventListener('click', startElection);
     endVotingBtn.addEventListener('click', endElection);
+    addCandidateBtn.addEventListener('click', addCandidate);
+
+    function addCandidate() {
+        const box = document.getElementById("candidates");
+        if (!box) {
+            console.warn("Missing 'candidates' container");
+            return;
+        }
+        const input = document.createElement("input");
+        input.className = "candidate-input";
+        input.placeholder = `Candidate ${box.children.length + 1} name...`;
+        box.appendChild(input);
+    }
 
     async function connectWallet() {
         if (!window.ethereum) return alert('Install MetaMask first.');
@@ -1347,10 +1354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function trackTransaction(txHash) {
         if (!provider) return;
 
-        // Step 1: Transaction signed
         setStepperStatus(1); setStepTimestamp(1, new Date().toLocaleString());
-
-        // Step 2: Waiting for confirmation
         setStepperStatus(2); setStepTimestamp(2, new Date().toLocaleString());
 
         try {
@@ -1376,5 +1380,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById(`ts-${step}`);
         if (el) el.textContent = ts;
     }
-});
 
+    // Initial candidate inputs
+    addCandidate();
+    addCandidate();
+});
