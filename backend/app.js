@@ -18,7 +18,7 @@ const tokenVerifyRouter = require('./authenticate/tokenVerificationRouter');
 const publicClaimRouter = require('./ORACLE/routers/publicClaim');
 const showUsernameRouter = require('./router/username');
 const egcSaver = require('./ORACLE/routers/egcRouter');
-
+const aclinkRouter = require('./router/acLinkRouter');
 
 
 const app = express();
@@ -83,6 +83,7 @@ app.use(tokenVerifyRouter);
 app.use(publicClaimRouter);
 app.use(showUsernameRouter);
 app.use(egcSaver);
+app.use(aclinkRouter);
 
 app.use((req, res, next) => {
   res.setHeader(

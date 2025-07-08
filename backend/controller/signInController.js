@@ -45,6 +45,8 @@ exports.signIn = [
 
       sendJwtToken(res, { email, username });
 
+      req.session.formData = { username, email, password };
+
       res.status(200).json({ 
         message: 'SignIn successful'
       });

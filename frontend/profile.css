@@ -307,3 +307,82 @@ body {
 .footer-social a:hover {
   color: #fff;
 }
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0; top: 0; width: 100%; height: 100%;
+  overflow: auto; background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: #fff; margin: 10% auto; padding: 20px;
+  border: 1px solid #888; width: 300px; border-radius: 8px;
+  text-align: center;
+}
+.close {
+  color: #aaa; float: right; font-size: 28px; font-weight: bold;
+  cursor: pointer;
+}
+.close:hover { color: #000; }
+.modal-header {
+  font-size: 24px; margin-bottom: 20px; color: #333;
+}
+
+/* Style input boxes inside modals */
+.modal-content input[type="email"],
+.modal-content input[type="text"] {
+  width: 90%;
+  padding: 10px 12px;
+  margin: 15px 0 20px 0;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+  outline: none;
+  background: #f9f9f9;
+}
+
+.modal-content input[type="email"]:focus,
+.modal-content input[type="text"]:focus {
+  border-color: #a100ff;
+  background: #fff;
+}
+
+/* Style buttons inside modals */
+.modal-content button {
+  padding: 10px 22px;
+  margin: 0 6px;
+  background: linear-gradient(90deg, #a100ff 0%, #ff00e5 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(161,0,255,0.08);
+}
+
+.modal-content button:hover {
+  background: linear-gradient(90deg, #ff00e5 0%, #a100ff 100%);
+  box-shadow: 0 4px 16px rgba(255,0,229,0.13);
+}
+
+.modal-header {
+  font-size: 22px;
+  font-weight: 700;
+  color: #a100ff;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  background: linear-gradient(90deg, #a100ff 0%, #ff00e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.modal-content p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
