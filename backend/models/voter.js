@@ -24,9 +24,9 @@ const voterSchema = new mongoose.Schema({
     sparse: true
   },
   linkedAccounts: {
-    google: { type: Boolean, default: false },
-    iitp: { type: Boolean, default: false },
-    x: { type: Boolean, default: false },
+    google: { type: String, default: null },
+    iitp: { type: String, default: null },
+    x: { type: String, default: null },
   },
 }, { timestamps: true });
 

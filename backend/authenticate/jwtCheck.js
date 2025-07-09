@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const Voter = require('../models/voter'); // Assuming you have a Voter model defined
 
 const sendJwtToken = async (res, payload) => {
     const isProduction = process.env.NODE_ENV === 'production';
@@ -59,7 +60,13 @@ const getUsername = async (req, res) => {
     }
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        res.status(200).json({ username: decoded.username });
+        const email = decoded.email;
+        const user = await Voter.findOne({ email });
+         if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+        res.status(200).json({ username: user.username, linkedAccounts: user.linkedAccounts });
+
     } catch (err) {
         if (err.name === 'TokenExpiredError') {
             return res.status(401).json({ message: 'Token expired. Please log in again.' });

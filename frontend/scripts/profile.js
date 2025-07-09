@@ -1,7 +1,17 @@
 import { BACKEND_URL } from "../config.js";
 
+window.openEmailModal = openEmailModal;
+window.closeModal = closeModal;
+window.sendCodeToEmail = sendCodeToEmail;
+window.verifyOTP = verifyOTP;
+window.resendOTP = resendOTP;
+
 function updateUsername() {
     const showUsername = document.getElementById('span-username');
+    const gmailStatus = document.getElementById('gmail-status');
+    const iitpStatus = document.getElementById('iitp-status');
+    const telegramStatus = document.getElementById('telegram-status');
+    const xStatus = document.getElementById('x-status');
 
     try {
         fetch(`${BACKEND_URL}/api/Username`, {
@@ -27,9 +37,34 @@ function updateUsername() {
                 showUsername.innerText = '';
                 showUsername.style.display = 'none';
             }
+            if (data.linkedAccounts) {
+              gmailStatus.innerText = data.linkedAccounts.google
+                ? `Gmail account linked: ${data.linkedAccounts.google}`
+                : "Link your gmail account here";
+              iitpStatus.innerText = data.linkedAccounts.iitp
+                ? `IIT-P Email linked: ${data.linkedAccounts.iitp}`
+                : "Link your IIT-P Email here";
+              xStatus.innerText = data.linkedAccounts.x
+                ? `X account linked: ${data.linkedAccounts.x}`
+                : "Link your X account here";
+              // If you add Telegram to your schema, update here as well
+              telegramStatus.innerText = data.linkedAccounts.telegram
+                ? `Telegram account linked: ${data.linkedAccounts.telegram}`
+                : "Link your Telegram account here";
+            } else {
+              // Default text if linkedAccounts not present
+              gmailStatus.innerText = "Link your gmail account here";
+              iitpStatus.innerText = "Link your IIT-P Email here";
+              xStatus.innerText = "Link your X account here";
+              telegramStatus.innerText = "Link your Telegram account here";
+            }
         })
         .catch(error => {
             console.error('Error fetching username:', error);
+            gmailStatus.innerText = "Link your gmail account here";
+            iitpStatus.innerText = "Link your IIT-P Email i'd here";
+            xStatus.innerText = "Link your X account here";
+            telegramStatus.innerText = "Link your Telegram account here";
         });
     } catch (error) {
         console.error('Error in DOMContentLoaded:', error);
@@ -62,32 +97,99 @@ window.addEventListener('pageshow', function(event) {
     }
 });
 
-function sendCode(type) {
-    let email = prompt("Enter your email:");
-    if (!email) return;
+let currentAccountType = '';
 
-    // For IITP, validate email ends with @iitp.ac.in
-    if (type === 'iitp' && !email.endsWith('@iitp.ac.in')) {
-        document.getElementById('iitp-status').textContent = 'Invalid IITP email!';
-        return;
-    }
+function openEmailModal(accountType) {
+  currentAccountType = accountType;
+  document.getElementById('emailModal').style.display = 'block';
+}
 
-    fetch(`${BACKEND_URL}/api/accounts/send-otp`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ type, email })
-    },
-    { credentials: 'include' })
-    .then(res => res.json())
-    .then(data => {
-        let statusId = type === 'gmail' ? 'gmail-status' : type === 'iitp' ? 'iitp-status' : 'x-status';
-        if (data.success) {
-            document.getElementById(statusId).textContent = `OTP sent to ${email}. Please check your inbox.`;
-            setTimeout(() => {
-                window.location.href = './otp.html';
-            }, 3000); // Redirect after 3 seconds
-        } else {
-            document.getElementById(statusId).textContent = data.message;
-        }
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+
+async function sendCodeToEmail() {
+  const email = document.getElementById('userEmail').value;
+  if (!email) {
+    alert('Please enter your email.');
+    return;
+  }
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/accounts/send-otp`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        type: currentAccountType,
+        email: email
+      })
     });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Success: show OTP modal
+      closeModal('emailModal');
+      document.getElementById('otpModal').style.display = 'block';
+      alert(data.message || 'OTP sent to your email.');
+    } else {
+      // Error: show error message
+      alert(data.error || 'Failed to send OTP.');
+    }
+  } catch (error) {
+    alert('An error occurred while sending the code.');
+    console.error('Error sending code:', error);
+  }
+}
+async function verifyOTP() {
+  const email = document.getElementById('userEmail').value; // Use the same email entered earlier
+  const otp = document.getElementById('userOTP').value;
+
+  if (!email) {
+    alert('Email is missing. Please re-enter your email.');
+    return;
+  }
+  if (!otp) {
+    alert('Please enter the OTP.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/accounts/verify-otp`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        otp: otp,
+        type: currentAccountType // Pass the account type
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(data.message || 'OTP verified successfully!');
+      closeModal('otpModal');
+      await updateUsername(); // Refresh the username and linked accounts
+      // Optionally, update UI to show account is linked
+    } else {
+      alert(data.error || 'Failed to verify OTP.');
+    }
+  } catch (error) {
+    alert('An error occurred while verifying the OTP.');
+    console.error('Error verifying OTP:', error);
+  }
+}
+
+
+function resendOTP() {
+  // TODO: Resend OTP via backend API
+  alert('OTP resent!');
 }

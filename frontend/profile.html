@@ -70,23 +70,47 @@
        <div class="account-links">
   <h3>Link Your Accounts Here</h3>
   <div class="link-item">
-    <span>Link your gmail account here</span>
-    <button class="sendCode" onclick="sendCode('gmail')">Send code</button>
+    <span id="gmail-status">Link your gmail account here</span>
+    <button class="sendCode" onclick="openEmailModal('gmail')">Send code</button>
   </div>
   <div class="link-item">
-    <span>Link your IIT-P Email i'd here</span>
-    <button class="sendCode" onclick="sendCode('iitp')">Send code</button>
+    <span id="iitp-status">Link your IIT-P Email id here</span>
+    <button class="sendCode" onclick="openEmailModal('iitp')">Send code</button>
   </div>
   <div class="link-item">
-    <span>Link your telegram account here</span>
+    <span id="telegram-status">Link your telegram account here</span>
     <button>Authorise</button>
   </div>
   <div class="link-item">
-    <span>Link your X account here</span>
+    <span id="x-status">Link your X account here</span>
     <button>Authorise</button>
   </div>
 </div>
 
+<!-- Email Modal -->
+<div id="emailModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('emailModal')">&times;</span>
+    <h2 class="modal-header">Link Email Account</h2>
+    <h4>Enter your Email</h4>
+    <input type="email" id="userEmail" placeholder="Enter your email" required>
+    <button onclick="sendCodeToEmail()">Send code</button>
+  </div>
+</div>
+
+<!-- OTP Modal -->
+<div id="otpModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('otpModal')">&times;</span>
+    <h2 class="modal-header">Verify Your Email</h2>
+    <h4>Enter OTP</h4>
+    <input type="text" id="userOTP" placeholder="Enter OTP" required>
+    <button onclick="verifyOTP()">Verify</button>
+    <button onclick="resendOTP()">Resend OTP</button>
+  </div>
+</div>
+
+  
     
   <!-- Footer Section -->
   <footer class="footer">
