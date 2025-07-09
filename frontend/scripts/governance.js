@@ -2003,6 +2003,8 @@ async function connectWallet() {
 }
 
 async function startElection() {
+    resetStepper();
+    
     const topic = document.getElementById("votingTopic").value;
     const duration = document.getElementById("timerInput").value;
     const candidates = Array.from(document.querySelectorAll(".candidate-input"))
@@ -2011,9 +2013,15 @@ async function startElection() {
 
     if (!topic || !duration || candidates.length < 2) return alert("Fill topic, duration & at least 2 candidates");
 
+    updateStep(1, null, Date.now());
+
     try {
         const tx = await contract.createElection(topic, duration);
+        updateStep(2, null, Date.now());
+        updateStep(3, null, Date.now());
         await tx.wait();
+
+        updateStep(4, null, Date.now());
 
         const allIds = await contract.getAllElectionIds();
         currentElectionId = allIds[allIds.length - 1];
@@ -2116,3 +2124,28 @@ function copyVotingLink() {
     const voteUrl = `${window.location.origin}/vote.html?electionId=${currentElectionId}`;
     navigator.clipboard.writeText(voteUrl).then(() => alert("Copied to clipboard!"));
 }
+
+function updateStep(stepNum, status, timestamp = null) {
+  for (let i = 1; i <= 4; i++) {
+    const step = document.getElementById(`step-${i}`);
+    step.classList.remove("active", "completed");
+    if (i < stepNum) step.classList.add("completed");
+    if (i === stepNum) step.classList.add("active");
+  }
+  if (stepNum === 4) {
+    const step = document.getElementById("step-4");
+    step.classList.add("completed");
+  }
+  if (timestamp) {
+    document.getElementById(`ts-${stepNum}`).textContent = new Date(timestamp).toLocaleTimeString();
+  }
+}
+
+function resetStepper() {
+  for (let i = 1; i <= 4; i++) {
+    const step = document.getElementById(`step-${i}`);
+    step.classList.remove("active", "completed");
+    document.getElementById(`ts-${i}`).textContent = "";
+  }
+}
+
