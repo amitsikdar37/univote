@@ -40,8 +40,8 @@ html, body {
             background-color: #000000;
             padding: 7px;
             border-radius: 50px; /* Fully rounded ends */
-            box-shadow: 0 1.5px 2px #0206ff;
-            margin-left: 360px;
+            /* box-shadow: 0 1.5px 2px #0206ff; */
+            margin-left: 400px;
         }
 
  .blinking-dot {

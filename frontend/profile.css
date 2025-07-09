@@ -18,7 +18,7 @@ body {
   background: rgba(169, 183, 238, 0.55);
   backdrop-filter: blur(8px);
   padding: 10px 20px;
-  height: 60px;
+  height: 50px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 100%;
   flex-shrink: 0;
@@ -34,7 +34,7 @@ body {
   color: black;
   text-decoration: none;
   margin: 0 15px;
-  font-size: 26px;
+  font-size: 22px;
 }
 
 .navbar .nav-links a:hover {
@@ -44,7 +44,7 @@ body {
 
 .navbar .buttons button {
   background-color: #000;
-  font-size: large;
+  font-size: 22px;
   color: white;
   border: none;
   padding: 5px 15px;
@@ -77,7 +77,7 @@ body {
 
 .profile-info {
   background: rgba(0, 0, 50, 0.7);
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 20px;
   margin-top: 50px;
   margin-bottom: 20px;

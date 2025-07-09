@@ -10,65 +10,109 @@
             background: linear-gradient(188.64deg, #E8EDFF 39.84%, #183EC2 92.29%);
 
         }
+/* Navbar */
+.navbar {
+  display: flex;
+  width: 100%;
+  padding: 20px 40px;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  box-sizing: border-box;
+}
 
-        /* Navbar */
-        .navbar {
-            padding: 10px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            /* position: fixed; */
-        }
+.navbar .logo {
+  font-weight: bold;
+  font-size: 22px;
+  color: #333;
+  display: flex;
+  align-items: center; /* Ensure vertical alignment */
+}
 
-        .navbar .logo {
-            font-weight: bold;
-            font-size: 22px;
-            color: #333;
-        }
+.navbar .logo span {
+  background: linear-gradient(to right, #ff00cc, #3333ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-        .navbar .logo span {
-            background: linear-gradient(to right, #ff00cc, #3333ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.navbar ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the nav items */
+  gap: 20px;
+  padding: 0;
+  margin: 0 auto; /* Center the ul within the navbar */
+  font-family: sans-serif;
+  flex-grow: 1; /* Allow ul to take available space for centering */
+  max-width: 50%; /* Restrict width to prevent overlap */
+}
 
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            padding: 0;
-            margin: 0;
-            font-weight: bolder;
+.navbar ul li {
+  font-size: 16px;
+  cursor: pointer;
+}
 
-        }
+.navbar ul li a {
+  text-decoration: none;
+  color: inherit;
+}
 
-        .navbar ul li {
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        .navbar ul li a {
-            text-decoration: none;
-            color: inherit;
-        }
-        .navbar a:hover,
+.navbar a:hover,
 .nav-item a:focus {
   color: #FF00E5;
 }
 
-        .navbar .wallet {
-            background: black;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+.navbar .wallet {
+  background: black;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center; /* Ensure vertical alignment */
+}
 
+/* Grid Layout */
+.container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  border: 14px solid rgba(239, 240, 246, 0.45);
+  background: rgba(150, 150, 150, 0.20);
+  border-radius: 50px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    margin-top: 80px;
+  }
+  .navbar {
+    padding: 15px 20px;
+  }
+  .navbar ul {
+    display: none; /* Hide for simplicity on mobile */
+  }
+  .navbar .wallet {
+    margin-left: 0; /* Remove any residual margin on mobile */
+  }
+}
         /* Grid Layout */
-        .container {
-            padding: 40px 20px;
+        /* .container {
+            padding: 200px 20px;
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 20px;
@@ -81,7 +125,7 @@
             border-radius: 50px;
 
         }
-
+ */
         .card {
             background-color: #fff;
             border-radius: 32px;
