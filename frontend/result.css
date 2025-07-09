@@ -499,7 +499,7 @@
         }
 
         .footer {
-  width: 100%;
+  /* width: 100%; */
   background: #000316;
   padding: 50px 20px;
   color: #fff;

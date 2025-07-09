@@ -1115,4 +1115,48 @@ import { contractAddress, contractABI } from "./config.js";
     await connectWallet();
     await loadElectionDetails();
   }
+
+   
+
+
+
+
+// 📌 Assume electionId is already defined (from URL or elsewhere)
+document.getElementById("copyResultBtn").addEventListener("click", async () => {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const electionId = urlParams.get("electionId");
+
+    if (!electionId) {
+      alert("Election ID not found!");
+      return;
+    }
+
+    // Copy result.html link with electionId
+    const resultLink = `${window.location.origin}/result.html?electionId=${electionId}`;
+    await navigator.clipboard.writeText(resultLink);
+
+    alert("Result link copied! 📋\n" + resultLink);
+  } catch (err) {
+    console.error("Failed to copy: ", err);
+    alert("Failed to copy result link.");
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 })();
