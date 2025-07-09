@@ -1,4 +1,5 @@
 /* Reset and Body Setup */
+ html { visibility: hidden; } 
 body {
   display: flex;
   flex-direction: column;

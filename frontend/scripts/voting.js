@@ -969,6 +969,29 @@
 
 
 import { contractAddress, contractABI } from "./config.js";
+import { BACKEND_URL } from "../config.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // Config check
+    if (!BACKEND_URL) {
+        alert("Configuration error: Backend URL missing.");
+        window.location.href = "./index.html";
+        return;
+    }
+
+    // Verify token
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/Verify-Token`, {
+            method: "GET",
+            credentials: "include",
+        });
+        if (!response.ok) throw new Error();
+        document.documentElement.style.visibility = "visible";
+    } catch {
+        alert("Access denied. Redirecting to login...");
+        window.location.href = "./index.html";
+    }
+});
 
 (async () => {
   let provider, signer, contract, electionId;
