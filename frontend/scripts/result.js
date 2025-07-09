@@ -476,6 +476,139 @@
 
 
 
+// document.addEventListener('DOMContentLoaded', () => {
+
+
+//     const electionTopicEl = document.getElementById('electionTopic');
+//     const electionIdDisplayEl = document.getElementById('electionIdDisplay');
+//     const resultsContainerEl = document.getElementById('resultsContainer');
+//     const statusMessageEl = document.getElementById('statusMessage');
+//     const countdownEl = document.getElementById("countdownTimer");
+//     const endTimeEl = document.getElementById("electionEndTime");
+
+//     async function init() {
+//         const urlParams = new URLSearchParams(window.location.search);
+//         const electionId = urlParams.get('electionId');
+
+//         if (!electionId) {
+//             statusMessageEl.textContent = "Error: No Election ID found in URL.";
+//             return;
+//         }
+
+//         electionIdDisplayEl.textContent = `ID: ${electionId}`;
+
+//         if (typeof window.ethereum === 'undefined') {
+//             statusMessageEl.textContent = "Please install MetaMask to view results.";
+//             return;
+//         }
+
+//         try {
+//             statusMessageEl.textContent = "Connecting to wallet...";
+//             const provider = new ethers.providers.Web3Provider(window.ethereum);
+//             await provider.send("eth_requestAccounts", []);
+//             const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+//             statusMessageEl.textContent = "Checking election timing...";
+//             const details = await contract.getElectionDetails(electionId);
+//             const startTime = parseInt(details.startTime.toString()) * 1000;
+//             const durationMinutes = parseInt(details.durationMinutes.toString());
+//             const endTime = startTime + durationMinutes * 60 * 1000;
+
+//             const endTimeText = new Date(endTime).toLocaleString();
+//             endTimeEl.textContent = `Ends at: ${endTimeText}`;
+
+//             const now = Date.now();
+//             if (now >= endTime) {
+//                 statusMessageEl.textContent = "Election ended. Fetching results...";
+//                 await loadResults(contract, electionId);
+//             } else {
+//                 const timeLeft = endTime - now;
+//                 showCountdown(endTime);
+//                 statusMessageEl.textContent = "Election is still running. Results will appear once it ends.";
+//                 setTimeout(async () => {
+//                     statusMessageEl.textContent = "Election ended. Fetching results...";
+//                     await loadResults(contract, electionId);
+//                 }, timeLeft);
+//             }
+//         } catch (e) {
+//             statusMessageEl.textContent = "Wallet connection failed or was rejected.";
+//             console.error(e);
+//         }
+//     }
+
+//     function showCountdown(endTime) {
+//         const interval = setInterval(() => {
+//             const now = Date.now();
+//             const diff = endTime - now;
+//             if (diff <= 0) {
+//                 clearInterval(interval);
+//                 countdownEl.textContent = "⏰ Election ended. Loading result...";
+//             } else {
+//                 const mins = Math.floor(diff / 60000);
+//                 const secs = Math.floor((diff % 60000) / 1000);
+//                 countdownEl.textContent = `⏳ Time left: ${mins}m ${secs}s`;
+//             }
+//         }, 1000);
+//     }
+
+//     async function loadResults(contract, electionId) {
+//         try {
+//             const isElectionOver = await contract.showResult(electionId);
+//             if (!isElectionOver) {
+//                 statusMessageEl.textContent = "This election has not ended yet. Results are not public.";
+//                 resultsContainerEl.innerHTML = '';
+//                 return;
+//             }
+
+//             const filter = contract.filters.ElectionCreated(electionId);
+//             const events = await contract.queryFilter(filter, -5000, 'latest');
+//             if (events.length > 0) {
+//                 electionTopicEl.textContent = events[events.length - 1].args.name;
+//             } else {
+//                 electionTopicEl.textContent = "Election Name Not Found";
+//             }
+
+//             const candidateCount = await contract.getCandidateCount(electionId);
+//             let totalVotes = 0;
+//             resultsContainerEl.innerHTML = '';
+
+//             for (let i = 0; i < candidateCount.toNumber(); i++) {
+//                 const candidateName = await contract.getCandidateName(electionId, i);
+//                 const voteCount = await contract.getVotesForCandidate(electionId, i);
+
+//                 const resultItem = document.createElement('div');
+//                 resultItem.className = 'result-item';
+
+//                 const nameSpan = document.createElement('span');
+//                 nameSpan.className = 'candidate-name';
+//                 nameSpan.textContent = candidateName;
+
+//                 const voteSpan = document.createElement('span');
+//                 voteSpan.className = 'vote-count';
+//                 voteSpan.textContent = `Votes: ${voteCount.toString()}`;
+
+//                 resultItem.appendChild(nameSpan);
+//                 resultItem.appendChild(voteSpan);
+//                 resultsContainerEl.appendChild(resultItem);
+
+//                 totalVotes += voteCount.toNumber();
+//             }
+
+//             statusMessageEl.textContent = `Results loaded successfully. Total votes cast: ${totalVotes}`;
+//         } catch (error) {
+//             statusMessageEl.textContent = "Could not load election results.";
+//             console.error(error);
+//         }
+//     }
+
+//     init();
+// });
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const contractAddress = "0x5ac18C2b545795e4573CCD75EEC2375939502b83";
     const contractABI = [{
@@ -820,112 +953,78 @@ document.addEventListener('DOMContentLoaded', () => {
         const electionId = urlParams.get('electionId');
 
         if (!electionId) {
-            statusMessageEl.textContent = "Error: No Election ID found in URL.";
+            statusMessageEl.textContent = "❌ Election ID URL mein nahi mila.";
             return;
         }
 
         electionIdDisplayEl.textContent = `ID: ${electionId}`;
 
         if (typeof window.ethereum === 'undefined') {
-            statusMessageEl.textContent = "Please install MetaMask to view results.";
+            statusMessageEl.textContent = "❌ MetaMask install karo result dekhne ke liye.";
             return;
         }
 
         try {
-            statusMessageEl.textContent = "Connecting to wallet...";
+            statusMessageEl.textContent = "🔗 Connecting to wallet...";
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await provider.send("eth_requestAccounts", []);
             const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
-            statusMessageEl.textContent = "Checking election timing...";
+            statusMessageEl.textContent = "⏳ Fetching election timing...";
             const details = await contract.getElectionDetails(electionId);
-            const startTime = parseInt(details.startTime.toString()) * 1000;
-            const durationMinutes = parseInt(details.durationMinutes.toString());
-            const endTime = startTime + durationMinutes * 60 * 1000;
+            const startTime = parseInt(details.startTime.toString());
+            const duration = parseInt(details.durationMinutes.toString());
+            const endTime = startTime + duration * 60;
+            const now = Math.floor(Date.now() / 1000);
 
-            const endTimeText = new Date(endTime).toLocaleString();
-            endTimeEl.textContent = `Ends at: ${endTimeText}`;
+            // Show end time
+            endTimeEl.textContent = `Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
 
-            const now = Date.now();
-            if (now >= endTime) {
-                statusMessageEl.textContent = "Election ended. Fetching results...";
-                await loadResults(contract, electionId);
-            } else {
-                const timeLeft = endTime - now;
-                showCountdown(endTime);
-                statusMessageEl.textContent = "Election is still running. Results will appear once it ends.";
-                setTimeout(async () => {
-                    statusMessageEl.textContent = "Election ended. Fetching results...";
-                    await loadResults(contract, electionId);
-                }, timeLeft);
+            // ✅ Add your showResult() logic here
+            const isElectionOver = await contract.showResult(electionId);
+            if (!isElectionOver) {
+                statusMessageEl.textContent = "⏳ This election has not ended yet. Results are not public.";
+                return;
             }
+
+            statusMessageEl.textContent = "✅ Election ended. Fetching results...";
+            await loadResults(contract, electionId);
+
         } catch (e) {
-            statusMessageEl.textContent = "Wallet connection failed or was rejected.";
+            statusMessageEl.textContent = "❌ Wallet connection failed ya reject ho gaya.";
             console.error(e);
         }
     }
 
-    function showCountdown(endTime) {
-        const interval = setInterval(() => {
-            const now = Date.now();
-            const diff = endTime - now;
-            if (diff <= 0) {
-                clearInterval(interval);
-                countdownEl.textContent = "⏰ Election ended. Loading result...";
-            } else {
-                const mins = Math.floor(diff / 60000);
-                const secs = Math.floor((diff % 60000) / 1000);
-                countdownEl.textContent = `⏳ Time left: ${mins}m ${secs}s`;
-            }
-        }, 1000);
-    }
-
     async function loadResults(contract, electionId) {
         try {
-            const isElectionOver = await contract.showResult(electionId);
-            if (!isElectionOver) {
-                statusMessageEl.textContent = "This election has not ended yet. Results are not public.";
-                resultsContainerEl.innerHTML = '';
-                return;
-            }
-
-            const filter = contract.filters.ElectionCreated(electionId);
-            const events = await contract.queryFilter(filter, -5000, 'latest');
-            if (events.length > 0) {
-                electionTopicEl.textContent = events[events.length - 1].args.name;
-            } else {
-                electionTopicEl.textContent = "Election Name Not Found";
-            }
-
-            const candidateCount = await contract.getCandidateCount(electionId);
+            const candidates = await contract.getCandidates(electionId);
             let totalVotes = 0;
-            resultsContainerEl.innerHTML = '';
+            resultsContainerEl.innerHTML = ''; // Clear previous
 
-            for (let i = 0; i < candidateCount.toNumber(); i++) {
-                const candidateName = await contract.getCandidateName(electionId, i);
-                const voteCount = await contract.getVotesForCandidate(electionId, i);
-
+            candidates.forEach((c, i) => {
                 const resultItem = document.createElement('div');
                 resultItem.className = 'result-item';
 
                 const nameSpan = document.createElement('span');
                 nameSpan.className = 'candidate-name';
-                nameSpan.textContent = candidateName;
+                nameSpan.textContent = `${i + 1}. ${c.name}`;
 
                 const voteSpan = document.createElement('span');
                 voteSpan.className = 'vote-count';
-                voteSpan.textContent = `Votes: ${voteCount.toString()}`;
+                voteSpan.textContent = `Votes: ${c.voteCount.toString()}`;
 
                 resultItem.appendChild(nameSpan);
                 resultItem.appendChild(voteSpan);
                 resultsContainerEl.appendChild(resultItem);
 
-                totalVotes += voteCount.toNumber();
-            }
+                totalVotes += parseInt(c.voteCount.toString());
+            });
 
-            statusMessageEl.textContent = `Results loaded successfully. Total votes cast: ${totalVotes}`;
+            statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
+
         } catch (error) {
-            statusMessageEl.textContent = "Could not load election results.";
+            statusMessageEl.textContent = "❌ Could not load election results.";
             console.error(error);
         }
     }
