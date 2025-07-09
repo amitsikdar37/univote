@@ -29,7 +29,7 @@ const allowedOrigins = [
   'http://localhost:3000', // local backend
   'https://univote-backend.onrender.com', // production backend
   'https://univote-gfvv.onrender.com',
-  'https://localhost:65005'
+  'https://localhost:52122'
 ];
 
 app.use(cors({

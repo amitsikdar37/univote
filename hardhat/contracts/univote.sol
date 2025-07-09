@@ -1,4 +1,4 @@
- // SPDX-License-Identifier: MIT
+   // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
@@ -29,8 +29,8 @@ contract UniVote {
 
     // ===================== EVENTS =====================
     event ElectionCreated(string indexed electionId, address indexed creator);
-    event CandidateAdded(string indexed electionId, string name); // Hum ise abhi bhi istemal kar sakte hain
-    event Voted(string indexed electionId, address voter, uint256 candidateIndex);
+    event CandidateAdded(string indexed electionId, string name);
+    event Voted(string indexed electionId, address voter, uint candidateIndex);
     event ElectionEnded(string indexed electionId);
 
     // ===================== UTIL =====================
@@ -38,31 +38,19 @@ contract UniVote {
         string memory full = Strings.toHexString(uint160(_addr));
         bytes memory b = bytes(full);
         bytes memory last4 = new bytes(4);
-        for (uint256 i = 0; i < 4; i++) {
+        for (uint i = 0; i < 4; i++) {
             last4[i] = b[b.length - 4 + i];
         }
         return string(last4);
     }
 
-    // ===================== CORE FUNCTIONS (UPDATED) =====================
-    
-    /**
-     * @notice Creates an election and adds all candidates in a single transaction.
-     * @param name The name or topic of the election.
-     * @param durationInMinutes The duration of the election in minutes.
-     * @param candidateNames A list of names for all candidates.
-     */
-    function createElection(
-        string memory name,
-        uint256 durationInMinutes,
-        string[] memory candidateNames // <-- NAYA: Candidates ki list yahan daalein
-    ) external {
+    // ===================== CORE FUNCTIONS =====================
+    function createElection(string memory name, uint256 durationInMinutes) external {
         totalElections += 1;
         string memory id = string(
             abi.encodePacked("univote-", getLast4HexChars(msg.sender), "-", totalElections.toString())
         );
         require(!electionExists[id], "Election ID already exists");
-        require(candidateNames.length >= 2, "Must have at least 2 candidates");
 
         Election storage e = elections[id];
         e.id = id;
@@ -72,22 +60,23 @@ contract UniVote {
         e.startTime = block.timestamp;
         e.isEnded = false;
 
-        // NAYA: Ek loop se saare candidates ko add karein
-        for (uint256 i = 0; i < candidateNames.length; i++) {
-            e.candidates.push(Candidate(candidateNames[i], 0));
-            emit CandidateAdded(id, candidateNames[i]);
-        }
-
         electionExists[id] = true;
         electionIds.push(id);
 
         emit ElectionCreated(id, msg.sender);
     }
 
-    // PURANA `addCandidate` FUNCTION AB ZAROORI NAHI HAI.
-    // Humne use hata diya hai.
+    function addCandidate(string memory electionId, string memory name) external {
+        require(electionExists[electionId], "Election not found");
+        Election storage e = elections[electionId];
+        require(msg.sender == e.creator, "Only admin can add candidates");
+        require(!e.isEnded, "Election already ended");
 
-    function vote(string memory electionId, uint256 candidateIndex) external {
+        e.candidates.push(Candidate(name, 0));
+        emit CandidateAdded(electionId, name);
+    }
+
+    function vote(string memory electionId, uint candidateIndex) external {
         require(electionExists[electionId], "Election not found");
         Election storage e = elections[electionId];
         require(!e.isEnded, "Election ended");
@@ -112,7 +101,7 @@ contract UniVote {
         emit ElectionEnded(electionId);
     }
 
-    // ===================== GETTERS (No changes needed here) =====================
+    // ===================== GETTERS =====================
 
     function getElectionDetails(string memory electionId) external view returns (
         string memory id,
@@ -136,14 +125,24 @@ contract UniVote {
 
     function getCandidates(string memory electionId) external view returns (Candidate[] memory) {
         require(electionExists[electionId], "Election not found");
-        return elections[electionId].candidates;
+        Election storage e = elections[electionId];
+        Candidate[] memory result = new Candidate[](e.candidates.length);
+        for (uint i = 0; i < e.candidates.length; i++) {
+            result[i] = e.candidates[i];
+        }
+        return result;
     }
 
     function getResults(string memory electionId) external view returns (Candidate[] memory) {
         require(electionExists[electionId], "Election not found");
         Election storage e = elections[electionId];
         require(e.isEnded || block.timestamp > e.startTime + (e.durationMinutes * 60), "Election still ongoing");
-        return e.candidates;
+
+        Candidate[] memory result = new Candidate[](e.candidates.length);
+        for (uint i = 0; i < e.candidates.length; i++) {
+            result[i] = e.candidates[i];
+        }
+        return result;
     }
 
     function getAllElectionIds() external view returns (string[] memory) {

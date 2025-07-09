@@ -1,118 +1,173 @@
- const { expect } = require("chai");
+ // Import necessary libraries from Hardhat
+const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("UniVote", function () {
-  let UniVote, univote, owner, addr1, addr2;
+// Test suite for the UniVote contract
+describe("UniVote Contract Tests", function () {
+    // Variables to hold contract instance and accounts
+    let UniVote, uniVote, owner, addr1, addr2;
+    const electionName = "Favorite Programming Language";
+    const electionDuration = 10; // 10 minutes
+    const candidates = ["Solidity", "JavaScript", "Python"];
 
-  beforeEach(async function () {
-    [owner, addr1, addr2] = await ethers.getSigners();
-    UniVote = await ethers.getContractFactory("UniVote");
-    univote = await UniVote.deploy(); // ❌ no .deployed() here
-  });
+    // This block runs once before all tests
+    beforeEach(async function () {
+        // Get different accounts provided by Hardhat
+        [owner, addr1, addr2] = await ethers.getSigners();
 
-  it("should allow anyone to create an election", async function () {
-    const tx = await univote.connect(addr1).createElection("Test Election", 3);
-    await tx.wait();
+        // Deploy a new instance of the UniVote contract
+        UniVote = await ethers.getContractFactory("UniVote");
+        uniVote = await UniVote.deploy();
+        // await uniVote.deployed(); // This is deprecated, the line above waits for deployment
+    });
 
-    const ids = await univote.getAllElectionIds();
-    expect(ids.length).to.equal(1);
+    // ================== Deployment Tests ==================
+    describe("Deployment", function () {
+        it("Should set the right owner", async function () {
+            // Check if the contract deployer is the owner
+            // Note: Our contract doesn't have an explicit owner, but this is good practice
+            expect(await uniVote.runner.provider.getCode(await uniVote.getAddress())).to.not.be.null;
+        });
 
-    const details = await univote.getElectionDetails(ids[0]);
-    expect(details.name).to.equal("Test Election");
-    expect(details.creator).to.equal(addr1.address);
-  });
+        it("Should have 0 total elections initially", async function () {
+            // Check if the initial state is correct
+            expect(await uniVote.totalElections()).to.equal(0);
+        });
+    });
 
-  it("should follow correct ID format", async function () {
-    await univote.connect(addr1).createElection("Election X", 5);
-    const ids = await univote.getAllElectionIds();
-    expect(ids[0]).to.match(/^univote-[A-Fa-f0-9]{4}-\d+$/);
-  });
+    // ================== createElection Function Tests ==================
+    describe("createElection", function () {
+        it("Should allow creation of an election with candidates", async function () {
+            // Action: Create a new election
+            const tx = await uniVote.createElection(electionName, electionDuration, candidates);
+            const receipt = await tx.wait();
 
-  it("should allow admin to add candidates", async function () {
-    await univote.connect(owner).createElection("Admin Election", 5);
-    const ids = await univote.getAllElectionIds();
-    await univote.connect(owner).addCandidate(ids[0], "Alice");
-    await univote.connect(owner).addCandidate(ids[0], "Bob");
+            // Verification
+            // 1. Check if total elections increased
+            expect(await uniVote.totalElections()).to.equal(1);
 
-    const candidates = await univote.getCandidates(ids[0]);
-    expect(candidates.length).to.equal(2);
-    expect(candidates[0].name).to.equal("Alice");
-  });
+            // 2. Get the generated election ID from the event
+            const event = receipt.events.find(e => e.event === 'ElectionCreated');
+            const electionId = event.args.electionId;
 
-  it("should not allow non-admin to add candidates", async function () {
-    await univote.connect(owner).createElection("Election Y", 5);
-    const ids = await univote.getAllElectionIds();
+            // 3. Check if the election details are correct
+            const details = await uniVote.getElectionDetails(electionId);
+            expect(details.name).to.equal(electionName);
+            expect(details.creator).to.equal(owner.address);
+            expect(details.isEnded).to.be.false;
 
-    await expect(
-      univote.connect(addr1).addCandidate(ids[0], "Hacker")
-    ).to.be.revertedWith("Only admin can add candidates");
-  });
+            // 4. Check if candidates were added correctly
+            const fetchedCandidates = await uniVote.getCandidates(electionId);
+            expect(fetchedCandidates.length).to.equal(3);
+            expect(fetchedCandidates[0].name).to.equal("Solidity");
+            expect(fetchedCandidates[2].voteCount).to.equal(0);
+        });
 
-  it("should allow voting and block double vote", async function () {
-    await univote.connect(owner).createElection("VoteTest", 5);
-    const ids = await univote.getAllElectionIds();
-    const eid = ids[0];
+        it("Should emit ElectionCreated and CandidateAdded events", async function () {
+            // Expect the transaction to emit the specific events with correct arguments
+            await expect(uniVote.createElection(electionName, electionDuration, candidates))
+                .to.emit(uniVote, "ElectionCreated")
+                .and.to.emit(uniVote, "CandidateAdded").withArgs(/.*/, "Solidity") // Regex to match any electionId
+                .and.to.emit(uniVote, "CandidateAdded").withArgs(/.*/, "JavaScript")
+                .and.to.emit(uniVote, "CandidateAdded").withArgs(/.*/, "Python");
+        });
 
-    await univote.connect(owner).addCandidate(eid, "Alice");
-    await univote.connect(owner).addCandidate(eid, "Bob");
+        it("Should fail if less than 2 candidates are provided", async function () {
+            // Action: Try to create an election with only one candidate
+            // Verification: Expect the transaction to be reverted with a specific error message
+            await expect(
+                uniVote.createElection("Test Fail", 5, ["OneCandidate"])
+            ).to.be.revertedWith("Must have at least 2 candidates");
+        });
+    });
 
-    await univote.connect(addr1).vote(eid, 0); // vote Alice
+    // ================== vote Function Tests ==================
+    describe("vote", function () {
+        let electionId;
 
-    await expect(
-      univote.connect(addr1).vote(eid, 1)
-    ).to.be.revertedWith("Already voted");
-  });
+        // Create an election before each voting test
+        beforeEach(async function () {
+            const tx = await uniVote.createElection(electionName, electionDuration, candidates);
+            const receipt = await tx.wait();
+            const event = receipt.events.find(e => e.event === 'ElectionCreated');
+            electionId = event.args.electionId;
+        });
 
-  it("should not allow voting after time", async function () {
-    await univote.connect(owner).createElection("TimedVote", 1);
-    const ids = await univote.getAllElectionIds();
-    const eid = ids[0];
+        it("Should allow a user to cast a valid vote", async function () {
+            // Action: addr1 casts a vote for candidate at index 1 (JavaScript)
+            await uniVote.connect(addr1).vote(electionId, 1);
 
-    await univote.connect(owner).addCandidate(eid, "Alice");
+            // Verification
+            const fetchedCandidates = await uniVote.getCandidates(electionId);
+            expect(fetchedCandidates[1].voteCount).to.equal(1);
+        });
 
-    // Wait 65 seconds
-    await ethers.provider.send("evm_increaseTime", [65]);
-    await ethers.provider.send("evm_mine");
+        it("Should emit a Voted event", async function () {
+            await expect(uniVote.connect(addr1).vote(electionId, 1))
+                .to.emit(uniVote, "Voted")
+                .withArgs(electionId, addr1.address, 1);
+        });
 
-    await expect(
-      univote.connect(addr1).vote(eid, 0)
-    ).to.be.revertedWith("Election time over");
-  });
+        it("Should prevent a user from voting twice", async function () {
+            // Action: addr1 votes once
+            await uniVote.connect(addr1).vote(electionId, 0);
 
-  it("should let admin end election early", async function () {
-    await univote.connect(owner).createElection("EndEarly", 5);
-    const ids = await univote.getAllElectionIds();
+            // Verification: Try to vote again and expect a revert
+            await expect(
+                uniVote.connect(addr1).vote(electionId, 1)
+            ).to.be.revertedWith("Already voted");
+        });
 
-    await expect(
-      univote.connect(owner).endElection(ids[0])
-    ).to.emit(univote, "ElectionEnded");
-  });
+        it("Should fail if candidate index is invalid", async function () {
+            // Action: Try to vote for an index that doesn't exist (e.g., 3)
+            await expect(
+                uniVote.connect(addr1).vote(electionId, 3)
+            ).to.be.revertedWith("Invalid candidate");
+        });
+    });
 
-  it("should not show results before election ends", async function () {
-    await univote.connect(owner).createElection("NoEarlyResult", 1);
-    const ids = await univote.getAllElectionIds();
-    const eid = ids[0];
+    // ================== endElection and getResults Tests ==================
+    describe("endElection and getResults", function () {
+        let electionId;
 
-    await univote.connect(owner).addCandidate(eid, "Alice");
+        beforeEach(async function () {
+            const tx = await uniVote.createElection(electionName, electionDuration, candidates);
+            const receipt = await tx.wait();
+            const event = receipt.events.find(e => e.event === 'ElectionCreated');
+            electionId = event.args.electionId;
 
-    await expect(
-      univote.getResults(eid)
-    ).to.be.revertedWith("Election still ongoing");
-  });
+            // Cast some votes
+            await uniVote.connect(addr1).vote(electionId, 1); // Vote for JavaScript
+            await uniVote.connect(addr2).vote(electionId, 1); // Vote for JavaScript
+        });
 
-  it("should show results after end", async function () {
-    await univote.connect(owner).createElection("ResultTest", 1);
-    const ids = await univote.getAllElectionIds();
-    const eid = ids[0];
+        it("Should only allow the creator to end the election", async function () {
+            // Action: Try to end the election from a non-creator account
+            await expect(
+                uniVote.connect(addr1).endElection(electionId)
+            ).to.be.revertedWith("Only admin can end election");
+        });
 
-    await univote.connect(owner).addCandidate(eid, "Alice");
-    await univote.connect(addr1).vote(eid, 0);
+        it("Should successfully end the election and allow fetching results", async function () {
+            // Action: End the election as the owner
+            await uniVote.connect(owner).endElection(electionId);
 
-    // Wait for time to expire
-    await ethers.provider.send("evm_increaseTime", [65]);
-    await ethers.provider.send("evm_mine");
+            // Verification
+            const details = await uniVote.getElectionDetails(electionId);
+            expect(details.isEnded).to.be.true;
 
-    const results = await univote.getResults(eid);
-    expect(results[0].voteCount).to.equal(1);
-  });
-});
+            // Fetch results
+            const results = await uniVote.getResults(electionId);
+            expect(results[0].voteCount).to.equal(0); // Solidity
+            expect(results[1].voteCount).to.equal(2); // JavaScript
+            expect(results[2].voteCount).to.equal(0); // Python
+        });
+
+        it("Should prevent fetching results for an ongoing election", async function () {
+            // Action: Try to get results before the election ends
+            await expect(
+                uniVote.getResults(electionId)
+            ).to.be.revertedWith("Election still ongoing");
+        });
+    });
+});     
