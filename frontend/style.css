@@ -38,7 +38,7 @@ html, body {
             display: inline-flex;
             align-items: center;
             background-color: #000000;
-            padding: 10px;
+            padding: 7px;
             border-radius: 50px; /* Fully rounded ends */
             /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
             margin-left: 360px;
@@ -62,7 +62,7 @@ html, body {
             color: #ffffff;
             font-size: 20px;
             font-weight: 400;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.2px;
             font-family: dm sans, sans-serif;
         }
         
@@ -845,11 +845,13 @@ background: rgba(123, 136, 141, 0.47);
   width: 60%;
   display: flex;
   flex-direction: column;
+  height: 80vh;
+  margin-top: 100px;
 }
 
 .faq-answers h2 {
   font-size: 36px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   text-align: center;
 }
 
@@ -862,8 +864,8 @@ background: rgba(123, 136, 141, 0.47);
 }
 
 .answer p {
-  font-size: 26px;
-  line-height: 1.5;
+  font-size: 24px;
+  line-height: 1;
   color: #000000;
 }
 
@@ -992,6 +994,7 @@ background: rgba(123, 136, 141, 0.47);
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
+  margin-right:90px;
 }
 
 /* Footer Styles */
