@@ -609,7 +609,103 @@
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
+
+
+//     const electionTopicEl = document.getElementById('electionTopic');
+//     const electionIdDisplayEl = document.getElementById('electionIdDisplay');
+//     const resultsContainerEl = document.getElementById('resultsContainer');
+//     const statusMessageEl = document.getElementById('statusMessage');
+//     const countdownEl = document.getElementById("countdownTimer");
+//     const endTimeEl = document.getElementById("electionEndTime");
+
+//     async function init() {
+//         const urlParams = new URLSearchParams(window.location.search);
+//         const electionId = urlParams.get('electionId');
+
+//         if (!electionId) {
+//             statusMessageEl.textContent = "❌ Election ID URL mein nahi mila.";
+//             return;
+//         }
+
+//         electionIdDisplayEl.textContent = `ID: ${electionId}`;
+
+//         if (typeof window.ethereum === 'undefined') {
+//             statusMessageEl.textContent = "❌ MetaMask install karo result dekhne ke liye.";
+//             return;
+//         }
+
+//         try {
+//             statusMessageEl.textContent = "🔗 Connecting to wallet...";
+//             const provider = new ethers.providers.Web3Provider(window.ethereum);
+//             await provider.send("eth_requestAccounts", []);
+//             const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+//             statusMessageEl.textContent = "⏳ Fetching election timing...";
+//             const details = await contract.getElectionDetails(electionId);
+//             const startTime = parseInt(details.startTime.toString());
+//             const duration = parseInt(details.durationMinutes.toString());
+//             const endTime = startTime + duration * 60;
+//             const now = Math.floor(Date.now() / 1000);
+
+//             // Show end time
+//             endTimeEl.textContent = `Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
+
+//             // ✅ Add your showResult() logic here
+//             const isElectionOver = await contract.showResult(electionId);
+//             if (!isElectionOver) {
+//                 statusMessageEl.textContent = "⏳ This election has not ended yet. Results are not public.";
+//                 return;
+//             }
+
+//             statusMessageEl.textContent = "✅ Election ended. Fetching results...";
+//             await loadResults(contract, electionId);
+
+//         } catch (e) {
+//             statusMessageEl.textContent = "❌ Wallet connection failed ya reject ho gaya.";
+//             console.error(e);
+//         }
+//     }
+
+//     async function loadResults(contract, electionId) {
+//         try {
+//             const candidates = await contract.getCandidates(electionId);
+//             let totalVotes = 0;
+//             resultsContainerEl.innerHTML = ''; // Clear previous
+
+//             candidates.forEach((c, i) => {
+//                 const resultItem = document.createElement('div');
+//                 resultItem.className = 'result-item';
+
+//                 const nameSpan = document.createElement('span');
+//                 nameSpan.className = 'candidate-name';
+//                 nameSpan.textContent = `${i + 1}. ${c.name}`;
+
+//                 const voteSpan = document.createElement('span');
+//                 voteSpan.className = 'vote-count';
+//                 voteSpan.textContent = `Votes: ${c.voteCount.toString()}`;
+
+//                 resultItem.appendChild(nameSpan);
+//                 resultItem.appendChild(voteSpan);
+//                 resultsContainerEl.appendChild(resultItem);
+
+//                 totalVotes += parseInt(c.voteCount.toString());
+//             });
+
+//             statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
+
+//         } catch (error) {
+//             statusMessageEl.textContent = "❌ Could not load election results.";
+//             console.error(error);
+//         }
+//     }
+
+//     init();
+// });
+
+
+
+document.addEventListener('DOMContentLoaded', async () => {
     const contractAddress = "0x5ac18C2b545795e4573CCD75EEC2375939502b83";
     const contractABI = [{
         "inputs": [
@@ -940,94 +1036,60 @@ document.addEventListener('DOMContentLoaded', () => {
         "stateMutability": "nonpayable",
         "type": "function"
     }];
+    const provider = new ethers.providers.JsonRpcProvider("https://mainnet.base.org"); // ya Base testnet ka RPC
 
-    const electionTopicEl = document.getElementById('electionTopic');
+    const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const electionId = urlParams.get('electionId');
+
     const electionIdDisplayEl = document.getElementById('electionIdDisplay');
+    const electionTopicEl = document.getElementById('electionTopic');
     const resultsContainerEl = document.getElementById('resultsContainer');
     const statusMessageEl = document.getElementById('statusMessage');
-    const countdownEl = document.getElementById("countdownTimer");
     const endTimeEl = document.getElementById("electionEndTime");
 
-    async function init() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const electionId = urlParams.get('electionId');
+    if (!electionId) {
+        statusMessageEl.textContent = "❌ Election ID missing from URL.";
+        return;
+    }
 
-        if (!electionId) {
-            statusMessageEl.textContent = "❌ Election ID URL mein nahi mila.";
+    electionIdDisplayEl.textContent = `ID: ${electionId}`;
+
+    try {
+        const details = await contract.getElectionDetails(electionId);
+        const startTime = parseInt(details.startTime.toString());
+        const duration = parseInt(details.durationMinutes.toString());
+        const endTime = startTime + duration * 60;
+        const now = Math.floor(Date.now() / 1000);
+
+        endTimeEl.textContent = `Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
+
+        const isEnded = details.isEnded || now > endTime;
+
+        if (!isEnded) {
+            statusMessageEl.textContent = "⏳ Election abhi khatam nahi hua. Results public nahi hain.";
             return;
         }
 
-        electionIdDisplayEl.textContent = `ID: ${electionId}`;
+        const candidates = await contract.getCandidates(electionId);
+        resultsContainerEl.innerHTML = '';
+        let totalVotes = 0;
 
-        if (typeof window.ethereum === 'undefined') {
-            statusMessageEl.textContent = "❌ MetaMask install karo result dekhne ke liye.";
-            return;
-        }
+        candidates.forEach((c, i) => {
+            const div = document.createElement('div');
+            div.className = "result-item";
+            div.innerHTML = `
+                <span class="candidate-name">${i + 1}. ${c.name}</span>
+                <span class="vote-count">Votes: ${c.voteCount.toString()}</span>
+            `;
+            resultsContainerEl.appendChild(div);
+            totalVotes += parseInt(c.voteCount.toString());
+        });
 
-        try {
-            statusMessageEl.textContent = "🔗 Connecting to wallet...";
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            await provider.send("eth_requestAccounts", []);
-            const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
-            statusMessageEl.textContent = "⏳ Fetching election timing...";
-            const details = await contract.getElectionDetails(electionId);
-            const startTime = parseInt(details.startTime.toString());
-            const duration = parseInt(details.durationMinutes.toString());
-            const endTime = startTime + duration * 60;
-            const now = Math.floor(Date.now() / 1000);
-
-            // Show end time
-            endTimeEl.textContent = `Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
-
-            // ✅ Add your showResult() logic here
-            const isElectionOver = await contract.showResult(electionId);
-            if (!isElectionOver) {
-                statusMessageEl.textContent = "⏳ This election has not ended yet. Results are not public.";
-                return;
-            }
-
-            statusMessageEl.textContent = "✅ Election ended. Fetching results...";
-            await loadResults(contract, electionId);
-
-        } catch (e) {
-            statusMessageEl.textContent = "❌ Wallet connection failed ya reject ho gaya.";
-            console.error(e);
-        }
+        statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
+    } catch (err) {
+        statusMessageEl.textContent = "❌ Could not load election results.";
+        console.error(err);
     }
-
-    async function loadResults(contract, electionId) {
-        try {
-            const candidates = await contract.getCandidates(electionId);
-            let totalVotes = 0;
-            resultsContainerEl.innerHTML = ''; // Clear previous
-
-            candidates.forEach((c, i) => {
-                const resultItem = document.createElement('div');
-                resultItem.className = 'result-item';
-
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'candidate-name';
-                nameSpan.textContent = `${i + 1}. ${c.name}`;
-
-                const voteSpan = document.createElement('span');
-                voteSpan.className = 'vote-count';
-                voteSpan.textContent = `Votes: ${c.voteCount.toString()}`;
-
-                resultItem.appendChild(nameSpan);
-                resultItem.appendChild(voteSpan);
-                resultsContainerEl.appendChild(resultItem);
-
-                totalVotes += parseInt(c.voteCount.toString());
-            });
-
-            statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
-
-        } catch (error) {
-            statusMessageEl.textContent = "❌ Could not load election results.";
-            console.error(error);
-        }
-    }
-
-    init();
 });
