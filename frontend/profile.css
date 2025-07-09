@@ -4,6 +4,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
+  padding-top: 60px; /* Prevents content from being hidden under fixed navbar */
   font-family: sans-serif;
   /* background: #000; Matches your dark theme */
   overflow-x: hidden;
@@ -13,7 +14,7 @@ body {
 /* Navbar */
 .navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between; /* Ensures proper distribution */
   align-items: center;
   background: rgba(169, 183, 238, 0.55);
   backdrop-filter: blur(8px);
@@ -21,37 +22,111 @@ body {
   height: 50px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 100%;
+  position: fixed; /* Fixes navbar to top */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensures navbar stays above other content */
   flex-shrink: 0;
-  /* Prevents navbar from shrinking */
+  flex-wrap: nowrap; /* Prevents wrapping to ensure visibility */
 }
 
 .navbar .logo {
   height: 41px;
   width: 194px;
+  flex-shrink: 0; /* Prevents logo from shrinking */
+}
+
+.gwei-indicator {
+  display: inline-flex;
+  align-items: center;
+  background-color: #000000;
+  padding: 7px 12px; /* Adjusted padding */
+  border-radius: 50px; /* Fully rounded ends */
+  font-family: sans-serif; /* Changed to sans-serif */
+  font-size: 14px; /* Reduced font size */
+  margin: 0 15px; /* Consistent gap */
+  flex-shrink: 0; /* Prevents shrinking */
+  margin-left: 460px;
+}
+
+.blinking-dot {
+  height: 14px; /* Smaller size */
+  width: 14px;
+  background-color: #e91414; /* A bright red color */
+  border-radius: 50%; /* This makes the div a circle */
+  margin: 0 8px; /* Adjusted margin */
+  /* Animation properties */
+  animation-name: blink;
+  animation-duration: 2.2s; /* The duration of one blink cycle */
+  animation-iteration-count: infinite; /* Makes the animation loop forever */
+  animation-timing-function: ease-in-out; /* Controls the speed curve of the animation */
+}
+
+.indicator-text {
+  color: #ffffff;
+  font-size: 14px; /* Reduced font size */
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  font-family: sans-serif; /* Changed to sans-serif */
+}
+
+.indicator-text .version {
+  color: #4ade80; /* A nice green for the version number */
+  font-weight: 600;
+  font-size: 14px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Consistent spacing */
+  margin: 0 15px; /* Consistent gap */
+  flex-shrink: 0; /* Prevents shrinking */
 }
 
 .navbar .nav-links a {
   color: black;
   text-decoration: none;
-  margin: 0 15px;
-  font-size: 22px;
+  font-family: sans-serif; /* Changed to sans-serif */
+  font-size: 18px; /* Reduced font size */
 }
 
 .navbar .nav-links a:hover {
-
   color: #FF00E5;
+}
+
+.navbar .buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Consistent spacing */
+  margin-right: 15px; /* Consistent gap */
+  flex-shrink: 0; /* Ensures button visibility */
 }
 
 .navbar .buttons button {
   background-color: #000;
-  font-size: 22px;
   color: white;
   border: none;
-  padding: 5px 15px;
-  margin-left: 15px;
+  padding: 8px 20px; /* Adjusted padding */
   cursor: pointer;
   border-radius: 10px;
-  font-weight: 700;
+  font-family: sans-serif; /* Changed to sans-serif */
+  font-size: 18px; /* Reduced font size */
+  font-weight: 500; /* Adjusted weight */
+  white-space: nowrap; /* Prevents text wrapping */
+  margin-right: 10px;
 }
 
 .navbar .buttons button:hover {
@@ -315,16 +390,20 @@ body {
   left: 0; top: 0; width: 100%; height: 100%;
   overflow: auto; background-color: rgba(0,0,0,0.4);
 }
+
 .modal-content {
   background-color: #fff; margin: 10% auto; padding: 20px;
   border: 1px solid #888; width: 300px; border-radius: 8px;
   text-align: center;
 }
+
 .close {
   color: #aaa; float: right; font-size: 28px; font-weight: bold;
   cursor: pointer;
 }
+
 .close:hover { color: #000; }
+
 .modal-header {
   font-size: 24px; margin-bottom: 20px; color: #333;
 }
@@ -371,7 +450,7 @@ body {
 
 .modal-header {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 7100;
   color: #a100ff;
   margin-bottom: 10px;
   letter-spacing: 0.5px;
@@ -381,6 +460,7 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
 .modal-content p {
   font-size: 16px;
   color: #555;

@@ -24,112 +24,210 @@
 body {
     font-family: var(--font-family);
     background: linear-gradient(188.64deg, #E8EDFF 39.84%, #183EC2 92.29%);
-    /* color: #183ec2; */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    padding-top: 80px; /* Accounts for fixed navbar height */
 }
 
 /* Navbar */
-/* Navbar */
 .navbar {
-  display: flex;
-  width: 100%;
-  padding: 20px 40px;
-  justify-content: space-between;
-  align-items: center;
-  background: transparent;
-  backdrop-filter: blur(8px);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    padding: 20px 40px;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    flex-wrap: nowrap; /* Prevents wrapping */
+    height: 80px; /* Matches governance page and accommodates larger profile icon */
 }
 
 .navbar .logo {
-  font-weight: bold;
-  font-size: 22px;
-  color: #333;
-  display: flex;
-  align-items: center; /* Ensure vertical alignment */
+    font-weight: bold;
+    font-size: 22px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .navbar .logo span {
-  background: linear-gradient(to right, #ff00cc, #3333ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    background: linear-gradient(to right, #ff00cc, #3333ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar .profile-icon {
+    width: 48px; /* Larger size as requested */
+    height: 48px;
+    border-radius: 50%;
+    background: #fff; /* Placeholder background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 15px; /* Consistent gap from logo */
+    /* Replace with actual image */
+    background-image: url('profile-icon.png'); /* Update with your icon path */
+    background-size: cover;
+    background-position: center;
+}
+
+.gwei-indicator {
+    display: inline-flex;
+    align-items: center;
+    background-color: #000000;
+    padding: 7px;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif; /* Matches governance page */
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-left: 400px; /* Matches governance page for right alignment */
+}
+
+.blinking-dot {
+    height: 18px;
+    width: 18px;
+    background-color: #e91414;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-right: 5px;
+    animation: blink 2.2s infinite ease-in-out;
+}
+
+.indicator-text {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    font-family: 'Inter', sans-serif; /* Matches governance page */
+}
+
+.indicator-text .version {
+    color: #4ade80;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1; }
 }
 
 .navbar ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center the nav items */
-  gap: 20px;
-  padding: 0;
-  margin: 0 auto; /* Center the ul within the navbar */
-  font-family: sans-serif;
-  flex-grow: 1; /* Allow ul to take available space for centering */
-  max-width: 50%; /* Restrict width to prevent overlap */
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the nav items */
+    gap: 20px; /* Matches governance page */
+    padding: 0;
+    margin: 0 auto; /* Center the ul, matches governance page */
+    font-family: sans-serif; /* Matches governance page */
+    flex-grow: 1; /* Allow ul to take available space for centering */
+    max-width: 50%; /* Restrict width to prevent overlap */
+    flex-shrink: 0;
 }
 
 .navbar ul li {
-  font-size: 16px;
-  cursor: pointer;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .navbar ul li a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .navbar a:hover,
 .nav-item a:focus {
-  color: #FF00E5;
+    color: #FF00E5;
 }
 
 .navbar .wallet {
-  background: black;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  display: flex;
-  align-items: center; /* Ensure vertical alignment */
+    background: black;
+    color: white;
+    padding: 8px 16px; /* Matches governance page */
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold; /* Matches governance page */
+    font-family: sans-serif; /* Matches governance page */
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.navbar .wallet:hover {
+    background: #333;
+}
+
+/* Responsive Adjustments for Navbar */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px; /* Matches governance page */
+        height: 60px;
+    }
+    .navbar .logo {
+        font-size: 18px;
+    }
+    .navbar .profile-icon {
+        width: 36px; /* Smaller for mobile */
+        height: 36px;
+        margin-left: 10px;
+    }
+    .navbar ul {
+        display: none; /* Matches governance page */
+    }
+    .gwei-indicator {
+        padding: 5px;
+        font-size: 14px;
+        margin-left: 10px; /* Adjusted for mobile */
+    }
+    .blinking-dot {
+        height: 16px;
+        width: 16px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .indicator-text,
+    .indicator-text .version {
+        font-size: 14px;
+    }
+    .navbar .wallet {
+        padding: 6px 12px;
+        font-size: 14px;
+        margin-left: 0; /* Matches governance page */
+    }
 }
 
 /* Grid Layout */
 .container {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
-  max-width: 1200px;
-  margin: auto;
-  margin-top: 100px;
-  margin-bottom: 20px;
-  border: 14px solid rgba(239, 240, 246, 0.45);
-  background: rgba(150, 150, 150, 0.20);
-  border-radius: 50px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    border: 14px solid rgba(239, 240, 246, 0.45);
+    background: rgba(150, 150, 150, 0.20);
+    border-radius: 50px;
 }
 
 @media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-    margin-top: 80px;
-  }
-  .navbar {
-    padding: 15px 20px;
-  }
-  .navbar ul {
-    display: none; /* Hide for simplicity on mobile */
-  }
-  .navbar .wallet {
-    margin-left: 0; /* Remove any residual margin on mobile */
-  }
+    .container {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+    }
 }
 
 /* Main Content */
@@ -151,7 +249,7 @@ main {
     border: 13px solid #E2E4EF;
     padding: 30px 20px;
     border-radius: 25px;
-    margin-top: 100px; /* Prevents navbar overlap */
+    margin-top: 100px;
 }
 
 /* Glassmorphism Card Style */
@@ -452,7 +550,9 @@ footer {
 
     .navbar {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
+        height: auto;
+        padding: 10px 20px;
     }
 }
 
