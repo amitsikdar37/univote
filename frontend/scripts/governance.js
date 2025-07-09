@@ -2121,10 +2121,30 @@ function updateResultList(labels, data) {
     });
 }
 
+function copyText(text) {
+    if (!text || text === '0xTxHash123...') return alert("Nothing to copy yet.");
+    navigator.clipboard.writeText(text).then(() => alert("Copied to clipboard!")).catch(err => {
+        alert("Failed to copy text.");
+        console.error('Clipboard copy failed', err);
+    });
+}
+
+ function getVotingPagePath() {
+    // On localhost (any port), use /frontend/vote.html
+    if (
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1'
+    ) {
+        return '/frontend/vote.html';
+    } else {
+        return '/vote.html';
+    }
+}
+
 function copyVotingLink() {
-    if (!currentElectionId) return alert("No election ID available.");
-    const voteUrl = `${window.location.origin}/vote.html?electionId=${currentElectionId}`;
-    navigator.clipboard.writeText(voteUrl).then(() => alert("Copied to clipboard!"));
+    if (!currentElectionId) return alert("No election ID available to generate a link.");
+    const voteUrl = `${window.location.origin}${getVotingPagePath()}?electionId=${currentElectionId}`;
+    copyText(voteUrl);
 }
 
 function updateStep(stepNum, status, timestamp = null) {
