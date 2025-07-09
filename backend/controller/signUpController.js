@@ -115,7 +115,7 @@ exports.saveUserToDb = async (req,res) => {
         });
       });
 
-    sendJwtToken(res, { username, email });
+    sendJwtToken(res, { email });
 
     res.status(201).json({
       message: 'User Registered Succesfully.' 
