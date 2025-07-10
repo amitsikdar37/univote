@@ -35,6 +35,8 @@
             <a href="vote.html">Vote</a>
             <a href="result.html">Track vote</a>
             <!-- <a href="#">Help</a> -->
+            <button id="connectWalletBtn" style="margin-bottom: 1rem;">🔌 Connect Wallet</button>
+
         </nav>
         <div class="user-profile">
             <a href="profile.html"><i class="fas fa-user-circle"></i></a>
@@ -62,12 +64,27 @@
                     </div>
                     <div class="card">
                         <h3>Time</h3>
+                        <h2 id="electionTopic"></h2>
+                        <p id="electionIdDisplay"></p>
+                        <p id="electionEndTime"></p>
+                        <p id="countdownTimer"></p>
+
+                        <!-- ✅ Connect Wallet Button -->
+                        <!-- <button id="connectWalletBtn">🔌 Connect Wallet</button> -->
+
+                        <!-- Other elements -->
+                        <!-- <div id="statusMessage"></div> 
+                        <div id="resultsContainer"></div> -->
+
                     </div>
                 </div>
                 <div class="card results-card">
                     <div class="container">
                         <h3>Election Result</h3>
-                        <h5 id="electionTopic">Loading Election...</h5>
+                        <!-- <h5 id="electionTopic">Loading Election...</h5> -->
+                        <div id="statusMessage"></div>
+                        <div id="resultsContainer"></div>
+
                         <p id="electionIdDisplay">ID: ...</p>
                         <hr>
                         <div id="resultsContainer">
@@ -79,12 +96,12 @@
                 </div>
             </div>
 
-            <h2 id="electionTopic"></h2>
+            <!-- <h2 id="electionTopic"></h2>
             <p id="electionIdDisplay"></p>
             <p id="electionEndTime"></p>
             <p id="countdownTimer"></p>
             <p id="statusMessage"></p>
-            <div id="resultsContainer"></div>
+            <div id="resultsContainer"></div> -->
 
 
             <!-- <div class="stepper-container">

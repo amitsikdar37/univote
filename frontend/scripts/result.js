@@ -611,7 +611,336 @@
 
 // document.addEventListener('DOMContentLoaded', () => {
 
-
+// const contractAddress = "0x5ac18C2b545795e4573CCD75EEC2375939502b83";
+// const contractABI = [{
+//     "inputs": [
+//         {
+//             "internalType": "uint256",
+//             "name": "value",
+//             "type": "uint256"
+//         },
+//         {
+//             "internalType": "uint256",
+//             "name": "length",
+//             "type": "uint256"
+//         }
+//     ],
+//     "name": "StringsInsufficientHexLength",
+//     "type": "error"
+// },
+// {
+//     "anonymous": false,
+//     "inputs": [
+//         {
+//             "indexed": true,
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         },
+//         {
+//             "indexed": false,
+//             "internalType": "string",
+//             "name": "name",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "CandidateAdded",
+//     "type": "event"
+// },
+// {
+//     "anonymous": false,
+//     "inputs": [
+//         {
+//             "indexed": true,
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         },
+//         {
+//             "indexed": true,
+//             "internalType": "address",
+//             "name": "creator",
+//             "type": "address"
+//         }
+//     ],
+//     "name": "ElectionCreated",
+//     "type": "event"
+// },
+// {
+//     "anonymous": false,
+//     "inputs": [
+//         {
+//             "indexed": true,
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "ElectionEnded",
+//     "type": "event"
+// },
+// {
+//     "anonymous": false,
+//     "inputs": [
+//         {
+//             "indexed": true,
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         },
+//         {
+//             "indexed": false,
+//             "internalType": "address",
+//             "name": "voter",
+//             "type": "address"
+//         },
+//         {
+//             "indexed": false,
+//             "internalType": "uint256",
+//             "name": "candidateIndex",
+//             "type": "uint256"
+//         }
+//     ],
+//     "name": "Voted",
+//     "type": "event"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         },
+//         {
+//             "internalType": "string",
+//             "name": "name",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "addCandidate",
+//     "outputs": [],
+//     "stateMutability": "nonpayable",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "name",
+//             "type": "string"
+//         },
+//         {
+//             "internalType": "uint256",
+//             "name": "durationInMinutes",
+//             "type": "uint256"
+//         }
+//     ],
+//     "name": "createElection",
+//     "outputs": [],
+//     "stateMutability": "nonpayable",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "electionExists",
+//     "outputs": [
+//         {
+//             "internalType": "bool",
+//             "name": "",
+//             "type": "bool"
+//         }
+//     ],
+//     "stateMutability": "view",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "uint256",
+//             "name": "",
+//             "type": "uint256"
+//         }
+//     ],
+//     "name": "electionIds",
+//     "outputs": [
+//         {
+//             "internalType": "string",
+//             "name": "",
+//             "type": "string"
+//         }
+//     ],
+//     "stateMutability": "view",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "endElection",
+//     "outputs": [],
+//     "stateMutability": "nonpayable",
+//     "type": "function"
+// },
+// {
+//     "inputs": [],
+//     "name": "getAllElectionIds",
+//     "outputs": [
+//         {
+//             "internalType": "string[]",
+//             "name": "",
+//             "type": "string[]"
+//         }
+//     ],
+//     "stateMutability": "view",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "getCandidates",
+//     "outputs": [
+//         {
+//             "components": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "name",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "voteCount",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "internalType": "struct UniVote.Candidate[]",
+//             "name": "",
+//             "type": "tuple[]"
+//         }
+//     ],
+//     "stateMutability": "view",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "getElectionDetails",
+//     "outputs": [
+//         {
+//             "internalType": "string",
+//             "name": "id",
+//             "type": "string"
+//         },
+//         {
+//             "internalType": "string",
+//             "name": "name",
+//             "type": "string"
+//         },
+//         {
+//             "internalType": "address",
+//             "name": "creator",
+//             "type": "address"
+//         },
+//         {
+//             "internalType": "uint256",
+//             "name": "startTime",
+//             "type": "uint256"
+//         },
+//         {
+//             "internalType": "uint256",
+//             "name": "durationMinutes",
+//             "type": "uint256"
+//         },
+//         {
+//             "internalType": "bool",
+//             "name": "isEnded",
+//             "type": "bool"
+//         }
+//     ],
+//     "stateMutability": "view",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         }
+//     ],
+//     "name": "getResults",
+//     "outputs": [
+//         {
+//             "components": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "name",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "voteCount",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "internalType": "struct UniVote.Candidate[]",
+//             "name": "",
+//             "type": "tuple[]"
+//         }
+//     ],
+//     "stateMutability": "view",
+//     "type": "function"
+// },
+// {
+//     "inputs": [],
+//     "name": "totalElections",
+//     "outputs": [
+//         {
+//             "internalType": "uint256",
+//             "name": "",
+//             "type": "uint256"
+//         }
+//     ],
+//     "stateMutability": "view",
+//     "type": "function"
+// },
+// {
+//     "inputs": [
+//         {
+//             "internalType": "string",
+//             "name": "electionId",
+//             "type": "string"
+//         },
+//         {
+//             "internalType": "uint256",
+//             "name": "candidateIndex",
+//             "type": "uint256"
+//         }
+//     ],
+//     "name": "vote",
+//     "outputs": [],
+//     "stateMutability": "nonpayable",
+//     "type": "function"
+// }];
 //     const electionTopicEl = document.getElementById('electionTopic');
 //     const electionIdDisplayEl = document.getElementById('electionIdDisplay');
 //     const resultsContainerEl = document.getElementById('resultsContainer');
@@ -705,391 +1034,1377 @@
 
 
 
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     const contractAddress = "0x5ac18C2b545795e4573CCD75EEC2375939502b83";
+//     const rpcURL = "https://sepolia.base.org"; // Use your Base Sepolia RPC URL or Infura/Alchemy
+//     const provider = new ethers.providers.JsonRpcProvider(rpcURL);
+
+//     // const contractABI = [ /* --- your full ABI here --- */ ];
+//     // const contractAddress = "0x5ac18C2b545795e4573CCD75EEC2375939502b83";
+//     const contractABI = [{
+//         "inputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "value",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "length",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "StringsInsufficientHexLength",
+//         "type": "error"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "string",
+//                 "name": "name",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "CandidateAdded",
+//         "type": "event"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             },
+//             {
+//                 "indexed": true,
+//                 "internalType": "address",
+//                 "name": "creator",
+//                 "type": "address"
+//             }
+//         ],
+//         "name": "ElectionCreated",
+//         "type": "event"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "ElectionEnded",
+//         "type": "event"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "address",
+//                 "name": "voter",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "uint256",
+//                 "name": "candidateIndex",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "Voted",
+//         "type": "event"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             },
+//             {
+//                 "internalType": "string",
+//                 "name": "name",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "addCandidate",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "name",
+//                 "type": "string"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "durationInMinutes",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "createElection",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "electionExists",
+//         "outputs": [
+//             {
+//                 "internalType": "bool",
+//                 "name": "",
+//                 "type": "bool"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "electionIds",
+//         "outputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "",
+//                 "type": "string"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "endElection",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [],
+//         "name": "getAllElectionIds",
+//         "outputs": [
+//             {
+//                 "internalType": "string[]",
+//                 "name": "",
+//                 "type": "string[]"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "getCandidates",
+//         "outputs": [
+//             {
+//                 "components": [
+//                     {
+//                         "internalType": "string",
+//                         "name": "name",
+//                         "type": "string"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "voteCount",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "internalType": "struct UniVote.Candidate[]",
+//                 "name": "",
+//                 "type": "tuple[]"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "getElectionDetails",
+//         "outputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "id",
+//                 "type": "string"
+//             },
+//             {
+//                 "internalType": "string",
+//                 "name": "name",
+//                 "type": "string"
+//             },
+//             {
+//                 "internalType": "address",
+//                 "name": "creator",
+//                 "type": "address"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "startTime",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "durationMinutes",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "internalType": "bool",
+//                 "name": "isEnded",
+//                 "type": "bool"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "getResults",
+//         "outputs": [
+//             {
+//                 "components": [
+//                     {
+//                         "internalType": "string",
+//                         "name": "name",
+//                         "type": "string"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "voteCount",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "internalType": "struct UniVote.Candidate[]",
+//                 "name": "",
+//                 "type": "tuple[]"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [],
+//         "name": "totalElections",
+//         "outputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "electionId",
+//                 "type": "string"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "candidateIndex",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "vote",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     }];
+//     const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+//     const electionTopicEl = document.getElementById('electionTopic');
+//     const electionIdDisplayEl = document.getElementById('electionIdDisplay');
+//     const resultsContainerEl = document.getElementById('resultsContainer');
+//     const statusMessageEl = document.getElementById('statusMessage');
+//     const countdownEl = document.getElementById("countdownTimer");
+//     const endTimeEl = document.getElementById("electionEndTime");
+//     const copyBtn = document.getElementById("copyLinkBtn");
+
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const electionId = urlParams.get('electionId');
+
+//     if (!electionId) {
+//         statusMessageEl.textContent = "❌ Election ID URL mein nahi mila.";
+//         return;
+//     }
+
+//     electionIdDisplayEl.textContent = `ID: ${electionId}`;
+
+//     try {
+//         const details = await contract.getElectionDetails(electionId);
+//         const startTime = parseInt(details.startTime.toString());
+//         const duration = parseInt(details.durationMinutes.toString());
+//         const endTime = startTime + duration * 60;
+
+//         const electionName = details.name;
+//         electionTopicEl.textContent = electionName || "Election";
+
+//         const now = Math.floor(Date.now() / 1000);
+//         endTimeEl.textContent = `🕓 Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
+
+//         if (now >= endTime || details.isEnded) {
+//             await showResults();
+//         } else {
+//             statusMessageEl.textContent = "⏳ Election is ongoing...";
+//             startCountdown(endTime - now);
+//         }
+
+//         copyBtn.addEventListener("click", () => {
+//             const link = `${window.location.origin}${window.location.pathname}?electionId=${electionId}`;
+//             navigator.clipboard.writeText(link)
+//                 .then(() => {
+//                     copyBtn.textContent = "✅ Link copied!";
+//                     setTimeout(() => copyBtn.textContent = "📋 Copy Result Link", 2000);
+//                 })
+//                 .catch(() => {
+//                     copyBtn.textContent = "❌ Failed to copy";
+//                 });
+//         });
+
+//     } catch (e) {
+//         statusMessageEl.textContent = "❌ Error fetching election details.";
+//         console.error(e);
+//     }
+
+//     async function showResults() {
+//         try {
+//             statusMessageEl.textContent = "✅ Election ended. Loading results...";
+//             const candidates = await contract.getCandidates(electionId);
+//             resultsContainerEl.innerHTML = "";
+//             let totalVotes = 0;
+
+//             candidates.forEach((c, i) => {
+//                 const resultItem = document.createElement('div');
+//                 resultItem.className = 'result-item';
+
+//                 const nameSpan = document.createElement('span');
+//                 nameSpan.className = 'candidate-name';
+//                 nameSpan.textContent = `${i + 1}. ${c.name}`;
+
+//                 const voteSpan = document.createElement('span');
+//                 voteSpan.className = 'vote-count';
+//                 voteSpan.textContent = `Votes: ${c.voteCount}`;
+
+//                 resultItem.appendChild(nameSpan);
+//                 resultItem.appendChild(voteSpan);
+//                 resultsContainerEl.appendChild(resultItem);
+
+//                 totalVotes += parseInt(c.voteCount.toString());
+//             });
+
+//             statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
+//             countdownEl.textContent = "";
+//         } catch (err) {
+//             statusMessageEl.textContent = "❌ Failed to load results.";
+//             console.error(err);
+//         }
+//     }
+
+//     function startCountdown(seconds) {
+//         const interval = setInterval(() => {
+//             if (seconds <= 0) {
+//                 clearInterval(interval);
+//                 showResults();
+//                 return;
+//             }
+//             const m = Math.floor(seconds / 60);
+//             const s = seconds % 60;
+//             countdownEl.textContent = `⏳ Ends in: ${m}m ${s}s`;
+//             seconds--;
+//         }, 1000);
+//     }
+// });
+
+
+
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     const contractAddress = "0x5ac18C2b545795e4573CCD75EEC2375939502b83";
+//     const rpcURL = "https://sepolia.base.org";
+//     const provider = new ethers.providers.JsonRpcProvider(rpcURL);
+
+//     let connectedProvider = null;
+//     let signer = null;
+
+//     const contractABI = [
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "value",
+//                     "type": "uint256"
+//                 },
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "length",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "name": "StringsInsufficientHexLength",
+//             "type": "error"
+//         },
+//         {
+//             "anonymous": false,
+//             "inputs": [
+//                 {
+//                     "indexed": true,
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "indexed": false,
+//                     "internalType": "string",
+//                     "name": "name",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "CandidateAdded",
+//             "type": "event"
+//         },
+//         {
+//             "anonymous": false,
+//             "inputs": [
+//                 {
+//                     "indexed": true,
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "indexed": true,
+//                     "internalType": "address",
+//                     "name": "creator",
+//                     "type": "address"
+//                 }
+//             ],
+//             "name": "ElectionCreated",
+//             "type": "event"
+//         },
+//         {
+//             "anonymous": false,
+//             "inputs": [
+//                 {
+//                     "indexed": true,
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "ElectionEnded",
+//             "type": "event"
+//         },
+//         {
+//             "anonymous": false,
+//             "inputs": [
+//                 {
+//                     "indexed": true,
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "indexed": false,
+//                     "internalType": "address",
+//                     "name": "voter",
+//                     "type": "address"
+//                 },
+//                 {
+//                     "indexed": false,
+//                     "internalType": "uint256",
+//                     "name": "candidateIndex",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "name": "Voted",
+//             "type": "event"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "internalType": "string",
+//                     "name": "name",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "addCandidate",
+//             "outputs": [],
+//             "stateMutability": "nonpayable",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "name",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "durationInMinutes",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "name": "createElection",
+//             "outputs": [],
+//             "stateMutability": "nonpayable",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "electionExists",
+//             "outputs": [
+//                 {
+//                     "internalType": "bool",
+//                     "name": "",
+//                     "type": "bool"
+//                 }
+//             ],
+//             "stateMutability": "view",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "name": "electionIds",
+//             "outputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "",
+//                     "type": "string"
+//                 }
+//             ],
+//             "stateMutability": "view",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "endElection",
+//             "outputs": [],
+//             "stateMutability": "nonpayable",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [],
+//             "name": "getAllElectionIds",
+//             "outputs": [
+//                 {
+//                     "internalType": "string[]",
+//                     "name": "",
+//                     "type": "string[]"
+//                 }
+//             ],
+//             "stateMutability": "view",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "getCandidates",
+//             "outputs": [
+//                 {
+//                     "components": [
+//                         {
+//                             "internalType": "string",
+//                             "name": "name",
+//                             "type": "string"
+//                         },
+//                         {
+//                             "internalType": "uint256",
+//                             "name": "voteCount",
+//                             "type": "uint256"
+//                         }
+//                     ],
+//                     "internalType": "struct UniVote.Candidate[]",
+//                     "name": "",
+//                     "type": "tuple[]"
+//                 }
+//             ],
+//             "stateMutability": "view",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "getElectionDetails",
+//             "outputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "id",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "internalType": "string",
+//                     "name": "name",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "internalType": "address",
+//                     "name": "creator",
+//                     "type": "address"
+//                 },
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "startTime",
+//                     "type": "uint256"
+//                 },
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "durationMinutes",
+//                     "type": "uint256"
+//                 },
+//                 {
+//                     "internalType": "bool",
+//                     "name": "isEnded",
+//                     "type": "bool"
+//                 }
+//             ],
+//             "stateMutability": "view",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 }
+//             ],
+//             "name": "getResults",
+//             "outputs": [
+//                 {
+//                     "components": [
+//                         {
+//                             "internalType": "string",
+//                             "name": "name",
+//                             "type": "string"
+//                         },
+//                         {
+//                             "internalType": "uint256",
+//                             "name": "voteCount",
+//                             "type": "uint256"
+//                         }
+//                     ],
+//                     "internalType": "struct UniVote.Candidate[]",
+//                     "name": "",
+//                     "type": "tuple[]"
+//                 }
+//             ],
+//             "stateMutability": "view",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [],
+//             "name": "totalElections",
+//             "outputs": [
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "stateMutability": "view",
+//             "type": "function"
+//         },
+//         {
+//             "inputs": [
+//                 {
+//                     "internalType": "string",
+//                     "name": "electionId",
+//                     "type": "string"
+//                 },
+//                 {
+//                     "internalType": "uint256",
+//                     "name": "candidateIndex",
+//                     "type": "uint256"
+//                 }
+//             ],
+//             "name": "vote",
+//             "outputs": [],
+//             "stateMutability": "nonpayable",
+//             "type": "function"
+//         } 
+//     ];
+
+//     const readOnlyContract = new ethers.Contract(contractAddress, contractABI, provider);
+
+//     const electionTopicEl = document.getElementById('electionTopic');
+//     const electionIdDisplayEl = document.getElementById('electionIdDisplay');
+//     const resultsContainerEl = document.getElementById('resultsContainer');
+//     const statusMessageEl = document.getElementById('statusMessage');
+//     const countdownEl = document.getElementById("countdownTimer");
+//     const endTimeEl = document.getElementById("electionEndTime");
+//     const copyBtn = document.getElementById("copyLinkBtn");
+//     const connectBtn = document.getElementById("connectWalletBtn");
+
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const electionId = urlParams.get('electionId');
+
+//     if (!electionId) {
+//         statusMessageEl.textContent = "❌ Election ID URL mein nahi mila.";
+//         return;
+//     }
+
+//     electionIdDisplayEl.textContent = `ID: ${electionId}`;
+
+//     connectBtn.addEventListener("click", async () => {
+//         if (typeof window.ethereum === 'undefined') {
+//             alert("⚠️ Please install MetaMask.");
+//             return;
+//         }
+//         try {
+//             const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
+//             await web3Provider.send("eth_requestAccounts", []);
+//             signer = web3Provider.getSigner();
+//             connectedProvider = new ethers.Contract(contractAddress, contractABI, signer);
+//             connectBtn.textContent = "✅ Wallet Connected";
+//             connectBtn.disabled = true;
+//         } catch (err) {
+//             alert("❌ Wallet connection rejected.");
+//             console.error(err);
+//         }
+//     });
+
+//     try {
+//         const details = await readOnlyContract.getElectionDetails(electionId);
+//         const startTime = parseInt(details.startTime.toString());
+//         const duration = parseInt(details.durationMinutes.toString());
+//         const endTime = startTime + duration * 60;
+
+//         const electionName = details.name;
+//         electionTopicEl.textContent = electionName || "Election";
+
+//         const now = Math.floor(Date.now() / 1000);
+//         endTimeEl.textContent = `🕓 Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
+
+//         if (now >= endTime || details.isEnded) {
+//             await showResults();
+//         } else {
+//             statusMessageEl.textContent = "⏳ Election is ongoing...";
+//             startCountdown(endTime - now);
+//         }
+
+//         copyBtn.addEventListener("click", () => {
+//             const link = `${window.location.origin}${window.location.pathname}?electionId=${electionId}`;
+//             navigator.clipboard.writeText(link)
+//                 .then(() => {
+//                     copyBtn.textContent = "✅ Link copied!";
+//                     setTimeout(() => copyBtn.textContent = "📋 Copy Result Link", 2000);
+//                 })
+//                 .catch(() => {
+//                     copyBtn.textContent = "❌ Failed to copy";
+//                 });
+//         });
+
+//     } catch (e) {
+//         statusMessageEl.textContent = "❌ Error fetching election details.";
+//         console.error(e);
+//     }
+
+//     async function showResults() {
+//         try {
+//             statusMessageEl.textContent = "✅ Election ended. Loading results...";
+//             const candidates = await readOnlyContract.getCandidates(electionId);
+//             resultsContainerEl.innerHTML = "";
+//             let totalVotes = 0;
+
+//             candidates.forEach((c, i) => {
+//                 const resultItem = document.createElement('div');
+//                 resultItem.className = 'result-item';
+
+//                 const nameSpan = document.createElement('span');
+//                 nameSpan.className = 'candidate-name';
+//                 nameSpan.textContent = `${i + 1}. ${c.name}`;
+
+//                 const voteSpan = document.createElement('span');
+//                 voteSpan.className = 'vote-count';
+//                 voteSpan.textContent = `Votes: ${c.voteCount}`;
+
+//                 resultItem.appendChild(nameSpan);
+//                 resultItem.appendChild(voteSpan);
+//                 resultsContainerEl.appendChild(resultItem);
+
+//                 totalVotes += parseInt(c.voteCount.toString());
+//             });
+
+//             statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
+//             countdownEl.textContent = "";
+//         } catch (err) {
+//             statusMessageEl.textContent = "❌ Failed to load results.";
+//             console.error(err);
+//         }
+//     }
+
+//     function startCountdown(seconds) {
+//         const interval = setInterval(() => {
+//             if (seconds <= 0) {
+//                 clearInterval(interval);
+//                 showResults();
+//                 return;
+//             }
+//             const m = Math.floor(seconds / 60);
+//             const s = seconds % 60;
+//             countdownEl.textContent = `⏳ Ends in: ${m}m ${s}s`;
+//             seconds--;
+//         }, 1000);
+//     }
+// });
+
+
+
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     const contractAddress = "0x5ac18C2b545795e4573CCD75EEC2375939502b83";
-    const contractABI = [{
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "value",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "length",
-                "type": "uint256"
-            }
-        ],
-        "name": "StringsInsufficientHexLength",
-        "type": "error"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            }
-        ],
-        "name": "CandidateAdded",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "creator",
-                "type": "address"
-            }
-        ],
-        "name": "ElectionCreated",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            }
-        ],
-        "name": "ElectionEnded",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "voter",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "candidateIndex",
-                "type": "uint256"
-            }
-        ],
-        "name": "Voted",
-        "type": "event"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            }
-        ],
-        "name": "addCandidate",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "durationInMinutes",
-                "type": "uint256"
-            }
-        ],
-        "name": "createElection",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "name": "electionExists",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "electionIds",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            }
-        ],
-        "name": "endElection",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getAllElectionIds",
-        "outputs": [
-            {
-                "internalType": "string[]",
-                "name": "",
-                "type": "string[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            }
-        ],
-        "name": "getCandidates",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "voteCount",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct UniVote.Candidate[]",
-                "name": "",
-                "type": "tuple[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            }
-        ],
-        "name": "getElectionDetails",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "id",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "internalType": "address",
-                "name": "creator",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "startTime",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "durationMinutes",
-                "type": "uint256"
-            },
-            {
-                "internalType": "bool",
-                "name": "isEnded",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            }
-        ],
-        "name": "getResults",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "voteCount",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct UniVote.Candidate[]",
-                "name": "",
-                "type": "tuple[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "totalElections",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "electionId",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "candidateIndex",
-                "type": "uint256"
-            }
-        ],
-        "name": "vote",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }];
-    const provider = new ethers.providers.JsonRpcProvider("https://mainnet.base.org"); // ya Base testnet ka RPC
+    // const contractABI = [/* -- your existing ABI -- */];
+    const contractABI = [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "length",
+                    "type": "uint256"
+                }
+            ],
+            "name": "StringsInsufficientHexLength",
+            "type": "error"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                }
+            ],
+            "name": "CandidateAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                }
+            ],
+            "name": "ElectionCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                }
+            ],
+            "name": "ElectionEnded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "voter",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "candidateIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Voted",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                }
+            ],
+            "name": "addCandidate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "durationInMinutes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createElection",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "name": "electionExists",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "electionIds",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                }
+            ],
+            "name": "endElection",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getAllElectionIds",
+            "outputs": [
+                {
+                    "internalType": "string[]",
+                    "name": "",
+                    "type": "string[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                }
+            ],
+            "name": "getCandidates",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "voteCount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct UniVote.Candidate[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                }
+            ],
+            "name": "getElectionDetails",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "id",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "address",
+                    "name": "creator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "durationMinutes",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isEnded",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                }
+            ],
+            "name": "getResults",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "voteCount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct UniVote.Candidate[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalElections",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "electionId",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "candidateIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "vote",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ];
 
-    const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const electionId = urlParams.get('electionId');
-
-    const electionIdDisplayEl = document.getElementById('electionIdDisplay');
-    const electionTopicEl = document.getElementById('electionTopic');
-    const resultsContainerEl = document.getElementById('resultsContainer');
-    const statusMessageEl = document.getElementById('statusMessage');
+    const statusMessageEl = document.getElementById("statusMessage");
+    const electionIdDisplayEl = document.getElementById("electionIdDisplay");
+    const resultsContainerEl = document.getElementById("resultsContainer");
     const endTimeEl = document.getElementById("electionEndTime");
+    const countdownEl = document.getElementById("countdownTimer");
+    const connectBtn = document.getElementById("connectWalletBtn");
 
-    if (!electionId) {
-        statusMessageEl.textContent = "❌ Election ID missing from URL.";
-        return;
-    }
+    let provider, signer, contract, electionId;
 
-    electionIdDisplayEl.textContent = `ID: ${electionId}`;
-
-    try {
-        const details = await contract.getElectionDetails(electionId);
-        const startTime = parseInt(details.startTime.toString());
-        const duration = parseInt(details.durationMinutes.toString());
-        const endTime = startTime + duration * 60;
-        const now = Math.floor(Date.now() / 1000);
-
-        endTimeEl.textContent = `Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
-
-        const isEnded = details.isEnded || now > endTime;
-
-        if (!isEnded) {
-            statusMessageEl.textContent = "⏳ Election abhi khatam nahi hua. Results public nahi hain.";
+    // Connect wallet and initialize contract
+    connectBtn.addEventListener('click', async () => {
+        if (typeof window.ethereum === "undefined") {
+            statusMessageEl.textContent = "❌ Please install MetaMask.";
             return;
         }
 
-        const candidates = await contract.getCandidates(electionId);
-        resultsContainerEl.innerHTML = '';
-        let totalVotes = 0;
+        try {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            await provider.send("eth_requestAccounts", []);
+            signer = provider.getSigner();
+            contract = new ethers.Contract(contractAddress, contractABI, signer);
+            connectBtn.style.display = "none";
+            statusMessageEl.textContent = "✅ Wallet connected.";
+            init();
+        } catch (err) {
+            console.error(err);
+            statusMessageEl.textContent = "❌ Wallet connection failed.";
+        }
+    });
 
-        candidates.forEach((c, i) => {
-            const div = document.createElement('div');
-            div.className = "result-item";
-            div.innerHTML = `
-                <span class="candidate-name">${i + 1}. ${c.name}</span>
-                <span class="vote-count">Votes: ${c.voteCount.toString()}</span>
-            `;
-            resultsContainerEl.appendChild(div);
-            totalVotes += parseInt(c.voteCount.toString());
-        });
+    async function init() {
+        const urlParams = new URLSearchParams(window.location.search);
+        electionId = urlParams.get("electionId");
 
-        statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
-    } catch (err) {
-        statusMessageEl.textContent = "❌ Could not load election results.";
-        console.error(err);
+        if (!electionId) {
+            statusMessageEl.textContent = "❌ No electionId in URL.";
+            return;
+        }
+
+        electionIdDisplayEl.textContent = `🆔 ${electionId}`;
+
+        try {
+            const details = await contract.getElectionDetails(electionId);
+            const startTime = parseInt(details.startTime.toString());
+            const duration = parseInt(details.durationMinutes.toString());
+            const endTime = startTime + duration * 60;
+            const now = Math.floor(Date.now() / 1000);
+
+            endTimeEl.textContent = `🕓 Ends at: ${new Date(endTime * 1000).toLocaleString()}`;
+
+            // Start countdown
+            updateCountdown(endTime);
+            const countdownInterval = setInterval(() => {
+                const remaining = endTime - Math.floor(Date.now() / 1000);
+                if (remaining <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownEl.textContent = "✅ Election ended.";
+                    loadResults();
+                } else {
+                    updateCountdown(endTime);
+                }
+            }, 1000);
+
+            if (now >= endTime || details.isEnded) {
+                countdownEl.textContent = "✅ Election ended.";
+                loadResults();
+            } else {
+                statusMessageEl.textContent = "⏳ Election still ongoing. Results will appear after end time.";
+            }
+        } catch (err) {
+            console.error(err);
+            statusMessageEl.textContent = "❌ Error fetching election details.";
+        }
+    }
+
+    function updateCountdown(endTime) {
+        const now = Math.floor(Date.now() / 1000);
+        const remaining = endTime - now;
+        if (remaining <= 0) {
+            countdownEl.textContent = "✅ Election ended.";
+            return;
+        }
+        const minutes = Math.floor(remaining / 60);
+        const seconds = remaining % 60;
+        countdownEl.textContent = `⏳ Time left: ${minutes}m ${seconds}s`;
+    }
+
+    async function loadResults() {
+        try {
+            const candidates = await contract.getCandidates(electionId);
+            let totalVotes = 0;
+            resultsContainerEl.innerHTML = "";
+
+            candidates.forEach((c, i) => {
+                const div = document.createElement("div");
+                div.className = "result-item";
+
+                const name = document.createElement("span");
+                name.className = "candidate-name";
+                name.textContent = `${i + 1}. ${c.name}`;
+
+                const votes = document.createElement("span");
+                votes.className = "vote-count";
+                votes.textContent = `Votes: ${c.voteCount.toString()}`;
+
+                div.appendChild(name);
+                div.appendChild(votes);
+                resultsContainerEl.appendChild(div);
+
+                totalVotes += parseInt(c.voteCount.toString());
+            });
+
+            statusMessageEl.textContent = `✅ Results loaded. Total votes: ${totalVotes}`;
+        } catch (err) {
+            console.error(err);
+            statusMessageEl.textContent = "❌ Error loading results.";
+        }
     }
 });

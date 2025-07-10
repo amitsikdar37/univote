@@ -2003,6 +2003,8 @@ async function connectWallet() {
 }
 
 async function startElection() {
+    resetStepper();
+    
     const topic = document.getElementById("votingTopic").value;
     const duration = document.getElementById("timerInput").value;
     const candidates = Array.from(document.querySelectorAll(".candidate-input"))
@@ -2011,9 +2013,15 @@ async function startElection() {
 
     if (!topic || !duration || candidates.length < 2) return alert("Fill topic, duration & at least 2 candidates");
 
+    updateStep(1, null, Date.now());
+
     try {
         const tx = await contract.createElection(topic, duration);
+        updateStep(2, null, Date.now());
+        updateStep(3, null, Date.now());
         await tx.wait();
+
+        updateStep(4, null, Date.now());
 
         const allIds = await contract.getAllElectionIds();
         currentElectionId = allIds[allIds.length - 1];
@@ -2023,6 +2031,8 @@ async function startElection() {
             const txAdd = await contract.addCandidate(currentElectionId, name);
             await txAdd.wait();
         }
+
+        saveCriteria(currentElectionId);
 
         alert("Election created!");
         copyLinkBtn.disabled = false;
@@ -2111,8 +2121,93 @@ function updateResultList(labels, data) {
     });
 }
 
-function copyVotingLink() {
-    if (!currentElectionId) return alert("No election ID available.");
-    const voteUrl = `${window.location.origin}/vote.html?electionId=${currentElectionId}`;
-    navigator.clipboard.writeText(voteUrl).then(() => alert("Copied to clipboard!"));
+function copyText(text) {
+    if (!text || text === '0xTxHash123...') return alert("Nothing to copy yet.");
+    navigator.clipboard.writeText(text).then(() => alert("Copied to clipboard!")).catch(err => {
+        alert("Failed to copy text.");
+        console.error('Clipboard copy failed', err);
+    });
 }
+
+ function getVotingPagePath() {
+    // On localhost (any port), use /frontend/vote.html
+    if (
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1'
+    ) {
+        return '/frontend/vote.html';
+    } else {
+        return '/vote.html';
+    }
+}
+
+function copyVotingLink() {
+    if (!currentElectionId) return alert("No election ID available to generate a link.");
+    const voteUrl = `${window.location.origin}${getVotingPagePath()}?electionId=${currentElectionId}`;
+    copyText(voteUrl);
+}
+
+function updateStep(stepNum, status, timestamp = null) {
+  for (let i = 1; i <= 4; i++) {
+    const step = document.getElementById(`step-${i}`);
+    step.classList.remove("active", "completed");
+    if (i < stepNum) step.classList.add("completed");
+    if (i === stepNum) step.classList.add("active");
+  }
+  if (stepNum === 4) {
+    const step = document.getElementById("step-4");
+    step.classList.add("completed");
+  }
+  if (timestamp) {
+    document.getElementById(`ts-${stepNum}`).textContent = new Date(timestamp).toLocaleTimeString();
+  }
+}
+
+function resetStepper() {
+  for (let i = 1; i <= 4; i++) {
+    const step = document.getElementById(`step-${i}`);
+    step.classList.remove("active", "completed");
+    document.getElementById(`ts-${i}`).textContent = "";
+  }
+}
+
+const saveCriteria = async (yourElectionId) => {
+
+    const criteria = {
+        onlyIITP: document.getElementById('onlyIITP').checked,
+        account10Days: document.getElementById('account10Days').checked,
+        completedPartX: document.getElementById('completedPartX').checked,
+        connectedGoogleAccount: document.getElementById('connectedGoogleAccount').checked
+        };
+
+        const topic = document.getElementById('votingTopic').value;
+
+        if (!topic.trim()) {
+            alert("Please enter a voting topic.");
+            return;
+        }
+
+        try {
+        const response = await fetch(`${BACKEND_URL}/api/Save-Election-Criteria`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                election_id: yourElectionId, // Replace with actual election ID
+                criteria: criteria,
+                topic: topic
+            })
+            });
+            const data = await response.json();
+            // handle success (e.g., show a confirmation message)
+            if (data.status === "1") {
+            console.log("Criteria set successfully:", data);
+            } else {
+            console.warn("Failed to set criteria:", data.message);
+            }
+        } catch (error) {
+        console.error("Error setting criteria:", error);
+        alert("Failed to set election criteria. Please try again.");
+        }
+};
+
