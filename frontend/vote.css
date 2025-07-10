@@ -169,6 +169,23 @@ body {
     background: #333;
 }
 
+#copyResultBtn{
+    border-radius: 10px;
+     flex-grow: 1;
+    /* background: var(--card-background); */
+    border: var(--card-border);
+    /* color: var(--text-color); */
+    padding: 0.8rem;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+     /* display: flex; */
+    gap: 1rem;
+}
+#copyResultBtn:hover {
+     background: rgba(255, 255, 255, 0.2);
+}
 /* Responsive Adjustments for Navbar */
 @media (max-width: 768px) {
     .navbar {

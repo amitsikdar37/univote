@@ -2074,7 +2074,7 @@ function addCandidate() {
     const container = document.getElementById("candidates");
     const input = document.createElement("input");
     input.className = "candidate-input";
-    input.placeholder = `Candidate ${container.children.length + 1}`;
+    input.placeholder = `option ${container.children.length + 1}`;
     container.appendChild(input);
 }
 
