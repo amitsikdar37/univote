@@ -412,8 +412,8 @@ input:checked+.slider:before {
 .timer-circle,
 .results-circle {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 170px;
+    height: 170px;
     margin: 0 auto;
     border-radius: 50%;
     display: flex;
@@ -422,7 +422,10 @@ input:checked+.slider:before {
 }
 
 .timer-circle {
-    background: conic-gradient(#6b47ff 360deg, #333 0deg);
+    /* background: conic-gradient(#6b47ff 360deg, #333 0deg); */
+    /* background-color: hsl(0, 14%, 99%); */
+    background-color: #D8DCEA;
+    
 }
 
 .results-circle {
@@ -433,7 +436,8 @@ input:checked+.slider:before {
     position: absolute;
     width: 120px;
     height: 120px;
-    background: #2a1a5e;
+    /* background: #2a1a5e; */
+    background-color: hsl(0, 14%, 99%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
