@@ -979,3 +979,34 @@ async function checkEligibilityAndUpdateUI(electionId) {
   }
 
 })();
+
+const gweiVersionSpan = document.querySelector('.gwei-indicator .version');
+
+async function updateGwei() {
+  try {
+    // Adjust the endpoint as per your backend route
+    const response = await fetch(`${BACKEND_URL}/api/Gwei`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch gwei');
+    }
+    const data = await response.json();
+    // Etherscan's API returns the value as a string, e.g., data.result.ProposeGasPrice
+    let gwei = data.result?.SafeGasPrice;
+    if (gwei && !isNaN(gwei)) {
+      gwei = parseFloat(gwei).toFixed(2);
+    } else {
+      gwei = 'N/A';
+    }
+    gweiVersionSpan.textContent = gwei;
+  } catch (err) {
+    console.error('Error updating gwei:', err);
+    gweiVersionSpan.textContent = 'N/A';
+  }
+}
+
+// Initial fetch
+updateGwei();
+
+// Update every 5 seconds (5000 ms)
+setInterval(updateGwei, 5000);
+
