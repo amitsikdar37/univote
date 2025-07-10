@@ -1128,8 +1128,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault();
     const id = searchInput.value.trim();
     if (!id) return;
+    if (!contract) {
+      await connectWallet();
+      if (!contract) { // User may cancel wallet connection
+        alert("Please connect your wallet to view this election.");
+        return;
+      }
+    }
     setElectionId(id);
     await loadElectionDetails();
+    await updateElectionTopic(electionId);
+    await updateElectionCriteria(electionId);
+    await checkEligibilityAndUpdateUI(electionId);
   });
 
   const idURL = getElectionIdFromURL();
@@ -1137,6 +1147,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     setElectionId(idURL);
     await connectWallet();
     await loadElectionDetails();
+    await updateElectionTopic(electionId);
+    await updateElectionCriteria(electionId);
+    await checkEligibilityAndUpdateUI(electionId);
   }
 
    
@@ -1165,6 +1178,116 @@ document.getElementById("copyResultBtn").addEventListener("click", async () => {
     alert("Failed to copy result link.");
   }
 });
+
+async function checkEligibilityAndUpdateUI(electionId) {
+  const res = await fetch(`${BACKEND_URL}/api/CheckPublicClaim`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ election_id: electionId }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok || !data.eligible) {
+    // Disable voting button
+    submitVoteBtn.disabled = true;
+    submitVoteBtn.textContent = "Not Eligible to Vote";
+    // Mark failed criteria
+    if (data.failedCriteria) markFailedCriteria(data.failedCriteria);
+    statusMessageEl.textContent = "You are not eligible to vote in this election.";
+    return null;
+  } else {
+      try {
+        // Ensure contract and signer are initialized
+        if (!contract || !signer) {
+          statusMessageEl.textContent = "Please connect your wallet first.";
+          return null;
+        }
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+
+      submitVoteBtn.disabled = false;
+      submitVoteBtn.textContent = "Select a Candidate";
+      statusMessageEl.textContent = "You are eligible to vote!";
+      markFailedCriteria([]); // Clear any previous failed criteria
+    }
+  }
+
+function markFailedCriteria(failedKeys) {
+  // Assumes each .criteria-item has a data-key attribute set to the criteria key
+  document.querySelectorAll('.criteria-item').forEach(item => {
+    const key = item.getAttribute('data-key');
+    if (failedKeys.includes(key)) {
+      item.classList.add('criteria-failed');
+    } else {
+      item.classList.remove('criteria-failed');
+    }
+  });
+}
+
+async function updateElectionTopic(electionId) {
+   const topicEl = document.getElementById('electionTopicText');
+   topicEl.textContent = "Loading topic...";
+   try {
+     const res = await fetch(`${BACKEND_URL}/api/election-criteria/${encodeURIComponent(electionId)}`);
+     if (!res.ok) {
+       topicEl.textContent = "Topic not found.";
+       return;
+     }
+     const data = await res.json();
+     topicEl.textContent = data.topic || "Topic not found.";
+   } catch (err) {
+     topicEl.textContent = "Failed to load topic.";
+   }
+ }
+
+ function getCriteriaSentence(key) {
+   const mapping = {
+     onlyIITP: "Only recipients of an IITP ID can vote.",
+     account10Days: "Only users whose account is older than 10 days are eligible.",
+     completedPartX: "Only users who has connected X account are eligible.",
+     connectedGoogleAccount: "Only users who have connected their Google account can vote."
+   };
+   return mapping[key] || key;
+ }
+
+ async function updateElectionCriteria(electionId) {
+   const container = document.getElementById('criteriaContainer');
+   container.innerHTML = '<div class="criteria-loading">Loading eligibility criteria...</div>';
+
+   try {
+     const res = await fetch(`${BACKEND_URL}/api/election-criteria/${encodeURIComponent(electionId)}/criteria`);
+     if (!res.ok) {
+       container.innerHTML = '<div class="criteria-error">No criteria found for this election.</div>';
+       return;
+     }
+     const data = await res.json();
+     const criteriaKeys = data.criteria || [];
+
+     if (criteriaKeys.length === 0) {
+       container.innerHTML = '<div class="criteria-empty">No eligibility criteria set for this election.</div>';
+       return;
+     }
+
+     let html = '<ul class="criteria-list">';
+     criteriaKeys.forEach(key => {
+       html += `<li class="criteria-item" data-key="${key}">${getCriteriaSentence(key)}</li>`;
+     });
+     html += '</ul>';
+     container.innerHTML = `
+       <h3 class="criteria-title">Eligibility Criteria</h3>
+       ${html}
+     `;
+   } catch (err) {
+     container.innerHTML = '<div class="criteria-error">Failed to load criteria.</div>';
+   }
+}
 
 
 
