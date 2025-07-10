@@ -741,6 +741,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.className = "option-btn";
         btn.textContent = c.name;
         btn.addEventListener("click", () => {
+          if (btn.classList.contains('disabled') || submitBtn.disabled) return;
           document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
           btn.classList.add("selected");
           selectedCandidateIndex = idx;
@@ -794,6 +795,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function handleVote() {
+    if (submitBtn.disabled) {
+    statusMsg.textContent = "You are not eligible to vote.";
+    return;
+  }
     try {
       const details = await contract.getElectionDetails(electionId);
       const startTime = details.startTime.toNumber();
@@ -867,28 +872,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  async function checkEligibilityAndUpdateUI(electionId) {
-    const res = await fetch(`${BACKEND_URL}/api/CheckPublicClaim`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ election_id: electionId }),
-    });
-    const data = await res.json();
-    if (!res.ok || !data.eligible) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Not Eligible to Vote";
-      if (data.failedCriteria) markFailedCriteria(data.failedCriteria);
-      statusMsg.textContent = "You are not eligible to vote in this election.";
-    } else {
-      if (!contract || !signer) {
-        statusMsg.textContent = "Please connect your wallet first.";
-        return;
+async function checkEligibilityAndUpdateUI(electionId) {
+  const res = await fetch(`${BACKEND_URL}/api/CheckPublicClaim`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ election_id: electionId }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok || !data.eligible) {
+    // Disable voting button
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Not Eligible to Vote";
+    // Mark failed criteria
+    if (data.failedCriteria) markFailedCriteria(data.failedCriteria);
+    statusMsg.textContent = "You are not eligible to vote in this election.";
+    return null;
+  } else {
+      try {
+        // Ensure contract and signer are initialized
+        if (!contract || !signer) {
+          statusMsg.textContent = "Please connect your wallet first.";
+          return null;
+        }
+      } catch (err) {
+        console.log(err);
+        return null;
       }
+
       submitBtn.disabled = false;
       submitBtn.textContent = "Select a Candidate";
       statusMsg.textContent = "You are eligible to vote!";
-      markFailedCriteria([]);
+      markFailedCriteria([]); // Clear any previous failed criteria
     }
   }
 
