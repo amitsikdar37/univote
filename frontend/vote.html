@@ -1,11 +1,13 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNI-VOTE Interface</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/ethers@5/dist/ethers.umd.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/ethers@5/dist/ethers.umd.min.js"></script>
+
     <link rel="stylesheet" href="vote.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
@@ -134,20 +136,15 @@
     <main>
         <div class="main-grid">
             <div class="left-panel">
-                <div class="card voting-topic" style="background-color: hsl(0, 14%, 99%);border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                <div class="card voting-topic"
+                    style="background-color: hsl(0, 14%, 99%);border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <h2 id="electionTopic" style="text-align: center; margin-bottom: 0.5rem;color: #020202;"></h2>
                     <div id="election-search-container">
                         <form id="electionSearchForm">
-                            <input
-                            type="search"
-                            id="electionSearchInput"
-                            name="electionId"
-                            placeholder="Search Election ID"
-                            aria-label="Search Election ID"
-                            required
-                            >
+                            <input type="search" id="electionSearchInput" name="electionId"
+                                placeholder="Search Election ID" aria-label="Search Election ID" required>
                             <button type="submit">
-                            Search
+                                Search
                             </button>
                         </form>
                         <div id="loadingMessage">Loading...</div>
@@ -162,20 +159,24 @@
                         id="electionIdDisplay">ID: ...</p>
                 </div>
 
-                <div class="card details" style="background-color: hsl(0, 14%, 99%);border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                <div class="card details"
+                    style="background-color: hsl(0, 14%, 99%);border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <div class="detail-item">
-                        <span >Election Id</span>
+                        <span>Election Id</span>
                         <span id="electionIdLabel">....</span>
                     </div>
                     <div class="detail-item">
                         <span>Count Till Now</span>
-                        <span>00</span>
+                        <!-- <span>00</span> -->
+                        <span id="voteCountBox">00</span>
+
                     </div>
                     <hr style="border-color: rgba(255,255,255,0.1); margin: 1.5rem 0;">
                     <div id="criteriaContainer"></div>
                 </div>
 
-                <div class="card options" style="color: #020202;background-color: hsl(0, 14%, 99%); border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                <div class="card options"
+                    style="color: #020202;background-color: hsl(0, 14%, 99%); border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <h3>Choose from options</h3>
                     <div id="optionsContainer">
                     </div>
@@ -224,17 +225,21 @@
                     <div class="link-btn" style="background-color: hsl(0, 14%, 99%);color: #020202;">Track Txn</div>
                 </div>
             </div> -->
-              <div class="right-panel">
-                <div class="card time-left"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+            <div class="right-panel">
+                <div class="card time-left"
+                    style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <h3>Time Left</h3>
                     <div class="timer-circle">
                         <div class="circle-inner" id="timer">
                             00:00
                         </div>
+                        <!-- <span id="voteCountBox">00</span> -->
+
                     </div>
                 </div>
 
-                <div class="card results"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                <div class="card results"
+                    style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
                     <h3>Results</h3>
                     <div class="results-circle">
                         <div class="circle-inner">
@@ -246,7 +251,7 @@
                             <div class="legend-color" style="background: #3a8dfe;"></div>
                             <span>Colors</span>
                         </div>
-                         <div class="legend-item">
+                        <div class="legend-item">
                             <div class="legend-color" style="background: #ff4b4b;"></div>
                             <span>Used colors</span>
                         </div>
@@ -254,22 +259,30 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="submit-btn" id="submitVoteBtn" style="display: none;" disabled>Select a Candidate</button>
+                    <button class="submit-btn" id="submitVoteBtn" style="display: none;" disabled>Select a
+                        Candidate</button>
                     <div id="statusMessage"></div>
                     <div class="link-buttons">
                         <!-- <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy result Link</div> -->
 
-<!-- <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy result Link</div> -->
+                        <!-- <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy result Link</div> -->
 
-<div id="copyResultLinkBtn" class="link-btn" style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Copy Result Link</div>
+                        <!-- <div id="copyResultLinkBtn" class="link-btn"
+                            style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                            Copy Result Link</div> -->
+
+                            <button id="copyResultBtn">📋 Copy Result Link</button>
 
 
 
 
-                        <div class="link-btn"style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">Track Txn</div>
+
+                        <div class="link-btn"
+                            style="background-color: hsl(0, 14%, 99%); color: #020202;border: 10px solid #E2E4EF; padding: 15px; border-radius: 25px;">
+                            Track Txn</div>
                     </div>
                 </div>
-        </div>
+            </div>
         </div>
     </main>
 
@@ -294,8 +307,7 @@
                 <a href="#">Resources</a>
             </div>
             <div class="footer-logo">
-                <img src="uni-vote[1].png"
-                    alt="logo-icon"  style="width: 100px; height: 100px; border-radius: 15px;" />
+                <img src="uni-vote[1].png" alt="logo-icon" style="width: 100px; height: 100px; border-radius: 15px;" />
                 <!-- <span class="footer-logo-text">UNI-VOTE</span> -->
             </div>
         </div>

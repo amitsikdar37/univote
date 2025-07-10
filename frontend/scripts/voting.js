@@ -507,468 +507,656 @@
 
 
 
-import { BACKEND_URL } from "../config.js";
+// import { BACKEND_URL } from "../config.js";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const contractAddress = "0x0e01b6887CEF7770144297bdfc79C2335BF09F62"; // ← update this
-  const contractABI = [{
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "length",
-        "type": "uint256"
-      }
-    ],
-    "name": "StringsInsufficientHexLength",
-    "type": "error"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      }
-    ],
-    "name": "CandidateAdded",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "creator",
-        "type": "address"
-      }
-    ],
-    "name": "ElectionCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      }
-    ],
-    "name": "ElectionEnded",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "voter",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "candidateIndex",
-        "type": "uint256"
-      }
-    ],
-    "name": "Voted",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      }
-    ],
-    "name": "addCandidate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "durationInMinutes",
-        "type": "uint256"
-      }
-    ],
-    "name": "createElection",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "name": "electionExists",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "electionIds",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      }
-    ],
-    "name": "endElection",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getAllElectionIds",
-    "outputs": [
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      }
-    ],
-    "name": "getCandidates",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "voteCount",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct UniVote.Candidate[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      }
-    ],
-    "name": "getElectionDetails",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "id",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "creator",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "startTime",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "durationMinutes",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "isEnded",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      }
-    ],
-    "name": "getResults",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "voteCount",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct UniVote.Candidate[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalElections",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "electionId",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "candidateIndex",
-        "type": "uint256"
-      }
-    ],
-    "name": "vote",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }];
+// document.addEventListener('DOMContentLoaded', () => {
 
+
+//   let provider, signer, contract, electionId;
+//   let selectedCandidateIndex = null;
+
+//   const electionTopicEl = document.getElementById('electionTopicText');
+//   const electionIdDisplayEl = document.getElementById('electionIdDisplay');
+//   const optionsContainerEl = document.getElementById('optionsContainer');
+//   const connectWalletBtn = document.getElementById('connectWalletBtn');
+//   const submitVoteBtn = document.getElementById('submitVoteBtn');
+//   const statusMessageEl = document.getElementById('statusMessage');
+//   const searchForm = document.getElementById('electionSearchForm');
+//   const searchInput = document.getElementById('electionSearchInput');
+//   const loadingMessage = document.getElementById('loadingMessage');
+
+//   function getElectionIdFromURL() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     return urlParams.get('electionId');
+//   }
+
+//   function setElectionId(newId) {
+//     electionId = newId;
+//     electionIdDisplayEl.textContent = `ID: ${electionId}`;
+//     document.getElementById('electionIdLabel').textContent = electionId;
+//   }
+
+//   function resetElectionDetails() {
+//     optionsContainerEl.innerHTML = "";
+//     submitVoteBtn.style.display = 'none';
+//     submitVoteBtn.disabled = true;
+//     selectedCandidateIndex = null;
+//   }
+
+//   async function connectAndLoad() {
+//     if (!window.ethereum) {
+//       alert("Please install MetaMask.");
+//       return;
+//     }
+//     try {
+//       await window.ethereum.request({ method: 'eth_requestAccounts' });
+//       provider = new ethers.providers.Web3Provider(window.ethereum);
+//       signer = provider.getSigner();
+//       contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+//       const userAddress = await signer.getAddress();
+//       connectWalletBtn.textContent = `Connected: ${userAddress.substring(0, 6)}...`;
+//       connectWalletBtn.disabled = true;
+
+//       if (electionId) {
+//         await loadElectionDetails();
+//       }
+//     } catch (err) {
+//       console.error("Wallet connection error:", err);
+//     }
+//   }
+
+//   async function loadElectionDetails() {
+//     try {
+//       const isEnded = await contract.showResult(electionId);
+//       if (isEnded) {
+//         optionsContainerEl.innerHTML = "<p style='text-align:center;'>This election has ended.</p>";
+//         submitVoteBtn.disabled = true;
+//         submitVoteBtn.textContent = "Election Ended";
+//         return;
+//       }
+
+//       const candidateCount = await contract.getCandidateCount(electionId);
+//       optionsContainerEl.innerHTML = '';
+//       for (let i = 0; i < candidateCount.toNumber(); i++) {
+//         const name = await contract.getCandidateName(electionId, i);
+//         const btn = document.createElement('div');
+//         btn.className = 'option-btn';
+//         btn.textContent = name;
+//         btn.dataset.index = i;
+//         btn.addEventListener('click', () => {
+//           document.querySelectorAll('.option-btn.selected').forEach(b => b.classList.remove('selected'));
+//           btn.classList.add('selected');
+//           selectedCandidateIndex = parseInt(btn.dataset.index, 10);
+//           submitVoteBtn.disabled = false;
+//           submitVoteBtn.textContent = `Vote for "${name}"`;
+//         });
+//         optionsContainerEl.appendChild(btn);
+//       }
+
+//       submitVoteBtn.style.display = 'block';
+//       statusMessageEl.textContent = "Please select a candidate.";
+//     } catch (err) {
+//       console.error("Error loading candidates:", err);
+//       statusMessageEl.textContent = "Could not load election details.";
+//     }
+//   }
+
+//   async function handleVote() {
+//     if (selectedCandidateIndex === null) {
+//       alert("Please select a candidate.");
+//       return;
+//     }
+//     try {
+//       const tx = await contract.vote(electionId, selectedCandidateIndex);
+//       await tx.wait();
+//       statusMessageEl.textContent = "Vote cast successfully!";
+//       submitVoteBtn.textContent = "Voted Successfully";
+//       submitVoteBtn.disabled = true;
+//     } catch (err) {
+//       console.error("Vote failed:", err);
+//       statusMessageEl.textContent = "Failed to cast vote.";
+//     }
+//   }
+
+//   searchForm.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     const enteredId = searchInput.value.trim();
+//     if (!enteredId) {
+//       statusMessageEl.textContent = "Please enter a valid Election ID.";
+//       return;
+//     }
+//     loadingMessage.style.display = 'block';
+//     setElectionId(enteredId);
+//     resetElectionDetails();
+//     await loadElectionDetails();
+//     loadingMessage.style.display = 'none';
+//   });
+
+//   connectWalletBtn.addEventListener('click', connectAndLoad);
+//   submitVoteBtn.addEventListener('click', handleVote);
+
+//   // Init
+//   const idFromURL = getElectionIdFromURL();
+//   if (idFromURL) {
+//     setElectionId(idFromURL);
+//     loadElectionDetails();
+//   }
+// });
+
+
+// import { contractAddress, contractABI } from "./config.js";
+
+// console.log("Contract Address:", contractAddress);
+
+// (async () => {
+//   let provider, signer, contract, electionId;
+//   let selectedCandidateIndex = null;
+
+//   const cwBtn = document.getElementById("connectWalletBtn");
+//   const eidDisplay = document.getElementById("electionIdDisplay");
+//   const eidLabel = document.getElementById("electionIdLabel");
+//   const topicText = document.getElementById("electionTopicText");
+//   const optionsCont = document.getElementById("optionsContainer");
+//   const submitBtn = document.getElementById("submitVoteBtn");
+//   const statusMsg = document.getElementById("statusMessage");
+
+//   const searchForm = document.getElementById("electionSearchForm");
+//   const searchInput = document.getElementById("electionSearchInput");
+
+//   function getElectionIdFromURL() {
+//     const u = new URL(window.location.href);
+//     console.log("URL params:", u.searchParams.toString());
+//     return u.searchParams.get("electionId");
+//   }
+
+//   function setElectionId(id) {
+//     electionId = id;
+//     eidDisplay.textContent = `ID: ${id}`;
+//     eidLabel.textContent = id;
+//   }
+
+//   async function connectWallet() {
+//     console.log("Trying wallet connect...");
+//     if (!window.ethereum) {
+//       alert("MetaMask not found!");
+//       return;
+//     }
+//     provider = new ethers.providers.Web3Provider(window.ethereum);
+//     try {
+//       await provider.send("eth_requestAccounts", []);
+//       signer = provider.getSigner();
+//       const addr = await signer.getAddress();
+//       console.log("Connected address:", addr);
+//       cwBtn.textContent = `Connected: ${addr.slice(0, 6)}`;
+//       cwBtn.disabled = true;
+
+//       contract = new ethers.Contract(contractAddress, contractABI, signer);
+//       console.log("Contract instance READY:", contractAddress);
+//     } catch (e) {
+//       console.error("Wallet connection failed:", e);
+//       alert("Connection failed: " + e.message);
+//     }
+//   }
+
+//   async function loadElectionDetails() {
+//     console.log("Loading election:", electionId);
+//     if (!contract) { console.error("Contract not ready"); return; }
+
+//     try {
+//       const details = await contract.getElectionDetails(electionId);
+//       console.log("Election details:", details);
+
+//       topicText.textContent = details.name;
+//       optionsCont.innerHTML = "";
+
+//       const candidates = await contract.getCandidates(electionId);
+//       console.log("Candidates:", candidates);
+
+//       candidates.forEach((c, idx) => {
+//         const btn = document.createElement("div");
+//         btn.className = "option-btn";
+//         btn.textContent = c.name;
+//         btn.addEventListener("click", () => {
+//           document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+//           btn.classList.add("selected");
+//           selectedCandidateIndex = idx;
+//           submitBtn.style.display = "block";
+//           submitBtn.disabled = false;
+//           submitBtn.textContent = `Vote "${c.name}"`;
+//         });
+//         optionsCont.appendChild(btn);
+//       });
+
+//       statusMsg.textContent = "Select and vote.";
+//     } catch (e) {
+//       console.error("Failed loading election:", e);
+//       statusMsg.textContent = "Error loading election data.";
+//     }
+//   }
+
+//   async function handleVote() {
+//     console.log("Voting for index:", selectedCandidateIndex);
+//     try {
+//       const tx = await contract.vote(electionId, selectedCandidateIndex);
+//       console.log("Tx sent:", tx.hash);
+//       await tx.wait();
+//       statusMsg.textContent = "Voted successfully!";
+//       submitBtn.textContent = "Done";
+//       submitBtn.disabled = true;
+//     } catch (e) {
+//       console.error("Vote failed:", e);
+//       statusMsg.textContent = "Vote error.";
+//     }
+//   }
+
+//   cwBtn.addEventListener("click", connectWallet);
+//   submitBtn.addEventListener("click", handleVote);
+
+//   searchForm.addEventListener("submit", async e => {
+//     e.preventDefault();
+//     const id = searchInput.value.trim();
+//     if (!id) return;
+//     setElectionId(id);
+//     await loadElectionDetails();
+//   });
+
+//   const idURL = getElectionIdFromURL();
+//   if (idURL) {
+//     setElectionId(idURL);
+//     await connectWallet();
+//     await loadElectionDetails();
+//   }
+// })();
+
+
+// import { contractAddress, contractABI } from "./config.js";
+
+// console.log("Contract Address:", contractAddress);
+
+// (async () => {
+//   let provider, signer, contract, electionId;
+//   let selectedCandidateIndex = null;
+
+//   const cwBtn = document.getElementById("connectWalletBtn");
+//   const eidDisplay = document.getElementById("electionIdDisplay");
+//   const eidLabel = document.getElementById("electionIdLabel");
+//   const topicText = document.getElementById("electionTopicText");
+//   const optionsCont = document.getElementById("optionsContainer");
+//   const submitBtn = document.getElementById("submitVoteBtn");
+//   const statusMsg = document.getElementById("statusMessage");
+
+//   const searchForm = document.getElementById("electionSearchForm");
+//   const searchInput = document.getElementById("electionSearchInput");
+
+//   function getElectionIdFromURL() {
+//     const u = new URL(window.location.href);
+//     return u.searchParams.get("electionId");
+//   }
+
+//   function setElectionId(id) {
+//     electionId = id;
+//     eidDisplay.textContent = `ID: ${id}`;
+//     eidLabel.textContent = id;
+//   }
+
+//   async function connectWallet() {
+//     if (!window.ethereum) {
+//       alert("🦊 MetaMask not found!");
+//       return;
+//     }
+//     provider = new ethers.providers.Web3Provider(window.ethereum);
+//     try {
+//       await provider.send("eth_requestAccounts", []);
+//       signer = provider.getSigner();
+//       const addr = await signer.getAddress();
+//       cwBtn.textContent = `Connected: ${addr.slice(0, 6)}`;
+//       cwBtn.disabled = true;
+
+//       contract = new ethers.Contract(contractAddress, contractABI, signer);
+//       console.log("🟢 Contract ready:", contractAddress);
+//     } catch (e) {
+//       console.error("❌ Wallet connect error:", e);
+//       alert("Connection failed: " + e.message);
+//     }
+//   }
+
+//   // async function loadElectionDetails() {
+//   //   console.log("📦 Loading election:", electionId);
+//   //   if (!contract) return;
+
+//   //   try {
+//   //     const details = await contract.getElectionDetails(electionId);
+//   //     console.log("Election details:", details);
+
+//   //     topicText.textContent = details.name;
+//   //     optionsCont.innerHTML = "";
+
+//   //     const now = Math.floor(Date.now() / 1000);
+//   //     const endTime = details.endTime.toNumber();
+
+//   //     if (now > endTime) {
+//   //       statusMsg.textContent = "⛔ Voting has ended.";
+//   //       submitBtn.disabled = true;
+//   //       submitBtn.style.display = "none";
+//   //       return;
+//   //     }
+
+//   //     const candidates = await contract.getCandidates(electionId);
+//   //     console.log("Candidates:", candidates);
+
+//   //     candidates.forEach((c, idx) => {
+//   //       const btn = document.createElement("div");
+//   //       btn.className = "option-btn";
+//   //       btn.textContent = c.name;
+//   //       btn.addEventListener("click", () => {
+//   //         document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+//   //         btn.classList.add("selected");
+//   //         selectedCandidateIndex = idx;
+//   //         submitBtn.style.display = "block";
+//   //         submitBtn.disabled = false;
+//   //         submitBtn.textContent = `Vote "${c.name}"`;
+//   //       });
+//   //       optionsCont.appendChild(btn);
+//   //     });
+
+//   //     statusMsg.textContent = "✅ Select a candidate and vote.";
+//   //   } catch (e) {
+//   //     console.error("❌ Error loading election:", e);
+//   //     statusMsg.textContent = "⚠️ Failed to load election.";
+//   //   }
+//   // }
+
+//   async function loadElectionDetails() {
+//   console.log("Loading election:", electionId);
+//   if (!contract) { console.error("Contract not ready"); return; }
+
+//   try {
+//     const details = await contract.getElectionDetails(electionId);
+//     console.log("Election details:", details);
+
+//     // Destructure from array returned by contract
+//     const [id, name, creator, startTimeBN, durationMinutesBN, isEnded] = details;
+
+//     const startTime = startTimeBN.toNumber();
+//     const durationMinutes = durationMinutesBN.toNumber();
+//     const endTime = startTime + (durationMinutes * 60);
+//     const currentTime = Math.floor(Date.now() / 1000);
+//     const timeLeft = endTime - currentTime;
+
+//     // Show topic
+//     topicText.textContent = name;
+//     eidLabel.textContent = id;
+//     optionsCont.innerHTML = "";
+
+//     if (timeLeft <= 0 || isEnded) {
+//       statusMsg.textContent = "⛔ Voting has ended.";
+//       submitBtn.style.display = "none";
+//     } else {
+//       const candidates = await contract.getCandidates(electionId);
+//       console.log("Candidates:", candidates);
+
+//       candidates.forEach((c, idx) => {
+//         const btn = document.createElement("div");
+//         btn.className = "option-btn";
+//         btn.textContent = c.name;
+//         btn.addEventListener("click", () => {
+//           document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+//           btn.classList.add("selected");
+//           selectedCandidateIndex = idx;
+//           submitBtn.style.display = "block";
+//           submitBtn.disabled = false;
+//           submitBtn.textContent = `Vote "${c.name}"`;
+//         });
+//         optionsCont.appendChild(btn);
+//       });
+
+//       statusMsg.textContent = `🕒 Time left: ${Math.floor(timeLeft / 60)} min ${timeLeft % 60} sec`;
+//     }
+
+//   } catch (e) {
+//     console.error("Failed loading election:", e);
+//     statusMsg.textContent = "⚠️ Error loading election data.";
+//   }
+// }
+
+
+//   async function handleVote() {
+//     if (selectedCandidateIndex === null) {
+//       alert("❗ Please select a candidate first.");
+//       return;
+//     }
+
+//     try {
+//       statusMsg.textContent = "🕐 Sending vote...";
+//       const tx = await contract.vote(electionId, selectedCandidateIndex);
+//       console.log("Tx sent:", tx.hash);
+//       await tx.wait();
+//       statusMsg.textContent = "🎉 Vote cast successfully!";
+//       submitBtn.textContent = "✅ Voted";
+//       submitBtn.disabled = true;
+//     } catch (e) {
+//       console.error("❌ Vote failed:", e);
+//       let reason = "Vote error.";
+//       if (e?.error?.message?.includes("Already voted")) {
+//         reason = "⚠️ You have already voted.";
+//       } else if (e?.error?.message?.includes("Election time over")) {
+//         reason = "⛔ Voting is closed.";
+//       }
+//       statusMsg.textContent = reason;
+//     }
+//   }
+
+//   cwBtn.addEventListener("click", connectWallet);
+//   submitBtn.addEventListener("click", handleVote);
+
+//   searchForm.addEventListener("submit", async e => {
+//     e.preventDefault();
+//     const id = searchInput.value.trim();
+//     if (!id) return;
+//     setElectionId(id);
+//     await loadElectionDetails();
+//   });
+
+//   const idURL = getElectionIdFromURL();
+//   if (idURL) {
+//     setElectionId(idURL);
+//     await connectWallet();
+//     await loadElectionDetails();
+//   }
+// })();
+
+
+
+import { contractAddress, contractABI } from "./config.js";
+
+(async () => {
   let provider, signer, contract, electionId;
   let selectedCandidateIndex = null;
 
-  const electionTopicEl = document.getElementById('electionTopicText');
-  const electionIdDisplayEl = document.getElementById('electionIdDisplay');
-  const optionsContainerEl = document.getElementById('optionsContainer');
-  const connectWalletBtn = document.getElementById('connectWalletBtn');
-  const submitVoteBtn = document.getElementById('submitVoteBtn');
-  const statusMessageEl = document.getElementById('statusMessage');
-  const searchForm = document.getElementById('electionSearchForm');
-  const searchInput = document.getElementById('electionSearchInput');
-  const loadingMessage = document.getElementById('loadingMessage');
+  const cwBtn = document.getElementById("connectWalletBtn");
+  const eidDisplay = document.getElementById("electionIdDisplay");
+  const eidLabel = document.getElementById("electionIdLabel");
+  const topicText = document.getElementById("electionTopicText");
+  const optionsCont = document.getElementById("optionsContainer");
+  const submitBtn = document.getElementById("submitVoteBtn");
+  const statusMsg = document.getElementById("statusMessage");
+  const voteCountBox = document.getElementById("voteCountBox");
+
+  const searchForm = document.getElementById("electionSearchForm");
+  const searchInput = document.getElementById("electionSearchInput");
 
   function getElectionIdFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('electionId');
+    const u = new URL(window.location.href);
+    return u.searchParams.get("electionId");
   }
 
-  function setElectionId(newId) {
-    electionId = newId;
-    electionIdDisplayEl.textContent = `ID: ${electionId}`;
-    document.getElementById('electionIdLabel').textContent = electionId;
+  function setElectionId(id) {
+    electionId = id;
+    eidDisplay.textContent = `ID: ${id}`;
+    eidLabel.textContent = id;
   }
 
-  function resetElectionDetails() {
-    optionsContainerEl.innerHTML = "";
-    submitVoteBtn.style.display = 'none';
-    submitVoteBtn.disabled = true;
-    selectedCandidateIndex = null;
-  }
-
-  async function connectAndLoad() {
+  async function connectWallet() {
     if (!window.ethereum) {
-      alert("Please install MetaMask.");
+      alert("MetaMask not found!");
       return;
     }
+    provider = new ethers.providers.Web3Provider(window.ethereum);
     try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
       signer = provider.getSigner();
+      const addr = await signer.getAddress();
+      cwBtn.textContent = `Connected: ${addr.slice(0, 6)}...`;
+      cwBtn.disabled = true;
+
       contract = new ethers.Contract(contractAddress, contractABI, signer);
-
-      const userAddress = await signer.getAddress();
-      connectWalletBtn.textContent = `Connected: ${userAddress.substring(0, 6)}...`;
-      connectWalletBtn.disabled = true;
-
-      if (electionId) {
-        await loadElectionDetails();
-      }
-    } catch (err) {
-      console.error("Wallet connection error:", err);
+    } catch (e) {
+      console.error("Wallet connection failed:", e);
+      alert("Connection failed: " + e.message);
     }
   }
 
   async function loadElectionDetails() {
+    if (!contract) return;
+
     try {
-      const isEnded = await contract.showResult(electionId);
-      if (isEnded) {
-        optionsContainerEl.innerHTML = "<p style='text-align:center;'>This election has ended.</p>";
-        submitVoteBtn.disabled = true;
-        submitVoteBtn.textContent = "Election Ended";
-        return;
-      }
+      const details = await contract.getElectionDetails(electionId);
+      const startTime = details.startTime?.toNumber?.() || 0;
+      const durationMinutes = details.durationMinutes?.toNumber?.() || 0;
+      const isEnded = details.isEnded;
 
-      const candidateCount = await contract.getCandidateCount(electionId);
-      optionsContainerEl.innerHTML = '';
-      for (let i = 0; i < candidateCount.toNumber(); i++) {
-        const name = await contract.getCandidateName(electionId, i);
-        const btn = document.createElement('div');
-        btn.className = 'option-btn';
-        btn.textContent = name;
-        btn.dataset.index = i;
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.option-btn.selected').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedCandidateIndex = parseInt(btn.dataset.index, 10);
-          submitVoteBtn.disabled = false;
-          submitVoteBtn.textContent = `Vote for "${name}"`;
+      topicText.textContent = details.name || "No topic";
+      optionsCont.innerHTML = "";
+      selectedCandidateIndex = null;
+      submitBtn.style.display = "none";
+      statusMsg.textContent = "";
+
+      const candidates = await contract.getCandidates(electionId);
+      let totalVotes = 0;
+
+      candidates.forEach((c, idx) => {
+        const btn = document.createElement("div");
+        btn.className = "option-btn";
+        btn.textContent = c.name;
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          selectedCandidateIndex = idx;
+          submitBtn.style.display = "block";
+          submitBtn.disabled = false;
+          submitBtn.textContent = `Vote "${c.name}"`;
         });
-        optionsContainerEl.appendChild(btn);
-      }
+        optionsCont.appendChild(btn);
+        totalVotes += c.voteCount.toNumber();
+      });
 
-      submitVoteBtn.style.display = 'block';
-      statusMessageEl.textContent = "Please select a candidate.";
-    } catch (err) {
-      console.error("Error loading candidates:", err);
-      statusMessageEl.textContent = "Could not load election details.";
+      voteCountBox.textContent = totalVotes.toString().padStart(2, "0");
+
+      const now = Math.floor(Date.now() / 1000);
+      const endTime = startTime + durationMinutes * 60;
+
+      if (isEnded || now > endTime) {
+        statusMsg.textContent = "⏳ Election ended.";
+        submitBtn.style.display = "none";
+      } else {
+        statusMsg.textContent = "🟢 Voting active. Choose a candidate.";
+      }
+    } catch (e) {
+      console.error("Failed loading election:", e);
+      statusMsg.textContent = "⚠️ Error loading election data.";
     }
   }
 
   async function handleVote() {
-    if (selectedCandidateIndex === null) {
-      alert("Please select a candidate.");
-      return;
-    }
     try {
+      const details = await contract.getElectionDetails(electionId);
+      const startTime = details.startTime.toNumber();
+      const durationMinutes = details.durationMinutes.toNumber();
+      const now = Math.floor(Date.now() / 1000);
+      const endTime = startTime + durationMinutes * 60;
+
+      if (now > endTime) {
+        statusMsg.textContent = "⛔ Voting time is over.";
+        submitBtn.disabled = true;
+        return;
+      }
+
       const tx = await contract.vote(electionId, selectedCandidateIndex);
+      console.log("Tx sent:", tx.hash);
       await tx.wait();
-      statusMessageEl.textContent = "Vote cast successfully!";
-      submitVoteBtn.textContent = "Voted Successfully";
-      submitVoteBtn.disabled = true;
-    } catch (err) {
-      console.error("Vote failed:", err);
-      statusMessageEl.textContent = "Failed to cast vote.";
+
+      statusMsg.textContent = "✅ Voted successfully!";
+      submitBtn.textContent = "Voted";
+      submitBtn.disabled = true;
+
+      await loadElectionDetails(); // update vote count
+    } catch (e) {
+      console.error("Vote failed:", e);
+      const reason = e?.data?.message || e.message || "Unknown error";
+      statusMsg.textContent = "❌ Vote error: " + reason;
     }
   }
 
-  searchForm.addEventListener('submit', async (e) => {
+  cwBtn.addEventListener("click", connectWallet);
+  submitBtn.addEventListener("click", handleVote);
+
+  searchForm.addEventListener("submit", async e => {
     e.preventDefault();
-    const enteredId = searchInput.value.trim();
-    if (!enteredId) {
-      statusMessageEl.textContent = "Please enter a valid Election ID.";
-      return;
-    }
-    loadingMessage.style.display = 'block';
-    setElectionId(enteredId);
-    resetElectionDetails();
+    const id = searchInput.value.trim();
+    if (!id) return;
+    setElectionId(id);
     await loadElectionDetails();
-    loadingMessage.style.display = 'none';
   });
 
-  connectWalletBtn.addEventListener('click', connectAndLoad);
-  submitVoteBtn.addEventListener('click', handleVote);
+  const idURL = getElectionIdFromURL();
+  if (idURL) {
+    setElectionId(idURL);
+    await connectWallet();
+    await loadElectionDetails();
+  }
 
-  // Init
-  const idFromURL = getElectionIdFromURL();
-  if (idFromURL) {
-    setElectionId(idFromURL);
-    loadElectionDetails();
+   
+
+
+
+
+// 📌 Assume electionId is already defined (from URL or elsewhere)
+document.getElementById("copyResultBtn").addEventListener("click", async () => {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const electionId = urlParams.get("electionId");
+
+    if (!electionId) {
+      alert("Election ID not found!");
+      return;
+    }
+
+    // Copy result.html link with electionId
+    const resultLink = `${window.location.origin}/result.html?electionId=${electionId}`;
+    await navigator.clipboard.writeText(resultLink);
+
+    alert("Result link copied! 📋\n" + resultLink);
+  } catch (err) {
+    console.error("Failed to copy: ", err);
+    alert("Failed to copy result link.");
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+})();
