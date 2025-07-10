@@ -46,7 +46,7 @@ exports.verifycode = async (req, res) => {
       return res.status(400).json({ error: response.message });
     }
 
-    const { username } = req.session.formData;
+    const { username } = req.user;
 
     // Find the user first
     const user = await Voter.findOne({ username });
