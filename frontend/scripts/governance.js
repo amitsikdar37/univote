@@ -2004,7 +2004,7 @@ async function connectWallet() {
 
 async function startElection() {
     resetStepper();
-    
+
     const topic = document.getElementById("votingTopic").value;
     const duration = document.getElementById("timerInput").value;
     const candidates = Array.from(document.querySelectorAll(".candidate-input"))
@@ -2129,7 +2129,7 @@ function copyText(text) {
     });
 }
 
- function getVotingPagePath() {
+function getVotingPagePath() {
     // On localhost (any port), use /frontend/vote.html
     if (
         window.location.hostname === 'localhost' ||
@@ -2148,27 +2148,27 @@ function copyVotingLink() {
 }
 
 function updateStep(stepNum, status, timestamp = null) {
-  for (let i = 1; i <= 4; i++) {
-    const step = document.getElementById(`step-${i}`);
-    step.classList.remove("active", "completed");
-    if (i < stepNum) step.classList.add("completed");
-    if (i === stepNum) step.classList.add("active");
-  }
-  if (stepNum === 4) {
-    const step = document.getElementById("step-4");
-    step.classList.add("completed");
-  }
-  if (timestamp) {
-    document.getElementById(`ts-${stepNum}`).textContent = new Date(timestamp).toLocaleTimeString();
-  }
+    for (let i = 1; i <= 4; i++) {
+        const step = document.getElementById(`step-${i}`);
+        step.classList.remove("active", "completed");
+        if (i < stepNum) step.classList.add("completed");
+        if (i === stepNum) step.classList.add("active");
+    }
+    if (stepNum === 4) {
+        const step = document.getElementById("step-4");
+        step.classList.add("completed");
+    }
+    if (timestamp) {
+        document.getElementById(`ts-${stepNum}`).textContent = new Date(timestamp).toLocaleTimeString();
+    }
 }
 
 function resetStepper() {
-  for (let i = 1; i <= 4; i++) {
-    const step = document.getElementById(`step-${i}`);
-    step.classList.remove("active", "completed");
-    document.getElementById(`ts-${i}`).textContent = "";
-  }
+    for (let i = 1; i <= 4; i++) {
+        const step = document.getElementById(`step-${i}`);
+        step.classList.remove("active", "completed");
+        document.getElementById(`ts-${i}`).textContent = "";
+    }
 }
 
 const saveCriteria = async (yourElectionId) => {
@@ -2178,16 +2178,16 @@ const saveCriteria = async (yourElectionId) => {
         account10Days: document.getElementById('account10Days').checked,
         completedPartX: document.getElementById('completedPartX').checked,
         connectedGoogleAccount: document.getElementById('connectedGoogleAccount').checked
-        };
+    };
 
-        const topic = document.getElementById('votingTopic').value;
+    const topic = document.getElementById('votingTopic').value;
 
-        if (!topic.trim()) {
-            alert("Please enter a voting topic.");
-            return;
-        }
+    if (!topic.trim()) {
+        alert("Please enter a voting topic.");
+        return;
+    }
 
-        try {
+    try {
         const response = await fetch(`${BACKEND_URL}/api/Save-Election-Criteria`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -2197,17 +2197,30 @@ const saveCriteria = async (yourElectionId) => {
                 criteria: criteria,
                 topic: topic
             })
-            });
-            const data = await response.json();
-            // handle success (e.g., show a confirmation message)
-            if (data.status === "1") {
+        });
+        const data = await response.json();
+        // handle success (e.g., show a confirmation message)
+        if (data.status === "1") {
             console.log("Criteria set successfully:", data);
-            } else {
+        } else {
             console.warn("Failed to set criteria:", data.message);
-            }
-        } catch (error) {
+        }
+    } catch (error) {
         console.error("Error setting criteria:", error);
         alert("Failed to set election criteria. Please try again.");
-        }
+    }
 };
 
+
+async function getElectionEndTime(electionId) {
+    if (!window.ethereum) throw new Error("MetaMask not detected");
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+    const details = await contract.getElectionDetails(electionId);
+    const startTime = parseInt(details.startTime.toString());
+    const duration = parseInt(details.durationMinutes.toString()) * 60;
+
+    return startTime + duration; // election ka end time
+}
