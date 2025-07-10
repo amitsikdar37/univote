@@ -344,7 +344,7 @@ async function updateGwei() {
     }
     const data = await response.json();
     // Etherscan's API returns the value as a string, e.g., data.result.ProposeGasPrice
-    let gwei = data.result?.ProposeGasPrice;
+    let gwei = data.result?.SafeGasPrice;
     if (gwei && !isNaN(gwei)) {
       gwei = parseFloat(gwei).toFixed(2);
     } else {
