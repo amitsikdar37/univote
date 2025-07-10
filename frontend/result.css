@@ -172,7 +172,7 @@ nav a:focus {
     color: #FF00E5; /* Matches governance page */
 }
 
-.wallet {
+#connectWalletBtn{
     background: black; /* Matches governance page */
     color: white;
     padding: 8px 16px; /* Matches governance page */
