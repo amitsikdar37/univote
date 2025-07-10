@@ -1063,6 +1063,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.className = "option-btn";
         btn.textContent = c.name;
         btn.addEventListener("click", () => {
+          if (btn.classList.contains('disabled') || submitBtn.disabled) return;
           document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
           btn.classList.add("selected");
           selectedCandidateIndex = idx;
@@ -1092,6 +1093,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function handleVote() {
+    if (submitBtn.disabled) {
+    statusMsg.textContent = "You are not eligible to vote.";
+    return;
+  }
     try {
       const details = await contract.getElectionDetails(electionId);
       const startTime = details.startTime.toNumber();
@@ -1194,17 +1199,17 @@ async function checkEligibilityAndUpdateUI(electionId) {
 
   if (!res.ok || !data.eligible) {
     // Disable voting button
-    submitVoteBtn.disabled = true;
-    submitVoteBtn.textContent = "Not Eligible to Vote";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Not Eligible to Vote";
     // Mark failed criteria
     if (data.failedCriteria) markFailedCriteria(data.failedCriteria);
-    statusMessageEl.textContent = "You are not eligible to vote in this election.";
+    statusMsg.textContent = "You are not eligible to vote in this election.";
     return null;
   } else {
       try {
         // Ensure contract and signer are initialized
         if (!contract || !signer) {
-          statusMessageEl.textContent = "Please connect your wallet first.";
+          statusMsg.textContent = "Please connect your wallet first.";
           return null;
         }
       } catch (err) {
@@ -1212,9 +1217,9 @@ async function checkEligibilityAndUpdateUI(electionId) {
         return null;
       }
 
-      submitVoteBtn.disabled = false;
-      submitVoteBtn.textContent = "Select a Candidate";
-      statusMessageEl.textContent = "You are eligible to vote!";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Select a Candidate";
+      statusMsg.textContent = "You are eligible to vote!";
       markFailedCriteria([]); // Clear any previous failed criteria
     }
   }
