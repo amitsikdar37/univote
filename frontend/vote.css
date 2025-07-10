@@ -149,6 +149,9 @@ body {
 .nav-item a:focus {
     color: #FF00E5;
 }
+#connectWalletBtn{
+    margin-right: 10px;
+}
 
 .navbar .wallet {
     background: black;
@@ -168,6 +171,17 @@ body {
 .navbar .wallet:hover {
     background: #333;
 }
+.user-profile a {
+    color: #000000;
+    font-size: 24px;
+    margin-right: 5px;
+    transition: color 0.3s ease;
+}
+
+.user-profile a:hover {
+    color: #ff00e5;
+}
+
 
 #copyResultBtn{
     border-radius: 10px;
