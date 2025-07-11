@@ -424,12 +424,26 @@ input:checked+.slider:before {
 .timer-circle {
     /* background: conic-gradient(#6b47ff 360deg, #333 0deg); */
     /* background-color: hsl(0, 14%, 99%); */
-    background-color: #D8DCEA;
+    /* background-color: #D8DCEA; */
     
+}
+#electionIdDisplay {
+    font-size: 1rem;
+    font-weight: bold;
+}
+#electionEndTime{
+    font-size: 0.9rem;
+    font-weight: bold;
+
+}
+#countdownTimer{
+  font-size: 1rem;
+    font-weight: bold;  
 }
 
 .results-circle {
-    background: conic-gradient(#3a8dfe 277.2deg, #ff4b4b 277.2deg 360deg);
+    /* background: conic-gradient(#3a8dfe 277.2deg, #ff4b4b 277.2deg 360deg); */
+    background-color: blue;
 }
 
 .circle-inner {
