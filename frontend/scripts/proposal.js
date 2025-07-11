@@ -41,3 +41,15 @@ async function fetchGasPrice() {
 
 fetchGasPrice();
 setInterval(fetchGasPrice, 5000);
+
+document.getElementById("checkBtn").addEventListener("click", function () {
+    const hash = document.getElementById("txnHashInput").value.trim();
+    
+    // Optional: Basic validation to check if it's a valid transaction hash
+    if (hash && /^0x([A-Fa-f0-9]{64})$/.test(hash)) {
+      const url = `https://basescan.org/tx/${hash}`;
+      window.open(url, '_blank'); // Opens in a new tab
+    } else {
+      alert("Please enter a valid transaction hash (starting with 0x and 66 characters long).");
+    }
+  });
