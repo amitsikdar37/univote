@@ -981,8 +981,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 datasets: [{
                     label: 'Vote Count',
                     data: data,
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(2, 6, 253, 1)',
+                    borderColor: 'rgba(250, 4, 4, 1)',
                     borderWidth: 1
                 }]
             },
