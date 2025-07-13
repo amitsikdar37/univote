@@ -1,4 +1,4 @@
- 
+
 
 
 
@@ -524,11 +524,12 @@ function updateResultList(labels, data) {
 
 function copyText(text) {
     if (!text || text === '0xTxHash123...') return alert("Nothing to copy yet.");
-    navigator.clipboard.writeText(text).then(() => alert("Copied to clipboard!")).catch(err => {
+    navigator.clipboard.writeText(text).then(() => alert("Copied to clipboard!")).catch(err =>{
         alert("Failed to copy text.");
         console.error('Clipboard copy failed', err);
     });
 }
+
 
 function getVotingPagePath() {
     // On localhost (any port), use /frontend/vote.html
@@ -629,25 +630,25 @@ async function getElectionEndTime(electionId) {
 const gweiVersionSpan = document.querySelector('.gwei-indicator .version');
 
 async function updateGwei() {
-  try {
-    // Adjust the endpoint as per your backend route
-    const response = await fetch(`${BACKEND_URL}/api/Gwei`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch gwei');
+    try {
+        // Adjust the endpoint as per your backend route
+        const response = await fetch(`${BACKEND_URL}/api/Gwei`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch gwei');
+        }
+        const data = await response.json();
+        // Etherscan's API returns the value as a string, e.g., data.result.ProposeGasPrice
+        let gwei = data.result?.SafeGasPrice;
+        if (gwei && !isNaN(gwei)) {
+            gwei = parseFloat(gwei).toFixed(2);
+        } else {
+            gwei = 'N/A';
+        }
+        gweiVersionSpan.textContent = gwei;
+    } catch (err) {
+        console.error('Error updating gwei:', err);
+        gweiVersionSpan.textContent = 'N/A';
     }
-    const data = await response.json();
-    // Etherscan's API returns the value as a string, e.g., data.result.ProposeGasPrice
-    let gwei = data.result?.SafeGasPrice;
-    if (gwei && !isNaN(gwei)) {
-      gwei = parseFloat(gwei).toFixed(2);
-    } else {
-      gwei = 'N/A';
-    }
-    gweiVersionSpan.textContent = gwei;
-  } catch (err) {
-    console.error('Error updating gwei:', err);
-    gweiVersionSpan.textContent = 'N/A';
-  }
 }
 
 // Initial fetch
