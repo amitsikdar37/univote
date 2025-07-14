@@ -375,6 +375,7 @@ const electionIdDisplay = document.getElementById("electionIdDisplay");
 const voteCountDisplay = document.getElementById("voteCount");
 const timerDisplay = document.getElementById("timer");
 const timerCircle = document.querySelector(".timer-circle");
+ const voteCountBox = document.getElementById("voteCountBox");
 
 function init() {
     connectWalletBtn.addEventListener("click", connectWallet);
@@ -657,3 +658,4 @@ updateGwei();
 // Update every 5 seconds (5000 ms)
 setInterval(updateGwei, 5000);
 
+      voteCountBox.textContent = totalVotes.toString().padStart(2, "0");

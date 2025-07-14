@@ -982,7 +982,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     label: 'Vote Count',
                     data: data,
                     backgroundColor: 'rgba(2, 6, 253, 1)',
-                    borderColor: 'rgba(250, 4, 4, 1)',
+                    borderColor: 'rgba(38, 0, 255, 1)',
                     borderWidth: 1
                 }]
             },

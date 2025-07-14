@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UNI-VOTE Dashboard</title>
+  <title>UNI-VOTE</title>
+  <link rel="icon" type="png" href="uni-vote[1].png" />
+
 
   <!-- External Scripts with 'defer' to ensure proper loading order -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" defer></script>
@@ -150,7 +152,7 @@
       </div>
       <h4>Details</h4>
       <p>Election ID: <strong id="electionIdDisplay">•••</strong></p>
-      <p>Count till now: <strong id="voteCount">0</strong></p>
+      <p>Count till now:   <span id="voteCountBox">00</span> </p>
 
       <div class="toggle-item"><label class="switch"><input type="checkbox" id="onlyIITP" checked><span
             class="slider"></span></label>Only Recipients of IITP id</div>
@@ -296,6 +298,19 @@
       </div>
     </div>
   </footer>
+
+
+
+ <!-- Loader Overlay -->
+<div id="voteLoader" class="vote-loader hidden">
+  <div class="vote-loader-content">
+    <img src="univote-loader.gif" alt="Loading..." />
+    <p>Processing your vote...</p>
+  </div>
+</div>
+
+
+
 
   <!-- Main DApp Logic -->
   <!-- <script src="governace.js"></script> -->

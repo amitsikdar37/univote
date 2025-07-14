@@ -210,22 +210,53 @@ document.addEventListener("DOMContentLoaded", async () => {
     await checkEligibilityAndUpdateUI(idURL);
   }
 
-  document.getElementById("copyResultBtn").addEventListener("click", async () => {
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const electionId = urlParams.get("electionId");
-      if (!electionId) {
-        alert("Election ID not found!");
-        return;
-      }
-      const resultLink = `${window.location.origin}/result.html?electionId=${electionId}`;
-      await navigator.clipboard.writeText(resultLink);
-      alert("Result link copied! 📋\n" + resultLink);
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-      alert("Failed to copy result link.");
+  // document.getElementById("copyResultBtn").addEventListener("click", async () => {
+  //   try {
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     const electionId = urlParams.get("electionId");
+  //     if (!electionId) {
+  //       alert("Election ID not found!");
+  //       return;
+  //     }
+  //     const resultLink = `${window.location.origin}/result.html?electionId=${electionId}`;
+  //     await navigator.clipboard.writeText(resultLink);
+  //     alert("Result link copied! 📋\n" + resultLink);
+  //   } catch (err) {
+  //     console.error("Failed to copy: ", err);
+  //     alert("Failed to copy result link.");
+  //   }
+  // });
+
+
+document.getElementById("copyResultBtn").addEventListener("click", async () => {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const electionId = urlParams.get("electionId");
+    if (!electionId) {
+      alert("Election ID not found!");
+      return;
     }
-  });
+
+    const resultLink = `${window.location.origin}/result.html?electionId=${electionId}`;
+
+    // Optional: Copy to clipboard
+    await navigator.clipboard.writeText(resultLink);
+    console.log("Result link copied to clipboard:", resultLink);
+
+    // Redirect to result page
+    window.location.href = resultLink;
+
+  } catch (err) {
+    console.error("Failed to process result link: ", err);
+    alert("Something went wrong!");
+  }
+});
+
+
+
+
+
+
 
   async function checkEligibilityAndUpdateUI(electionId) {
     const res = await fetch(`${BACKEND_URL}/api/CheckPublicClaim`, {
