@@ -1,9 +1,4 @@
-
-
-
-
-
-import { BACKEND_URL } from "../config.js";
+ import { BACKEND_URL } from "../config.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     // Config check
@@ -442,6 +437,26 @@ async function startElection() {
         console.error(err);
         alert("Failed to create election.");
     }
+
+
+// Show QR Code after election creation********************************************************
+const voteUrl = `${window.location.origin}${getVotingPagePath()}?electionId=${currentElectionId}`;
+const canvas = document.getElementById("qrCanvas");
+const qrContainer = document.getElementById("qrCodeContainer");
+
+QRCode.toCanvas(canvas, voteUrl, function (error) {
+    if (error) {
+        console.error("QR code generation failed:", error);
+        alert("Failed to generate QR code.");
+        return;
+    }
+    qrContainer.style.display = "block";
+});
+// ******************************************************************8
+
+
+
+
 }
 
 async function endElection() {
