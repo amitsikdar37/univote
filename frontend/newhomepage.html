@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI-VOTE</title>
+    <link rel="icon" type="png" href="uni-vote[1].png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                        neon: {
+                            blue: '#00f5ff',
+                            purple: '#9d4edd',
+                            pink: '#ff2d75',
+                        }
+                    }
+                }
+            }
+        }
+
+
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #00f5ff 0%, #9d4edd 50%, #ff2d75 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .sphere {
+            background: radial-gradient(circle at 30% 30%, rgba(157, 78, 221, 0.8) 0%, rgba(0, 245, 255, 0.4) 60%, transparent 80%);
+        }
+
+        .polygon {
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .hexagon {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.2) 0%, rgba(0, 245, 255, 0.2) 100%);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.7);
+        }
+
+        .nav-link:hover {
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.7);
+        }
+
+
+
+
+
+
+
+
+        button {
+            cursor: pointer;
+        }
+
+        /* ---------- Open Modal Button ---------- */
+        .open-modal-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #6a5acd, #00c6ff);
+            color: white;
+            box-shadow: 0 0 10px #6a5acd, 0 0 20px #00c6ff;
+            transition: 0.3s;
+        }
+
+        .open-modal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ---------- Modal Overlay ---------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 31, 0.6);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s ease-in-out;
+            z-index: 100;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* ---------- Modal ---------- */
+        .modal {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            width: 400px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            transform: scale(0.8);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        /* ---------- Tabs ---------- */
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid #00c6ff;
+            color: #00c6ff;
+        }
+
+        /* ---------- Form ---------- */
+        .form {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form.active {
+            display: flex;
+        }
+
+        .form input {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .form input::placeholder {
+            color: #aaa;
+        }
+
+        /* ---------- Buttons ---------- */
+        .form button {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #6a5acd, #00c6ff);
+            color: white;
+            font-size: 16px;
+            box-shadow: 0 0 10px #6a5acd, 0 0 20px #00c6ff;
+            transition: 0.3s;
+        }
+
+        .form button:hover {
+            transform: scale(1.05);
+        }
+
+        /* ---------- Social Login ---------- */
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-login img {
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            filter: brightness(0.9);
+            transition: 0.3s;
+        }
+
+        .social-login img:hover {
+            filter: brightness(1.2);
+            transform: scale(1.1);
+        }
+
+        /* ---------- Footer ---------- */
+        .footer-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .footer-text:hover {
+            color: #00c6ff;
+        }
+
+        /* ---------- Close Button ---------- */
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+
+
+
+
+        .gwei-indicator {
+            display: inline-flex;
+            align-items: center;
+            background-color: #000000;
+            padding: 7px;
+            border-radius: 50px;
+            /* Fully rounded ends */
+            /* box-shadow: 0 1.5px 2px #0206ff; */
+            margin-left: 400px;
+        }
+
+        .blinking-dot {
+            height: 18px;
+            width: 18px;
+            background-color: #e91414;
+            /* A bright red color */
+            border-radius: 50%;
+            /* This makes the div a circle */
+            margin-left: 5px;
+            margin-right: 5px;
+
+            /* Animation properties */
+            animation-name: blink;
+            animation-duration: 2.2s;
+            /* The duration of one blink cycle */
+            animation-iteration-count: infinite;
+            /* Makes the animation loop forever */
+            animation-timing-function: ease-in-out;
+            /* Controls the speed curve of the animation */
+        }
+
+        .indicator-text {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            font-family: 'Inter', sans-serif;
+
+        }
+
+        .indicator-text .version {
+            color: #4ade80;
+            /* A nice green for the version number */
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="gradient-bg min-h-screen font-inter text-gray-200 overflow-x-hidden">
+    <!-- Header -->
+    <header class="container mx-auto px-4 py-6 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple"></div>
+            <h1 class="text-2xl font-orbitron font-bold gradient-text">UNI-VOTE</h1>
+        </div>
+        <!-- 
+        <div class="gwei-indicator items-center">
+            <div class="blinking-dot"></div>
+            <div class="indicator-text">
+                Gwei <span class="version"></span>
+            </div>
+        </div> -->
+
+        <nav class="hidden md:flex items-center space-x-6">
+            <a href="index.html" class="nav-link font-medium hover:text-neon-blue transition">Home</a>
+            <a href="governance.html" class="nav-link font-medium hover:text-neon-purple transition">Governance</a>
+            <a href="vote.html" class="nav-link font-medium hover:text-neon-pink transition">Vote</a>
+            <a href="result.html" class="nav-link font-medium hover:text-neon-blue transition">Track Vote</a>
+            <a href="#" class="nav-link font-medium hover:text-neon-purple transition">Help</a>
+        </nav>
+
+        <button
+            class="glass-card px-6 py-2 rounded-full font-medium hover:bg-opacity-30 transition btn-glow border border-neon-blue text-neon-blue"
+            onclick="openModal()">
+
+            <!-- <button class="open-modal-btn" onclick="openModal()">Open UNI-VOTE Login</button> -->
+
+
+            Register
+        </button>
+
+        <!-- Mobile menu button -->
+        <button class="md:hidden text-xl">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-12 md:mb-0">
+            <h1 class="text-4xl md:text-6xl font-orbitron font-bold mb-6 leading-tight">
+                Dec<span style="color: rgb(255, 0, 229);">e</span>ntralized Trust. <br>
+                <span class="gradient-text">On The Fastest E<span style="color: rgb(255, 0, 229);">VM.</span></span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
+                Experience Truly Secret & Verifiable Voting Powered by Zero-Knowledge Proofs with the speed of BASE.
+            </p>
+            <button
+                class="bg-gradient-to-r from-neon-blue to-neon-purple px-8 py-4 rounded-full font-bold text-gray-900 hover:opacity-90 transition transform hover:scale-105 btn-glow"
+                id="launch-app-btn">
+                Launch App
+            </button>
+        </div>
+
+        <div class="md:w-1/2 relative flex justify-center">
+            <!-- Abstract 3D shape -->
+            <div
+                class="w-64 h-64 md:w-80 md:h-80 sphere rounded-full absolute top-0 left-0 transform -translate-x-10 -translate-y-10 opacity-70">
+            </div>
+
+            <div
+                class="glass-card w-64 h-64 md:w-80 md:h-80 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                <div
+                    class="polygon w-40 h-40 bg-gradient-to-br from-neon-blue to-neon-purple opacity-30 absolute -top-10 -left-10">
+                </div>
+                <div
+                    class="hexagon w-48 h-48 bg-gradient-to-br from-neon-pink to-neon-purple opacity-20 absolute -bottom-10 -right-10">
+                </div>
+
+                <!-- Voting icon -->
+                <div class="relative z-10 text-center">
+                    <div
+                        class="w-20 h-20 bg-gradient-to-br from-neon-blue to-neon-purple rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-vote-yea text-3xl text-white"></i>
+                    </div>
+                    <div
+                        class="w-32 h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink mx-auto mb-4 rounded-full">
+                    </div>
+                    <div
+                        class="w-24 h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink mx-auto opacity-50 rounded-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container mx-auto px-4 py-16 md:py-24">
+        <h2 class="text-3xl md:text-4xl font-orbitron font-bold text-center mb-16 gradient-text">Core Features</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Feature 1 -->
+            <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition duration-300">
+                <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-lock text-2xl text-neon-blue"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 font-orbitron">Secret & Secure Voting</h3>
+                <p class="text-gray-300">Your vote remains completely anonymous while being verifiable on the
+                    blockchain.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition duration-300">
+                <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-fingerprint text-2xl text-neon-purple"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 font-orbitron">Zero-Knowledge Proofs</h3>
+                <p class="text-gray-300">Prove your vote was counted without revealing your choice using advanced
+                    cryptography.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition duration-300">
+                <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-link text-2xl text-neon-pink"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 font-orbitron">EVM Compatibility</h3>
+                <p class="text-gray-300">Works seamlessly with Ethereum and all EVM-compatible chains including BASE.
+                </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition duration-300">
+                <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-bolt text-2xl text-neon-blue"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 font-orbitron">High Speed & Scalability</h3>
+                <p class="text-gray-300">Process thousands of votes per second with near-instant finality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="container mx-auto px-4 py-16">
+        <div class="glass-card rounded-2xl p-8 md:p-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold font-orbitron gradient-text mb-2">100K+</div>
+                    <div class="text-gray-300">Votes Cast</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold font-orbitron gradient-text mb-2">0.2s</div>
+                    <div class="text-gray-300">Avg. Vote Time</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold font-orbitron gradient-text mb-2">50+</div>
+                    <div class="text-gray-300">DAOs Using</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold font-orbitron gradient-text mb-2">$0</div>
+                    <div class="text-gray-300">Gas Costs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="container mx-auto px-4 py-16 md:py-24 text-center">
+        <h2 class="text-3xl md:text-4xl font-orbitron font-bold mb-6">Ready to Experience the Future of Voting?</h2>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Join thousands of decentralized organizations using UNI-VOTE for secure, private, and verifiable governance.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <button
+                class="bg-gradient-to-r from-neon-blue to-neon-purple px-8 py-4 rounded-full font-bold text-gray-900 hover:opacity-90 transition transform hover:scale-105 btn-glow">
+                Launch App
+            </button>
+            <!-- <button -->
+            <a class="glass-card px-8 py-4 rounded-full font-medium hover:bg-opacity-30 transition btn-glow border border-neon-purple text-neon-purple"
+                target="_blank" href="doc.html"> Read Docs</a>
+
+
+            <!-- </button> -->
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 mt-12">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple"></div>
+                        <h3 class="text-xl font-orbitron font-bold gradient-text">UNI-VOTE</h3>
+                    </div>
+                    <p class="text-gray-400">The future of decentralized governance and voting.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-orbitron">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="doc.html" class="text-gray-400 hover:text-neon-blue transition"
+                                target="_blank">Documentation</a></li>
+
+                        <li><a href="vot.html" class="text-gray-400 hover:text-neon-pink transition"
+                                target="_blank">Roadmap</a></li>
+                        <li><a href="team.html" target="_blank"
+                                class="text-gray-400 hover:text-neon-purple transition">Team</a></li>
+
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-orbitron">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="PrivacyPolicy.html" target="_blank"
+                                class="text-gray-400 hover:text-neon-blue transition">Privacy Policy</a></li>
+                        <li><a href="tearm.html" target="_blank"
+                                class="text-gray-400 hover:text-neon-purple transition">Terms of Service</a>
+                        </li>
+                        <li><a href="cookie.html" target="_blank" class="text-gray-400 hover:text-neon-pink transition">Cookie
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+
+
+                    <h4 class="text-lg font-bold mb-4 font-orbitron">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="mailto:univote.tech@gmail.com" target="_blank"
+                            class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:text-neon-blue transition">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/uni-vote/?viewAsMember=true" target="_blank"
+                            class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:text-neon-purple transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://web.telegram.org/k/#-2512359544" target="_blank"
+                            class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:text-neon-pink transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://github.com/amitsikdar37/univote" target="_blank"
+                            class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:text-neon-blue transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>© 2025 UNI-VOTE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating shapes -->
+    <div class="fixed -left-20 -bottom-20 w-64 h-64 rounded-full sphere opacity-30 -z-10"></div>
+    <div
+        class="fixed -right-20 -top-20 w-64 h-64 polygon bg-gradient-to-br from-neon-pink to-neon-purple opacity-10 -z-10">
+    </div>
+    <div
+        class="fixed top-1/2 left-1/4 w-16 h-16 hexagon bg-gradient-to-br from-neon-blue to-neon-purple opacity-20 -z-10">
+    </div>
+    <div
+        class="fixed bottom-1/4 right-1/4 w-24 h-24 hexagon bg-gradient-to-br from-neon-pink to-neon-blue opacity-15 -z-10">
+    </div>
+
+
+
+
+
+
+
+    <!--**********************************login/ reg modal*************************************** -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <span class="close-modal" onclick="closeModal()">✖</span>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" id="login-tab" onclick="switchTab('login')">Login</div>
+                <div class="tab" id="register-tab" onclick="switchTab('register')">Register</div>
+            </div>
+
+            <!-- Login Form -->
+            <form class="form active" id="login-form">
+                <input type="email" placeholder="Email " required />
+                <input type="password" placeholder="Password" required />
+                <!-- <button type="button">Connect Wallet</button> -->
+                <a href="#" style="color: #00c6ff; text-align: right;">Forgot Password?</a>
+                <button type="submit">Login</button>
+                <div class="social-login">
+                    <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" />
+                    <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter" />
+                    <img src="https://img.icons8.com/color/48/github.png" alt="GitHub" />
+                </div>
+                <p class="footer-text" onclick="switchTab('register')">
+                    Don't have an account? Sign up
+                </p>
+            </form>
+
+            <!-- Register Form -->
+            <form class="form" id="register-form">
+                <input type="text" placeholder="Full Name" required />
+                <input type="email" placeholder="Email" required />
+                <input type="password" placeholder="Password" required />
+                <input type="password" placeholder="Confirm Password" required />
+                <!-- <button type="button">Connect Wallet</button> -->
+                <button type="submit">Register</button>
+                <div class="social-login">
+                    <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" />
+                    <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter" />
+                    <img src="https://img.icons8.com/color/48/github.png" alt="GitHub" />
+                </div>
+                <p class="footer-text" onclick="switchTab('login')">
+                    Already have an account? Log in
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Open Modal
+        function openModal() {
+            document.getElementById("modal").classList.add("active");
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById("modal").classList.remove("active");
+        }
+
+        // Switch Tabs
+        function switchTab(tab) {
+            const loginTab = document.getElementById("login-tab");
+            const registerTab = document.getElementById("register-tab");
+            const loginForm = document.getElementById("login-form");
+            const registerForm = document.getElementById("register-form");
+
+            if (tab === "login") {
+                loginTab.classList.add("active");
+                registerTab.classList.remove("active");
+                loginForm.classList.add("active");
+                registerForm.classList.remove("active");
+            } else {
+                loginTab.classList.remove("active");
+                registerTab.classList.add("active");
+                loginForm.classList.remove("active");
+                registerForm.classList.add("active");
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+    <script>
+        // Simple animation for floating shapes
+        document.addEventListener('DOMContentLoaded', function () {
+            const shapes = document.querySelectorAll('.sphere, .polygon, .hexagon');
+
+            shapes.forEach(shape => {
+                // Random initial position and animation
+                const x = Math.random() * 20 - 10;
+                const y = Math.random() * 20 - 10;
+                const duration = Math.random() * 10 + 10;
+
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+                shape.style.animation = `float ${duration}s ease-in-out infinite alternate`;
+            });
+        });
+    </script>
+    <style>
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(10px, 10px);
+            }
+
+            100% {
+                transform: translate(-10px, -10px);
+            }
+        }
+    </style>
+</body>
+
+</html>

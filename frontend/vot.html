@@ -1,73 +1,121 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UniVote - ZKP Voting</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap & Progress</title>
+    <link rel="icon" type="png" href="uni-vote[1].png" />
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #eaeaea;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: linear-gradient(to right, #3a6cf4, #2c3e9f);
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 35px;
+      margin-bottom: 10px;
+      color: #ffcc70;
+    }
+
+    p {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    .phase {
+      border-left: 4px solid #3a6cf4;
+      padding-left: 15px;
+      margin-top: 25px;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    }
+
+    .highlight {
+      color: #3a9ff4;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>Cast Your Vote</h1>
-  <button onclick="castVote()">Submit ZK Vote</button>
+  <div class="container">
+    <h1>Roadmap & Progress</h1>
 
-  <script>
-    const ZKP_VOTING_ADDRESS = "0x4658F8678C7b06cB1667773303CE55b45F803682"; // your deployed contract
-    const electionId = "uni-vote-1";
-    const candidateIndex = 0;
+    <h2>Our Vision:</h2>
+    <p>To engineer trust in the digital democratic process through a secure, private, and verifiable voting platform.</p>
 
-    const ZKP_VOTING_ABI = [
-      {
-        "inputs": [
-          { "internalType": "string", "name": "_electionId", "type": "string" },
-          { "internalType": "uint256[2]", "name": "a", "type": "uint256[2]" },
-          { "internalType": "uint256[2][2]", "name": "b", "type": "uint256[2][2]" },
-          { "internalType": "uint256[2]", "name": "c", "type": "uint256[2]" },
-          { "internalType": "uint256[4]", "name": "input", "type": "uint256[4]" },
-          { "internalType": "uint256", "name": "candidateIndex", "type": "uint256" }
-        ],
-        "name": "voteWithZKProof",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      }
-    ];
+    <div class="phase">
+      <h2>Phase 1: Foundation & Core Tech <span class="highlight">(Completed: March - June 2025)</span></h2>
+      <p>
+        This phase focused on moving from concept to a functional core. We designed the "Attested Claim-Nonce" ZK model, 
+        selected our tech stack (Base, Circom, React), and built the fundamental components.
+      </p>
+      <p><strong>Key Achievements:</strong></p>
+      <ul>
+        <li>Architected the core privacy and security model.</li>
+        <li>Developed and compiled the final ZK circuits.</li>
+        <li>Performed the trusted setup to generate all necessary ZKP keys.</li>
+        <li>Deployed the initial verifier and voting smart contracts.</li>
+        <li>All foundational artifacts are on GitHub, ready for integration.</li>
+      </ul>
+    </div>
 
-    async function loadProofAndPublic() {
-      const proof = await fetch("public/proof.json").then(res => res.json());
-      const publicSignals = await fetch("public/public.json").then(res => res.json());
-      return { proof, publicSignals };
-    }
+    <div class="phase">
+      <h2>Phase 2: MVP & Public Testnet Launch <span class="highlight">(Upcoming: July - September 2025)</span></h2>
+      <p>
+        Our focus is now on full integration, feature completion, and rigorous testing to launch on the Base Goerli testnet.
+      </p>
+      <p><strong>Primary Goals:</strong></p>
+      <ul>
+        <li><strong>Integration:</strong> Achieve the first successful end-to-end vote, connecting the frontend UI, ZKP logic, backend services, and live smart contracts.</li>
+        <li><strong>Feature Completion:</strong> Implement the full user experience, including the User Profile section, "Track Vote" feature, and the Results Dashboard.</li>
+        <li><strong>Testing & Launch:</strong> Conduct intensive internal security reviews and bug fixing, leading to a public testnet launch to gather community feedback.</li>
+      </ul>
+    </div>
 
-    function packProof(proof) {
-      return [
-        [proof.pi_a[0], proof.pi_a[1]],
-        [
-          [proof.pi_b[0][1], proof.pi_b[0][0]],
-          [proof.pi_b[1][1], proof.pi_b[1][0]]
-        ],
-        [proof.pi_c[0], proof.pi_c[1]]
-      ];
-    }
-
-    async function castVote() {
-      try {
-        const { proof, publicSignals } = await loadProofAndPublic();
-        const [a, b, c] = packProof(proof);
-
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(ZKP_VOTING_ADDRESS, ZKP_VOTING_ABI, signer);
-
-        const tx = await contract.voteWithZKProof(electionId, a, b, c, publicSignals, candidateIndex);
-        await tx.wait();
-
-        alert("✅ Vote submitted successfully!");
-      } catch (err) {
-        console.error(err);
-        alert("❌ Error submitting vote: " + (err.message || "unknown error"));
-      }
-    }
-  </script>
+    <div class="phase">
+      <h2>Phase 3: Mainnet & Future Growth <span class="highlight">(Q4 2025 & Beyond)</span></h2>
+      <p>
+        This phase transitions UNI-VOTE from a test product to a live, production-ready platform.
+      </p>
+      <p><strong>Next Steps:</strong></p>
+      <ul>
+        <li><strong>Mainnet Deployment:</strong> After a final security audit and performance review, deploy UNI-VOTE to the Base Mainnet.</li>
+        <li><strong>Growth & Evolution:</strong> Actively gather user feedback to plan V2 features, such as advanced voting mechanisms and deeper integrations, to continue growing the UNI-VOTE ecosystem.</li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>
