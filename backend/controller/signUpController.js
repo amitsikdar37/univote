@@ -10,6 +10,11 @@ const { sendOtp, verifyOtp, resendOtp } = require('../utils/emailOtp');
 const { sendJwtToken } = require('../authenticate/jwtCheck');
 
 exports.signUp = [
+  check('fullname')
+  .trim()
+  .notEmpty()
+  .withMessage('Full name is required'),
+
   check('email')
   .normalizeEmail()
   .isEmail()
@@ -30,8 +35,8 @@ exports.signUp = [
 
   async (req, res) => {
     try {
-      const { email, password } = req.body;
-      const username = email.split('@')[0];
+      const { fullname, email, password } = req.body;
+      const username = fullname;
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
@@ -49,10 +54,10 @@ exports.signUp = [
         })
       }
 
-      const usernameExists = await Voters.findOne({ username });
-      if (usernameExists) {
+      const fullnameExists = await Voters.findOne({ username });
+      if (fullnameExists) {
         return res.status(409).json({
-          errors: [{ param: 'username', msg: 'Username Already Exists' }]
+          errors: [{ param: 'fullname', msg: 'Username Already Exists' }]
         });
       }
 

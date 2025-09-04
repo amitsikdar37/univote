@@ -1,0 +1,229 @@
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.gradient-text {
+    background: linear-gradient(90deg, #00f5ff 0%, #9d4edd 50%, #ff2d75 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.gradient-bg {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+.sphere {
+    background: radial-gradient(circle at 30% 30%, rgba(157, 78, 221, 0.8) 0%, rgba(0, 245, 255, 0.4) 60%, transparent 80%);
+}
+.polygon {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+.hexagon {
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+.feature-icon {
+    background: linear-gradient(135deg, rgba(157, 78, 221, 0.2) 0%, rgba(0, 245, 255, 0.2) 100%);
+}
+.btn-glow:hover {
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.7);
+}
+.nav-link:hover {
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.7);
+}
+button {
+    cursor: pointer;
+}
+/* ---------- Open Modal Button ---------- */
+.open-modal-btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #6a5acd, #00c6ff);
+    color: white;
+    box-shadow: 0 0 10px #6a5acd, 0 0 20px #00c6ff;
+    transition: 0.3s;
+}
+.open-modal-btn:hover {
+    transform: scale(1.05);
+}
+/* ---------- Modal Overlay ---------- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 15, 31, 0.6);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    z-index: 100;
+}
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+/* ---------- Modal ---------- */
+.modal {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    transform: scale(0.8);
+    transition: transform 0.3s ease-in-out;
+}
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+/* ---------- Tabs ---------- */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+}
+.tab.active {
+    border-bottom: 2px solid #00c6ff;
+    color: #00c6ff;
+}
+/* ---------- Form ---------- */
+.form {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+.form.active {
+    display: flex;
+}
+.form input {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.form input::placeholder {
+    color: #aaa;
+}
+/* ---------- Buttons ---------- */
+.form button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #6a5acd, #00c6ff);
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 0 10px #6a5acd, 0 0 20px #00c6ff;
+    transition: 0.3s;
+}
+.form button:hover {
+    transform: scale(1.05);
+}
+/* ---------- Social Login ---------- */
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.social-login img {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    filter: brightness(0.9);
+    transition: 0.3s;
+}
+.social-login img:hover {
+    filter: brightness(1.2);
+    transform: scale(1.1);
+}
+/* ---------- Footer ---------- */
+.footer-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ccc;
+    cursor: pointer;
+}
+.footer-text:hover {
+    color: #00c6ff;
+}
+/* ---------- Close Button ---------- */
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+}
+.gwei-indicator {
+    display: inline-flex;
+    align-items: center;
+    background-color: #000000;
+    padding: 7px;
+    border-radius: 50px;
+    margin-left: 400px;
+}
+.blinking-dot {
+    height: 18px;
+    width: 18px;
+    background-color: #e91414;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-right: 5px;
+    animation-name: blink;
+    animation-duration: 2.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+.indicator-text {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    font-family: 'Inter', sans-serif;
+}
+.indicator-text .version {
+    color: #4ade80;
+    font-weight: 600;
+    font-size: 16px;
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(10px, 10px);
+    }
+    100% {
+        transform: translate(-10px, -10px);
+    }
+}

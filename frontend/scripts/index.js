@@ -93,8 +93,90 @@ document.getElementById("signinBtn").addEventListener("click", async function(e)
   }
 });
 
+document.getElementById('signUpBtn').addEventListener('click', async function (e) {
+    e.preventDefault();
+    
+    document.getElementById('signuploadingMessage').style.display = 'block';
+    document.getElementById('signupsuccessMessage').style.display = 'none';
+    
+    const formData = {
+        fullname: document.getElementById('fullname').value,
+        email: document.getElementById('emailId').value,
+        password: document.getElementById('signup-password').value,
+        confirmPassword: document.getElementById('confirmPassword').value
+    };
 
-function updateUsername() {
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/SendOtp`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(formData)
+        });
+
+        document.getElementById('loadingMessage').style.display = 'none';
+
+        if (!response.ok) {
+          const data = await response.json();
+          const errors = data.errors || [];
+
+          // Clear all previous errors
+          ['signupnameError', 'signupemail', 'signuppassword', 'confirmPassword'].forEach(field => {
+              const errorElement = document.getElementById(`${field}Error`);
+              if (errorElement) {
+                  errorElement.textContent = '';
+                  errorElement.style.display = 'none';
+              }
+          });
+          
+          const errorFieldMap = {
+            fullname: 'signupnameError',
+            email: 'signupemailError',
+            password: 'signuppasswordError',
+            confirmPassword: 'confirmPasswordError',
+            form: 'signupformError'
+          };
+
+          errors.forEach(err => {
+            const field = err.param || err.path;
+            const message = err.msg;
+            const errorElementId = errorFieldMap[field];
+            const errorElement = errorElementId ? document.getElementById(errorElementId) : null;
+            if (errorElement) {
+              errorElement.style.display = 'block';
+              errorElement.textContent = message;
+            } else {
+              console.error(`${field}: ${message}`);
+            }
+          });
+
+        } else {
+            const data = await response.json();
+            console.log('Success:', data.message);
+
+            // Show success message
+            document.getElementById('signupsuccessMessage').style.display = 'block';
+
+            // Redirect after short delay
+            setTimeout(() => {
+                window.location.href = './otp.html';
+            }, 1000); // 1 second delay
+        }            
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('signuploadingMessage').style.display = 'none';
+        const formError = document.getElementById('signupformError');
+        if (formError) {
+            formError.textContent = 'An error occurred. Please try again.';
+            formError.style.display = 'block';
+        }
+    }
+});
+
+
+/*function updateUsername() {
     const showUsername = document.getElementById('navbar-username');
     const loginButton = document.getElementById('login-btn');
 
@@ -131,9 +213,9 @@ function updateUsername() {
     } catch (error) {
         console.error('Error in DOMContentLoaded:', error);
     }
-};
+};*/
 
-document.addEventListener('DOMContentLoaded', updateUsername);
+//document.addEventListener('DOMContentLoaded', updateUsername);
 
 // Run when page is shown from bfcache or normal navigation
 window.addEventListener('pageshow', function(event) {
@@ -145,6 +227,10 @@ window.addEventListener('pageshow', function(event) {
 launchButton.addEventListener("click", launchapp);
 
 const GoogleSignIn = async () => {
+  if (!window.google || !google.accounts || !google.accounts.id) {
+    alert('Google service not loaded. Please try again.');
+    return;
+  }
   document.getElementById('loadingMessage').style.display = 'block';
   document.getElementById('successMessage').style.display = 'none';
 
@@ -222,86 +308,7 @@ async function handleCredentialResponse(response) {
 document.getElementById("g_id_signin").addEventListener("click", GoogleSignIn);
 document.getElementById("g_id_signup").addEventListener("click", GoogleSignIn);
 
-document.getElementById('signUpBtn').addEventListener('click', async (e) => {
-    e.preventDefault();
-    
-    document.getElementById('signuploadingMessage').style.display = 'block';
-    document.getElementById('signupsuccessMessage').style.display = 'none';
-    
-    const formData = {
-        email: document.getElementById('emailId').value,
-        password: document.getElementById('signup-password').value,
-        confirmPassword: document.getElementById('confirmPassword').value
-    };
 
-    try {
-        const response = await fetch(`${BACKEND_URL}/api/SendOtp`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify(formData)
-        });
-
-        document.getElementById('loadingMessage').style.display = 'none';
-
-        if (!response.ok) {
-          const data = await response.json();
-          const errors = data.errors || [];
-
-          // Clear all previous errors
-          ['signupemail', 'signuppassword', 'confirmPassword'].forEach(field => {
-              const errorElement = document.getElementById(`${field}Error`);
-              if (errorElement) {
-                  errorElement.textContent = '';
-                  errorElement.style.display = 'none';
-              }
-          });
-          
-          const errorFieldMap = {
-            email: 'signupemailError',
-            password: 'signuppasswordError',
-            confirmPassword: 'confirmPasswordError',
-            username: 'signupformError', // or create a specific username error element
-            form: 'signupformError'
-          };
-
-          errors.forEach(err => {
-            const field = err.param || err.path;
-            const message = err.msg;
-            const errorElementId = errorFieldMap[field];
-            const errorElement = errorElementId ? document.getElementById(errorElementId) : null;
-            if (errorElement) {
-              errorElement.style.display = 'block';
-              errorElement.textContent = message;
-            } else {
-              console.error(`${field}: ${message}`);
-            }
-          });
-
-        } else {
-            const data = await response.json();
-            console.log('Success:', data.message);
-
-            // Show success message
-            document.getElementById('signupsuccessMessage').style.display = 'block';
-
-            // Redirect after short delay
-            setTimeout(() => {
-                window.location.href = './otp.html';
-            }, 1000); // 1 second delay
-        }            
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('signuploadingMessage').style.display = 'none';
-        const formError = document.getElementById('signupformError');
-        if (formError) {
-            formError.textContent = 'An error occurred. Please try again.';
-            formError.style.display = 'block';
-        }
-    }
-});
 
 // faq script
 document.addEventListener('DOMContentLoaded', () => {
@@ -333,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-const gweiVersionSpan = document.querySelector('.gwei-indicator .version');
+/*const gweiVersionSpan = document.querySelector('.gwei-indicator .version');
 
 async function updateGwei() {
   try {
@@ -361,5 +368,5 @@ async function updateGwei() {
 updateGwei();
 
 // Update every 5 seconds (5000 ms)
-setInterval(updateGwei, 5000);
+setInterval(updateGwei, 5000);*/
 
