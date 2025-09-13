@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +10,28 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
+    <!-- <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"> -->
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="index.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        orbitron: ['Orbitron', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
-                    },
+                    // fontFamily: {
+                    //     orbitron: ['Orbitron', 'sans-serif'],
+                    //     inter: ['Inter', 'sans-serif'],
+
+                    // },
+
+                  fontFamily: {
+    roboto: ['Poppins', 'sans-serif'],
+}
+,
+
                     colors: {
                         primary: {
                             100: '#e0e7ff',
@@ -49,8 +60,8 @@
     <!-- Header -->
     <header class="container mx-auto px-4 py-6 flex justify-between items-center">
         <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple"></div>
-            <h1 class="text-2xl font-orbitron font-bold gradient-text">UNI-VOTE</h1>
+            <!-- <div class="w-8 h-8 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple"></div> -->
+            <h1 class="text-2xl font-orbitron font-bold gradient-text"><img src="UI-Unicorn-Logo.png" width="80%" </h1>
         </div>
         <!-- 
         <div class="gwei-indicator items-center">
@@ -65,7 +76,7 @@
             <a href="governance.html" class="nav-link font-medium hover:text-neon-purple transition">Governance</a>
             <a href="vote.html" class="nav-link font-medium hover:text-neon-pink transition">Vote</a>
             <a href="result.html" class="nav-link font-medium hover:text-neon-blue transition">Track Vote</a>
-            <a href="#" class="nav-link font-medium hover:text-neon-purple transition">Help</a>
+            <a href="#" class="nav-link font-medium hover:text-neon-purple transition">Faq</a>
         </nav>
 
         <button
@@ -184,7 +195,7 @@
         <div class="glass-card rounded-2xl p-8 md:p-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div>
-                    <div class="text-4xl md:text-5xl font-bold font-orbitron gradient-text mb-2">100K+</div>
+                    <div class="text-4xl md:text-5xl font-bold font-orbitron gradient-text mb-2">300+</div>
                     <div class="text-gray-300">Votes Cast</div>
                 </div>
                 <div>
@@ -230,8 +241,8 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple"></div>
-                        <h3 class="text-xl font-orbitron font-bold gradient-text">UNI-VOTE</h3>
+                        <!-- <div class="w-8 h-8 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple"></div> -->
+                        <h3 class="text-xl font-orbitron font-bold gradient-text"><img src="UI-Unicorn-Logo.png" width="80%"</h3>
                     </div>
                     <p class="text-gray-400">The future of decentralized governance and voting.</p>
                 </div>
@@ -258,7 +269,8 @@
                         <li><a href="tearm.html" target="_blank"
                                 class="text-gray-400 hover:text-neon-purple transition">Terms of Service</a>
                         </li>
-                        <li><a href="cookie.html" target="_blank" class="text-gray-400 hover:text-neon-pink transition">Cookie
+                        <li><a href="cookie.html" target="_blank"
+                                class="text-gray-400 hover:text-neon-pink transition">Cookie
                                 Policy</a></li>
                     </ul>
                 </div>
@@ -336,15 +348,17 @@
                 <a href="#" style="color: #00c6ff; text-align: right;">Forgot Password?</a>
 
                 <button type="submit" id="signinBtn">Login</button>
-                
+
                 <div id="loadingMessage" style="display: none; text-align: center; color: white; margin-bottom: 10px;">
                     Sending data to server...
                 </div>
-                <div id="successMessage" style="display: none; text-align: center; color: lightgreen; margin-bottom: 10px;">
+                <div id="successMessage"
+                    style="display: none; text-align: center; color: lightgreen; margin-bottom: 10px;">
                     Sign In successful! Redirecting...
                 </div>
                 <div class="social-login">
-                    <img id="g_id_signin" src="https://img.icons8.com/color/48/google-logo.png" alt="Google" style="cursor:pointer" />
+                    <img id="g_id_signin" src="https://img.icons8.com/color/48/google-logo.png" alt="Google"
+                        style="cursor:pointer" />
                     <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter" />
                     <img src="https://img.icons8.com/color/48/github.png" alt="GitHub" />
                 </div>
@@ -356,22 +370,24 @@
             <!-- Register Form -->
             <form class="form" id="register-form">
                 <small id="signupformError" style="color: red; display: none;"></small>
-                
-                <input type="text" id='fullname' name='fullname'placeholder="Full Name" required />
+
+                <input type="text" id='fullname' name='fullname' placeholder="Full Name" required />
                 <small id="signupnameError" style="color: red; display: none;"></small>
-                
+
                 <input type="email" id="emailId" name='email' placeholder="Email" required />
                 <small id="signupemailError" style="color: red; display: none;"></small>
 
                 <input type="password" id="signup-password" name='password' placeholder="Password" required />
                 <small id="signuppasswordError" style="color: red; display: none;"></small>
 
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required />
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                    required />
                 <small id="confirmPasswordError" style="color: red; display: none;"></small>
                 <!-- <button type="button">Connect Wallet</button> -->
                 <button type="submit" id="signUpBtn">Register</button>
 
-                <div id="signuploadingMessage" style="display: none; text-align: center; color: white; margin-bottom: 10px;">
+                <div id="signuploadingMessage"
+                    style="display: none; text-align: center; color: white; margin-bottom: 10px;">
                     Sending data to server...
                 </div>
                 <div id="signupsuccessMessage"
@@ -379,7 +395,8 @@
                     Sending Otp...
                 </div>
                 <div class="social-login">
-                    <img id="g_id_signup" src="https://img.icons8.com/color/48/google-logo.png" alt="Google" style="cursor:pointer" />
+                    <img id="g_id_signup" src="https://img.icons8.com/color/48/google-logo.png" alt="Google"
+                        style="cursor:pointer" />
                     <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter" />
                     <img src="https://img.icons8.com/color/48/github.png" alt="GitHub" />
                 </div>
